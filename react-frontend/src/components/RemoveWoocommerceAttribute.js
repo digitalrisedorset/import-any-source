@@ -40,22 +40,6 @@ export default function RemoveWoocommerceAttribute() {
     });
 
     useEffect(() => {
-        async function getListAttribute() {
-            try {
-              if (attributeListState.length>0) {
-                setAttributeStateCodeList(attributeListState.map(attribute => (attribute.code)))
-              }
-            } catch (e) {
-                console.log("There was a problem.")
-            }
-        }
-        getListAttribute()
-        return () => {
-
-        }
-    }, [attributeListState])
-
-    useEffect(() => {
         async function deleteListAttribute() {
             try {
                 if (attributeStateCodeList.length>0) {
@@ -95,12 +79,7 @@ export default function RemoveWoocommerceAttribute() {
         try {
             const ourRequest = Axios.CancelToken.source()
             const res = await Axios.get('http://localhost:8080/getWoocommerceAttributeList', { cancelToken: ourRequest.token });
-            setAttributeListState(res.data.map(attribute => ({
-                code: attribute.code,
-                name: attribute.name,
-                type: (attribute.type==='options')?'select':'text',
-                required: false
-            })))
+            setAttributeStateCodeList(res.data.map(attribute => (attribute.code)))
             ourRequest.cancel()
         } catch (e) {
             console.log('error');
