@@ -16,7 +16,6 @@ Woocommerce.prototype.getAttributeList = async function() {
         return await this.getOptionAttributes()
     });
 
-    debugger;
     const attributesToLink = await this.cache.get('getAttributeListFromProduct', async () => {
         return await this.getAttributeListFromProduct()
     });
@@ -35,7 +34,6 @@ Woocommerce.prototype.getOptionAttributes = async function() {
     for(let i = 0; i < result.length; i++) {
       let elem = result[i];
       if (this.woocommerceDataFilter.checkAttributeFromKey(elem['slug'])) {
-        debugger;
         attributes.push({
           code: elem['slug'],
           name: elem['name'],
@@ -60,9 +58,8 @@ Woocommerce.prototype.getAttributeListFromProduct = async function() {
     const attributes = [];
     let record = result[0];
 
-    Object.keys(record).forEach(function(key) {
+    Object.keys(record).forEach((key, index) => {
       if (this.woocommerceDataFilter.checkAttributeFromKey(key)) {
-        debugger;
         attributes.push({
             code: key,
             name: key,
