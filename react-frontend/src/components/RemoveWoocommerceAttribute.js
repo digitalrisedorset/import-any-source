@@ -95,17 +95,12 @@ export default function RemoveWoocommerceAttribute() {
         try {
             const ourRequest = Axios.CancelToken.source()
             const res = await Axios.get('http://localhost:8080/getWoocommerceAttributeList', { cancelToken: ourRequest.token });
-            let list = []
-            // eslint-disable-next-line array-callback-return
-            {res.data.map(attribute => {
-                list.push({
-                    code: attribute.code,
-                    name: attribute.name,
-                    type: (attribute.type==='options')?'select':'text',
-                    required: false
-                })
-            })}
-            setAttributeListState(list)
+            setAttributeListState(res.data.map(attribute => ({
+                code: attribute.code,
+                name: attribute.name,
+                type: (attribute.type==='options')?'select':'text',
+                required: false
+            })))
             ourRequest.cancel()
         } catch (e) {
             console.log('error');
