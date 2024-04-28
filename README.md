@@ -1,7 +1,8 @@
 ## start the project
+in keystone-backend folder, run yarn keystone dev
 
 ## start the project
-in root folder, run `npm start`
+in node-backend folder, run `npm start`
 
 nvm use 18
-in rect-frontend folder, run `npm start`
+in react-frontend folder, run `npm start`
