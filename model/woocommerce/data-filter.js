@@ -39,17 +39,4 @@ WoocommerceDataFilter.prototype.checkAttributeFromKey = function(key)
   return (validKeys.indexOf(key)>-1);
 }
 
-WoocommerceDataFilter.prototype.addValidAttributeOptions = function(options)
-{
-  // if (options === null) {
-  //   return;
-  // }
-
-  // for(let i = 0; i < attributesOptions.length; i++) {
-  //   let elem = 
-  //   if (this.checkAttributeFromKey())
-  //   this.attributes.push(attributesOptions[i]);
-  // }
-}
-
 module.exports = WoocommerceDataFilter;
