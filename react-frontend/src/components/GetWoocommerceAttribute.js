@@ -21,12 +21,13 @@ export default function GetWoocommerceAttribute() {
 
     return (
         <div className="App">
+            <h2>Woocommerce Attributes</h2>
             {status === "error" && <p>Error fetching data</p>}
             {status === "loading" && <p>Fetching data...</p>}
             {(
                 data.woocommerceAttributes.map((attribute) => (
-                        <li key={attribute.id}>name: {attribute.name}, type: {attribute.type}</li>
-                    ))
+                    <li key={attribute.id}>name: {attribute.name}, (code: {attribute.name}), type: {attribute.type}</li>
+                ))
             )}
         </div>
     )

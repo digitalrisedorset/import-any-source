@@ -1,4 +1,4 @@
-import { graphqlEndpoint } from './config';
+import {graphqlEndpoint, magentographqlEndpoint} from './config';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -6,12 +6,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import {QueryClient, QueryClientProvider} from 'react-query'
+import { HttpLink, ApolloLink } from '@apollo/client';
 
-const queryClient = new QueryClient()
+const woocommerce = new HttpLink({
+    uri: graphqlEndpoint
+})
+const magento = new HttpLink({
+    uri: magentographqlEndpoint
+})
+
 const client = new ApolloClient({
-    uri: graphqlEndpoint,
+    link: ApolloLink.split(
+        operation => operation.getContext().clientName === 'magento',
+        magento,
+        woocommerce
+    ),
     cache: new InMemoryCache()
 });
+
+const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
