@@ -5,12 +5,14 @@ import CreateWoocommerceAttribute from "./components/CreateWoocommerceAttribute"
 import GetWoocommerceAttribute from "./components/GetWoocommerceAttribute";
 import RemoveWoocommerceAttribute from "./components/RemoveWoocommerceAttribute";
 import ReadMagentoAttribute from "./components/ReadMagentoAttribute";
+import ImportMagentoAttribute from "./components/ImportMagentoAttribute";
 
 function App() {
   return (
         <div className="App">
           <Header title="Welcome on the Import Attribute Reader" />
           <ImportWoocommerceAttribute />
+            <ImportMagentoAttribute />
             <RemoveWoocommerceAttribute />
             <ReadMagentoAttribute />
             <GetWoocommerceAttribute />
