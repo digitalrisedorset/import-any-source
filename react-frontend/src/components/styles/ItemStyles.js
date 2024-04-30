@@ -7,6 +7,10 @@ const ItemStyles = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+    float: left;
+    margin: 5px;
+    padding: 10px;
+    width: 300px;
   img {
     width: 100%;
     height: 400px;

@@ -1,18 +1,7 @@
 import { useMutation, gql } from '@apollo/client';
-import Form from './styles/Form';
+import Form from './../styles/Form';
 import {useState} from "react";
-
-const CREATE_ATTRIBUTE_MUTATION = gql`    
- mutation CreateWoocommerceAttribute($data: WoocommerceAttributeCreateInput!) {
-  createWoocommerceAttribute(data: $data) {
-      id
-      code
-      name
-      type
-      required
-  }
-}
-`;
+import {CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION} from '../../graphql/keystoneQuery'
 
 export default function CreateWoocommerceAttribute() {
     const [formState, setFormState] = useState({
@@ -22,7 +11,7 @@ export default function CreateWoocommerceAttribute() {
         required:0
     });
 
-    const [createAttribute] = useMutation(CREATE_ATTRIBUTE_MUTATION, {
+    const [createAttribute] = useMutation(CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION, {
         variables: {
             data: {
                 code: formState.code,
@@ -102,5 +91,3 @@ export default function CreateWoocommerceAttribute() {
         </Form>
     )
 }
-
-export {CREATE_ATTRIBUTE_MUTATION};
