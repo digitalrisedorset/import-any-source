@@ -29,3 +29,5 @@ keystone-backend/schema.prisma
 keystone-backend/schema.graphql
 keystone-backend/keystone-example.db
 keystone-backend/.keystone/config.js.map
+
+csv_import/*
