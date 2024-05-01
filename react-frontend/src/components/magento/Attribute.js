@@ -1,19 +1,19 @@
-import { Link } from "react-router-dom"
 import ItemStyles from './../styles/ItemStyles';
 import Title from './../styles/Title';
+import AssignedTo from "./AssignedTo";
+import MapLink from "../woocommerce/MapLink";
 
 export default function Attribute({attribute}) {
     const date = new Date(attribute.createdAt)
 
     return (
-        <ItemStyles>
+        <ItemStyles required={attribute.required} linked={attribute.assignedTo}>
             <Title>
-                <Link key={attribute.id} to={`/post/${attribute.id}`} className="list-group-item list-group-item-action">
-                    <strong>{attribute.name}</strong>{" "}
-                </Link>
+                <MapLink attribute={attribute} />
             </Title>
-            <span>type: {attribute.type} attribute</span>
-            <span className="text-muted small">created: {date.toDateString()} </span>
+            <span className="type">{attribute.type}</span>
+            <span className="date-created">created: <br/>{date.toDateString()} </span>
+            <AssignedTo assignedTo={attribute.assignedTo}/>
         </ItemStyles>
     )
 }

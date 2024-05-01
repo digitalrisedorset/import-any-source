@@ -1,6 +1,6 @@
 export function woocommerceModel(data) {
     const Woocommerce = function(data) {
-        if (data.woocommerce === undefined) {
+        if (data === undefined || data.woocommerce === undefined) {
             this.attributes = []
         } else {
             this.attributes = data.woocommerce.attributes
@@ -12,7 +12,15 @@ export function woocommerceModel(data) {
     }
 
     Woocommerce.prototype.getAttributes = function () {
-        return this.attributes;
+        const requiredAttribute = this.attributes.filter(opt => opt.required)
+        const optionalAttribute = this.attributes.filter(opt => !opt.required)
+
+        return [...requiredAttribute, ... optionalAttribute]
+    }
+
+    Woocommerce.prototype.getListWithMapping = function () {
+        const attributes = this.getAttributes()
+        return attributes.filter(attribute => attribute.magentoCode!== null && attribute.magentoCode.code !== '')
     }
 
     Woocommerce.prototype.hasAttributes = function () {

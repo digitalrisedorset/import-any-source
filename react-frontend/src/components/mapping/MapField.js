@@ -1,29 +1,36 @@
 import Form from './../styles/Form';
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import {filterOptions } from 'fuzzy-match-utils';
-import {GET_MAGENTO_ATTRIBUTE_LIST_QUERY} from '../../graphql/magentoQuery'
-import {useQuery} from "@apollo/client";
+import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, GET_MAGENTO_ATTRIBUTE_LIST_QUERY} from '../../graphql/keystoneQuery'
+import {useLazyQuery} from "@apollo/client";
 import DispatchContext from "../../DispatchContext";
 import {matchingModel} from "../../models/MatchingField";
 import StateContext from "../../StateContext";
 
-export default function MapField() {
+function MapField() {
+    const { id } = useParams();
     const appDispatch = useContext(DispatchContext)
     const appState = useContext(StateContext)
     const matching = matchingModel(appState)
     const [attributeCodeState, setAttributeCodeState] = useState(null);
-    const { data, status, error, loading } = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
-        variables: {}, context: {clientName: 'magento'}
+    const [getAttributeList, { loading, attributes }] = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
+        variables: {}
     });
 
     async function findMagentoAttribute() {
-        let options = data.attributesList.items.map(attribute => ({label: attribute.label, value: attribute.code}))
+        const data = await getAttributeList();
+        let options = data.data.magentoAttributes.map(attribute => ({label: attribute.name, value: attribute.code}))
         let match = filterOptions(options, attributeCodeState)
-        matching.setAttributes({match, initialAttribute: attributeCodeState})
+        matching.setAttributes({match, initialAttribute: id})
 
         appDispatch({ type: "flashMessage", value: `${matching.getNumberMatch()} magento attributes have been found`})
         appDispatch({ type: "matchingAttributesLoad", value: matching.getParams()})
     }
+
+    useEffect(() => {
+        setAttributeCodeState(id)
+    }, [])
 
     return (
         <div>
@@ -51,3 +58,5 @@ export default function MapField() {
         </div>
     )
 }
+
+export default MapField;

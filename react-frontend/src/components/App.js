@@ -6,6 +6,8 @@ import Woocommerce from "./woocommerce";
 import Magento from "./magento";
 import {createGlobalStyle} from "styled-components";
 import Mapping from "./mapping";
+import MapField from "./mapping/MapField";
+import Map from "./map";
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -60,6 +62,7 @@ function App({sharedState}) {
                     <Route path="/magento" element={<Magento />} />
                     <Route path="/woocommerce" element={<Woocommerce />} />
                     <Route path="/mapping" element={<Mapping />} />
+                    <Route path="/map/:id" element={<Map />} />
                 </Routes>
             </BrowserRouter>
         </div>

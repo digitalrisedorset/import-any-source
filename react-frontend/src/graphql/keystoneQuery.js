@@ -9,6 +9,10 @@ export const ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY = gql`
         type
         required
         createdAt
+        magentoCode {
+            code
+            name
+        }
       }
   }
 `;
@@ -21,6 +25,11 @@ export const ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY = gql`
         name
         type
         required
+        createdAt
+        assignedTo {
+            code
+            name
+        }
       }
   }
 `;

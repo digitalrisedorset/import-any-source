@@ -1,17 +1,39 @@
 import {useImmer} from "use-immer";
 
+const staticMagentoFields = [
+    {
+        "code": 'sku',
+        "label": 'SKU',
+        "frontend_input": 'TEXT',
+        "is_required": true
+    },
+    {
+        "code": 'created_at',
+        "label": 'Creation Date',
+        "frontend_input": 'DATE',
+        "is_required": false
+    },
+    {
+        "code": 'updated_at',
+        "label": 'Updated At',
+        "frontend_input": 'DATE',
+        "is_required": false
+    }
+];
+
 export function MagentoImport() {
     const [state, setState] = useImmer({
         attributesToCreate: []
     })
 
     const setAttributeListToCreate = function (data) {
+        const attributeList = [...staticMagentoFields,...data]
         setState(draft => {
-            draft.attributesToCreate = data.map(attribute => ({
+            draft.attributesToCreate = attributeList.map(attribute => ({
                 code: attribute.code,
                 name: attribute.label,
                 type: attribute.frontend_input,
-                required: false
+                required: attribute.is_required
             }))
         })
     }

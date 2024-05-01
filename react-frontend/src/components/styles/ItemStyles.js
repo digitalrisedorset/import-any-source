@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const ItemStyles = styled.div`
-  background: white;
+  background: ${props => props.required?'#FEEBEB':'white'};
   border: 1px solid var(--offWhite);
   box-shadow: var(--bs);
   position: relative;
@@ -9,13 +9,27 @@ const ItemStyles = styled.div`
   flex-direction: column;
     float: left;
     margin: 5px;
-    padding: 10px;
+    padding: 0px 8px 5px;
     width: 300px;
-  img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-  }
+    .date-created {
+        font-style: italic;
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        width: 90px;
+        font-size: x-small;
+    }
+    .type {
+        position: absolute;
+        top:5px;
+        right: 5px;
+        font-size: x-small;
+        text-transform: lowercase;
+        border: 1px solid var(--offWhite);
+        box-shadow: var(--bs);
+        padding: 0px 7px;
+        background: white;
+    }
   p {
     line-height: 2;
     font-weight: 300;

@@ -7,6 +7,7 @@ import GetWoocommerceAttribute from "./GetWoocommerceAttribute";
 import RemoveWoocommerceAttribute from "./RemoveWoocommerceAttribute";
 import {woocommerceModel} from "../../models/WoocommerceData"
 import StateContext from "../../StateContext";
+import ImportProduct from "./ImportProduct";
 
 export default function Woocommerce() {
     const appState = useContext(StateContext)
@@ -37,8 +38,10 @@ export default function Woocommerce() {
             {status === "loading" && <p>Fetching data...</p>}
             <GetWoocommerceAttribute data={data} />
             <RemoveWoocommerceAttribute />
+            <ImportProduct />
             <ImportWoocommerceAttribute />
             <CreateWoocommerceAttribute />
+
         </>
     )
 }

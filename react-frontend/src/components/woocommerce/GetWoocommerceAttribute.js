@@ -18,8 +18,8 @@ export default function GetWoocommerceAttribute({data}) {
         <CartStyles>
             <h2>Woocommerce Attributes</h2>
             {(woocommerce && woocommerce.hasAttributes() &&
-                woocommerce.getAttributes().map((attribute) => (
-                    <Attribute attribute={attribute}/>
+                woocommerce.getAttributes().map((attribute, index) => (
+                    <Attribute key={index} attribute={attribute}/>
                 ))
             )}
         </CartStyles>

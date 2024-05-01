@@ -19,7 +19,7 @@ export default function ReadMagentoAttribute({data}) {
             <h2>Magento Attributes</h2>
             {(magento && magento.hasAttributes() &&
                 magento.getAttributes().map((attribute) => (
-                    <Attribute attribute={attribute}/>
+                    <Attribute key={attribute.code} attribute={attribute}/>
                 ))
             )}
         </CartStyles>
