@@ -1,4 +1,5 @@
 const Woocommerce = require("../model/woocommerce")
+const ImportCreator = require("../model/import-creator")
 const jwt = require("jsonwebtoken")
 
 // how long a token lasts before expiring
@@ -27,6 +28,18 @@ exports.apiGetAttributeList = async function (req, res) {
         let wooClient = new Woocommerce(req.body)
         let list = await wooClient.getAttributeList();
         res.json(list)
+    } catch (e) {
+        res.status(500).send("Error")
+    }
+}
+
+exports.createWoocommerceImport = async function(req, res) {
+    try {
+        let wooClient = new Woocommerce()
+        const list = await wooClient.getProductBatch()
+        const wooImporter = new ImportCreator()
+        wooImporter.createCsvImport(list, req.body)
+        res.json({'message': 'success'})
     } catch (e) {
         res.status(500).send("Error")
     }

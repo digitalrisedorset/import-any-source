@@ -12,5 +12,7 @@ apiRouter.post("/checkToken", woocommerceController.checkToken)
 //apiRouter.post("/getWoocommerceAttributeList", woocommerceController.apiMustBeLoggedIn, woocommerceController.apiGetAttributeList)
 apiRouter.get("/getWoocommerceAttributeList", woocommerceController.apiGetAttributeList)
 
+apiRouter.post("/createWoocommerceImport", woocommerceController.createWoocommerceImport)
+
 module.exports = apiRouter
 

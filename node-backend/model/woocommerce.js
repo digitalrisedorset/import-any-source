@@ -71,4 +71,17 @@ Woocommerce.prototype.getAttributeListFromProduct = async function() {
     return attributes;
 }
 
+Woocommerce.prototype.getProductBatch = async function(mappingFields) {
+    let result = await this.woocommerceApiHandler.callApiUrl('products', {
+        'per_page': process.env.IMPORT_BATCH_SIZE,
+        'page': 1
+    })
+
+    if (result === null) {
+        return [];
+    }
+
+    return result;
+}
+
 module.exports = Woocommerce;
