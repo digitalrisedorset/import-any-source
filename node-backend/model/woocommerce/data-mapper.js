@@ -13,4 +13,18 @@ WoocommerceDataMapper.prototype.getMagentoField = function(key)
     }    
 }
 
+WoocommerceDataMapper.prototype.getMagentoValue = function(value, magentoField)
+{
+    switch(magentoField) {
+        case 'product_online': // status
+        case 'status': // product_online
+            return (value === 'publish')?'1':'0'
+        case 'visibility':  // visibility
+            return (value === 'visible')?'Catalog, Search':'Not Visible Individually'
+        default:
+            return value;
+    }
+
+}
+
 module.exports = WoocommerceDataMapper;
