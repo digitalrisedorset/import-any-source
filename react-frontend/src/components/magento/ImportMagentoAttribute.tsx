@@ -19,18 +19,18 @@ export default function ImportMagentoAttribute() {
     });
 
     useEffect(() => {
-        async function createAttributeList() {
-            try {
-                //if (magentoImportData.hasAttributesToCreate()) {
-                    createListAttribute();
-                    //appDispatch({ type: "flashMessage", value: `${magentoImportData.getAttributesToCreateCount()} magento attributes have been added`})
-                    //appDispatch({ type: "magentoAttributesLoad", value: magentoImportData.getAttributesToCreate() })
-                //}
-            } catch (e) {
-                console.log("There was a problem.")
-            }
-        }
-        createAttributeList()
+        // async function createAttributeList() {
+        //     try {
+        //         //if (magentoImportData.hasAttributesToCreate()) {
+        //             createListAttribute();
+        //             //appDispatch({ type: "flashMessage", value: `${magentoImportData.getAttributesToCreateCount()} magento attributes have been added`})
+        //             //appDispatch({ type: "magentoAttributesLoad", value: magentoImportData.getAttributesToCreate() })
+        //         //}
+        //     } catch (e) {
+        //         console.log("There was a problem.")
+        //     }
+        // }
+        // createAttributeList()
         return () => {
 
         }

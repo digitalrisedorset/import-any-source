@@ -1,7 +1,7 @@
 import { useImmerReducer} from "use-immer"
 
-export function SharedDataModel() {
-    const initialState = {
+class SharedDataModel {
+    private initialState = {
         flashMessages: [],
         magento: {attributes:[]},
         magentoLoaded: false,
@@ -11,7 +11,13 @@ export function SharedDataModel() {
         matchingLoaded: false
     }
 
-    function ourReducer(draft: any, action: any) {
+    private reducerData;
+
+    constructor() {
+        this.reducerData = useImmerReducer(this.ourReducer, this.initialState)
+    }
+
+    private ourReducer(draft: any, action: any) {
         switch (action.type) {
             case "clearMessage":
                 draft.flashMessages = []
@@ -40,10 +46,13 @@ export function SharedDataModel() {
         }
     }
 
-    const [state, dispatch] = useImmerReducer(ourReducer, initialState)
+    get getState() {
+        const [state, ourReducer] = this.reducerData
+        return state;
+    }
 
-    return {
-        state,
-        dispatch
+    get getReducer() {
+        const [state, ourReducer] = this.reducerData
+        return ourReducer;
     }
 }

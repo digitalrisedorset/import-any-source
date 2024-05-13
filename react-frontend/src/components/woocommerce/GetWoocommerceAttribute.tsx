@@ -1,36 +1,17 @@
-import { useContext } from "react"
-import { StateContext } from "../../StateContext"
-//import { woocommerceModel } from "../../models/WoocommerceData"
 import { Attribute } from "./Attribute";
 import CartStyles from "../styles/CartStyles";
-import { WoocommerceAttribute, WoocommerceAttributeData } from '../../types'
-import {useQuery} from "@apollo/client";
-import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
+import { WoocommerceAttributeData } from '../../types'
 
-interface AttributeListProps {
-    attributeCode: string
+interface WoocommerceAttributeProps {
+    data: WoocommerceAttributeData | undefined
 }
 
-export function GetWoocommerceAttribute(): JSX.Element {
-    const { data, error, loading } = useQuery<WoocommerceAttributeData>(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {},
-    });
-
-    const appState = useContext(StateContext)
-    let woocommerceData = {}
-    // if (data.woocommerceAttributes.length>0) {
-    //     woocommerceData = {woocommerce: {attributes: data.woocommerceAttributes}}
-    // } else {
-    //     woocommerceData = appState
-    // }
-    //const woocommerce = woocommerceModel(woocommerceData)
-
+export function GetWoocommerceAttribute(props: WoocommerceAttributeProps): JSX.Element {
     return (
         <CartStyles>
             <h2>Woocommerce Attributes</h2>
-            {(data && data!.woocommerceAttributes.map((attribute: WoocommerceAttribute, index: number) => (
-                    <Attribute key={index} attribute={attribute}/>
-                ))
+            {props.data && props.data!.woocommerceAttributes.map(
+                (attribute) => <Attribute key={attribute.id} attribute={attribute}/>
             )}
         </CartStyles>
     )

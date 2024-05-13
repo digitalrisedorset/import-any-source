@@ -1,19 +1,19 @@
 import MapStyle from './../styles/MapStyle';
+import {AssignedToData} from "../../types";
 
-interface AssignedTo {
-    code: string;
-    name: string;
+interface AssignedToProps {
+    assignedTo: AssignedToData
 }
 
-export default function AssignedTo() {
+export function AssignedTo({assignedTo}: AssignedToProps) {
     return (
         <MapStyle >
-            {/*{assignedTo && (
+            {assignedTo && (
                 <span>Linked to Woocommerce with attribute '{assignedTo.name}' (code: {assignedTo.code})</span>
             )}
             {!assignedTo && (
                 <span>Not Linked to Woocommerce</span>
-            )}*/}
+            )}
         </MapStyle>
     )
 }

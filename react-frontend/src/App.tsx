@@ -1,9 +1,12 @@
 import React from 'react';
 import Header from "./Header";
-import {createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Woocommerce } from "./components/woocommerce";
 import { Magento } from "./components/magento";
+import { Map } from './components/mapping'
+import { FlashMessages } from './components/FlashMessages'
+import { NotFound } from './components/NotFound'
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -52,11 +55,14 @@ export default function App() {
     <GlobalStyles/>
     <BrowserRouter>
       <Header title="Welcome on the Import Attribute Reader"/>
+      <FlashMessages />
       <Routes>
         <Route path="/magento" element={<Magento/>}/>
         <Route path="/woocommerce" element={<Woocommerce/>}/>
+        <Route path="/woocommerce/:initialAttribute/:matchingAttribute" element={<Woocommerce />}/>
         {/*<Route path="/mapping" element={<Mapping/>}/>*/}
-        {/*<Route path="/map/:id" element={<Map/>}/>*/}
+        <Route path="/map/:code" element={<Map/>}/>
+        <Route path="/map" element={<NotFound />}/>
       </Routes>
     </BrowserRouter>
   </div>)

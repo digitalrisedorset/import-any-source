@@ -22,9 +22,26 @@ export interface MagentoAttribute {
     code: string;
     name: string;
     type: string;
-    required: boolean
+    required: boolean;
+    createdAt: string;
+    assignedTo: AssignedToData
+}
+
+export interface AssignedToData {
+    code: string;
+    name: string;
 }
 
 export interface MagentoAttributeData {
-    woocommerceAttributes: MagentoAttribute[]
+    magentoAttributes: MagentoAttribute[]
+}
+
+export interface MatchingAttributeData {
+    label: string,
+    value: string
+}
+
+export interface Mapping {
+    woocommerceAttribute: WoocommerceAttribute;
+    matchingAttributes: MagentoAttribute[]
 }

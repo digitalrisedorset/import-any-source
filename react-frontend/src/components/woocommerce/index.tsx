@@ -1,49 +1,30 @@
-//import ImportWoocommerceAttribute from "./ImportWoocommerceAttribute";
-//import CreateWoocommerceAttribute from "./CreateWoocommerceAttribute";
-import {useQuery} from "@apollo/client";
-import { useEffect, useContext } from "react"
-import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 import { GetWoocommerceAttribute } from "./GetWoocommerceAttribute";
-//import RemoveWoocommerceAttribute from "./RemoveWoocommerceAttribute";
-//import {woocommerceModel} from "../../models/WoocommerceData"
-//import StateContext from "../../StateContext";
-//import ImportProduct from "./ImportProduct";
-import { WoocommerceAttribute, WoocommerceAttributeData } from '../../types'
+import { useActions } from "../../hooks/useActions";
+import {useParams} from "react-router-dom";
+import {useQuery} from "@apollo/client";
+import {WoocommerceAttributeData} from "../../types";
+import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
 export function Woocommerce() {
-    //const appState = useContext(StateContext)
-    //const woocommerce = woocommerceModel(appState)
+    const { initialAttribute, matchingAttribute } = useParams();
+    const { resetFlashMessage, addFlashMessage } = useActions()
+    const { data, error, loading } = useQuery<WoocommerceAttributeData>(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
+        variables: {},
+    });
 
-    //
-    // useEffect(() => {
-    //     async function loadWoocommerceData() {
-    //         try {
-    //             if (data) {
-    //                 woocommerce.setAttributes(data)
-    //             }
-    //         } catch (e) {
-    //             console.log("There was a problem.")
-    //         }
-    //     }
-    //     loadWoocommerceData()
-    // }, [])
-
-    //if (loading) return <p>Loading...</p>;
-    //if (error) return <p>Error: {error.message}</p>;
+    if (initialAttribute && matchingAttribute) {
+        addFlashMessage(`The woocommerce attribute "${initialAttribute}" is matched with the magento attribute "${matchingAttribute}"`)
+    } else if (!error && !loading && data) {
+        addFlashMessage(`The system has loaded ${data.woocommerceAttributes.length} woocommerce attributes`)
+    }
 
     return (
         <>
+            {error && <h3>{error.message}</h3>}
+            {loading && <h3>Loading...</h3>}
             {/*{status === "error" && <p>Error fetching data</p>}*/}
             {/*{status === "loading" && <p>Fetching data...</p>}*/}
-            <GetWoocommerceAttribute />
-            {/*<div>
-                <h1>Attribute List</h1>
-                <ul>
-                    {loading ? 'Loading...' : data!.woocommerceAttributes.map((attribute) => (
-                        <li key={attribute.id}>name: {attribute.name}, type: {attribute.type}</li>
-                    ))}
-                </ul>
-            </div>*/}
+            <GetWoocommerceAttribute data={data} />
             {/*<RemoveWoocommerceAttribute />*/}
             {/*<ImportProduct />*/}
             {/*<ImportWoocommerceAttribute />*/}
