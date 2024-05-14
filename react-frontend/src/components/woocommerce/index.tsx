@@ -22,8 +22,6 @@ export function Woocommerce() {
         <>
             {error && <h3>{error.message}</h3>}
             {loading && <h3>Loading...</h3>}
-            {/*{status === "error" && <p>Error fetching data</p>}*/}
-            {/*{status === "loading" && <p>Fetching data...</p>}*/}
             <GetWoocommerceAttribute data={data} />
             {/*<RemoveWoocommerceAttribute />*/}
             {/*<ImportProduct />*/}

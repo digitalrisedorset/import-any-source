@@ -6,12 +6,11 @@ import {QueryResult, useLazyQuery, useMutation} from "@apollo/client";
 import {
     UPDATE_ATTRIBUTE_MUTATION,
     GET_MAGENTO_ATTRIBUTE_LIST_QUERY,
-    GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY
+    GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY
 } from "../../graphql/keystone";
 import { useActions } from "../../hooks/useActions";
 
 import { MagentoAttribute, WoocommerceAttribute, MatchingAttributeData } from "../../types";
-import {setWoocommerceAttributesMatchSet} from "../../state/action-creators";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
@@ -44,7 +43,13 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
                     "connect": {"id":magentoAttributeStateId}
                 }
             }
-        }
+        },
+        refetchQueries: [
+            {
+                query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
+                variables: {}
+            }
+        ]
     });
     const [getWoocommerceAttributeList, woocommerceVariables] = useLazyQuery(GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, {
         variables: {
