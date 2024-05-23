@@ -33,7 +33,12 @@ const HeaderStyles = styled.header`
     border-bottom: 1px solid var(--black, black);
   }
 `;
-export default function Header($props: any) {
+
+interface headerProps {
+    title: string
+}
+
+export default function Header($props: headerProps): JSX.Element {
     return (
         <HeaderStyles>
             <div className="bar">

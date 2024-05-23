@@ -2,7 +2,7 @@ import ItemStyles from './../styles/ItemStyles';
 import Title from './../styles/Title';
 import { AssignedTo } from "./AssignedTo";
 import { MapLink } from "./MapLink";
-import { MagentoAttribute } from "../../types";
+import { MagentoAttribute } from "../../types/keystone";
 
 interface AttributeProps {
     attribute: MagentoAttribute

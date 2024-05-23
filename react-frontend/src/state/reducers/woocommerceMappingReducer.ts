@@ -1,4 +1,4 @@
-import {MagentoAttribute, WoocommerceAttribute, MatchingAttributeData } from "../../types";
+import {MagentoAttribute, WoocommerceAttribute, MatchingAttributeData } from "../../types/keystone";
 import {WoocommerceAttributesLoadActionList, WoocommerceAttributesMappingActionList} from "../actions";
 import {WoocommmerceAttributesLoadActionType, WoocommmerceAttributesMappingActionType} from "../action-types";
 

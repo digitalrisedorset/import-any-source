@@ -1,6 +1,6 @@
 import { MagentoAttributesLoadActionList } from '../actions'
 import { MagentoAttributesLoadActionType } from '../action-types'
-import { MagentoAttribute } from "../../types";
+import { MagentoAttribute } from "../../types/keystone";
 
 interface MagentoAttributesState {
     loading: boolean;

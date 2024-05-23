@@ -1,14 +1,14 @@
 import { Dispatch } from 'redux'
-import {WoocommmerceAttributesLoadActionType } from "../action-types";
-import {WoocommerceAttributesLoadActionList} from "../actions";
+import {WoocommmerceAttributesImportActionType } from "../action-types";
+import {WoocommerceAttributesImportActionList} from "../actions";
 import {WoocommerceAttributeData } from "../../types/keystone";
 import {useLazyQuery} from "@apollo/client";
 import { ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY } from "../../graphql/keystone";
 
-export const loadWoocommerceAttributes = () => {
-    return async (dispatch: Dispatch<WoocommerceAttributesLoadActionList>) => {
+export const importWoocommerceAttributes = () => {
+    return async (dispatch: Dispatch<WoocommerceAttributesImportActionList>) => {
         dispatch({
-            type: WoocommmerceAttributesLoadActionType.WOOCOMMERCE_ATTRIBUTES_LOAD
+            type: WoocommmerceAttributesImportActionType.WOOCOMMERCE_ATTRIBUTES_IMPORT
         })
 
         try {
@@ -18,13 +18,13 @@ export const loadWoocommerceAttributes = () => {
 
             getAttributeList().then((response) => {
                 dispatch({
-                    type: WoocommmerceAttributesLoadActionType.WOOCOMMERCE_ATTRIBUTES_LOAD_SUCCESS,
+                    type: WoocommmerceAttributesImportActionType.WOOCOMMERCE_ATTRIBUTES_IMPORT_SUCCESS,
                     payload: response.data?.woocommerceAttributes
                 })
             });
         } catch (err: any) {
             dispatch({
-                type: WoocommmerceAttributesLoadActionType.WOOCOMMERCE_ATTRIBUTES_LOAD_ERROR,
+                type: WoocommmerceAttributesImportActionType.WOOCOMMERCE_ATTRIBUTES_IMPORT_ERROR,
                 payload: err.message
             })
         }

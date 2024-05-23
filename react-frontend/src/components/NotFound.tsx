@@ -1,6 +1,6 @@
 import CartStyles from "./styles/CartStyles";
 
-export function NotFound() {
+export function NotFound(): JSX.Element {
 
     return (
         <CartStyles>

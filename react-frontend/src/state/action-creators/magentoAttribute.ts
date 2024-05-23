@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import {MagentoAttributesLoadActionType, WoocommmerceAttributesLoadActionType} from "../action-types";
 import {MagentoAttributesLoadActionList} from "../actions";
-import {MagentoAttributeData } from "../../types";
+import {KeystoneMagentoAttributeData } from "../../types/keystone";
 import {useLazyQuery} from "@apollo/client";
 import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
@@ -12,7 +12,7 @@ export const loadMagentoAttributes = () => {
         })
 
         try {
-            const [getAttributeList, { loading, data }] = useLazyQuery<MagentoAttributeData>(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
+            const [getAttributeList, { loading, data }] = useLazyQuery<KeystoneMagentoAttributeData>(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
                 variables: {}
             });
 

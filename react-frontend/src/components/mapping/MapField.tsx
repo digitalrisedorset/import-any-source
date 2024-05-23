@@ -2,10 +2,10 @@ import Form from './../styles/Form';
 import { useState, useEffect } from "react"
 import { useParams} from "react-router-dom"
 import { filterOptions } from 'fuzzy-match-utils';
-import { ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY } from '../../graphql/keystone'
-import { useLazyQuery } from "@apollo/client";
-import { MagentoAttribute } from "../../types";
+import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery} from "@apollo/client";
+import {KeystoneMagentoAttributeData, MagentoAttribute} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
+import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
 interface MapFieldProps {
     attribute: MagentoAttribute
@@ -17,13 +17,13 @@ export function MapField(): JSX.Element {
     const { setWoocommerceAttributesMatchFound } = useActions()
 
     const [attributeCodeState, setAttributeCodeState] = useState('');
-    const [getAttributeList, { loading, data }] = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
+    const [getAttributeList, { loading, data }]: LazyQueryResultTuple<KeystoneMagentoAttributeData, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {}
     });
 
     async function findMagentoAttribute(code: string) {
         const data = await getAttributeList();
-        let options = data.data.magentoAttributes.map((attribute: MagentoAttribute) => ({label: attribute.name, value: attribute.code}))
+        let options = data?.data?.magentoAttributes.map((attribute: MagentoAttribute) => ({label: attribute.name, value: attribute.code}))
         let match = filterOptions(options, attributeCodeState)
 
         setWoocommerceAttributesMatchFound(code, match)

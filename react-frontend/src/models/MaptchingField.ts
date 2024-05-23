@@ -1,4 +1,4 @@
-import {MagentoAttribute, WoocommerceAttribute} from "../types";
+import {MagentoAttribute, WoocommerceAttribute} from "../types/keystone";
 
 interface MappingData {
     matching: {

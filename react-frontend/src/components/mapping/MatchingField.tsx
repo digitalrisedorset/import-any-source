@@ -1,10 +1,10 @@
 import { Attribute } from "./Attribute";
 import CartStyles from "../styles/CartStyles";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import {MatchingAttributeData} from "../../types";
+import {MatchingAttributeData} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
 
-export function MatchingField() {
+export function MatchingField(): JSX.Element {
     const { addFlashMessage } = useActions()
     const { loading: boolean, error: string, woocommerceAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.woocommerceMapping)
 

@@ -60,7 +60,6 @@ export default function App() {
         <Route path="/magento" element={<Magento/>}/>
         <Route path="/woocommerce" element={<Woocommerce/>}/>
         <Route path="/woocommerce/:initialAttribute/:matchingAttribute" element={<Woocommerce />}/>
-        {/*<Route path="/mapping" element={<Mapping/>}/>*/}
         <Route path="/map/:code" element={<Map/>}/>
         <Route path="/map" element={<NotFound />}/>
       </Routes>

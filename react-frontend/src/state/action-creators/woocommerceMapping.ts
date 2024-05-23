@@ -1,4 +1,4 @@
-import {MagentoAttribute, MatchingAttributeData} from "../../types";
+import {MagentoAttribute, MatchingAttributeData} from "../../types/keystone";
 import {Dispatch} from "redux";
 import {WoocommerceAttributesMappingActionList} from "../actions";
 import {WoocommmerceAttributesMappingActionType} from "../action-types";

@@ -17,6 +17,12 @@ export enum MagentoAttributesLoadActionType {
     MAGENTO_ATTRIBUTES_LOAD_ERROR = 'magento_attributes_load_error'
 }
 
+export enum WoocommmerceAttributesImportActionType {
+    WOOCOMMERCE_ATTRIBUTES_IMPORT = 'woocommerce_attributes_import',
+    WOOCOMMERCE_ATTRIBUTES_IMPORT_SUCCESS = 'woocommerce_attributes_import_success',
+    WOOCOMMERCE_ATTRIBUTES_IMPORT_ERROR = 'woocommerce_attributes_import_error'
+}
+
 export enum FlashMessageActionType {
     ADD_FLASH_MESSAGE = 'add_flash_message',
     RESET_FLASH_MESSAGE = 'reset_flash_message'

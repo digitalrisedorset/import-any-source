@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ItemStyles from './../styles/ItemStyles';
 import Title from './../styles/Title';
-import {QueryResult, useLazyQuery, useMutation} from "@apollo/client";
+import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, useMutation} from "@apollo/client";
 import {
     UPDATE_ATTRIBUTE_MUTATION,
     GET_MAGENTO_ATTRIBUTE_LIST_QUERY,
     GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY
 } from "../../graphql/keystone";
-import { useActions } from "../../hooks/useActions";
 
-import { MagentoAttribute, WoocommerceAttribute, MatchingAttributeData } from "../../types";
+import {
+    MagentoAttribute,
+    WoocommerceAttribute,
+    MatchingAttributeData
+} from "../../types/keystone";
+import {useActions} from "../../hooks/useActions";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
@@ -18,20 +22,16 @@ interface MappingProps {
 }
 
 interface WoocommerceQueryResult extends QueryResult {
-    data: {
-        woocommerceAttributes: WoocommerceAttribute[]
-    }
+    woocommerceAttributes: WoocommerceAttribute[]
 }
 
 interface MagentoQueryResult extends QueryResult {
-    data: {
-        magentoAttributes: MagentoAttribute[]
-    }
+    magentoAttributes: MagentoAttribute[]
 }
 
-export function Attribute({attribute, initialAttribute}: MappingProps) {
-    const navigate = useNavigate()
+export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Element {
     const { addFlashMessage } = useActions()
+    const navigate = useNavigate()
     const [woocommerceAttributeStateId, setWoocommerceAttributeStateId] = useState('');
     const [magentoAttributeStateId, setMagentoAttributeStateId] = useState('');
 
@@ -51,7 +51,7 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
             }
         ]
     });
-    const [getWoocommerceAttributeList, woocommerceVariables] = useLazyQuery(GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, {
+    const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceQueryResult, OperationVariables> = useLazyQuery(GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, {
         variables: {
             "where": {
                 "code": {
@@ -60,7 +60,7 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
             }
         }
     });
-    const [getMagentoAttributeList, magentoVariables] = useLazyQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
+    const [getMagentoAttributeList]: LazyQueryResultTuple<MagentoQueryResult, OperationVariables> = useLazyQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
         variables: {
             "where": {
                 "code": {
@@ -75,8 +75,7 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
             try {
                 if (woocommerceAttributeStateId!='' && magentoAttributeStateId!='') {
                     mapAttribute();
-                    //setWoocommerceAttributesMatchSet(data1.data.woocommerceAttributes[0], data2.data.magentoAttributes[0])
-                    //appDispatch({ type: "flashMessage", value: `${initialAttribute} is mapped to ${attribute.code}`})
+                    addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)
                     navigate(`/woocommerce/${initialAttribute}/${attribute.label}`);
                 }
             } catch (e) {
@@ -92,9 +91,9 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
     async function mapField(e: React.MouseEvent<HTMLElement>) {
         e.preventDefault();
         try {
-            const data1: WoocommerceQueryResult = await getWoocommerceAttributeList();
-            const data2: MagentoQueryResult = await getMagentoAttributeList();
-            if (data1.data.woocommerceAttributes[0].id && data2.data.magentoAttributes[0].id) {
+            const data1 = await getWoocommerceAttributeList();
+            const data2 = await getMagentoAttributeList();
+            if (data1?.data?.woocommerceAttributes[0].id && data2?.data?.magentoAttributes[0].id) {
                 setWoocommerceAttributeStateId(data1.data.woocommerceAttributes[0].id)
                 setMagentoAttributeStateId(data2.data.magentoAttributes[0].id)
             }

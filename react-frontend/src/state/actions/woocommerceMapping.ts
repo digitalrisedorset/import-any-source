@@ -1,4 +1,4 @@
-import { MatchingAttributeData, MagentoAttribute } from "../../types"
+import { MatchingAttributeData, MagentoAttribute } from "../../types/keystone"
 
 interface WoocommerceAttributesMappingAction {
     type: 'woocommerce_attributes_mapping'

@@ -1,6 +1,6 @@
 import { Attribute } from "./Attribute";
 import CartStyles from "../styles/CartStyles";
-import { WoocommerceAttributeData } from '../../types'
+import { WoocommerceAttributeData } from '../../types/keystone'
 
 interface WoocommerceAttributeProps {
     data: WoocommerceAttributeData | undefined

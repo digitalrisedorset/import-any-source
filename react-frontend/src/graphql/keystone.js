@@ -68,26 +68,6 @@ const CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION = gql`
 
 export {CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION}
 
-const DELETE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION = gql`    
-    mutation DeleteWoocommerceAttributes($where: [WoocommerceAttributeWhereUniqueInput!]!) {
-      deleteWoocommerceAttributes(where: $where) {
-        id
-      }
-    }
-`;
-
-export {DELETE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION}
-
-const DELETE_MAGENTO_ATTRIBUTE_LIST_MUTATION = gql`    
-    mutation DeleteMagentoAttributes($where: [MagentoAttributeWhereUniqueInput!]!) {
-      deleteMagentoAttributes(where: $where) {
-        id
-      }
-    }
-`;
-
-export {DELETE_MAGENTO_ATTRIBUTE_LIST_MUTATION}
-
 const CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION = gql`    
       mutation CreateMagentoAttributes($data: [MagentoAttributeCreateInput!]!) {
           createMagentoAttributes(data: $data) {

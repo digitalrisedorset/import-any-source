@@ -32,7 +32,7 @@ export interface AssignedToData {
     name: string;
 }
 
-export interface MagentoAttributeData {
+export interface KeystoneMagentoAttributeData {
     magentoAttributes: MagentoAttribute[]
 }
 
@@ -44,4 +44,15 @@ export interface MatchingAttributeData {
 export interface Mapping {
     woocommerceAttribute: WoocommerceAttribute;
     matchingAttributes: MagentoAttribute[]
+}
+
+export interface KeystoneAttribute {
+    code: string;
+    name: string;
+    type: string;
+    required: boolean
+}
+
+export interface RemoteAttributesToCreate {
+    attributesToCreate: KeystoneAttribute[]
 }

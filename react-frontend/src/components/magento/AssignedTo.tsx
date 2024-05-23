@@ -1,12 +1,12 @@
 import MapStyle from './../styles/MapStyle';
 import MapStyleLinked from './../styles/MapStyleLinked';
-import {AssignedToData} from "../../types";
+import {AssignedToData} from "../../types/keystone";
 
 interface AssignedToProps {
     assignedTo: AssignedToData
 }
 
-export function AssignedTo({assignedTo}: AssignedToProps) {
+export function AssignedTo({assignedTo}: AssignedToProps): JSX.Element {
     return (
         <>
             {assignedTo && (

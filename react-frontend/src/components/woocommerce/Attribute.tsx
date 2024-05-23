@@ -2,7 +2,7 @@ import ItemStyles from './../styles/ItemStyles';
 import Title from './../styles/Title';
 import { LinkedWith } from "./LinkedWith";
 import MapLink from "./MapLink";
-import { WoocommerceAttribute } from '../../types'
+import { WoocommerceAttribute } from '../../types/keystone'
 
 interface AttributeProps {
     attribute: WoocommerceAttribute

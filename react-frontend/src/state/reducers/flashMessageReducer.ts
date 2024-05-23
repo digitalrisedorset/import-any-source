@@ -1,6 +1,6 @@
 import {FlassMessaggeActionList, WoocommerceAttributesLoadActionList} from '../actions'
 import {FlashMessageActionType, WoocommmerceAttributesLoadActionType} from '../action-types'
-import { WoocommerceAttribute } from "../../types";
+import { WoocommerceAttribute } from "../../types/keystone";
 
 interface FlashMessageState {
     messages: string[]

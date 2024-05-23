@@ -1,4 +1,4 @@
-import { WoocommerceAttribute, MatchingAttributeData } from "../../types"
+import { WoocommerceAttribute, MatchingAttributeData } from "../../types/keystone"
 
 interface WoocommerceAttributesLoadAction {
     type: 'woocommerce_attributes_load'
@@ -15,3 +15,20 @@ interface WoocommerceAttributesLoadActionErrorAction {
 }
 
 export type WoocommerceAttributesLoadActionList = WoocommerceAttributesLoadAction | WoocommerceAttributesLoadActionSuccessAction | WoocommerceAttributesLoadActionErrorAction
+
+
+interface WoocommerceAttributesImportAction {
+    type: 'woocommerce_attributes_import'
+}
+
+interface WoocommerceAttributesImportActionSuccessAction {
+    type: 'woocommerce_attributes_import_success',
+    payload: any //WoocommerceAttribute[]
+}
+
+interface WoocommerceAttributesImportActionErrorAction {
+    type: 'woocommerce_attributes_import_error',
+    payload: string
+}
+
+export type WoocommerceAttributesImportActionList = WoocommerceAttributesImportAction | WoocommerceAttributesImportActionSuccessAction | WoocommerceAttributesImportActionErrorAction

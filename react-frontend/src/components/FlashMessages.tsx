@@ -31,7 +31,7 @@ const ErrorStyles = styled.div`
   }
 `;
 
-export function FlashMessages() {
+export function FlashMessages(): JSX.Element {
     const { messages, messageType} = useTypedSelector((state) => state.flashMessages)
 
     return (

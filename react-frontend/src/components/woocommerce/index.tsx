@@ -1,14 +1,16 @@
 import { GetWoocommerceAttribute } from "./GetWoocommerceAttribute";
 import { useActions } from "../../hooks/useActions";
 import {useParams} from "react-router-dom";
-import {useQuery} from "@apollo/client";
-import {WoocommerceAttributeData} from "../../types";
+import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
+import {WoocommerceAttributeData} from "../../types/keystone";
 import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
+import ImportWoocommerceAttribute from "./ImportWoocommerceAttribute";
+import ImportProduct from "./ImportProduct";
 
-export function Woocommerce() {
+export function Woocommerce(): JSX.Element {
     const { initialAttribute, matchingAttribute } = useParams();
-    const { resetFlashMessage, addFlashMessage } = useActions()
-    const { data, error, loading } = useQuery<WoocommerceAttributeData>(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
+    const { addFlashMessage } = useActions()
+    const { data, error, loading }: QueryResult<OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {},
     });
 
@@ -18,16 +20,15 @@ export function Woocommerce() {
         addFlashMessage(`The system has loaded ${data.woocommerceAttributes.length} woocommerce attributes`)
     }
 
+    if (loading) return <>Loading...</>
+
     return (
         <>
             {error && <h3>{error.message}</h3>}
             {loading && <h3>Loading...</h3>}
-            <GetWoocommerceAttribute data={data} />
-            {/*<RemoveWoocommerceAttribute />*/}
-            {/*<ImportProduct />*/}
-            {/*<ImportWoocommerceAttribute />*/}
-            {/*<CreateWoocommerceAttribute />*/}
-
+            <GetWoocommerceAttribute data={data as WoocommerceAttributeData} />
+            <ImportProduct />
+            <ImportWoocommerceAttribute />
         </>
     )
 }

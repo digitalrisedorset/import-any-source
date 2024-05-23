@@ -1,6 +1,6 @@
 import { WoocommerceAttributesLoadActionList } from '../actions'
 import { WoocommmerceAttributesLoadActionType } from '../action-types'
-import { WoocommerceAttribute } from "../../types";
+import { WoocommerceAttribute } from "../../types/keystone";
 
 interface WoocommerceAttributesState {
     loading: boolean;
