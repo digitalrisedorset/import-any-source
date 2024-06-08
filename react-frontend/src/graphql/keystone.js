@@ -47,12 +47,27 @@ export {GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY}
 const GET_MAGENTO_ATTRIBUTE_LIST_QUERY = gql`        
     query MagentoAttributes($where: MagentoAttributeWhereInput!) {
       magentoAttributes(where: $where) { 
-        id
+        id     
       }
     }
 `;
 
 export {GET_MAGENTO_ATTRIBUTE_LIST_QUERY}
+
+const GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY = gql`        
+    query MagentoAttributes($where: MagentoAttributeWhereInput!) {
+      magentoAttributes(where: $where) {       
+        code
+        name
+        assignedTo {
+            code
+            name
+        }
+      }
+    }
+`;
+
+export {GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}
 
 const CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION = gql`    
       mutation CreateWoocommerceAttributes($data: [WoocommerceAttributeCreateInput!]!) {
@@ -91,3 +106,16 @@ const UPDATE_ATTRIBUTE_MUTATION = gql`
 `
 
 export {UPDATE_ATTRIBUTE_MUTATION}
+
+const CREATE_WOOCOMMERCE_PRODUCT_LIST_MUTATION = gql`    
+      mutation CreateProducts($data: [ProductCreateInput!]!) {
+         createProducts(data: $data) {
+            id          
+            name
+            price
+            status
+         }
+      }   
+`;
+
+export {CREATE_WOOCOMMERCE_PRODUCT_LIST_MUTATION}

@@ -1,19 +1,24 @@
 import MapStyle from './../styles/MapStyle';
 import MapStyleLinked from './../styles/MapStyleLinked';
+import MapStyleAwaitingLink from './../styles/MapStyleAwaitingLink';
 import {AssignedToData} from "../../types/keystone";
 
 interface AssignedToProps {
-    assignedTo: AssignedToData
+    assignedTo: AssignedToData,
+    required: boolean
 }
 
-export function AssignedTo({assignedTo}: AssignedToProps): JSX.Element {
+export function AssignedTo({assignedTo, required}: AssignedToProps): JSX.Element {
     return (
         <>
             {assignedTo && (
                 <MapStyleLinked><span>Linked to Woocommerce with attribute '{assignedTo.name}' (code: {assignedTo.code})</span></MapStyleLinked>
             )}
-            {!assignedTo && (
+            {!assignedTo && !required && (
                 <MapStyle><span>Not Linked to Woocommerce</span></MapStyle>
+            )}
+            {!assignedTo  && required && (
+                <MapStyleAwaitingLink><span>Link required for the import to work: <b>Awaiting link</b></span></MapStyleAwaitingLink>
             )}
         </>
     )

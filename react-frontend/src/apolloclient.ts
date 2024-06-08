@@ -1,9 +1,18 @@
-import {ApolloClient, ApolloLink, HttpLink, InMemoryCache } from "@apollo/client";
+import {ApolloClient, ApolloLink, HttpLink, InMemoryCache, DefaultOptions } from "@apollo/client";
 import {graphqlEndpoint, magentographqlEndpoint} from "./config";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
-const woocommerce = new HttpLink({
-    uri: graphqlEndpoint
-})
+const keystone = ApolloLink.from([
+    // this uses apollo-link-http under the hood, so all the options here come from that package
+    createUploadLink({
+        uri: graphqlEndpoint,
+        credentials: 'include',
+        headers: {
+            'apollo-require-preflight': 'true'
+        }
+    }),
+]);
+
 const magento = new HttpLink({
     uri: magentographqlEndpoint
 })
@@ -12,7 +21,7 @@ export const apolloClient = new ApolloClient({
     link: ApolloLink.split(
         operation => operation.getContext().clientName === 'magento',
         magento,
-        woocommerce
+        keystone
     ),
     cache: new InMemoryCache()
 });

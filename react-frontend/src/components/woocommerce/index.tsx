@@ -2,16 +2,30 @@ import { GetWoocommerceAttribute } from "./GetWoocommerceAttribute";
 import { useActions } from "../../hooks/useActions";
 import {useParams} from "react-router-dom";
 import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
-import {WoocommerceAttributeData} from "../../types/keystone";
-import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
+import {KeystoneMagentoAttributeData, WoocommerceAttributeData} from "../../types/keystone";
+import {
+    ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
+    GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY
+} from "../../graphql/keystone";
 import ImportWoocommerceAttribute from "./ImportWoocommerceAttribute";
 import ImportProduct from "./ImportProduct";
+import {MappingStatusMagentoAttribute} from "../magento/MappingStatusMagentoAttribute";
 
 export function Woocommerce(): JSX.Element {
     const { initialAttribute, matchingAttribute } = useParams();
     const { addFlashMessage } = useActions()
     const { data, error, loading }: QueryResult<OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {},
+    });
+
+    const mappingResult:QueryResult<KeystoneMagentoAttributeData | OperationVariables> = useQuery(GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY, {
+        variables: {
+            "where": {
+                "required": {
+                    "equals": true
+                }
+            }
+        }
     });
 
     if (initialAttribute && matchingAttribute) {
@@ -26,6 +40,7 @@ export function Woocommerce(): JSX.Element {
         <>
             {error && <h3>{error.message}</h3>}
             {loading && <h3>Loading...</h3>}
+            <MappingStatusMagentoAttribute data={mappingResult.data as KeystoneMagentoAttributeData}/>
             <GetWoocommerceAttribute data={data as WoocommerceAttributeData} />
             <ImportProduct />
             <ImportWoocommerceAttribute />

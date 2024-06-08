@@ -14,11 +14,11 @@ export default function Attribute({attribute}: AttributeProps): JSX.Element {
     return (
         <ItemStyles>
             <Title>
-                <MapLink attribute={attribute} />
+                <MapLink attribute={attribute}/>
             </Title>
             <span className="type">{attribute.type}</span>
             <span className="date-created">created: <br/>{date.toDateString()} </span>
-            <AssignedTo assignedTo={attribute.assignedTo}/>
+            <AssignedTo assignedTo={attribute.assignedTo} required={attribute.required} />
         </ItemStyles>
     )
 }

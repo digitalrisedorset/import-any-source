@@ -23,6 +23,18 @@ export class MappingModel {
         }
     }
 
+    public async createKeystoneSeedImport() {
+        try {
+            const fields = this.getFieldList()
+            const response = await Axios.post(
+                '/createWoocommerceImport',
+                {'mapping':fields }
+            );
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     public getFieldList() {
         return this.wocommerceList.map(attribute => ({
             woocommerceFieldCode: attribute.code,
@@ -32,8 +44,12 @@ export class MappingModel {
 
     public getMagentoFieldCode(woocommerceFieldCode: string) {
         const field = this.magentoList.filter(
-            attribute => attribute.assignedTo.code === woocommerceFieldCode
+            attribute => attribute.assignedTo?.code === woocommerceFieldCode
         );
+
+        if (!field || field.length===0) {
+            throw new Error(`attribute ${woocommerceFieldCode} is not linked`);
+        }
 
         return field[0].code
     }

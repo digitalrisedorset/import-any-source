@@ -1,10 +1,8 @@
-import {produce, castImmutable} from "immer"
-import {createDraft, finishDraft} from "immer"
+import {produce} from "immer"
 import {useImmer} from "use-immer";
-import {MagentoAttributeData, RemoteMagentoAttribute} from '../types/magento'
-import {KeystoneAttribute, RemoteAttributesToCreate} from '../types/keystone'
+import {RemoteMagentoAttribute} from '../types/magento'
+import {KeystoneAttribute} from '../types/keystone'
 import {Draft} from "@reduxjs/toolkit";
-import {useState} from "react";
 
 const staticMagentoFields = [
     {
@@ -39,6 +37,20 @@ const staticMagentoFields = [
     }
 ];
 
+const mappableMagentoFields = [
+    'name', 'description','short_description','price',
+    'special_price','special_from_date','special_to_date','cost',
+    'weight','manufacturer','meta_title','meta_keyword','meta_description',
+    'image','small_image','thumbnail','tier_price','color','news_from_date','news_to_date',
+    'status','visibility','quantity_and_stock_status','url_key','tax_class_id','activity','style_bags','material'
+];
+
+const nonMappableMagentoFields = [
+    'msrp_display_actual_price_type','gift_message_available','msrp','shipment_type','weight_type',
+    'price_type','custom_layout_update_file','custom_layout','options_container','page_layout',
+    'custom_design_to','custom_design_from','custom_design','gallery','sku_type','price_view'
+];
+
 interface State {
     readonly attributesToCreate: KeystoneAttribute[]
 }
@@ -49,7 +61,10 @@ export function RemoteMagentoAttributeProvider() {
     })
 
     const setAttributeListToCreate = function (data: RemoteMagentoAttribute[]) {
-        const attributeList: KeystoneAttribute[] = data.map(attribute => ({
+        const attributeList: KeystoneAttribute[] = data.filter(
+            attribute=> nonMappableMagentoFields.indexOf(attribute.code)===-1
+        )
+       .map(attribute => ({
             code: attribute.code,
             name: attribute.label,
             type: attribute.frontend_input,

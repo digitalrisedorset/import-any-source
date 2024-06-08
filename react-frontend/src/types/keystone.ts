@@ -56,3 +56,33 @@ export interface KeystoneAttribute {
 export interface RemoteAttributesToCreate {
     attributesToCreate: KeystoneAttribute[]
 }
+
+export enum PRODUCT_STATUS {
+    publish = 'AVAILABLE',
+    unavailable = 'UNAVAILABLE'
+}
+
+export interface KeystoneProduct {
+    name: string;
+    description: string;
+    photo: { create: { image: Promise<File>, altText: string } }
+    status: PRODUCT_STATUS;
+}
+
+interface ImageData {
+    image: {
+        publicUrl: string
+    }
+}
+
+export interface WoocommerceProduct {
+    name: string;
+    description: string;
+    price: number;
+    photo: ImageData;
+    status: PRODUCT_STATUS;
+}
+
+export interface RemoteProductsToCreate {
+    productsToCreate: KeystoneProduct[]
+}

@@ -4,6 +4,9 @@ import NavStyles from './components/styles/NavStyles';
 export default function Nav(): JSX.Element {
     return (
         <NavStyles>
+           {/* <Link to="/sickfits" className="text-white">
+                Sick Fits
+            </Link>*/}
             <Link to="/magento" className="text-white">
                 Magento
             </Link>

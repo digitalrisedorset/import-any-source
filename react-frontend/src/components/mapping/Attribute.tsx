@@ -6,7 +6,9 @@ import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, use
 import {
     UPDATE_ATTRIBUTE_MUTATION,
     GET_MAGENTO_ATTRIBUTE_LIST_QUERY,
-    GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY
+    GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY,
+    ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
+    GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY
 } from "../../graphql/keystone";
 
 import {
@@ -44,12 +46,7 @@ export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Elem
                 }
             }
         },
-        refetchQueries: [
-            {
-                query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
-                variables: {}
-            }
-        ]
+        refetchQueries: [{query: GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}, {query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}]
     });
     const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceQueryResult, OperationVariables> = useLazyQuery(GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, {
         variables: {
