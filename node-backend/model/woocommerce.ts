@@ -3,7 +3,7 @@ const woocommerceApiHandler = require('./woocommerce/api-handler')
 const woocommerceDataFilter = require('./woocommerce/data-filter')
 const woocommerceDataVariations = require('./woocommerce/data-variation')
 
-const ttl = 60 * 60 * 48; // cache for 48 Hour
+const ttl = 60 * 60 * 365; // cache for 48 Hour
 
 class Woocommerce {
     errors = [];
@@ -11,7 +11,6 @@ class Woocommerce {
     woocommerceApiHandler = new woocommerceApiHandler;
     woocommerceDataFilter = new woocommerceDataFilter;
     woocommerceDataVariations = new woocommerceDataVariations;
-
     getAttributeList = async function () {
         const attributesOptions = await this.cache.get('getOptionAttributes', async () => {
             return await this.getOptionAttributes()
@@ -22,7 +21,6 @@ class Woocommerce {
 
         return [...attributesOptions, ...attributesToLink]
     }
-
     getOptionAttributes = async function () {
         let result = await this.woocommerceApiHandler.callApiUrl('products/attributes')
 
@@ -44,7 +42,6 @@ class Woocommerce {
 
         return attributes;
     };
-
     getAttributeListFromProduct = async function () {
         let result = await this.woocommerceApiHandler.callApiUrl('products', {
             'per_page': '1',
@@ -70,7 +67,6 @@ class Woocommerce {
 
         return attributes;
     };
-
     getProductBatch = async function (mappingFields) {
         let result = await this.woocommerceApiHandler.callApiUrl('products', {
             'per_page': process.env.IMPORT_BATCH_SIZE,
@@ -81,11 +77,10 @@ class Woocommerce {
             return [];
         }
 
-        result = await this.woocommerceDataVariations.aggregateVariationData(result)
+        result = this.woocommerceDataVariations.aggregateVariationData(result)
 
         return result;
     }
 }
-
 
 module.exports = Woocommerce;

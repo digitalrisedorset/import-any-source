@@ -8,6 +8,15 @@ let ImportCreator = function() {
     this.magentoData = new magentoData()
 }
 
+ImportCreator.prototype.getSkuRecord = function (record) {
+    let sku = record['sku'];
+    if (sku === '') {
+        sku = record['name'].replace(/[/\\?%*:|"<>]/g, '-')
+    }
+
+    return sku
+}
+
 ImportCreator.prototype.createCsvImport = async function(data, mappingFields) {
     this.woocommerceDataMapper.setMappingFields(mappingFields)
 
@@ -24,10 +33,13 @@ ImportCreator.prototype.createCsvImport = async function(data, mappingFields) {
         const row = this.magentoData.getInitialData()
         Object.keys(record).forEach((key, index) => {
             const magentoFieldCode = this.woocommerceDataMapper.getMagentoField(key);
-            if (magentoFieldCode) {
+            if (magentoFieldCode === 'sku') {
+                row[magentoFieldCode] = this.getSkuRecord(record)
+            } else if (magentoFieldCode) {
                 row[magentoFieldCode] = this.woocommerceDataMapper.getMagentoValue(record[key], magentoFieldCode)
             }
         })
+
         return row
     })
     
