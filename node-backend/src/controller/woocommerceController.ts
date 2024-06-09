@@ -1,32 +1,33 @@
-const Woocommerce = require("../model/woocommerce")
-const ImportCreator = require("../model/import-creator")
-const KeystoneImportCreator = require("../model/keystone-import-creator")
+import { Woocommerce } from "../model/woocommerce"
+import { ImportCreator } from "../model/import-creator"
+import { KeystoneImportCreator } from "../model/keystone-import-creator"
 const jwt = require("jsonwebtoken")
+import { Request, Response, NextFunction } from "express";
 
 // how long a token lasts before expiring
 const tokenLasts = "365d"
 
-exports.apiMustBeLoggedIn = function (req, res, next) {
+exports.apiMustBeLoggedIn = function (req: Request, res: Response, next: NextFunction) {
     try {
-        req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
+        jwt.verify(req.body.token, process.env.JWTSECRET)
         next()
     } catch (e) {
         res.status(500).send("Sorry, you must provide a valid token.")
     }
 }
 
-exports.checkToken = function (req, res) {
+exports.checkToken = function (req: Request, res: Response) {
     try {
-        req.apiUser = jwt.verify(req.body.token, process.env.JWTSECRET)
+        jwt.verify(req.body.token, process.env.JWTSECRET)
         res.json(true)
     } catch (e) {
         res.json(false)
     }
 }
 
-exports.apiGetAttributeList = async function (req, res) {
+exports.apiGetAttributeList = async function (req: Request, res: Response) {
     try {
-        let wooClient = new Woocommerce(req.body)
+        let wooClient = new Woocommerce()
         let list = await wooClient.getAttributeList();
         res.json(list)
     } catch (e) {
@@ -34,9 +35,9 @@ exports.apiGetAttributeList = async function (req, res) {
     }
 }
 
-exports.apiGetProductList = async function (req, res) {
+exports.apiGetProductList = async function (req: Request, res: Response) {
     try {
-        let wooClient = new Woocommerce(req.body)
+        let wooClient = new Woocommerce()
         let list = await wooClient.getProductBatch();
         res.json(list)
     } catch (e) {
@@ -44,7 +45,7 @@ exports.apiGetProductList = async function (req, res) {
     }
 }
 
-exports.createWoocommerceImport = async function(req, res) {
+exports.createWoocommerceImport = async function(req: Request, res: Response) {
     try {
         let wooClient = new Woocommerce()
         const list = await wooClient.getProductBatch()
@@ -56,7 +57,7 @@ exports.createWoocommerceImport = async function(req, res) {
     }
 }
 
-exports.createKeystoneSeedImport = async function(req, res) {
+exports.createKeystoneSeedImport = async function(req: Request, res: Response) {
     try {
         let wooClient = new Woocommerce()
         const list = await wooClient.getProductBatch()

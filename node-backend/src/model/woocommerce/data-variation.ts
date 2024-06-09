@@ -1,13 +1,13 @@
-const woocommerceApiHandler = require('../woocommerce/api-handler')
-const cacheService = require('../data-cache')
+import { ApiHandler } from './api-handler'
+import { WoocommerceProduct } from '../../types'
 
-class WoocommerceDataVariations {
-    woocommerceApiHandler = new woocommerceApiHandler;
+export class WoocommerceDataVariations {
+    woocommerceApiHandler = new ApiHandler;
 
-    aggregateVariationData = async function(productData) {         
+    aggregateVariationData = async (productData: WoocommerceProduct[]): Promise<WoocommerceProduct[]> => {
         productData = await Promise.all(productData.map(async product => {
             if (product['variations'] && product['variations'].length>0) {
-                product['variations'] = await Promise.all(product['variations'].map(async variationId => {
+                product['variations_for_csv'] = await Promise.all(product['variations'].map(async variationId => {
                     return await this.getVariationForProduct(product['id'], variationId)
                 }, this))
             }
@@ -40,10 +40,7 @@ class WoocommerceDataVariations {
         return productData;    
     }
 
-    getVariationForProduct = async function(productId, variationId) {
-        const variationData = await this.woocommerceApiHandler.callApiUrl(`products/${productId}/variations/${variationId}`, []);
-        return variationData
+    getVariationForProduct = async (productId: number, variationId: number) => {
+        return await this.woocommerceApiHandler.callApiUrl(`products/${productId}/variations/${variationId}`, []);
     }
 }
-
-module.exports = WoocommerceDataVariations;

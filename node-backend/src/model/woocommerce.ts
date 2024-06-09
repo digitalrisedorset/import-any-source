@@ -1,18 +1,26 @@
-const cacheService = require('./data-cache')
-const woocommerceApiHandler = require('./woocommerce/api-handler')
-const woocommerceDataFilter = require('./woocommerce/data-filter')
-const woocommerceDataVariations = require('./woocommerce/data-variation')
+import { CacheService } from './data-cache'
+import { ApiHandler } from './woocommerce/api-handler'
+import {WoocommerceDataVariations} from './woocommerce/data-variation'
 
-const ttl = 60 * 60 * 48; // cache for 48 Hour
+const ttl = 60 * 60 * 365; // cache for 48 Hour
 
-class Woocommerce {
+enum OptionAttributeType {
+    options = 'options',
+    other = 'unknown',
+}
+
+interface OptionAttribute {
+    code: string,
+    name: string,
+    type: OptionAttributeType
+}
+
+export class Woocommerce {
     errors = [];
-    cache = new cacheService(ttl);
-    woocommerceApiHandler = new woocommerceApiHandler;
-    woocommerceDataFilter = new woocommerceDataFilter;
-    woocommerceDataVariations = new woocommerceDataVariations;
-
-    getAttributeList = async function () {
+    cache = new CacheService(ttl);
+    woocommerceApiHandler = new ApiHandler;
+    woocommerceDataVariations = new WoocommerceDataVariations;
+    getAttributeList = async () => {
         const attributesOptions = await this.cache.get('getOptionAttributes', async () => {
             return await this.getOptionAttributes()
         });
@@ -22,30 +30,27 @@ class Woocommerce {
 
         return [...attributesOptions, ...attributesToLink]
     }
-
-    getOptionAttributes = async function () {
+    getOptionAttributes = async () => {
         let result = await this.woocommerceApiHandler.callApiUrl('products/attributes')
 
         if (result === null) {
             return [];
         }
 
-        const attributes = [];
+        const attributes: OptionAttribute[] = [];
+
         for (let i = 0; i < result.length; i++) {
             let elem = result[i];
-            if (this.woocommerceDataFilter.checkAttributeFromKey(elem['slug'])) {
-                attributes.push({
-                    code: elem['slug'],
-                    name: elem['name'],
-                    type: 'options'
-                });
-            }
+            attributes.push({
+                code: elem['slug'],
+                name: elem['name'],
+                type: OptionAttributeType.options
+            });
         }
 
         return attributes;
     };
-
-    getAttributeListFromProduct = async function () {
+    getAttributeListFromProduct = async () => {
         let result = await this.woocommerceApiHandler.callApiUrl('products', {
             'per_page': '1',
             'page': '1'
@@ -55,23 +60,20 @@ class Woocommerce {
             return [];
         }
 
-        const attributes = [];
+        const attributes: OptionAttribute[] = [];
         let record = result[0];
 
         Object.keys(record).forEach((key, index) => {
-            if (this.woocommerceDataFilter.checkAttributeFromKey(key)) {
-                attributes.push({
-                    code: key,
-                    name: key,
-                    type: 'unknown'
-                });
-            }
+            attributes.push({
+                code: key,
+                name: key,
+                type: OptionAttributeType.other
+            });
         });
 
         return attributes;
     };
-
-    getProductBatch = async function (mappingFields) {
+    getProductBatch = async () => {
         let result = await this.woocommerceApiHandler.callApiUrl('products', {
             'per_page': process.env.IMPORT_BATCH_SIZE,
             'page': 1
@@ -82,10 +84,7 @@ class Woocommerce {
         }
 
         result = await this.woocommerceDataVariations.aggregateVariationData(result)
-
+debugger
         return result;
     }
 }
-
-
-module.exports = Woocommerce;
