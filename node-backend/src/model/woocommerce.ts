@@ -16,10 +16,8 @@ interface OptionAttribute {
 }
 
 export class Woocommerce {
-    errors = [];
     cache = new CacheService(ttl);
     woocommerceApiHandler = new ApiHandler;
-    woocommerceDataVariations = new WoocommerceDataVariations;
     getAttributeList = async () => {
         const attributesOptions = await this.cache.get('getOptionAttributes', async () => {
             return await this.getOptionAttributes()
@@ -83,8 +81,6 @@ export class Woocommerce {
             return [];
         }
 
-        result = await this.woocommerceDataVariations.aggregateVariationData(result)
-debugger
         return result;
     }
 }

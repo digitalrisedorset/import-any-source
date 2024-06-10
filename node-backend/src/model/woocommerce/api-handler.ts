@@ -6,7 +6,7 @@ const ttl = 60 * 60 * 1; // cache for 1 Hour
 export class ApiHandler {
     errors = []
 
-    callApiUrl = async (apiSuffix: string, filter: ApiFilter | null = null): Promise<WoocommerceProduct[]> => {
+    callApiUrl = async (apiSuffix: string, filter: ApiFilter | null = null) => {
         let apiUrl = `${process.env.WOOMMERCE_API_URL}${apiSuffix}?consumer_key=${process.env.WOOCOMMERCE_KEY}&consumer_secret=${process.env.WOOCOMMERCE_SECRET}`
 
         if (filter !== null) {

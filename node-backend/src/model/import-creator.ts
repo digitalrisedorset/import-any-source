@@ -1,49 +1,46 @@
-import {ImportMappingFields, WoocommerceProduct, WoocommerceProductFieldCase} from "../types";
-import {WoocommerceDataMapper} from "./woocommerce/data-mapper";
-import { CsvWriter } from './csv-writer'
-import {MagentoData } from './magento-data'
+import {FieldValue, ImportMappingFields, InitialProductData, WoocommerceProduct} from "../types";
+import {CsvWriter} from './csv-writer'
+import {ImportRowCreator} from './import-creator/row-creator'
+import {WoocommerceDataVariations} from "./woocommerce/data-variation";
 
 export class ImportCreator {
-    woocommerceDataMapper = new WoocommerceDataMapper()
     csvWriter = new CsvWriter()
-    magentoData = new MagentoData()
-
-    getSkuRecord = function (record: WoocommerceProduct) {
-        let sku = record['sku'];
-        if (sku === '') {
-            sku = record['name'].replace(/[/\\?%*:|"<>]/g, '-')
-        }
-
-        return sku
-    }
+    importRowCreator = new ImportRowCreator()
+    woocommerceDataVariations = new WoocommerceDataVariations()
 
     createCsvImport = async (data: WoocommerceProduct[], mappingFields: ImportMappingFields) => {
-        this.woocommerceDataMapper.setMappingFields(mappingFields)
+        this.importRowCreator.setMappingFields(mappingFields)
 
-        let record = data[0];
-        let row = this.magentoData.getInitialHeaderData()
-
-        Object.keys(record).forEach((key: string) => {
-            const magentoFieldCode = this.woocommerceDataMapper.getMagentoField(key);
-            if (magentoFieldCode) row.push({'id':magentoFieldCode, 'title': magentoFieldCode});
-        });
+        let row = this.importRowCreator.createHeader(data[0])
         this.csvWriter.writeHeader(row)
+        let simpleRows: FieldValue[] = []
+        let simpleRowsWithVariation: WoocommerceProduct[] = []
 
-        const rows = data.map(record => {
-            const row = this.magentoData.getInitialData()
-            Object.keys(record).forEach((key: string) => { // key should be of type validWoocommerceProductKeys
-                // https://www.totaltypescript.com/iterate-over-object-keys-in-typescript
-                const item: any = record[key as keyof typeof record]
-                const magentoFieldCode = this.woocommerceDataMapper.getMagentoField(key);
-                if (magentoFieldCode === 'sku') {
-                    row[magentoFieldCode] = this.getSkuRecord(record)
-                } else if (magentoFieldCode) {
-                    row[magentoFieldCode] = this.woocommerceDataMapper.getMagentoValue(record, key, magentoFieldCode)
-                }
-            })
-            return row
-        })
+        for (let i= 0; i < data.length; i++) {
+            const variationData = await this.woocommerceDataVariations.getVariationData(data[i])
+            if (variationData !== undefined) {
+                variationData.map((variation => {
+                    simpleRowsWithVariation.push(variation as WoocommerceProduct)
+                }))
+            }
+        }
 
-        return await this.csvWriter.writeRecords(rows)
+        if (simpleRowsWithVariation.length> 0) {
+            const simpleRowFromVariation = await Promise.all(simpleRowsWithVariation.map(async (variation) => {
+                return await this.importRowCreator.createCsvRow(variation as WoocommerceProduct)
+            }, this))
+
+            if (simpleRowFromVariation.length>0) {
+                simpleRowFromVariation.map(simpleRow => {
+                    simpleRows.push(simpleRow as any)
+                })
+            }
+        }
+
+        const rows = await Promise.all(data.map(async (record) => {
+            return await this.importRowCreator.createCsvRow(record)
+        }, this))
+
+        return this.csvWriter.writeRecords([...simpleRows, ...rows])
     }
 }

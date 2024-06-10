@@ -3,16 +3,16 @@ import {
     WoocommerceProductFieldCase,
     FieldValue,
     ImportMappingFields,
-    validWoocommerceProductKeys,
     MagentoProductFieldCase,
-    validMagentoProductKeys,
     WoocommerceSimpleProduct,
     WoocommerceProduct
 } from '../../types'
+import {WoocommerceDataVariations} from "./data-variation";
 
 export class WoocommerceDataMapper {
     mappingFields: ImportMappingFields = {'mapping': []}
     woocommerceVariationBuilder = new WoocommerceVariationBuilder;
+    woocommerceDataVariations = new WoocommerceDataVariations()
 
     setMappingFields = (mappingFields: ImportMappingFields) => {
         this.mappingFields = mappingFields;
@@ -28,17 +28,18 @@ export class WoocommerceDataMapper {
     getMagentoValue = (item: WoocommerceProduct, key: string, magentoField: string) => {
         let value = item[key as keyof WoocommerceProduct]
         switch(magentoField) {
-            //case MagentoProductFieldCase.active: // status
             case MagentoProductFieldCase.status: // product_online
                 return (value === 'publish')?'1':'0'
             case MagentoProductFieldCase.visibility:  // visibility
                 return (value === 'visible')?'Catalog, Search':'Not Visible Individually'
-            case MagentoProductFieldCase.configurable_variations:  // variations
-                if (value.length>0) {
-                    debugger
-                    value = item['variations_for_csv']
-                    return this.woocommerceVariationBuilder.getVariation(value as WoocommerceSimpleProduct[])
-                }
+            // case MagentoProductFieldCase.configurable_variations:  // variations
+            //     if ((value as number[]).length>0) {
+            //         const variationData = await this.woocommerceDataVariations.getVariationData(item)
+            //         if (variationData !== undefined) {
+            //             return this.woocommerceVariationBuilder.getVariation(variationData as WoocommerceSimpleProduct[])
+            //         }
+            //     }
+            //     return
             default:
                 return value;
         }

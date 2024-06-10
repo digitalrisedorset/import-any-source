@@ -25,19 +25,17 @@ export type validMagentoProductKeys = 'name' |  'description' | 'short_descripti
     'status' | 'visibility' | 'quantity_and_stock_status' | 'url_key' | 'tax_class_id' | 'activity' | 'style_bags' |
     'material' | 'configurable_variations'
 
-export interface WoocommerceProduct {
+export interface WoocommerceProduct extends WoocommerceSimpleProduct {
     id: number;
     sku: string;
     name: string;
     slug: string;
     description: string;
     price: number;
-    //photo: ImageData;
-    status: ProductStatus;
-    variations: number[]
-    attributes: []
     images: ProductImage[]
-    variations_for_csv: any
+    status: ProductStatus;
+    attributes: []
+    variations: number[]
 }
 
 export interface WoocommerceSimpleProduct {
@@ -47,7 +45,7 @@ export interface WoocommerceSimpleProduct {
     slug: string;
     description: string;
     price: number;
-    photo: ImageData;
+    images: ProductImage[]
     status: ProductStatus;
     attributes: []
 }
@@ -56,7 +54,7 @@ export enum WoocommerceProductFieldCase {
     active = 'product_online', // product_online
     status = 'status', // status
     visibility = 'visibility', // visibility
-    variations = 'variations',// 'configurable_variations',  // variations
+    variations = 'variations' // 'configurable_variations',  // variations
 }
 
 export enum MagentoProductFieldCase {
@@ -69,7 +67,7 @@ export enum MagentoProductFieldCase {
     configurable_variations = 'configurable_variations',
 }
 
-export type FieldValue = string | number | boolean | null | WoocommerceSimpleProduct[];
+export type FieldValue = string | boolean | null | number[] | number | ProductImage[];
 
 export type InitialProductData = {
     [Key in string]: FieldValue;
