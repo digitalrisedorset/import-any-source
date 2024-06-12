@@ -1,8 +1,5 @@
 import { CacheService } from './data-cache'
 import { ApiHandler } from './woocommerce/api-handler'
-import {WoocommerceDataVariations} from './woocommerce/data-variation'
-
-const ttl = 60 * 60 * 365; // cache for 48 Hour
 
 enum OptionAttributeType {
     options = 'options',
@@ -16,7 +13,7 @@ interface OptionAttribute {
 }
 
 export class Woocommerce {
-    cache = new CacheService(ttl);
+    cache = new CacheService();
     woocommerceApiHandler = new ApiHandler;
     getAttributeList = async () => {
         const attributesOptions = await this.cache.get('getOptionAttributes', async () => {
@@ -74,7 +71,8 @@ export class Woocommerce {
     getProductBatch = async () => {
         let result = await this.woocommerceApiHandler.callApiUrl('products', {
             'per_page': process.env.IMPORT_BATCH_SIZE,
-            'page': 1
+            'page': 1,
+           // 'sku': 'woo-vneck-tee-blue'
         })
 
         if (result === null) {

@@ -1,44 +1,10 @@
 import {ApiHandler} from './api-handler'
 import {WoocommerceProduct, WoocommerceProductFieldCase, WoocommerceSimpleProduct} from '../../types'
+import {CacheService} from "../data-cache";
 
 export class WoocommerceDataVariations {
     woocommerceApiHandler = new ApiHandler;
-
-    // aggregateVariationData = async (productData: WoocommerceProduct[]): Promise<WoocommerceProduct[]> => {
-    //     productData = await Promise.all(productData.map(async product => {
-    //         if (product['variations'] && product['variations'].length>0) {
-    //             product['variations_for_csv'] = await Promise.all(product['variations'].map(async variationId => {
-    //                 return await this.getVariationForProduct(product['id'], variationId)
-    //             }, this))
-    //         }
-    //
-    //         return product
-    //     }))
-    //
-    //     // let productResult = []
-    //     //
-    //     // for (let i=0; i < productData.length; i++) {
-    //     //     const product = productData[i]
-    //     //     if (product['variations'] && product['variations'].length>0) {
-    //     //         //let result = []
-    //     //         // for (let i=0; i < product['variations'].length; i++) {
-    //     //         //     const variationId = product['variations'][i]
-    //     //         //     const variationData = await this.getVariationForProduct(product['id'], variationId)
-    //
-    //     //         //     result.push(variationData)
-    //     //         // }
-    //     //         product['variations'] = await Promise.all(product['variations'].map(async variationId => {
-    //     //             return await this.getVariationForProduct(product['id'], variationId)
-    //     //         }, this))
-    //     //     }
-    //
-    //     //     productResult.push(product)
-    //     // }
-    //
-    //     // productData = productResult
-    //
-    //     return productData;
-    // }
+    cache = new CacheService();
 
     getVariationForProduct = async (productId: number, variationId: number) => {
         return await this.woocommerceApiHandler.callApiUrl(`products/${productId}/variations/${variationId}`, []);
@@ -50,8 +16,14 @@ export class WoocommerceDataVariations {
             return;
         }
 
+        return await this.cache.get(`getVariationData_${record['id']}`, async () => {
+            return await this.getApiVariationData(record['id'], variations)
+        })
+    }
+
+    getApiVariationData = async (recordId: number, variations: number[]): Promise<WoocommerceSimpleProduct[] | undefined> =>  {
         return await Promise.all(variations.map(async (variationId) => {
-            return await this.woocommerceApiHandler.callApiUrl(`products/${record['id']}/variations/${variationId}`, []);
+            return await this.woocommerceApiHandler.callApiUrl(`products/${recordId}/variations/${variationId}`, []);
         }, (this)));
     }
 }

@@ -1,14 +1,15 @@
-import {ImportMappingFields, WoocommerceProduct, WoocommerceSimpleProduct} from "../../types";
+import {
+    HeaderField,
+    ImportMappingFields, InitialProductData, MagentoProductFieldCase,
+    VariationAttribute,
+    WoocommerceProduct, WoocommerceProductFieldCase,
+} from "../../types";
 import {WoocommerceDataMapper} from "../woocommerce/data-mapper";
 import {MagentoData } from '../magento-data'
 
 export class ImportRowCreator {
     woocommerceDataMapper = new WoocommerceDataMapper()
     magentoData = new MagentoData()
-
-    setMappingFields = (mappingFields: ImportMappingFields) => {
-        this.woocommerceDataMapper.setMappingFields(mappingFields)
-    }
 
     getSkuRecord = function (record: WoocommerceProduct) {
         let sku = record['sku'];
@@ -19,29 +20,34 @@ export class ImportRowCreator {
         return sku
     }
 
-    createHeader = (record: WoocommerceProduct): any => {
-        let row = this.magentoData.getInitialHeaderData()
+    createHeader = (mappingFields: ImportMappingFields): any => {
+        this.woocommerceDataMapper.setMappingFields(mappingFields)
 
-        Object.keys(record).forEach((key: string) => {
-            const magentoFieldCode = this.woocommerceDataMapper.getMagentoField(key);
-            if (magentoFieldCode) row.push({'id':magentoFieldCode, 'title': magentoFieldCode});
-        });
-
-        return row
+        return this.woocommerceDataMapper.getMagentoCsvHeader()
     }
 
     createCsvRow = async (record: WoocommerceProduct) => {
-        const row = this.magentoData.getInitialData()
+        const header: HeaderField[] = this.woocommerceDataMapper.getMagentoCsvHeader()
 
-        Object.keys(record).forEach((key: string) => { // key should be of type validWoocommerceProductKeys
+        let row: InitialProductData = this.magentoData.getInitialData()
+
+        header.forEach(async (field: HeaderField) => { // key should be of type validWoocommerceProductKeys
             // https://www.totaltypescript.com/iterate-over-object-keys-in-typescript
-            const magentoFieldCode = this.woocommerceDataMapper.getMagentoField(key);
+            const magentoFieldCode: string = field.id;
+            const woocommerceFieldCode = this.woocommerceDataMapper.getWoocommerceField(magentoFieldCode)
+
             if (magentoFieldCode === 'sku') {
                 row[magentoFieldCode] = this.getSkuRecord(record)
-            } else if (magentoFieldCode) {
-                row[magentoFieldCode] = this.woocommerceDataMapper.getMagentoValue(record, key, magentoFieldCode)
+            } else if (woocommerceFieldCode) {
+                row[magentoFieldCode] = await this.woocommerceDataMapper.getMagentoValue(record, woocommerceFieldCode, magentoFieldCode)
+                if (magentoFieldCode === MagentoProductFieldCase.image) {
+                    row['thumbnail'] = row[magentoFieldCode]
+                    row['small_image'] = row[magentoFieldCode]
+                }
             }
         })
+
+        row['product_type'] = (record[WoocommerceProductFieldCase.variations] === undefined || record[WoocommerceProductFieldCase.variations].length===0)?'simple':'configurable'
 
         return row
     }

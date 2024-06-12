@@ -5,6 +5,17 @@ export enum ProductStatus {
     private = 'private'
 }
 
+export type CsvHeader = {
+
+}
+
+export type VariationAttribute = {
+    name: string,
+    slug: string,
+    variation: boolean,
+    option: string
+}
+
 export interface ProductImage {
     name: string;
     src: string
@@ -32,7 +43,8 @@ export interface WoocommerceProduct extends WoocommerceSimpleProduct {
     slug: string;
     description: string;
     price: number;
-    images: ProductImage[]
+    images: ProductImage[],
+    image: ProductImage,
     status: ProductStatus;
     attributes: []
     variations: number[]
@@ -65,6 +77,7 @@ export enum MagentoProductFieldCase {
     status = 'status', // status
     visibility = 'visibility', // visibility
     configurable_variations = 'configurable_variations',
+    image = 'image'
 }
 
 export type FieldValue = string | boolean | null | number[] | number | ProductImage[];
@@ -86,7 +99,12 @@ export interface ImportMappingFields {
     mapping: ImportMapping[]
 }
 
-interface ImportMapping {
+export interface ImportMapping {
     woocommerceFieldCode: string,
     magentoLinkedCode: string
+}
+
+export type HeaderField = {
+    id: string,
+    title: string
 }

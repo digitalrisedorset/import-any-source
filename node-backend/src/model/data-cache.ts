@@ -1,31 +1,30 @@
 const NodeCache = require('node-cache');
 
+const ttlSeconds = 60 * 60 * 365; // cache for 48 Hour
+global
+const cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false });
+
 export class CacheService {
-    constructor(
-        private ttlSeconds: number,
-        private cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false }),
-    ) {
-    }
     get(key: string, storeFunction: any) {
-        const value = this.cache.get(key);
+        const value = cache.get(key);
         if (value) {
             return Promise.resolve(value);
         }
 
         return storeFunction().then((result: any) => {
-            this.cache.set(key, result);
+            cache.set(key, result);
             return result;
         });
     }
     del(keys: string) {
-        this.cache.del(keys);
+        cache.del(keys);
     }
     delStartWith(startStr = '') {
         if (!startStr) {
             return;
         }
 
-        const keys = this.cache.keys();
+        const keys = cache.keys();
         for (const key of keys) {
             if (key.indexOf(startStr) === 0) {
                 this.del(key);
@@ -33,6 +32,6 @@ export class CacheService {
         }
     }
     flush() {
-        this.cache.flushAll();
+        cache.flushAll();
     }
 }
