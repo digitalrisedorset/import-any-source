@@ -17,6 +17,7 @@ export const WoocommerceAttribute = list({
         }),
         length: text({}),
         required: checkbox(),
+        ignored: checkbox(),
         magentoCode: relationship({ ref: 'MagentoAttribute.assignedTo', many: false }),
         createdAt: timestamp({
             // default this timestamp to Date.now() when first created
