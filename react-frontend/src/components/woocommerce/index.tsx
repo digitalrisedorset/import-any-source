@@ -1,4 +1,4 @@
-import { GetWoocommerceAttribute } from "./GetWoocommerceAttribute";
+import { GetWoocommerceAttribute } from "./MainMappingArea/GetWoocommerceAttribute";
 import { useActions } from "../../hooks/useActions";
 import {useParams} from "react-router-dom";
 import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
@@ -7,15 +7,23 @@ import {
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
     GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY
 } from "../../graphql/keystone";
-import ImportWoocommerceAttribute from "./ImportWoocommerceAttribute";
-import ImportProduct from "./ImportProduct";
+import ImportWoocommerceAttribute from "./MainMappingArea/ImportWoocommerceAttribute";
+import ImportProduct from "./MainMappingArea/ImportProduct";
 import {MappingStatusMagentoAttribute} from "../magento/MappingStatusMagentoAttribute";
+import {MappingScreen} from '../styles/MappingScreen';
+import {GetIgnoredAttribute} from "./IgnoreFieldArea/GetIgnoredAttribute";
 
 export function Woocommerce(): JSX.Element {
     const { initialAttribute, matchingAttribute } = useParams();
     const { addFlashMessage } = useActions()
     const { data, error, loading }: QueryResult<OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {},
+        variables: {
+            "where": {
+                "ignored": {
+                    "equals": false
+                }
+            }
+        },
     });
 
     const mappingResult:QueryResult<KeystoneMagentoAttributeData | OperationVariables> = useQuery(GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY, {
@@ -37,13 +45,16 @@ export function Woocommerce(): JSX.Element {
     if (loading) return <>Loading...</>
 
     return (
-        <>
-            {error && <h3>{error.message}</h3>}
-            {loading && <h3>Loading...</h3>}
-            <MappingStatusMagentoAttribute data={mappingResult.data as KeystoneMagentoAttributeData}/>
-            <GetWoocommerceAttribute data={data as WoocommerceAttributeData} />
-            <ImportProduct />
-            <ImportWoocommerceAttribute />
-        </>
+        <MappingScreen>
+            <div className="fields">
+                {error && <h3>{error.message}</h3>}
+                {loading && <h3>Loading...</h3>}
+                <MappingStatusMagentoAttribute data={mappingResult.data as KeystoneMagentoAttributeData}/>
+                <GetWoocommerceAttribute data={data as WoocommerceAttributeData} />
+                <ImportProduct />
+                <ImportWoocommerceAttribute />
+            </div>
+            <GetIgnoredAttribute />
+        </MappingScreen>
     )
 }

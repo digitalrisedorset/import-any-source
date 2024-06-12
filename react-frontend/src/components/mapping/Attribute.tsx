@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ItemStyles from './../styles/ItemStyles';
-import Title from './../styles/Title';
+import { Title } from './../styles/Title';
 import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, useMutation} from "@apollo/client";
 import {
     UPDATE_ATTRIBUTE_MUTATION,
@@ -85,7 +85,7 @@ export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Elem
         }
     }, [woocommerceAttributeStateId && magentoAttributeStateId])
 
-    async function mapField(e: React.MouseEvent<HTMLElement>) {
+    const mapField = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         try {
             const data1 = await getWoocommerceAttributeList();

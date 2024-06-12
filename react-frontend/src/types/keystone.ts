@@ -9,6 +9,7 @@ export interface WoocommerceAttribute {
     name: string;
     type: string;
     required: boolean;
+    ignored: boolean;
     createdAt: string;
     magentoCode: MagentoCode
 }

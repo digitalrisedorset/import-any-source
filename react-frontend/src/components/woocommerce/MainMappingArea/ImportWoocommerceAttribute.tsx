@@ -1,8 +1,8 @@
 import { useEffect} from "react"
 import { useMutation} from '@apollo/client';
-import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION} from '../../graphql/keystone'
-import {useActions} from "../../hooks/useActions";
-import {RemoteWoocommerceAttributeProvider} from "../../models/RemoteWoocommerceAttributeProvider"
+import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION} from '../../../graphql/keystone'
+import {useActions} from "../../../hooks/useActions";
+import {RemoteWoocommerceAttributeProvider} from "../../../models/RemoteWoocommerceAttributeProvider"
 
 export default function ImportWoocommerceAttribute(): JSX.Element {
     const { addFlashMessage } = useActions()

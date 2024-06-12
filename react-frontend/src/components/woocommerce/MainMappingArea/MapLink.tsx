@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import {WoocommerceAttribute} from "../../types/keystone";
+import {WoocommerceAttribute} from "../../../types/keystone";
 
 interface MapLinkProps {
     attribute: WoocommerceAttribute

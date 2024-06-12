@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios, {AxiosResponse} from "axios";
 import {MagentoAttribute, WoocommerceAttribute} from "../types/keystone";
 
 export class MappingModel {
@@ -11,13 +11,14 @@ export class MappingModel {
         this.magentoList = magentoList
     }
 
-    public async createAttributesImport() {
+    public async createAttributesImport(): Promise<AxiosResponse | undefined> {
         try {
             const fields = this.getFieldList()
             const response = await Axios.post(
                 '/createWoocommerceImport',
                 {'mapping':fields }
             );
+            return response
         } catch (e) {
             console.log(e)
         }

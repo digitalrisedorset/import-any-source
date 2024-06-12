@@ -2,13 +2,26 @@ import {LazyQueryResultTuple, OperationVariables, useLazyQuery} from "@apollo/cl
 import {
     ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY,
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY
-} from "../../graphql/keystone";
-import {WoocommerceAttributeProvider} from "../../models/KeystoneWoocommerceAttributeProvider"
-import {MagentoAttributeProvider} from "../../models/KeystoneMagentoAttributeProvider"
-import {MappingModel} from "../../models/MappingDataProvider"
-import {KeystoneMagentoAttributeData, WoocommerceAttributeData} from "../../types/keystone";
+} from "../../../graphql/keystone";
+import {WoocommerceAttributeProvider} from "../../../models/KeystoneWoocommerceAttributeProvider"
+import {MagentoAttributeProvider} from "../../../models/KeystoneMagentoAttributeProvider"
+import {MappingModel} from "../../../models/MappingDataProvider"
+import {KeystoneMagentoAttributeData, WoocommerceAttributeData} from "../../../types/keystone";
+import {useActions} from "../../../hooks/useActions";
+import {useState} from "react";
+import styled from "styled-components";
+
+const Form = styled.form`
+  button {
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+`;
 
 export default function ImportProduct(): JSX.Element {
+    const [importBuiling, setImportBuilding] = useState(false)
+    const { addFlashMessage } = useActions()
     const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceAttributeData, OperationVariables> = useLazyQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {}
     });
@@ -19,6 +32,7 @@ export default function ImportProduct(): JSX.Element {
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
         try {
+            setImportBuilding(true)
             const woocommerceData = await getWoocommerceAttributeList();
             const magentoData = await getMagentoAttributeList();
 
@@ -27,7 +41,14 @@ export default function ImportProduct(): JSX.Element {
                 const woocommerce = new WoocommerceAttributeProvider(woocommerceData.data.woocommerceAttributes)
 
                 const MappingData = new MappingModel(woocommerce.getListWithMapping(), magento.getListWithMapping())
-                MappingData.createAttributesImport()
+                const response = await MappingData.createAttributesImport()
+                if (response === undefined) {
+                    addFlashMessage('An error occured when the csv import file was created')
+                } else {
+                    addFlashMessage(`The import has successfully created a csv import file`)
+                }
+                globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                setImportBuilding(false)
             }
         } catch (e) {
             console.log('error');
@@ -35,10 +56,10 @@ export default function ImportProduct(): JSX.Element {
     }
 
     return (
-        <form>
-            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
+        <Form>
+            <button type="submit" disabled={importBuiling} onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
                 Import Magento Products
             </button>
-        </form>
+        </Form>
     )
 }

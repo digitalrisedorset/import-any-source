@@ -2,7 +2,6 @@ import {useEffect, FormEvent} from "react"
 import {OperationVariables, QueryResult, useMutation, useQuery} from '@apollo/client';
 import {
     ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY,
-    ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
     CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION
 } from '../../graphql/keystone'
 import { GET_MAGENTO_ATTRIBUTE_LIST_QUERY } from '../../graphql/magentoQuery'

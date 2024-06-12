@@ -19,7 +19,7 @@ const ItemStyles = styled.div<StyleProps>`
         font-style: italic;
         position: absolute;
         bottom: 5px;
-        right: 5px;
+        right: 50px;
         width: 90px;
         font-size: x-small;
     }
