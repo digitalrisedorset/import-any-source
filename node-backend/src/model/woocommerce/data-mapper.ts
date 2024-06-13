@@ -73,7 +73,7 @@ export class WoocommerceDataMapper {
                 } else {
                     if (value && (value as ProductImage[]).length > 0) {
                         const image = (value as ProductImage[]).pop()
-                        return image.src
+                        return image?.src
                     }
                 }
             default:

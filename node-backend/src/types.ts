@@ -80,7 +80,7 @@ export enum MagentoProductFieldCase {
     image = 'image'
 }
 
-export type FieldValue = string | boolean | null | number[] | number | ProductImage[];
+export type FieldValue = string | boolean | null | number[] | number | ProductImage | ProductImage[];
 
 export type InitialProductData = {
     [Key in string]: FieldValue;
