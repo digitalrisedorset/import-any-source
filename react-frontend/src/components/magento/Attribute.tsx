@@ -12,7 +12,7 @@ export default function Attribute({attribute}: AttributeProps): JSX.Element {
     const date = new Date(attribute.createdAt)
 
     return (
-        <ItemStyles>
+        <ItemStyles delete={false}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

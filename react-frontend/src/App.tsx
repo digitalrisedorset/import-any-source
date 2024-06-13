@@ -9,6 +9,7 @@ import { SickFit } from './components/sickfit'
 import { FlashMessages } from './components/FlashMessages'
 import { NotFound } from './components/NotFound'
 import {Page} from "./Page";
+import {Import} from "./components/woocommerce/Import";
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -60,6 +61,7 @@ export default function App() {
       <Page>
         <FlashMessages />
         <Routes>
+          <Route path="/" element={<Import/>}/>
           <Route path="/sickfits" element={<SickFit/>}/>
           <Route path="/magento" element={<Magento/>}/>
           <Route path="/woocommerce" element={<Woocommerce/>}/>

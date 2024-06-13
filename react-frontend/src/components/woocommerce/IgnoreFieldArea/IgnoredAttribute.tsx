@@ -5,10 +5,7 @@ import { WoocommerceAttribute } from '../../../types/keystone'
 import styled from "styled-components";
 import React from "react";
 import {useMutation} from "@apollo/client";
-import {
-    ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, IGNORED_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
-    UPDATE_ATTRIBUTE_MUTATION
-} from "../../../graphql/keystone";
+import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, UPDATE_ATTRIBUTE_MUTATION} from "../../../graphql/keystone";
 
 const ActivateButton = styled.button`
   background: black;
@@ -34,8 +31,7 @@ export function IgnoredAttribute({attribute}: AttributeProps): JSX.Element {
                 "ignored": false
             }
         },
-        update,
-        refetchQueries: [{query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}, {query: IGNORED_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}]
+        update
     });
 
     function update(cache: any, payload: any) {

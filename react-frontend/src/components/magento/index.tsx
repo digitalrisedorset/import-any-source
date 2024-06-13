@@ -3,9 +3,6 @@ import ImportMagentoAttribute from "./ImportMagentoAttribute";
 
 export function Magento() {
     return (
-        <>
-            <ReadMagentoAttribute />
-            <ImportMagentoAttribute />
-        </>
+        <ReadMagentoAttribute />
     )
 }

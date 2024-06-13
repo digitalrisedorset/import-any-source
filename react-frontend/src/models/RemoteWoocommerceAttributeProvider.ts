@@ -17,7 +17,8 @@ export function RemoteWoocommerceAttributeProvider() {
                     code: attribute.code,
                     name: attribute.name,
                     type: (attribute.type==='options')?'select':'text',
-                    required: false
+                    required: false,
+                    ignored: getIgnoredStatus(attribute.code)
                 }))
             })
             ourRequest.cancel()
@@ -26,18 +27,24 @@ export function RemoteWoocommerceAttributeProvider() {
         }
     }
 
-    const hasAttributesToCreate = function () {
+    const getIgnoredStatus = (attributeCode: string) => {
+        const attributeToActivate = ['name', 'description', 'price', 'status', 'sku', 'visibility', 'quantity', 'sale', 'color', 'size']
+
+        return attributeToActivate.filter((word: string) => attributeCode.includes(word)).length === 0
+    }
+
+    const hasAttributesToCreate = () => {
         return getAttributesToCreateCount()>0
     }
 
-    const getAttributesToCreateCount = function () {
+    const getAttributesToCreateCount = () => {
         if (state.attributesToCreate === undefined) {
             return false;
         }
         return state.attributesToCreate.length
     }
 
-    const getAttributesToCreate = function () {
+    const getAttributesToCreate = () => {
         return state.attributesToCreate
     }
 

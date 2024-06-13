@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface StyleProps {
     required?: boolean;
+    delete?: boolean
 }
 
 const ItemStyles = styled.div<StyleProps>`
@@ -19,7 +20,7 @@ const ItemStyles = styled.div<StyleProps>`
         font-style: italic;
         position: absolute;
         bottom: 5px;
-        right: 50px;
+        right: ${(props: StyleProps): string => props.delete?'50px':'0px' };
         width: 90px;
         font-size: x-small;
     }

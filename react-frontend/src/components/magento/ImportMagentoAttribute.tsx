@@ -8,9 +8,11 @@ import { GET_MAGENTO_ATTRIBUTE_LIST_QUERY } from '../../graphql/magentoQuery'
 import {RemoteMagentoAttributeProvider} from "../../models/RemoteMagentoAttributeProvider";
 import {useActions} from "../../hooks/useActions";
 import {MagentoAttributeData} from "../../types/magento";
+import {useNavigate} from "react-router-dom";
 
 export default function ImportMagentoAttribute(): JSX.Element {
     const { addFlashMessage } = useActions()
+    const navigate = useNavigate()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const [createListAttribute] = useMutation(CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION, {
         variables: {
@@ -28,6 +30,7 @@ export default function ImportMagentoAttribute(): JSX.Element {
                 if (magentoImportProvider.hasAttributesToCreate()) {
                     createListAttribute();
                     addFlashMessage(`${magentoImportProvider.getAttributesToCreateCount()} magento attributes have been added`)
+                    navigate(`/magento`);
                 }
             } catch (e) {
                 console.log("There was a problem.")

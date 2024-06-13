@@ -5,11 +5,8 @@ import MapLink from "./MapLink";
 import { WoocommerceAttribute } from '../../../types/keystone'
 import styled from "styled-components";
 import React from "react";
-import {ApolloCache, useMutation} from "@apollo/client";
-import {
-    ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, IGNORED_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
-    UPDATE_ATTRIBUTE_MUTATION
-} from "../../../graphql/keystone";
+import {useMutation} from "@apollo/client";
+import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, UPDATE_ATTRIBUTE_MUTATION} from "../../../graphql/keystone";
 
 const DeleteButton = styled.button`
   background: black;
@@ -35,8 +32,7 @@ export function Attribute({attribute}: AttributeProps): JSX.Element {
                 "ignored": true
             }
         },
-        update,
-        refetchQueries: [{query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}, {query: IGNORED_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}]
+        update
     });
 
     const date = new Date(attribute.createdAt)
@@ -51,7 +47,7 @@ export function Attribute({attribute}: AttributeProps): JSX.Element {
     }
 
     return (
-        <ItemStyles required={attribute.required}>
+        <ItemStyles required={attribute.required} delete={true}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

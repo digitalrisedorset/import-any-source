@@ -17,13 +17,7 @@ export function Woocommerce(): JSX.Element {
     const { initialAttribute, matchingAttribute } = useParams();
     const { addFlashMessage } = useActions()
     const { data, error, loading }: QueryResult<OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {
-            "where": {
-                "ignored": {
-                    "equals": false
-                }
-            }
-        },
+        variables: {},
     });
 
     const mappingResult:QueryResult<KeystoneMagentoAttributeData | OperationVariables> = useQuery(GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY, {
@@ -51,8 +45,6 @@ export function Woocommerce(): JSX.Element {
                 {loading && <h3>Loading...</h3>}
                 <MappingStatusMagentoAttribute data={mappingResult.data as KeystoneMagentoAttributeData}/>
                 <GetWoocommerceAttribute data={data as WoocommerceAttributeData} />
-                <ImportProduct />
-                <ImportWoocommerceAttribute />
             </div>
             <GetIgnoredAttribute />
         </MappingScreen>

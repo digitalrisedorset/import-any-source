@@ -57,7 +57,7 @@ export default function ImportProduct(): JSX.Element {
 
     return (
         <Form>
-            <button type="submit" disabled={importBuiling} onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
+            <button type="submit" disabled={importBuiling} onClick={handleSubmit}>
                 Import Magento Products
             </button>
         </Form>

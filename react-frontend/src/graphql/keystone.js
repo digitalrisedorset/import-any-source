@@ -1,26 +1,8 @@
 import {gql} from "@apollo/client";
 
 export const ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY = gql`
-     query WoocommerceAttributes($where: WoocommerceAttributeWhereInput!) {
-      woocommerceAttributes(where: $where) {
-        id
-        code
-        name
-        type
-        required
-        ignored
-        createdAt
-        magentoCode {
-            code
-            name
-        }
-      } 
-  }
-`;
-
-export const IGNORED_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY = gql`
-     query WoocommerceAttributes($where: WoocommerceAttributeWhereInput!) {
-      woocommerceAttributes(where: $where) {
+     {
+      woocommerceAttributes {
         id
         code
         name

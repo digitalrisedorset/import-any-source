@@ -1,11 +1,16 @@
 import { useEffect} from "react"
 import { useMutation} from '@apollo/client';
-import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION} from '../../../graphql/keystone'
+import {
+    ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
+    CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION
+} from '../../../graphql/keystone'
 import {useActions} from "../../../hooks/useActions";
 import {RemoteWoocommerceAttributeProvider} from "../../../models/RemoteWoocommerceAttributeProvider"
+import {useNavigate} from "react-router-dom";
 
 export default function ImportWoocommerceAttribute(): JSX.Element {
     const { addFlashMessage } = useActions()
+    const navigate = useNavigate()
     const remoteAttributeProvider = RemoteWoocommerceAttributeProvider()
     const [createListAttribute] = useMutation(CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION, {
         variables: {
@@ -20,6 +25,7 @@ export default function ImportWoocommerceAttribute(): JSX.Element {
                 if (remoteAttributeProvider.hasAttributesToCreate()) {
                     createListAttribute();
                     addFlashMessage(`${remoteAttributeProvider.getAttributesToCreateCount()} woocommerce attributes have been added`)
+                    navigate(`/woocommerce`);
                 }
             } catch (e) {
                 console.log("There was a problem.")
@@ -43,7 +49,7 @@ export default function ImportWoocommerceAttribute(): JSX.Element {
     return (
         <form>
             <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
-                Import Attributes
+                Import Woocommerce Attributes
             </button>
         </form>
     )
