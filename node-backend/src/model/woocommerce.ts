@@ -1,4 +1,4 @@
-import { CacheService } from './data-cache'
+import { CacheService } from './cache/data-cache'
 import { ApiHandler } from './woocommerce/api-handler'
 
 enum OptionAttributeType {
@@ -73,6 +73,24 @@ export class Woocommerce {
             'per_page': process.env.IMPORT_BATCH_SIZE,
             'page': 1,
            // 'sku': 'woo-vneck-tee-blue'
+        })
+
+        if (result === null) {
+            return [];
+        }
+
+        return result;
+    }
+
+    getProductUpdate = async () => {
+        let now = new Date (),
+            dateThreshold = new Date ( now );
+        dateThreshold.setMinutes ( now.getMinutes() - 5 );
+
+        let result = await this.woocommerceApiHandler.callApiUrl('products', {
+            'per_page': process.env.IMPORT_BATCH_SIZE,
+            'page': 1,
+            'modified_after': dateThreshold.toISOString()
         })
 
         if (result === null) {

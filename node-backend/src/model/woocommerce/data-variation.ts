@@ -1,6 +1,6 @@
 import {ApiHandler} from './api-handler'
 import {WoocommerceProduct, WoocommerceProductFieldCase, WoocommerceSimpleProduct} from '../../types'
-import {CacheService} from "../data-cache";
+import {CacheService} from "../cache/data-cache";
 
 export class WoocommerceDataVariations {
     woocommerceApiHandler = new ApiHandler;

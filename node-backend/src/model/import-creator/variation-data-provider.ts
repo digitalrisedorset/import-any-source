@@ -7,7 +7,7 @@ export class VariationDataProvider {
     importRowCreator = new ImportRowCreator()
 
     getVariationRows = async (data: WoocommerceProduct[], mappingFields: ImportMappingFields): Promise<WoocommerceProduct[]> => {
-        this.importRowCreator.createHeader(mappingFields)
+        await this.importRowCreator.createHeader(mappingFields)
 
         const simpleRowsWithVariation: WoocommerceProduct[] = await this.getApiData(data)
 

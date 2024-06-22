@@ -112,6 +112,7 @@ var WoocommerceAttribute = (0, import_core2.list)({
     }),
     length: (0, import_fields2.text)({}),
     required: (0, import_fields2.checkbox)(),
+    ignored: (0, import_fields2.checkbox)(),
     magentoCode: (0, import_fields2.relationship)({ ref: "MagentoAttribute.assignedTo", many: false }),
     createdAt: (0, import_fields2.timestamp)({
       // default this timestamp to Date.now() when first created

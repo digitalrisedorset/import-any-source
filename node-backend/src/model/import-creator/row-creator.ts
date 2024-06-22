@@ -1,7 +1,6 @@
 import {
-    HeaderField,
+    HeaderField,DeleteProductRow,
     ImportMappingFields, InitialProductData, MagentoProductFieldCase,
-    VariationAttribute,
     WoocommerceProduct, WoocommerceProductFieldCase,
 } from "../../types";
 import {WoocommerceDataMapper} from "../woocommerce/data-mapper";
@@ -20,10 +19,20 @@ export class ImportRowCreator {
         return sku
     }
 
-    createHeader = (mappingFields: ImportMappingFields): any => {
-        this.woocommerceDataMapper.setMappingFields(mappingFields)
+    createHeader = async (mappingFields: ImportMappingFields) => {
+        await this.woocommerceDataMapper.setMappingFields(mappingFields)
 
         return this.woocommerceDataMapper.getMagentoCsvHeader()
+    }
+
+    createHeaderFromCache = async () => {
+        await this.woocommerceDataMapper.getMagentoFieldsFromCache()
+
+        return this.woocommerceDataMapper.getMagentoCsvHeader()
+    }
+
+    getMappingFields = async () => {
+        return await this.woocommerceDataMapper.getMagentoFieldsFromCache();
     }
 
     createCsvRow = async (record: WoocommerceProduct) => {

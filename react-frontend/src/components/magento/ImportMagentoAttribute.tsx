@@ -57,6 +57,7 @@ export default function ImportMagentoAttribute(): JSX.Element {
 
     return (
         <form>
+            <h2>Step 2</h2>
             <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
                 Import Magento Attributes
             </button>

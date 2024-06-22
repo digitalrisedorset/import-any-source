@@ -1,4 +1,4 @@
-import {MagentoAttribute, WoocommerceAttributeData} from "../types/keystone";
+import {MagentoAttribute} from "../types/keystone";
 
 export class MagentoAttributeProvider {
     private attributes: MagentoAttribute[];

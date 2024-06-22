@@ -8,15 +8,32 @@ import {
 import {WoocommerceDataVariations} from "./data-variation";
 import {MagentoData} from "../magento-data";
 import { WoocommerceVariationBuilder } from './data-mapper/variation-builder'
+import { CacheService } from '../cache/data-cache-redis'
 
 export class WoocommerceDataMapper {
     magentoData = new MagentoData()
     mappingFields: ImportMappingFields = {'mapping': []}
     woocommerceDataVariations = new WoocommerceDataVariations()
     woocommerceVariationBuilder = new WoocommerceVariationBuilder;
+    private cache: CacheService;
 
-    setMappingFields = (mappingFields: ImportMappingFields) => {
-        this.mappingFields = mappingFields;
+    constructor() {
+        this.cache = new CacheService();
+    }
+
+    setMappingFields = async (mappingFields: ImportMappingFields) => {
+        this.mappingFields = mappingFields
+        await this.cache.set('mappingFields', mappingFields)
+    }
+
+    getMagentoFieldsFromCache = async () => {
+        this.mappingFields = await this.cache.read('mappingFields');
+
+        if (!this.mappingFields) {
+            throw new Error('No mapping is in the cache')
+        }
+
+        return this.mappingFields
     }
 
     getMagentoCsvHeader = () => {

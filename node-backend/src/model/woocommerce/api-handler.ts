@@ -1,8 +1,7 @@
-import {ApiFilter, WoocommerceProduct} from "../../types";
+import {ApiFilter} from "../../types";
 
 const fetch = require("cross-fetch");
 
-const ttl = 60 * 60 * 1; // cache for 1 Hour
 export class ApiHandler {
     errors = []
 

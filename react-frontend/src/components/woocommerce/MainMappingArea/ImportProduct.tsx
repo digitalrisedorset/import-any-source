@@ -57,6 +57,7 @@ export default function ImportProduct(): JSX.Element {
 
     return (
         <Form>
+            <h2>Step 3</h2>
             <button type="submit" disabled={importBuiling} onClick={handleSubmit}>
                 Import Magento Products
             </button>

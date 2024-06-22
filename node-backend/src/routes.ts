@@ -14,7 +14,11 @@ router.get("/getWoocommerceProductList", woocommerceController.apiGetProductList
 
 router.post("/createWoocommerceImport", woocommerceController.createWoocommerceImport)
 
+router.post("/createWoocommerceUpdate", woocommerceController.createWoocommerceUpdateImport)
+
 router.post("/createKeystoneImport", woocommerceController.createKeystoneSeedImport)
+
+router.post("/notifyProductDeletion", woocommerceController.notifyProductDeletion)
 
 export { router }
 

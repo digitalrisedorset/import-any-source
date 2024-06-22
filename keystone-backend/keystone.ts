@@ -16,7 +16,7 @@ const sessionMaxAge = 60 * 60
 export default withAuth<TypeInfo<Session>>(
     config<TypeInfo>({
         server: {
-            cors: { origin: ['http://localhost:3001'], credentials: true },
+            cors: { origin: [`http://${process.env.FRONTEND_HOST}`], credentials: true },
             port: 3000,
             maxFileSize: 200 * 1024 * 1024,
             extendExpressApp: async (app, commonContext) => { /* ... */ },

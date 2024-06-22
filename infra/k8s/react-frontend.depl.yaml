@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-frontend
+  template:
+    metadata:
+      labels:
+        app: react-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: herve010/frontend_import:0.0.7
+          env:
+            - name: REACT_APP_KEYSTONE_HOST
+              value: "import-any-source.digitalrisedorset.co.uk" #"keystone-backend-srv"
+            - name: REACT_APP_NODE_HOST
+              value: "import-any-source.digitalrisedorset.co.uk" #"node-backend-srv"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-frontend-srv
+spec:
+  selector:
+    app: react-frontend
+  ports:
+    - name: react-frontend
+      protocol: TCP
+      port: 3001
+      targetPort: 3001

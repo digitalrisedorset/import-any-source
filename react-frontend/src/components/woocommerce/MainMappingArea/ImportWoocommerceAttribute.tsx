@@ -48,6 +48,7 @@ export default function ImportWoocommerceAttribute(): JSX.Element {
 
     return (
         <form>
+            <h2>Step 1</h2>
             <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
                 Import Woocommerce Attributes
             </button>

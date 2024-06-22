@@ -6,7 +6,7 @@ import { WoocommerceAttribute } from '../../../types/keystone'
 import styled from "styled-components";
 import React from "react";
 import {useMutation} from "@apollo/client";
-import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, UPDATE_ATTRIBUTE_MUTATION} from "../../../graphql/keystone";
+import { UPDATE_ATTRIBUTE_MUTATION} from "../../../graphql/keystone";
 
 const DeleteButton = styled.button`
   background: black;

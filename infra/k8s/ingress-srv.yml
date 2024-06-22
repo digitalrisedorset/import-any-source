@@ -1,0 +1,61 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    - host: import-any-source.digitalrisedorset.co.uk
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: react-frontend-srv
+                port:
+                  number: 3001
+          - path: /getWoocommerceAttributeList
+            pathType: Prefix
+            backend:
+              service:
+                name: node-backend-srv
+                port:
+                  number: 8080
+          - path: /getWoocommerceProductList
+            pathType: Prefix
+            backend:
+              service:
+                name: node-backend-srv
+                port:
+                  number: 8080
+          - path: /createWoocommerceImport
+            pathType: Prefix
+            backend:
+              service:
+                name: node-backend-srv
+                port:
+                  number: 8080
+          - path: /createWoocommerceUpdate
+            pathType: Prefix
+            backend:
+              service:
+                name: node-backend-srv
+                port:
+                  number: 8080
+          - path: /notifyProductDeletion
+            pathType: Prefix
+            backend:
+              service:
+                name: node-backend-srv
+                port:
+                  number: 8080
+          - path: /api/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: keystone-backend-srv
+                port:
+                  number: 3000

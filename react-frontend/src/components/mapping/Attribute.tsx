@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ItemStyles from './../styles/ItemStyles';
-import { Title } from './../styles/Title';
+import { Title } from '../styles/Title';
 import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, useMutation} from "@apollo/client";
 import {
     UPDATE_ATTRIBUTE_MUTATION,

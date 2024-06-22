@@ -1,0 +1,59 @@
+version: "3.8"
+services:
+#  db:
+#    image: mysql:8.0.37
+#    restart: always
+#    environment:
+#      MYSQL_DATABASE: 'keystone_import'
+#      MYSQL_USER: 'keystone_user'
+#      MYSQL_PASSWORD: 'passw0rd'
+#      MYSQL_ROOT_PASSWORD: 'passw0rd'
+#    ports:
+#      - '3306:3306'
+#    expose:
+#      - '3306'
+#    volumes:
+#      - mysqldb:/var/lib/mysql
+  keystone_backend:
+    container_name: keystone_backend
+    build: ./keystone-backend
+    #env_file: ./keystone-backend/.env
+    #restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./keystone-backend:/user/src/keystone-backend
+    expose:
+      - 3000
+    networks:
+      - import-network
+  node_backend:
+    container_name: node_backend
+    build: ./node-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./node-backend:/user/src/node-backend
+    expose:
+      - 8080
+    networks:
+      - import-network
+  react_frontend:
+    container_name: react_frontend
+    build: ./react-frontend
+    restart: always
+    env_file: react-frontend/.env
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./react-frontend:/user/src/react-frontend
+    expose:
+      - 3001
+    networks:
+      - import-network
+networks:
+  import-network:
+    driver: bridge
+#volumes:
+#  mysqldb:

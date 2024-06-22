@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keystone-backend-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keystone-backend
+  template:
+    metadata:
+      labels:
+        app: keystone-backend
+    spec:
+      containers:
+        - name: frontend
+          image: herve010/keystone_import:0.3.0
+          env:
+            - name: FRONTEND_HOST
+              value: "react-frontend-srv"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keystone-backend-srv
+spec:
+  selector:
+    app: keystone-backend
+  ports:
+    - name: keystone-backend
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

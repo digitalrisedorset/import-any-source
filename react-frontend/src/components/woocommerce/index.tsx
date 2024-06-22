@@ -7,8 +7,6 @@ import {
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
     GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY
 } from "../../graphql/keystone";
-import ImportWoocommerceAttribute from "./MainMappingArea/ImportWoocommerceAttribute";
-import ImportProduct from "./MainMappingArea/ImportProduct";
 import {MappingStatusMagentoAttribute} from "../magento/MappingStatusMagentoAttribute";
 import {MappingScreen} from '../styles/MappingScreen';
 import {GetIgnoredAttribute} from "./IgnoreFieldArea/GetIgnoredAttribute";

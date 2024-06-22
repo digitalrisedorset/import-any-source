@@ -2,7 +2,7 @@ import Form from './../styles/Form';
 import { useState, useEffect } from "react"
 import { useParams} from "react-router-dom"
 import { filterOptions } from 'fuzzy-match-utils';
-import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery} from "@apollo/client";
+import {LazyQueryResultTuple, OperationVariables, useLazyQuery} from "@apollo/client";
 import {KeystoneMagentoAttributeData, MagentoAttribute} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
 import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
