@@ -1,4 +1,5 @@
 import {ApiFilter} from "../../types";
+import {config} from "../../config";
 
 const fetch = require("cross-fetch");
 
@@ -6,13 +7,15 @@ export class ApiHandler {
     errors = []
 
     callApiUrl = async (apiSuffix: string, filter: ApiFilter | null = null) => {
-        let apiUrl = `${process.env.WOOMMERCE_API_URL}${apiSuffix}?consumer_key=${process.env.WOOCOMMERCE_KEY}&consumer_secret=${process.env.WOOCOMMERCE_SECRET}`
+        let apiUrl = `${config.woocommerce.apiUrl}${apiSuffix}?consumer_key=${config.woocommerce.apiKey}&consumer_secret=${config.woocommerce.apiSecret}`
 
         if (filter !== null) {
             Object.keys(filter).forEach(function(key) {
                 apiUrl += `&${key}=${filter[key]}`
             });
         }
+
+        console.log(apiUrl)
 
         const res = await fetch(apiUrl, {
             method: "get",

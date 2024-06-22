@@ -1,5 +1,5 @@
 import {
-    HeaderField,DeleteProductRow,
+    HeaderField,
     ImportMappingFields, InitialProductData, MagentoProductFieldCase,
     WoocommerceProduct, WoocommerceProductFieldCase,
 } from "../../types";
