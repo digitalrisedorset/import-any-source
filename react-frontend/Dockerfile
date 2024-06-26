@@ -8,5 +8,6 @@ RUN npm ci --only=production
 
 COPY . .
 
-CMD ["npm", "run", "build"]
+RUN npm run build
+
 CMD ["npm", "run", "start"]
