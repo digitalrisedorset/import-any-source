@@ -1,15 +1,18 @@
 {
-  "name": "import-sanitiser",
+  "name": "import-mapping-system",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "dev": "keystone dev",
+    "start": "keystone start",
+    "build": "keystone build",
+    "postinstall": "keystone postinstall --fix"
+  },
   "dependencies": {
     "@keystone-6/auth": "^8.0.0",
     "@keystone-6/core": "^6.0.0",
-    "@prisma/client": "^5.13.0",
+    "dotenv": "^16.4.5",
     "typescript": "^5.4.5"
-  },
-  "devDependencies": {
-    "prisma": "^5.13.0"
   }
 }
