@@ -9,7 +9,7 @@ export class ImportCreator {
     variationDataProvider = new VariationDataProvider()
 
     createCsvImport = async (data: WoocommerceProduct[], mappingFields: ImportMappingFields) => {
-        let row = this.importRowCreator.createHeader(mappingFields)
+        let row = await this.importRowCreator.createHeader(mappingFields)
         this.csvWriter.writeHeader(row)
         const simpleRows = await this.variationDataProvider.getVariationRows(data, mappingFields)
 

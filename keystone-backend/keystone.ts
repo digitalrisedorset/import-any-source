@@ -4,6 +4,8 @@ import type { TypeInfo } from '.keystone/types'
 import { withAuth } from "./auth";
 import { statelessSessions } from '@keystone-6/core/session';
 import { type Session, lists } from './schema'
+import { getDatabaseConnection } from './schemas/config'
+import {keystoneconfig} from './config'
 
 // WARNING: you need to change this
 const sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --'
@@ -16,7 +18,7 @@ const sessionMaxAge = 60 * 60
 export default withAuth<TypeInfo<Session>>(
     config<TypeInfo>({
         server: {
-            cors: { origin: [`http://${process.env.FRONTEND_HOST}`], credentials: true },
+            cors: { origin: [`http://${keystoneconfig.frontend.host}`], credentials: true },
             port: 3000,
             maxFileSize: 200 * 1024 * 1024,
             extendExpressApp: async (app, commonContext) => { /* ... */ },

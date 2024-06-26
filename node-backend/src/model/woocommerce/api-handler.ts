@@ -15,8 +15,6 @@ export class ApiHandler {
             });
         }
 
-        console.log(apiUrl)
-
         const res = await fetch(apiUrl, {
             method: "get",
         })

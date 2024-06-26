@@ -10,7 +10,6 @@ const cron = require('node-cron');
 // });
 
 const checkProductUpdate = async () => {
-    debugger
     try {
         console.log('checkProductUpdate')
         let wooClient = new Woocommerce()

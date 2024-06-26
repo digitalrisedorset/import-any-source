@@ -7,6 +7,9 @@ export const startServer = async () => {
     const port = config.port
 
     app.use(express.json())
+    app.use(express.urlencoded({
+        extended: true
+    }))
 
     await initialiseApp(app, config)
 

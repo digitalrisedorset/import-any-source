@@ -29,7 +29,6 @@ export class WoocommerceController {
 
     apiGetAttributeList = async (req: Request, res: Response)=> {
         try {
-            debugger
             let wooClient = new Woocommerce()
             let list = await wooClient.getAttributeList();
             res.json(list)

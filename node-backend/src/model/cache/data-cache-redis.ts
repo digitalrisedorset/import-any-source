@@ -8,9 +8,7 @@ export class CacheService {
             console.log("Redis error encountered", err);
         });
 
-        client.on("end", function() {
-            console.log("Redis connection closed");
-        });
+        //client.on("end", function() {});
 
         await client.connect();
 
