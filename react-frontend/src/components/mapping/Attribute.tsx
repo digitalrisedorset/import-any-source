@@ -61,16 +61,20 @@ export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Elem
         variables: {
             "where": {
                 "code": {
-                    "equals": attribute.value
+                    "equals": attribute.label
                 }
             }
         }
     });
 
+    const isMappingReady = () => {
+        return woocommerceAttributeStateId && magentoAttributeStateId
+    }
+
     useEffect(() => {
         async function linkAttribute() {
             try {
-                if (woocommerceAttributeStateId!='' && magentoAttributeStateId!='') {
+                if (woocommerceAttributeStateId!=='' && magentoAttributeStateId!=='') {
                     mapAttribute();
                     addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)
                     navigate(`/woocommerce/${initialAttribute}/${attribute.label}`);
@@ -83,7 +87,7 @@ export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Elem
         return () => {
 
         }
-    }, [woocommerceAttributeStateId && magentoAttributeStateId])
+    }, [isMappingReady()])
 
     const mapField = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();

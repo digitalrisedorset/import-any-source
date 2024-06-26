@@ -7,24 +7,20 @@ import {KeystoneMagentoAttributeData, MagentoAttribute} from "../../types/keysto
 import { useActions } from "../../hooks/useActions";
 import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
-interface MapFieldProps {
-    attribute: MagentoAttribute
-}
-
 export function MapField(): JSX.Element {
     const { code } = useParams();
     const { resetFlashMessage } = useActions()
     const { setWoocommerceAttributesMatchFound } = useActions()
 
     const [attributeCodeState, setAttributeCodeState] = useState('');
-    const [getAttributeList, { loading, data }]: LazyQueryResultTuple<KeystoneMagentoAttributeData, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
+    const [getAttributeList]: LazyQueryResultTuple<KeystoneMagentoAttributeData, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {}
     });
 
     async function findMagentoAttribute(code: string) {
         const data = await getAttributeList();
-        let options = data?.data?.magentoAttributes.map((attribute: MagentoAttribute) => ({label: attribute.name, value: attribute.code}))
-        let match = filterOptions(options, attributeCodeState)
+        let optionsFromCode = data?.data?.magentoAttributes.map((attribute: MagentoAttribute) => ({label: attribute.code, value: attribute.name}))
+        let match = filterOptions(optionsFromCode, attributeCodeState)
 
         setWoocommerceAttributesMatchFound(code, match)
     }
