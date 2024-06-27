@@ -16,21 +16,24 @@ services:
 #      - mysqldb:/var/lib/mysql
   keystone_backend:
     container_name: keystone_backend
-    build: ./keystone-backend
-    #env_file: ./keystone-backend/.env
+    image: herve010/keystone-build:0.0.5
+    env_file: ./keystone-backend/.env
+    environment:
+      - FRONTEND_HOST=localhost:3001
     #restart: always
     ports:
       - "3000:3000"
     volumes:
       - ./keystone-backend:/user/src/keystone-backend
-    expose:
-      - 3000
     networks:
       - import-network
+#    depends_on:
+#      - db
   node_backend:
     container_name: node_backend
     build: ./node-backend
     restart: always
+    env_file: node-backend/.env
     ports:
       - "8080:8080"
     volumes:
