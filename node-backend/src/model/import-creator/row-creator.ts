@@ -21,7 +21,6 @@ export class ImportRowCreator {
 
     createHeader = async (mappingFields: ImportMappingFields) => {
         await this.woocommerceDataMapper.setMappingFields(mappingFields)
-
         return this.woocommerceDataMapper.getMagentoCsvHeader()
     }
 

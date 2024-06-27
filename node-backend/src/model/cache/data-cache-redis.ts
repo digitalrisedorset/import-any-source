@@ -6,8 +6,9 @@ export class CacheService {
         const client = redis.createClient(config.cache.redis.port, config.cache.redis.host);
 
         client.on("error", function (err: string) {
-            console.log("Redis config", config.cache.redis);
-            console.log("Redis error encountered", err);
+            //console.log("Redis config", config.cache.redis);
+            //console.log("Redis error encountered", err);
+            throw new Error('Cache not active')
         });
 
         //client.on("end", function() {});
@@ -40,11 +41,16 @@ export class CacheService {
         }
     }
     set = async (key: string, value: any) => {
-        const redis = await this.redisClientInit()
-        const response = await redis.set(key, JSON.stringify(value));
-        await redis.quit();
+        try {
+            const redis = await this.redisClientInit()
 
-        return response
+            const response = await redis.set(key, JSON.stringify(value));
+            await redis.quit();
+
+            return response
+        } catch (e) {
+
+        }
     }
     read = async (key: string) => {
         const redis = await this.redisClientInit()

@@ -10,14 +10,15 @@ export class ImportCreator {
 
     createCsvImport = async (data: WoocommerceProduct[], mappingFields: ImportMappingFields) => {
         let row = await this.importRowCreator.createHeader(mappingFields)
+        console.log('Csv import Header', row)
         this.csvWriter.writeHeader(row)
         const simpleRows = await this.variationDataProvider.getVariationRows(data, mappingFields)
 
         const rows = await Promise.all(data.map(async (record) => {
             return await this.importRowCreator.createCsvRow(record)
         }, this))
-
-        return this.csvWriter.writeRecords([...simpleRows, ...rows])
+        console.log('Import complete')
+        return this.finaliseWriteRows([...simpleRows, ...rows])
     }
 
     createCsvUpdateImport = async (data: WoocommerceProduct[]) => {
@@ -30,7 +31,7 @@ export class ImportCreator {
             return await this.importRowCreator.createCsvRow(record)
         }, this))
 
-        return this.csvWriter.writeRecords([...simpleRows, ...rows])
+        return this.finaliseWriteRows([...simpleRows, ...rows])
     }
 
     createCsvDeleteImport = async (productId: number)=> {
@@ -42,5 +43,10 @@ export class ImportCreator {
         row['sku'] = ''
         row['status'] = 'delete'
         this.csvWriter.writeRecords([...row])
+    }
+
+    finaliseWriteRows = (csvRows: (WoocommerceProduct | InitialProductData)[]) => {
+        console.log(`Import file with ${csvRows.length}`)
+        return this.csvWriter.writeRecords(csvRows)
     }
 }

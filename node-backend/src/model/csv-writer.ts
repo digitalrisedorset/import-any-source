@@ -5,10 +5,15 @@ import {config} from '../config'
 export class CsvWriter {
     writer = null;
 
+    getProductFilename = () => {
+        const date = new Date().toLocaleString().replace(/[^A-Z0-9]+/ig, "-");
+        return `products-${date}.csv`
+    }
+
     writeHeader = (row: any) => {
-        console.log(`${(new Date()).toLocaleString()}: write csv file at ${config.import.csv_folder}/products.csv`)
+        console.log(`${(new Date()).toLocaleString()}: write csv file at ${config.import.csv_folder}/${this.getProductFilename()}`)
         this.writer = csvLibWriter.createObjectCsvWriter({
-            path: path.resolve(config.import.csv_folder, 'products.csv'),
+            path: path.resolve(config.import.csv_folder, this.getProductFilename()),
             header: row,
         });
     }
