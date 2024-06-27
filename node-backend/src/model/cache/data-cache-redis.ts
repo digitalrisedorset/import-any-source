@@ -1,10 +1,12 @@
 const redis  = require("redis")
+import {config} from '../../config'
 
 export class CacheService {
     redisClientInit = async () => {
-        const client = redis.createClient(6379, "localhost");
+        const client = redis.createClient(config.cache.redis.port, config.cache.redis.host);
 
         client.on("error", function (err: string) {
+            console.log("Redis config", config.cache.redis);
             console.log("Redis error encountered", err);
         });
 

@@ -11,7 +11,7 @@ export const startServer = async () => {
         extended: true
     }))
 
-    await initialiseApp(app, config)
+    await initialiseApp(app)
 
     try {
         app.listen(port, () => {

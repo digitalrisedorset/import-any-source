@@ -1,12 +1,14 @@
 const csvLibWriter = require('csv-writer');
 const path = require('path');
+import {config} from '../config'
 
 export class CsvWriter {
     writer = null;
 
     writeHeader = (row: any) => {
+        console.log(`${(new Date()).toLocaleString()}: write csv file at ${config.import.csv_folder}/products.csv`)
         this.writer = csvLibWriter.createObjectCsvWriter({
-            path: path.resolve(process.env.IMPORT_CSV_FOLDER, 'products.csv'),
+            path: path.resolve(config.import.csv_folder, 'products.csv'),
             header: row,
         });
     }
