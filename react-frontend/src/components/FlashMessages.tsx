@@ -31,12 +31,12 @@ const ErrorStyles = styled.div`
   }
 `;
 
-export function FlashMessages(): JSX.Element {
+export function FlashMessages() {
     const { messages, messageType} = useTypedSelector((state) => state.flashMessages)
 
     return (
         <div className="floating-alerts">
-            {messageType == 'error' && messages.map((msg, index) => {
+            {messageType === 'error' && messages.map((msg, index) => {
                 return (
                     <ErrorStyles key={index}>
                         <div className="alert alert-error text-center floating-alert shadow-sm">
@@ -46,7 +46,7 @@ export function FlashMessages(): JSX.Element {
                 )
             })}
 
-            {messageType == 'success' && messages.map((msg, index) => {
+            {messageType === 'success' && messages.map((msg, index) => {
                 return (
                     <SuccessStyles key={index}>
                         <div className="alert alert-success text-center floating-alert shadow-sm">

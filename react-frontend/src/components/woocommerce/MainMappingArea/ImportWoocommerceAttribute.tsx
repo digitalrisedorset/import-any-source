@@ -8,7 +8,7 @@ import {useActions} from "../../../hooks/useActions";
 import {RemoteWoocommerceAttributeProvider} from "../../../models/RemoteWoocommerceAttributeProvider"
 import {useNavigate} from "react-router-dom";
 
-export default function ImportWoocommerceAttribute(): JSX.Element {
+export default function ImportWoocommerceAttribute() {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const remoteAttributeProvider = RemoteWoocommerceAttributeProvider()

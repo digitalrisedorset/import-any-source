@@ -1,4 +1,4 @@
-import {ApolloClient, ApolloLink, HttpLink, InMemoryCache, DefaultOptions } from "@apollo/client";
+import {ApolloClient, ApolloLink, HttpLink, InMemoryCache } from "@apollo/client";
 import {graphqlEndpoint, magentographqlEndpoint} from "./config";
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 

@@ -6,7 +6,7 @@ import { useActions } from "../../hooks/useActions";
 
 export function MatchingField(): JSX.Element {
     const { addFlashMessage } = useActions()
-    const { loading: boolean, error: string, woocommerceAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.woocommerceMapping)
+    const { woocommerceAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.woocommerceMapping)
 
     addFlashMessage(`The system has found ${magentoMatchAttributes.length} possible matching magento attributes`)
 

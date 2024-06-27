@@ -20,7 +20,7 @@ export default function ImportMagentoAttribute(): JSX.Element {
         },
         refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }],
     });
-    const { data, error, loading }: QueryResult<MagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
+    const { data, loading }: QueryResult<MagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
         variables: {}, context: {clientName: 'magento'}
     });
 

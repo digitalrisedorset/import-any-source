@@ -37,14 +37,6 @@ const staticMagentoFields = [
     }
 ];
 
-const mappableMagentoFields = [
-    'name', 'description','short_description','price',
-    'special_price','special_from_date','special_to_date','cost',
-    'weight','manufacturer','meta_title','meta_keyword','meta_description',
-    'image','small_image','thumbnail','tier_price','color','news_from_date','news_to_date',
-    'status','visibility','quantity_and_stock_status','url_key','tax_class_id','activity','style_bags','material'
-];
-
 const nonMappableMagentoFields = [
     'msrp_display_actual_price_type','gift_message_available','msrp','shipment_type','weight_type',
     'price_type','custom_layout_update_file','custom_layout','options_container','page_layout',

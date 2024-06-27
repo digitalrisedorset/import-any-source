@@ -7,7 +7,6 @@ const MINUTE_MS = 60000;
 
 export function MonitorUpdate(): JSX.Element {
     const [monitor, setMonitor] = useState(false)
-    const [count, setCount] = useState(0)
     const { addFlashMessage } = useActions()
     const updateModel = new UpdateModel()
 

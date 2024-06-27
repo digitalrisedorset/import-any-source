@@ -13,9 +13,6 @@ export default function Nav(): JSX.Element {
             <Link to="/woocommerce" className="text-white">
                 Woocommerce
             </Link>
-            <Link to="/mapping" className="text-white">
-                Mapping
-            </Link>
         </NavStyles>
     );
 }

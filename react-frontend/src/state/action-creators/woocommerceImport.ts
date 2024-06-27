@@ -12,7 +12,7 @@ export const importWoocommerceAttributes = () => {
         })
 
         try {
-            const [getAttributeList, { loading, data }] = useLazyQuery<WoocommerceAttributeData>(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
+            const [getAttributeList] = useLazyQuery<WoocommerceAttributeData>(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
                 variables: {}
             });
 

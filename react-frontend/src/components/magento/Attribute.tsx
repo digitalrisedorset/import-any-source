@@ -8,11 +8,11 @@ interface AttributeProps {
     attribute: MagentoAttribute
 }
 
-export default function Attribute({attribute}: AttributeProps): JSX.Element {
+export default function Attribute({attribute}: AttributeProps) {
     const date = new Date(attribute.createdAt)
 
     return (
-        <ItemStyles delete={false}>
+        <ItemStyles candelete={false}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

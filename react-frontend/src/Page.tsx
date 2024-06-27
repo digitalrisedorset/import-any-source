@@ -31,9 +31,9 @@ const GlobalStyles = createGlobalStyle`
 
 export function Page({ children }: PageProps) {
     return (
-        <body>
+        <>
             <GlobalStyles />
             {children}
-        </body>
+        </>
     )
 }

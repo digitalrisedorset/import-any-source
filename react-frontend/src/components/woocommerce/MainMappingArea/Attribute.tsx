@@ -47,7 +47,7 @@ export function Attribute({attribute}: AttributeProps): JSX.Element {
     }
 
     return (
-        <ItemStyles required={attribute.required} delete={true}>
+        <ItemStyles required={attribute.required} candelete={true}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

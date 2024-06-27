@@ -14,20 +14,19 @@ export class MappingModel {
     public async createAttributesImport(): Promise<AxiosResponse | undefined> {
         try {
             const fields = this.getFieldList()
-            const response = await Axios.post(
+            return await Axios.post(
                 '/createWoocommerceImport',
-                {'mapping':fields }
-            );
-            return response
+                {'mapping': fields}
+            )
         } catch (e) {
             console.log(e)
         }
     }
 
-    public async createKeystoneSeedImport() {
+    public async createKeystoneSeedImport(): Promise<AxiosResponse | undefined> {
         try {
             const fields = this.getFieldList()
-            const response = await Axios.post(
+            return await Axios.post(
                 '/createWoocommerceImport',
                 {'mapping':fields }
             );

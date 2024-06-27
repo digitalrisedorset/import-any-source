@@ -54,11 +54,10 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 export default function App() {
-  return (<div className="App">
+  return (<Page>
     <GlobalStyles/>
     <BrowserRouter>
       <Header title="Welcome on the Import Attribute Reader"/>
-      <Page>
         <FlashMessages />
         <Routes>
           <Route path="/" element={<Import/>}/>
@@ -69,7 +68,6 @@ export default function App() {
           <Route path="/map/:code" element={<Map/>}/>
           <Route path="/map" element={<NotFound />}/>
         </Routes>
-      </Page>
     </BrowserRouter>
-  </div>)
+  </Page>)
 }

@@ -10,14 +10,14 @@ export function MappingStatusMagentoAttribute(props: MagentoAttributeProps): JSX
         <AwaitingLinkStyle>
             <h2>Magento Attributes Awaiting Link</h2>
             {(props.data?.magentoAttributes.map((attribute: MagentoAttribute ) => (
-                <>
+                <div key={attribute.code}>
                 {attribute.assignedTo && (
                     <p>{attribute.name} (code:{attribute.code}, linked with {attribute.assignedTo.name})</p>
                     )}
                 {!attribute.assignedTo && (
                     <p>{attribute.name} (code:{attribute.code})</p>
                     )}
-                </>
+                </div>
             )))}
         </AwaitingLinkStyle>
     )

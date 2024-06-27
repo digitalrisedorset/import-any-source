@@ -10,7 +10,7 @@ export function RemoteWoocommerceProductProvider() {
 
     const createKeystoneSeedProducts = async function() {
         try {
-            const response = await Axios.post('/createKeystoneImport');
+            await Axios.post('/createKeystoneImport');
         } catch (e) {
             console.log(e)
         }

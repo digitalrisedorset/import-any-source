@@ -12,7 +12,7 @@ const AwaitingLinkStyle = styled.div`
     height: 68px;
     position: absolute;
     right: 5rem;
-    top: 0;
+    top: -95px;
     h2 {
         margin-bottom: 20px;
     }

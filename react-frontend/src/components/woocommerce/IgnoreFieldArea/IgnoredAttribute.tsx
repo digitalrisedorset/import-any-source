@@ -38,8 +38,6 @@ export function IgnoredAttribute({attribute}: AttributeProps): JSX.Element {
         cache.evict(cache.identify(payload.data.updateWoocommerceAttribute));
     }
 
-    const date = new Date(attribute.createdAt)
-
     const activateField = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         setWoocommerceAttributeActivate()

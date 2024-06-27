@@ -1,6 +1,0 @@
-version: '2'
-services:
-  keystone-service:
-    build:
-      context: .
-      dockerfile: dockerfile.keystone.BAK

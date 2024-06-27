@@ -6,6 +6,7 @@ interface StyleProps {
 
 export const MappingScreen = styled.div<StyleProps>`
   border: 1px solid var(--offWhite);
+    position: relative;
   box-shadow: var(--bs);
     display: flex;
     .fields {
