@@ -1,5 +1,7 @@
 import Axios, {AxiosResponse} from "axios";
 import {MagentoAttribute, WoocommerceAttribute} from "../types/keystone";
+import {nodejsEndpoint} from "../config";
+import {ImportResponse} from "../types/woocommerce"
 
 export class MappingModel {
     private wocommerceList: WoocommerceAttribute[] = [];
@@ -11,16 +13,17 @@ export class MappingModel {
         this.magentoList = magentoList
     }
 
-    public async createAttributesImport(): Promise<AxiosResponse | undefined> {
-        try {
-            const fields = this.getFieldList()
-            return await Axios.post(
-                '/createWoocommerceImport',
-                {'mapping': fields}
-            )
-        } catch (e) {
-            console.log(e)
-        }
+    public async createAttributesImport(): Promise<ImportResponse | undefined> {
+        const fields = this.getFieldList()
+        const response = await Axios.post(
+            '/createWoocommerceImport',
+            {'mapping': fields}
+        )
+
+        return {
+            filename: response.data.filename,
+            fileurl: `${nodejsEndpoint}/${response.data.filename}`
+        };
     }
 
     public async createKeystoneSeedImport(): Promise<AxiosResponse | undefined> {

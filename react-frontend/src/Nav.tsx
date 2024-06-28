@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import NavStyles from './components/styles/NavStyles';
 
-export default function Nav(): JSX.Element {
+export default function Nav() {
     return (
         <NavStyles>
            {/* <Link to="/sickfits" className="text-white">

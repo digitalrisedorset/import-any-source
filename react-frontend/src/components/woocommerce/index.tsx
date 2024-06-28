@@ -11,7 +11,7 @@ import {MappingStatusMagentoAttribute} from "../magento/MappingStatusMagentoAttr
 import {MappingScreen} from '../styles/MappingScreen';
 import {GetIgnoredAttribute} from "./IgnoreFieldArea/GetIgnoredAttribute";
 
-export function Woocommerce(): JSX.Element {
+export function Woocommerce() {
     const { initialAttribute, matchingAttribute } = useParams();
     const { addFlashMessage } = useActions()
     const { data, error, loading }: QueryResult<OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {

@@ -10,6 +10,7 @@ import {KeystoneMagentoAttributeData, WoocommerceAttributeData} from "../../../t
 import {useActions} from "../../../hooks/useActions";
 import {useState} from "react";
 import styled from "styled-components";
+import {ImportResponse} from "../../../types/woocommerce"
 
 const Form = styled.form`
   button {
@@ -21,7 +22,7 @@ const Form = styled.form`
 
 export default function ImportProduct(): JSX.Element {
     const [importBuiling, setImportBuilding] = useState(false)
-    const { addFlashMessage } = useActions()
+    const { addDownloadMessage } = useActions()
     const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceAttributeData, OperationVariables> = useLazyQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {}
     });
@@ -42,11 +43,7 @@ export default function ImportProduct(): JSX.Element {
 
                 const MappingData = new MappingModel(woocommerce.getListWithMapping(), magento.getListWithMapping())
                 const response = await MappingData.createAttributesImport()
-                if (response === undefined) {
-                    addFlashMessage('An error occured when the csv import file was created')
-                } else {
-                    addFlashMessage(`The import has successfully created a csv import file`)
-                }
+                addDownloadMessage('The import has successfully created a csv import file', response as ImportResponse)
                 globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                 setImportBuilding(false)
             }

@@ -23,3 +23,17 @@ export interface RemoteWoocommerceProduct {
 export interface WocommerceApiProducteResponse {
     data: RemoteWoocommerceProduct[]
 }
+
+export interface DownlinkFile {
+    filename: string,
+    fileurl: string
+}
+
+export interface ImportResponse extends DownlinkFile {
+}
+
+export interface ImportUpdateResponse extends DownlinkFile {
+    filename: string,
+    fileurl: string,
+    numberUpdate?: number
+}

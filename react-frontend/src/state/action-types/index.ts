@@ -5,7 +5,6 @@ export enum WoocommmerceAttributesLoadActionType {
 }
 
 export enum WoocommmerceAttributesMappingActionType {
-    WOOCOMMERCE_ATTRIBUTES_MAPPING = 'woocommerce_attributes_mapping',
     WOOCOMMERCE_ATTRIBUTES_MATCH_SEARCH_COMPLETE = 'woocommerce_attributes_match_search_complete',
     WOOCOMMERCE_ATTRIBUTES_MAPPING_SET = 'woocommerce_attributes_mapping_set',
     WOOCOMMERCE_ATTRIBUTES_MAPPING_ERROR = 'woocommerce_attributes_mapping_error'
@@ -25,5 +24,6 @@ export enum WoocommmerceAttributesImportActionType {
 
 export enum FlashMessageActionType {
     ADD_FLASH_MESSAGE = 'add_flash_message',
-    RESET_FLASH_MESSAGE = 'reset_flash_message'
+    RESET_FLASH_MESSAGE = 'reset_flash_message',
+    ADD_DOWNLOAD_MESSAGE = 'add_download_message',
 }

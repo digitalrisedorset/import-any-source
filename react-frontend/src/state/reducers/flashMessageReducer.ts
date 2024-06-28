@@ -1,10 +1,11 @@
-import {FlassMessaggeActionList, WoocommerceAttributesLoadActionList} from '../actions'
-import {FlashMessageActionType, WoocommmerceAttributesLoadActionType} from '../action-types'
-import { WoocommerceAttribute } from "../../types/keystone";
+import {FlassMessaggeActionList} from '../actions'
+import {FlashMessageActionType} from '../action-types'
+import {ImportResponse} from "../../types/woocommerce"
 
 interface FlashMessageState {
     messages: string[]
-    messageType: string
+    messageType: string,
+    downloadLink?: ImportResponse
 }
 
 const initialState = {
@@ -20,6 +21,9 @@ const reducer = (
         case FlashMessageActionType.ADD_FLASH_MESSAGE:
             //state.messages.push(action.message)
             return { messages: [action.message], messageType: 'success' }
+        case FlashMessageActionType.ADD_DOWNLOAD_MESSAGE:
+            //state.messages.push(action.message)
+            return { messages: [action.message], downloadLink: action.file, messageType: 'success' }
         case FlashMessageActionType.RESET_FLASH_MESSAGE:
             return { messages: [], messageType: 'success' }
         default:

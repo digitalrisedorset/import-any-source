@@ -1,27 +1,42 @@
 import {MonitoringArea} from '../styles/MappingScreen';
 import {useEffect, useState} from "react";
 import {UpdateModel} from "../../models/UpdateImport"
-import {useActions} from "../../hooks/useActions";
+import {ImportUpdateResponse} from "../../types/woocommerce";
+import {RenderFileDownload} from "./DownloadLink"
 
-const MINUTE_MS = 60000;
+const InitUpdateResponse: ImportUpdateResponse = {
+    filename: '',
+    fileurl: ''
+}
 
-export function MonitorUpdate(): JSX.Element {
+interface UpdateResponse extends ImportUpdateResponse {
+    numberUpdate: number
+}
+
+const MINUTE_MS = 30000;
+
+const RenderUpdate = (updateCsvFile: UpdateResponse) => (
+    <>
+        {updateCsvFile.numberUpdate===0 && <>
+            <h3>No Update have been happening</h3>
+        </>}
+        {updateCsvFile.numberUpdate>0 && <>
+            <h3>The last update has saved {updateCsvFile.numberUpdate} product changes</h3>
+                {RenderFileDownload(updateCsvFile)}
+            </>}
+    </>
+)
+
+export function MonitorUpdate() {
     const [monitor, setMonitor] = useState(false)
-    const { addFlashMessage } = useActions()
-    const updateModel = new UpdateModel()
+    const [updateCsvFile, setUpdateCsvFile] = useState(InitUpdateResponse)
 
     useEffect(() => {
+        const updateModel = new UpdateModel()
         const interval = setInterval(async () => {
-            const response = await updateModel.createUpdateImport()
-            if (response === undefined) {
-                addFlashMessage('An error occured when the csv import file was created')
-            } else {
-                if (response.data?.count === 0) {
-                    addFlashMessage(`No product were updated in the last minute`)
-                } else {
-                    addFlashMessage(`${response.data?.count} were successfully registered for update`)
-                }
-            }
+            updateModel.createUpdateImport().then(response => {
+                setUpdateCsvFile(response as UpdateResponse)
+            })
         }, MINUTE_MS);
 
         return () => clearInterval(interval);
@@ -42,12 +57,14 @@ export function MonitorUpdate(): JSX.Element {
                 <h2>Product Update Status</h2>
                 {!monitor && <button type="submit" onClick={handleSubmit}>
                     Launch Product Monitoring
-                </button>}
+                </button>
+                }
                 {monitor && <>The product update are being monitored<br/>
                     <button type="submit" onClick={handleSubmit}>
                         Stop Product Monitoring
                     </button>
                 </>}
+                {RenderUpdate(updateCsvFile as UpdateResponse)}
             </form>
         </MonitoringArea>
     )

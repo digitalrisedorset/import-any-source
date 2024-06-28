@@ -1,6 +1,6 @@
-import {MagentoAttribute, WoocommerceAttribute, MatchingAttributeData } from "../../types/keystone";
-import {WoocommerceAttributesLoadActionList, WoocommerceAttributesMappingActionList} from "../actions";
-import {WoocommmerceAttributesLoadActionType, WoocommmerceAttributesMappingActionType} from "../action-types";
+import {MagentoAttribute, MatchingAttributeData } from "../../types/keystone";
+import { WoocommerceAttributesMappingActionList} from "../actions";
+import { WoocommmerceAttributesMappingActionType} from "../action-types";
 
 interface WoocommerceAttributesMappingState {
     loading: boolean;
@@ -17,7 +17,6 @@ const initialState = {
     magentoMatchAttributes: [],
     magentoMatch: null
 }
-
 
 const reducer = (
     state: WoocommerceAttributesMappingState = initialState,

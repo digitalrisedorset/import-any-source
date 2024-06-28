@@ -1,5 +1,6 @@
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import styled from "styled-components";
+import {RenderFileDownload} from "./woocommerce/DownloadLink"
 
 const SuccessStyles = styled.div`
   padding: 2rem;
@@ -32,7 +33,7 @@ const ErrorStyles = styled.div`
 `;
 
 export function FlashMessages() {
-    const { messages, messageType} = useTypedSelector((state) => state.flashMessages)
+    const { messages, downloadLink, messageType} = useTypedSelector((state) => state.flashMessages)
 
     return (
         <div className="floating-alerts">
@@ -41,6 +42,7 @@ export function FlashMessages() {
                     <ErrorStyles key={index}>
                         <div className="alert alert-error text-center floating-alert shadow-sm">
                             {msg}
+                            {downloadLink && RenderFileDownload(downloadLink)}
                         </div>
                     </ErrorStyles>
                 )
@@ -51,6 +53,7 @@ export function FlashMessages() {
                     <SuccessStyles key={index}>
                         <div className="alert alert-success text-center floating-alert shadow-sm">
                             {msg}
+                            {downloadLink && RenderFileDownload(downloadLink)}
                         </div>
                     </SuccessStyles>
                 )
