@@ -1,6 +1,14 @@
-// This is client side access only - don't put anything in here that shouldn't be public!
-export const graphqlEndpoint = `http://${process.env.REACT_APP_KEYSTONE_HOST}/api/graphql`;
+export type configInfo = {
+    graphqlEndpoint: string,
+    nodejsEndpoint: string,
+    magentographqlEndpoint: string
+}
 
-export const nodejsEndpoint = `http://${process.env.REACT_APP_NODE_HOST}`;
-
-export const magentographqlEndpoint = `${process.env.REACT_APP_MAGENTO_HOST}/graphql`;
+export const config: configInfo = {
+    // graphqlEndpoint: (process.env.REACT_APP_KEYSTONE_HOST === undefined) ? 'http://localhost:3000/api/graphql' : `http://${process.env.REACT_APP_KEYSTONE_HOST}/api/graphql`,
+    // nodejsEndpoint: (process.env.REACT_APP_NODE_HOST === undefined) ? 'http://localhost:8080' : `http://${process.env.REACT_APP_NODE_HOST}`,
+    // magentographqlEndpoint: (process.env.REACT_APP_MAGENTO_HOST === undefined) ? 'http://magentodevelop24.com' : process.env.REACT_APP_MAGENTO_HOST
+    graphqlEndpoint: `http://${process.env.REACT_APP_KEYSTONE_HOST}/api/graphql`,
+    nodejsEndpoint: `http://${process.env.REACT_APP_NODE_HOST}`,
+    magentographqlEndpoint: `${process.env.REACT_APP_MAGENTO_HOST}/graphql`
+}

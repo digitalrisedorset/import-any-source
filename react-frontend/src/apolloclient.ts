@@ -1,11 +1,11 @@
 import {ApolloClient, ApolloLink, HttpLink, InMemoryCache } from "@apollo/client";
-import {graphqlEndpoint, magentographqlEndpoint} from "./config";
+import {config} from "./config";
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 const keystone = ApolloLink.from([
     // this uses apollo-link-http under the hood, so all the options here come from that package
     createUploadLink({
-        uri: graphqlEndpoint,
+        uri: config.graphqlEndpoint,
         credentials: 'include',
         headers: {
             'apollo-require-preflight': 'true'
@@ -14,7 +14,7 @@ const keystone = ApolloLink.from([
 ]);
 
 const magento = new HttpLink({
-    uri: magentographqlEndpoint
+    uri: config.magentographqlEndpoint
 })
 
 export const apolloClient = new ApolloClient({

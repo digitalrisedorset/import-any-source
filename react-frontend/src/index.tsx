@@ -1,4 +1,4 @@
-import { nodejsEndpoint } from './config';
+import { config } from './config';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -12,7 +12,7 @@ import {apolloClient} from './apolloclient'
 
 const queryClient = new QueryClient()
 
-Axios.defaults.baseURL = nodejsEndpoint;
+Axios.defaults.baseURL = config.nodejsEndpoint;
 
 const el = document.getElementById("root");
 

@@ -64,7 +64,7 @@ export function MonitorUpdate() {
                         Stop Product Monitoring
                     </button>
                 </>}
-                {RenderUpdate(updateCsvFile as UpdateResponse)}
+                {updateCsvFile?.numberUpdate && RenderUpdate(updateCsvFile as UpdateResponse)}
             </form>
         </MonitoringArea>
     )

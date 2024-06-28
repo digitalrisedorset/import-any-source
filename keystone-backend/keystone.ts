@@ -15,6 +15,8 @@ const sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --'
 //   we use an expiry of one hour for this example
 const sessionMaxAge = 60 * 60
 
+console.log(`Keystone frontend: http://${keystoneconfig.frontend.host}`)
+
 export default withAuth<TypeInfo<Session>>(
     config<TypeInfo>({
         server: {

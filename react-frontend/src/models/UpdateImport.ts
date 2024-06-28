@@ -1,6 +1,6 @@
 import Axios from "axios"
 import {ImportUpdateResponse} from "../types/woocommerce"
-import {nodejsEndpoint} from "../config";
+import {config} from "../config";
 
 export class UpdateModel {
     public async createUpdateImport(): Promise<ImportUpdateResponse | undefined> {
@@ -9,7 +9,7 @@ export class UpdateModel {
 
             return {
                 filename: response.data.filename,
-                fileurl: `${nodejsEndpoint}/${response.data.filename}`,
+                fileurl: `${config.nodejsEndpoint}/${response.data.filename}`,
                 numberUpdate: response.data?.update
             };
         } catch (e) {

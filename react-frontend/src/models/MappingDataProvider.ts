@@ -1,6 +1,6 @@
 import Axios, {AxiosResponse} from "axios";
 import {MagentoAttribute, WoocommerceAttribute} from "../types/keystone";
-import {nodejsEndpoint} from "../config";
+import {config} from "../config";
 import {ImportResponse} from "../types/woocommerce"
 
 export class MappingModel {
@@ -22,7 +22,7 @@ export class MappingModel {
 
         return {
             filename: response.data.filename,
-            fileurl: `${nodejsEndpoint}/${response.data.filename}`
+            fileurl: `${config.nodejsEndpoint}/${response.data.filename}`
         };
     }
 
