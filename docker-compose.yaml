@@ -14,6 +14,19 @@ services:
 #      - '3306'
 #    volumes:
 #      - mysqldb:/var/lib/mysql
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis:alpine3.20
+    command: redis-server --appendonly yes --requirepass "paUIw93SSw0"
+    ports:
+      - "127.0.0.1:6379:6379"
+    expose:
+      - 6379
+    volumes:
+      - redis:/data
+    networks:
+      - import-network
   keystone_backend:
     container_name: keystone_backend
     image: herve010/keystone-build:0.0.5
@@ -42,6 +55,8 @@ services:
       - 8080
     networks:
       - import-network
+    depends_on:
+      - redis
   react_frontend:
     container_name: react_frontend
     build: ./react-frontend
@@ -57,6 +72,9 @@ services:
       - import-network
 networks:
   import-network:
+    #external: true
     driver: bridge
+volumes:
+  redis:
 #volumes:
 #  mysqldb:
