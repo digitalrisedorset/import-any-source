@@ -64,6 +64,15 @@ export class WoocommerceController {
         try {
             let wooClient = new Woocommerce()
             const list = await wooClient.getProductUpdate()
+
+            if (list.length === 0) {
+                res.json({
+                    filename: '',
+                    update: 0
+                })
+                return
+            }
+
             const wooImporter = new ImportCreator()
             const filename = await wooImporter.createCsvUpdateImport(list)
             console.log('Import complete', filename)
@@ -92,18 +101,19 @@ export class WoocommerceController {
         try {
             const woocommerceWebHookHandler = new WoocommerceWebHookHandler();
 
-            if(woocommerceWebHookHandler.isWebhookValid(req)){
-                const productId = req.body['id']
-                const wooImporter = new ImportCreator()
-                const filename = await wooImporter.createCsvDeleteImport(productId)
-                console.log('Import complete', filename)
-                res.json({
-                    filename,
-                    deleteProductId: productId
-                })
-            } else {
-                res.send("no match");
+            if(!woocommerceWebHookHandler.isWebhookValid(req)) {
+                res.json({'message': 'invalid webhook data'})
+                return
             }
+
+            const productId = req.body['id']
+            const wooImporter = new ImportCreator()
+            const filename = await wooImporter.createCsvDeleteImport(productId)
+            console.log('Import complete', filename)
+            res.json({
+                filename,
+                deleteProductId: productId
+            })
         } catch (e) {
             res.status(500).send("Error")
         }

@@ -9,7 +9,10 @@ export class WoocommerceWebHookHandler {
         const event = req.header("X-WC-Webhook-Event");
 
         if (topic !== 'product.deleted' || event!=='deleted') {
-            res.json({'message': 'invalid webhook data'})
+            return
+        }
+
+        if (req.body['id'] === undefined) {
             return
         }
 

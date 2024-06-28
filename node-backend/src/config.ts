@@ -20,7 +20,9 @@ export type configInfo = {
     cache: {
         redis: {
             host: string,
-            port: number
+            port: number,
+            username: string,
+            password: string
         }
     }
 }
@@ -51,6 +53,8 @@ export const config: configInfo = {
         redis: {
             host: (process.env.REDIS_HOST === undefined)? 'localhost': process.env.REDIS_HOST,
             port: (process.env.REDIS_PORT === undefined)? 6379: Number(process.env.REDIS_PORT),
+            username: (process.env.REDIS_USERNAME === undefined)? 'default': process.env.REDIS_USERNAME,
+            password: (process.env.REDIS_PASSWORD === undefined)? 'dlldde': process.env.REDIS_PASSWORD,
         }
     }
 }

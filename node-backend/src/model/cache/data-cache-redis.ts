@@ -1,19 +1,14 @@
-const redis  = require("redis")
+import { createClient } from 'redis';
 import {config} from '../../config'
 
 export class CacheService {
     redisClientInit = async () => {
-        const client = redis.createClient(config.cache.redis.port, config.cache.redis.host);
-
-        client.on("error", function (err: string) {
-            //console.log("Redis access", access.cache.redis);
-            //console.log("Redis error encountered", err);
-            throw new Error('Cache not active')
-        });
-
-        //client.on("end", function() {});
-
-        await client.connect();
+        const {username,password,host,port} = config.cache.redis
+        const client = await createClient({
+            url: `redis://default:${password}@${host}:${port}`
+        })
+        .on('error', err => console.log('Redis Client Error', err))
+        .connect();
 
         return client;
     }
@@ -60,6 +55,7 @@ export class CacheService {
             await redis.quit();
             return JSON.parse(cacheValue);
         }
+        await redis.quit();
     }
     del = async (keys: string)=> {
         const redis = await this.redisClientInit()
