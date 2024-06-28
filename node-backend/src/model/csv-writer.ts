@@ -5,15 +5,38 @@ import {config} from '../config'
 export class CsvWriter {
     writer = null;
 
-    getProductFilename = () => {
+    private filename = ''
+
+    startUpdate() {
+        this.setProductFilename('products-update')
+    }
+
+    startDelete() {
+        this.setProductFilename('products-delete')
+    }
+
+    startImport() {
+        this.setProductFilename('products')
+    }
+
+    setProductFilename = (prefix: string) => {
         const date = new Date().toLocaleString().replace(/[^A-Z0-9]+/ig, "-");
-        return `products-${date}.csv`
+        this.filename = `${prefix}-${date}.csv`
+    }
+
+    getDownloadableFileLink = () => {
+        return `${config.import.csvFolder}/${this.filename}`
+    }
+
+    getFilePath = () => {
+        return `${config.rootDir}/${config.import.csvFolder}/${this.filename}`
     }
 
     writeHeader = (row: any) => {
-        console.log(`${(new Date()).toLocaleString()}: write csv file at ${config.import.csv_folder}/${this.getProductFilename()}`)
+        console.log('Csv import Header', row)
+        console.log(`${(new Date()).toLocaleString()}: write csv file at ${this.getFilePath()}`)
         this.writer = csvLibWriter.createObjectCsvWriter({
-            path: path.resolve(config.import.csv_folder, this.getProductFilename()),
+            path: path.resolve(this.getFilePath()),
             header: row,
         });
     }
@@ -23,7 +46,7 @@ export class CsvWriter {
 
         // @ts-ignore
         this.writer.writeRecords(rows).then(
-            res = 'success'
+            res = this.getDownloadableFileLink()
         )
 
         return res;

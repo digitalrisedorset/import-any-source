@@ -1,9 +1,9 @@
 import { Woocommerce } from "../model/woocommerce"
 import { ImportCreator } from "../model/import-creator"
 import { KeystoneImportCreator } from "../model/keystone-import-creator"
-import crypto from 'crypto'
 const jwt = require("jsonwebtoken")
 import { Request, Response, NextFunction } from "express";
+import {WoocommerceWebHookHandler} from "../model/woocommerce/webhook-handler"
 
 // how long a token lasts before expiring
 const tokenLasts = "365d"
@@ -52,8 +52,9 @@ export class WoocommerceController {
             let wooClient = new Woocommerce()
             const list = await wooClient.getProductBatch()
             const wooImporter = new ImportCreator()
-            wooImporter.createCsvImport(list, req.body)
-            res.json({'message': 'success'})
+            const filename = await wooImporter.createCsvImport(list, req.body)
+            console.log('Import complete', filename)
+            res.json({filename})
         } catch (e) {
             res.status(500).send("Error")
         }
@@ -64,10 +65,11 @@ export class WoocommerceController {
             let wooClient = new Woocommerce()
             const list = await wooClient.getProductUpdate()
             const wooImporter = new ImportCreator()
-            wooImporter.createCsvUpdateImport(list)
+            const filename = await wooImporter.createCsvUpdateImport(list)
+            console.log('Import complete', filename)
             res.json({
-                'message': 'success',
-                'update': list.length
+                filename,
+                update: list.length
             })
         } catch (e) {
             res.status(500).send("Error")
@@ -79,7 +81,7 @@ export class WoocommerceController {
             let wooClient = new Woocommerce()
             const list = await wooClient.getProductBatch()
             const keystoneImportCreator = new KeystoneImportCreator()
-            keystoneImportCreator.createSeedImport(list)
+            await keystoneImportCreator.createSeedImport(list)
             res.json({'message': 'success'})
         } catch (e) {
             res.status(500).send("Error")
@@ -88,17 +90,20 @@ export class WoocommerceController {
 
     notifyProductDeletion = async (req: Request, res: Response)=> {
         try {
-            const secret: string = 'secret' || process.env.WOOCOMMERCE_WEBHOOK_SECRET
-            const signature = req.header("X-WC-Webhook-Signature");
+            const woocommerceWebHookHandler = new WoocommerceWebHookHandler();
 
-            const hash = crypto.createHmac('SHA256', secret).update(req.body).digest('base64');
-
-            if(hash === signature){
-                res.send('match');
+            if(woocommerceWebHookHandler.isWebhookValid(req)){
+                const productId = req.body['id']
+                const wooImporter = new ImportCreator()
+                const filename = await wooImporter.createCsvDeleteImport(productId)
+                console.log('Import complete', filename)
+                res.json({
+                    filename,
+                    deleteProductId: productId
+                })
             } else {
                 res.send("no match");
             }
-            res.json({'message': 'success'})
         } catch (e) {
             res.status(500).send("Error")
         }

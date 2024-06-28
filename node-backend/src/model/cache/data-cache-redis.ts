@@ -6,7 +6,7 @@ export class CacheService {
         const client = redis.createClient(config.cache.redis.port, config.cache.redis.host);
 
         client.on("error", function (err: string) {
-            //console.log("Redis config", config.cache.redis);
+            //console.log("Redis access", access.cache.redis);
             //console.log("Redis error encountered", err);
             throw new Error('Cache not active')
         });

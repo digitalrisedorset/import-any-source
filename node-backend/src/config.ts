@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
+const appRoot = require('app-root-path');
 
 export type configInfo = {
     port: number;
@@ -7,13 +8,15 @@ export type configInfo = {
         apiUrl: string,
         apiKey: string,
         apiSecret: string
+        webhookSecret: string
     },
     route: {
         apiPrefix: string;
     },
     import: {
-        csv_folder: string
+        csvFolder: string
     },
+    rootDir: string,
     cache: {
         redis: {
             host: string,
@@ -28,19 +31,21 @@ export const config: configInfo = {
     woocommerce: {
         apiUrl: (process.env.WOOMMERCE_API_URL === undefined)?'localhost':process.env.WOOMMERCE_API_URL,
         apiKey: (process.env.WOOCOMMERCE_KEY === undefined)?'dddfsaafdsg': process.env.WOOCOMMERCE_KEY,
-        apiSecret: (process.env.WOOCOMMERCE_SECRET === undefined)? 'rifjrjr': process.env.WOOCOMMERCE_SECRET
+        apiSecret: (process.env.WOOCOMMERCE_SECRET === undefined)? 'rifjrjr': process.env.WOOCOMMERCE_SECRET,
+        webhookSecret: (process.env.WEBHOOK_SECRET === undefined)? 'fggfdhdth': process.env.WEBHOOK_SECRET,
     },
 
     /**
-     * Routes config
+     * Routes access
      */
     route: {
         apiPrefix: '/'
     },
 
     import: {
-        csv_folder: (process.env.IMPORT_CSV_FOLDER === undefined)? '/home/herve/Project/import-attribute-reader/csv_import': process.env.IMPORT_CSV_FOLDER
+        csvFolder: (process.env.IMPORT_CSV_FOLDER === undefined)? 'csv_import': process.env.IMPORT_CSV_FOLDER,
     },
+    rootDir: appRoot.resolve('/'),
 
     cache: {
         redis: {

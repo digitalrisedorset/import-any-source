@@ -1,4 +1,4 @@
-require('dotenv').config({ path: require('find-config')('.env.development') })
+require('dotenv').config({ path: require('find-access')('.env.development') })
 import {Woocommerce} from "./model/woocommerce";
 import {ImportCreator} from "./model/import-creator";
 
