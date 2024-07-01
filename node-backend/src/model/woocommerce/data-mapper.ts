@@ -8,18 +8,14 @@ import {
 import {WoocommerceDataVariations} from "./data-variation";
 import {MagentoData} from "../magento-data";
 import { WoocommerceVariationBuilder } from './data-mapper/variation-builder'
-import { CacheService } from '../cache/data-cache-redis'
+import { FsCacheService } from '../cache/data-cache-fs'
 
 export class WoocommerceDataMapper {
     magentoData = new MagentoData()
     mappingFields: ImportMappingFields = {'mapping': []}
     woocommerceDataVariations = new WoocommerceDataVariations()
     woocommerceVariationBuilder = new WoocommerceVariationBuilder;
-    private cache: CacheService;
-
-    constructor() {
-        this.cache = new CacheService();
-    }
+    cache = new FsCacheService();
 
     setMappingFields = async (mappingFields: ImportMappingFields) => {
         this.mappingFields = mappingFields

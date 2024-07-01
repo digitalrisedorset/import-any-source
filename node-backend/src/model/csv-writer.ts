@@ -29,7 +29,7 @@ export class CsvWriter {
     }
 
     getFilePath = () => {
-        return `${config.rootDir}/${config.import.csvFolder}/${this.filename}`
+        return `${config.rootDir}${config.import.csvFolder}/${this.filename}`
     }
 
     writeHeader = (row: any) => {

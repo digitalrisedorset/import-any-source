@@ -5,7 +5,7 @@ global
 const cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false });
 
 export class CacheService {
-    get(key: string, storeFunction: any) {
+    get = async (key: string, storeFunction: any) => {
         const value = cache.get(key);
         if (value) {
             return Promise.resolve(value);
@@ -19,7 +19,7 @@ export class CacheService {
     del(keys: string) {
         cache.del(keys);
     }
-    delStartWith(startStr = '') {
+    delStartWith = (startStr = '') => {
         if (!startStr) {
             return;
         }
@@ -31,7 +31,7 @@ export class CacheService {
             }
         }
     }
-    flush() {
+    flush = () => {
         cache.flushAll();
     }
 }

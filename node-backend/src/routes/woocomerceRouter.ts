@@ -1,5 +1,5 @@
 import express, {NextFunction, Request, Response} from 'express'
-import {WoocommerceController} from "../controller/woocommerceController";
+import woocommerceController, {WoocommerceController} from "../controller/woocommerceController";
 import {config} from "../config";
 import * as core from "express-serve-static-core";
 const cors = require("cors")
@@ -22,6 +22,8 @@ export const setupWoocommerceRoutes = (app: core.Express) => {
     router.post("/createWoocommerceImport", woocommerceController.createWoocommerceImport)
 
     router.post("/createWoocommerceUpdate", woocommerceController.createWoocommerceUpdateImport)
+
+    router.post("/createWoocommerceDelete", woocommerceController.getWoocommerceDeleteNotification)
 
     router.post("/createKeystoneImport", woocommerceController.createKeystoneSeedImport)
 

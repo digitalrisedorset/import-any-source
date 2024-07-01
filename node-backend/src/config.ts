@@ -23,6 +23,9 @@ export type configInfo = {
             port: number,
             username: string,
             password: string
+        },
+        fs: {
+            folder: string
         }
     }
 }
@@ -55,6 +58,9 @@ export const config: configInfo = {
             port: (process.env.REDIS_PORT === undefined)? 6379: Number(process.env.REDIS_PORT),
             username: (process.env.REDIS_USERNAME === undefined)? 'default': process.env.REDIS_USERNAME,
             password: (process.env.REDIS_PASSWORD === undefined)? 'dlldde': process.env.REDIS_PASSWORD,
+        },
+        fs: {
+            folder: (process.env.FS_CACHE_FOLDER === undefined)? 'fs_cache': process.env.FS_CACHE_FOLDER
         }
     }
 }

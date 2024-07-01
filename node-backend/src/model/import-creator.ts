@@ -1,7 +1,8 @@
-import { ImportMappingFields, WoocommerceProduct, InitialProductData} from "../types";
+import { ImportMappingFields, WoocommerceProduct, InitialProductData, WoocommerceDeleteRecord} from "../types";
 import {CsvWriter} from './csv-writer'
 import {ImportRowCreator} from './import-creator/row-creator'
 import {VariationDataProvider} from "./import-creator/variation-data-provider"
+import { ProductDeletion } from "./woocommerce/product-deletion";
 
 export class ImportCreator {
     csvWriter = new CsvWriter()
@@ -12,6 +13,7 @@ export class ImportCreator {
         let row = await this.importRowCreator.createHeader(mappingFields)
         this.csvWriter.startImport()
         this.csvWriter.writeHeader(row)
+
         const simpleRows = await this.variationDataProvider.getVariationRows(data, mappingFields)
 
         const rows = await Promise.all(data.map(async (record) => {
@@ -35,22 +37,28 @@ export class ImportCreator {
         return this.finaliseWriteRows([...simpleRows, ...rows])
     }
 
-    createCsvDeleteImport = async (productId: number)=> {
-        let header = await this.importRowCreator.createHeaderFromCache()
+    createCsvDeleteImport = async (data: WoocommerceDeleteRecord[])=> {
+        const header = await this.importRowCreator.createHeaderFromCache()
         this.csvWriter.startDelete()
         this.csvWriter.writeHeader(header)
 
-        let row: any = {}
-        //row['id'] = productId.toString()
-        row['sku'] = productId.toString()
-        row['status'] = 'delete'
-        const csvRows = []
-        csvRows.push(row)
-        return this.finaliseWriteRows(csvRows)
+        const rows = []
+        data.map(item => {
+            rows.push({
+                sku: item.sku,
+                status: 'delete'
+            })
+        })
+        return this.finaliseWriteRows(rows)
     }
 
     finaliseWriteRows = (csvRows: (WoocommerceProduct | InitialProductData)[]) => {
         console.log(`Import file with ${csvRows.length}`)
         return this.csvWriter.writeRecords(csvRows)
+    }
+
+    saveProductMinimalData = async (data: WoocommerceProduct[]) => {
+        const productDeletion= new ProductDeletion()
+        await productDeletion.setMinimalProductData(data)
     }
 }

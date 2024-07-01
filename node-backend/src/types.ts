@@ -50,6 +50,17 @@ export interface WoocommerceProduct extends WoocommerceSimpleProduct {
     variations: number[]
 }
 
+export interface WoocommerceDeleteRecord {
+    id: number;
+    sku: string;
+    status: string;
+}
+
+export interface CacheProduct {
+    productId: number;
+    sku: string
+}
+
 export interface WoocommerceSimpleProduct {
     id: number;
     sku: string;
