@@ -60,7 +60,8 @@ export interface RemoteAttributesToCreate {
 
 export enum PRODUCT_STATUS {
     publish = 'AVAILABLE',
-    unavailable = 'UNAVAILABLE'
+    unavailable = 'UNAVAILABLE',
+    deleted = 'DELETED'
 }
 
 export interface KeystoneProduct {

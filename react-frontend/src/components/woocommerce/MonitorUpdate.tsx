@@ -4,42 +4,62 @@ import {UpdateModel} from "../../models/UpdateImport"
 import {ImportUpdateResponse} from "../../types/woocommerce";
 import {RenderFileDownload} from "./DownloadLink"
 
-const InitUpdateResponse: ImportUpdateResponse = {
-    filename: '',
-    fileurl: ''
+const InitResponse: ImportUpdateResponse = {
+    filename: 'test',
+    fileurl: 'test',
+    numberItem: 0
 }
 
 interface UpdateResponse extends ImportUpdateResponse {
-    numberUpdate: number
+    numberItem: number
 }
 
-const MINUTE_MS = 30000;
+const MINUTE_MS = 15000;
 
-const RenderUpdate = (updateCsvFile: UpdateResponse) => (
-    <>
-        {updateCsvFile.numberUpdate===0 && <>
-            <h3>No Update have been happening</h3>
-        </>}
-        {updateCsvFile.numberUpdate>0 && <>
-            <h3>The last update has saved {updateCsvFile.numberUpdate} product changes</h3>
+const RenderUpdate = (updateCsvFile: UpdateResponse) => {
+    return (
+        <>
+            {updateCsvFile?.numberItem===0 && <h3>No Update have been happening</h3>}
+            {updateCsvFile?.numberItem>0 && <>
+                <h3>The last update has saved {updateCsvFile.numberItem} product changes</h3>
                 {RenderFileDownload(updateCsvFile)}
             </>}
+        </>
+    )
+}
+
+const RenderDelete = (deleteCsvFile: UpdateResponse) => (
+    <>
+        {deleteCsvFile?.numberItem===0 && <>
+            <h3>No Product have been deleted</h3>
+        </>}
+        {deleteCsvFile?.numberItem>0 && <>
+            <h3>The last product validation has {deleteCsvFile.numberItem} product deleted</h3>
+            {RenderFileDownload(deleteCsvFile)}
+        </>}
     </>
 )
 
 export function MonitorUpdate() {
     const [monitor, setMonitor] = useState(false)
-    const [updateCsvFile, setUpdateCsvFile] = useState(InitUpdateResponse)
+    const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
+    const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)
+    const updateModel = new UpdateModel()
 
     useEffect(() => {
-        const updateModel = new UpdateModel()
         const interval = setInterval(async () => {
             updateModel.createUpdateImport().then(response => {
                 setUpdateCsvFile(response as UpdateResponse)
             })
         }, MINUTE_MS);
 
-        return () => clearInterval(interval);
+        const interval2 = setInterval(async () => {
+            updateModel.createDeleteImport().then(response => {
+                setDeleteCsvFile(response as UpdateResponse)
+            })
+        }, MINUTE_MS);
+
+        return () => {}
     }, [monitor])
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -63,8 +83,9 @@ export function MonitorUpdate() {
                     <button type="submit" onClick={handleSubmit}>
                         Stop Product Monitoring
                     </button>
+                    {RenderUpdate(updateCsvFile)}
+                    {RenderDelete(deleteCsvFile)}
                 </>}
-                {updateCsvFile?.numberUpdate && RenderUpdate(updateCsvFile as UpdateResponse)}
             </form>
         </MonitoringArea>
     )

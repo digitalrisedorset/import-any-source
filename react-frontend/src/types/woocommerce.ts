@@ -11,6 +11,8 @@ export interface WocommerceApiAttributeResponse {
 
 
 export interface RemoteWoocommerceProduct {
+    id: number
+    sku: string
     name: string
     description: string
     status: string
@@ -35,5 +37,5 @@ export interface ImportResponse extends DownlinkFile {
 export interface ImportUpdateResponse extends DownlinkFile {
     filename: string,
     fileurl: string,
-    numberUpdate?: number
+    numberItem?: number
 }

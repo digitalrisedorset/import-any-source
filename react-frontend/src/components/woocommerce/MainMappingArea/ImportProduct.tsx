@@ -8,7 +8,7 @@ import {MagentoAttributeProvider} from "../../../models/KeystoneMagentoAttribute
 import {MappingModel} from "../../../models/MappingDataProvider"
 import {KeystoneMagentoAttributeData, WoocommerceAttributeData} from "../../../types/keystone";
 import {useActions} from "../../../hooks/useActions";
-import {useState} from "react";
+import { useState} from "react";
 import styled from "styled-components";
 import {ImportResponse} from "../../../types/woocommerce"
 
@@ -20,7 +20,7 @@ const Form = styled.form`
   }
 `;
 
-export default function ImportProduct(): JSX.Element {
+export default function ImportProduct() {
     const [importBuiling, setImportBuilding] = useState(false)
     const { addDownloadMessage } = useActions()
     const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceAttributeData, OperationVariables> = useLazyQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
