@@ -1,10 +1,6 @@
-FROM node:18-alpine
+FROM herve010/keystone-init:0.0.3
 
-WORKDIR /user/src/keystone-backend
+RUN yarn build
+RUN yarn keystone prisma db push
 
-COPY ./.keystone ./
-COPY . .
-
-RUN yarn install
-
-CMD ["yarn", "keystone", "dev"]
+CMD ["yarn", "start"]

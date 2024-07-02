@@ -13,11 +13,11 @@ spec:
         app: keystone-backend
     spec:
       containers:
-        - name: frontend
-          image: herve010/keystone_import:0.3.0
+        - name: keystone-backend
+          image: herve010/keystone-build:0.0.7
           env:
             - name: FRONTEND_HOST
-              value: "react-frontend-srv"
+              value: "import-any-source.digitalrisedorset.co.uk"
 ---
 apiVersion: v1
 kind: Service

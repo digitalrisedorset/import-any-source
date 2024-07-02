@@ -13,8 +13,27 @@ spec:
         app: node-backend
     spec:
       containers:
-        - name: frontend
-          image: herve010/node_import:0.0.3
+        - name: node-backend
+          image: herve010/node_import:1.0.7
+          env:
+            - name: WOOMMERCE_API_URL
+              value: "https://www.digitalrisedorset.co.uk/wp-json/wc/v3/"
+            - name: WOOCOMMERCE_KEY
+              value: "ck_531ccb38a579fc2687c9d9460f0305f6d6cde4a3"
+            - name: WOOCOMMERCE_SECRET
+              value: "cs_46373f24483a094ed9785c308b89e65cce65191e"
+            - name: IMPORT_CSV_FOLDER
+              value: "csv_import"
+            - name: IMPORT_BATCH_SIZE
+              value: "20"
+            - name: WOOCOMMERCE_WEBHOOK_SECRET
+              value: "testde56l:0Pr0d1ct"
+            - name: REDIS_HOST
+              value: redis-srv
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD
+              value: "paUIw93SSw0"
 ---
 apiVersion: v1
 kind: Service

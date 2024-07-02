@@ -29,7 +29,7 @@ services:
       - import-network
   keystone_backend:
     container_name: keystone_backend
-    image: herve010/keystone-build:0.0.5
+    image: herve010/keystone-build:0.0.6
     env_file: ./keystone-backend/.env
     environment:
       - FRONTEND_HOST=localhost:3001
@@ -72,7 +72,6 @@ services:
       - import-network
 networks:
   import-network:
-    #external: true
     driver: bridge
 volumes:
   redis:

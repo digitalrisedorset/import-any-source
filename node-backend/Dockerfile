@@ -1,6 +1,10 @@
 FROM node:18-alpine
 
-WORKDIR /user/src/node-backend
+ARG APP=/user/src/node-backend
+
+WORKDIR $APP
+
+VOLUME csv_import $APP/csv_import
 
 COPY package*.json ./
 

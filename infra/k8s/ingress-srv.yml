@@ -3,10 +3,20 @@ kind: Ingress
 metadata:
   name: ingress-srv
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingressClassName: nginx
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
+    - host: import-keystone.digitalrisedorset.co.uk
+      http:
+        paths:
+          - path: /?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: keystone-backend-srv
+                port:
+                  number: 3000
     - host: import-any-source.digitalrisedorset.co.uk
       http:
         paths:
@@ -17,6 +27,9 @@ spec:
                 name: react-frontend-srv
                 port:
                   number: 3001
+    - host: import-node.digitalrisedorset.co.uk
+      http:
+        paths:
           - path: /getWoocommerceAttributeList
             pathType: Prefix
             backend:
@@ -52,10 +65,10 @@ spec:
                 name: node-backend-srv
                 port:
                   number: 8080
-          - path: /api/?(.*)
-            pathType: ImplementationSpecific
+          - path: /csv_import
+            pathType: Prefix
             backend:
               service:
-                name: keystone-backend-srv
+                name: node-backend-srv
                 port:
-                  number: 3000
+                  number: 8080

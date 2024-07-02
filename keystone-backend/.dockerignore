@@ -1,4 +1,6 @@
+.keystone
 node_modules
-*.db
 schema.graphql
 schema.prisma
+*.db
+*.env*
