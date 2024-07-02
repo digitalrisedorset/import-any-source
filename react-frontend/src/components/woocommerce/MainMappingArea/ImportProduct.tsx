@@ -6,7 +6,7 @@ import {
 import {WoocommerceAttributeProvider} from "../../../models/KeystoneWoocommerceAttributeProvider"
 import {MagentoAttributeProvider} from "../../../models/KeystoneMagentoAttributeProvider"
 import {MappingModel} from "../../../models/MappingDataProvider"
-import {KeystoneMagentoAttributeData, WoocommerceAttributeData} from "../../../types/keystone";
+import {KeystoneMagentoAttributeData, WoocommerceAttributeData, WoocommerceQueryResult} from "../../../types/keystone";
 import {useActions} from "../../../hooks/useActions";
 import { useState} from "react";
 import styled from "styled-components";
@@ -20,7 +20,11 @@ const Form = styled.form`
   }
 `;
 
-export default function ImportProduct() {
+interface MappingAttributeProps {
+    data: WoocommerceAttributeData | undefined
+}
+
+export default function ImportProduct(props: MappingAttributeProps) {
     const [importBuiling, setImportBuilding] = useState(false)
     const { addDownloadMessage } = useActions()
     const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceAttributeData, OperationVariables> = useLazyQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
@@ -29,6 +33,16 @@ export default function ImportProduct() {
     const [getMagentoAttributeList]: LazyQueryResultTuple<KeystoneMagentoAttributeData, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {}
     });
+
+    const isMappingNotComplete = () => {
+        if (props.data?.woocommerceAttributes === undefined) {
+            return true
+        }
+
+        if (props.data?.woocommerceAttributes?.length !== undefined) {
+            return props.data?.woocommerceAttributes?.length > 0
+        }
+    }
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
@@ -54,9 +68,9 @@ export default function ImportProduct() {
 
     return (
         <Form>
-            <h2>Step 3</h2>
+            <h2>Step 4</h2>
 
-            <button type="submit" disabled={importBuiling} onClick={handleSubmit}>
+            <button type="submit" disabled={isMappingNotComplete()} onClick={handleSubmit}>
                 Import Magento Products
             </button>
         </Form>

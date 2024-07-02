@@ -1,3 +1,5 @@
+import {QueryResult} from "@apollo/client";
+
 interface MagentoCode {
     code: string;
     name: string;
@@ -35,6 +37,10 @@ export interface AssignedToData {
 
 export interface KeystoneMagentoAttributeData {
     magentoAttributes: MagentoAttribute[]
+}
+
+export interface KeystoneWoocommerceAttributeData {
+    woocommerceAttributes: WoocommerceAttribute[]
 }
 
 export interface MatchingAttributeData {
@@ -87,4 +93,20 @@ export interface WoocommerceProduct {
 
 export interface RemoteProductsToCreate {
     productsToCreate: KeystoneProduct[]
+}
+
+export interface WoocommerceQueryResult extends QueryResult {
+    woocommerceAttributes: WoocommerceAttribute[]
+}
+
+export interface WoocommerceAttributeProps {
+    data: WoocommerceAttributeData | undefined
+}
+
+export interface MagentoAttributeProps {
+    data: KeystoneMagentoAttributeData | undefined
+}
+
+export interface MappingAttributeProps {
+    data: WoocommerceAttributeData | undefined
 }

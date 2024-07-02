@@ -7,10 +7,16 @@ import {
 import { GET_MAGENTO_ATTRIBUTE_LIST_QUERY } from '../../graphql/magentoQuery'
 import {RemoteMagentoAttributeProvider} from "../../models/RemoteMagentoAttributeProvider";
 import {useActions} from "../../hooks/useActions";
-import {MagentoAttributeData} from "../../types/magento";
 import {useNavigate} from "react-router-dom";
+import {APP_STATE} from "../../types/states";
+import {KeystoneMagentoAttributeData} from "../../types/keystone";
+import {MagentoAttributeData} from "../../types/magento"
 
-export default function ImportMagentoAttribute(): JSX.Element {
+interface MagentoAttributeProps {
+    data: KeystoneMagentoAttributeData | undefined
+}
+
+export default function ImportMagentoAttribute(props: MagentoAttributeProps) {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
@@ -23,6 +29,12 @@ export default function ImportMagentoAttribute(): JSX.Element {
     const { data, loading }: QueryResult<MagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
         variables: {}, context: {clientName: 'magento'}
     });
+
+    const isMagentoImportComplete = () => {
+        if (props.data?.magentoAttributes?.length !== undefined) {
+            return props.data?.magentoAttributes?.length > 0
+        }
+    }
 
     useEffect(() => {
         async function createAttributeList() {
@@ -58,7 +70,7 @@ export default function ImportMagentoAttribute(): JSX.Element {
     return (
         <form>
             <h2>Step 2</h2>
-            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
+            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block" disabled={isMagentoImportComplete()}>
                 Import Magento Attributes
             </button>
         </form>

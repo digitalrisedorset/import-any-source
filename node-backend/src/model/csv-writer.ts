@@ -20,8 +20,9 @@ export class CsvWriter {
     }
 
     setProductFilename = (prefix: string) => {
-        const date = new Date().toLocaleString().replace(/[^A-Z0-9]+/ig, "-");
-        this.filename = `${prefix}-${date}.csv`
+        //const date = new Date().toLocaleString().replace(/[^A-Z0-9]+/ig, "-");
+        //this.filename = `${prefix}-${date}.csv`
+        this.filename = `${prefix}.csv`
     }
 
     getDownloadableFileLink = () => {

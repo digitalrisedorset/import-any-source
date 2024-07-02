@@ -2,18 +2,24 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ItemStyles from './../styles/ItemStyles';
 import { Title } from '../styles/Title';
-import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, useMutation} from "@apollo/client";
+import {
+    LazyQueryResultTuple,
+    OperationVariables,
+    QueryResult,
+    useLazyQuery,
+    useMutation
+} from "@apollo/client";
 import {
     UPDATE_ATTRIBUTE_MUTATION,
     GET_MAGENTO_ATTRIBUTE_LIST_QUERY,
     GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY,
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
-    GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY
+    GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY, ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY
 } from "../../graphql/keystone";
 
 import {
     MagentoAttribute,
-    WoocommerceAttribute,
+    WoocommerceQueryResult,
     MatchingAttributeData
 } from "../../types/keystone";
 import {useActions} from "../../hooks/useActions";
@@ -21,10 +27,6 @@ import {useActions} from "../../hooks/useActions";
 interface MappingProps {
     attribute: MatchingAttributeData,
     initialAttribute: string
-}
-
-interface WoocommerceQueryResult extends QueryResult {
-    woocommerceAttributes: WoocommerceAttribute[]
 }
 
 interface MagentoQueryResult extends QueryResult {
@@ -46,7 +48,8 @@ export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Elem
                 }
             }
         },
-        refetchQueries: [{query: GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}, {query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}]
+        refetchQueries: [{query: GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}, {query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}],
+        update
     });
     const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceQueryResult, OperationVariables> = useLazyQuery(GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, {
         variables: {
@@ -66,6 +69,10 @@ export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Elem
             }
         }
     });
+
+    function update(cache: any, payload: any) {
+        cache.evict(cache.identify(payload.data.updateWoocommerceAttribute));
+    }
 
     const isMappingReady = () => {
         return woocommerceAttributeStateId && magentoAttributeStateId

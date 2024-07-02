@@ -35,6 +35,20 @@ export const ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY = gql`
   }
 `;
 
+export const ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY = gql`
+    query WoocommerceAttributes($where: WoocommerceAttributeWhereInput!) {
+      woocommerceAttributes(where: $where) {
+        code
+        ignored
+        name
+        magentoCode {
+          code
+        }
+      }
+    }
+`;
+
+
 const GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY = gql`    
     query WoocommerceAttributes($where: WoocommerceAttributeWhereInput!) {
       woocommerceAttributes(where: $where) {

@@ -7,7 +7,7 @@ import {KeystoneMagentoAttributeData, MagentoAttribute} from "../../types/keysto
 import { useActions } from "../../hooks/useActions";
 import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
-export function MapField(): JSX.Element {
+export function MapField() {
     const { code } = useParams();
     const { resetFlashMessage } = useActions()
     const { setWoocommerceAttributesMatchFound } = useActions()

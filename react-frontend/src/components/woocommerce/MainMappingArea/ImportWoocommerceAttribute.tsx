@@ -1,5 +1,5 @@
 import { useEffect} from "react"
-import { useMutation} from '@apollo/client';
+import {useMutation} from '@apollo/client';
 import {
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
     CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION
@@ -7,8 +7,9 @@ import {
 import {useActions} from "../../../hooks/useActions";
 import {RemoteWoocommerceAttributeProvider} from "../../../models/RemoteWoocommerceAttributeProvider"
 import {useNavigate} from "react-router-dom";
+import {WoocommerceAttributeProps} from "../../../types/keystone";
 
-export default function ImportWoocommerceAttribute() {
+export default function ImportWoocommerceAttribute(props: WoocommerceAttributeProps) {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const remoteAttributeProvider = RemoteWoocommerceAttributeProvider()
@@ -18,6 +19,12 @@ export default function ImportWoocommerceAttribute() {
         },
         refetchQueries: [{ query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY }],
     });
+
+    const isWoocommerceImportComplete = () => {
+        if (props.data?.woocommerceAttributes?.length !== undefined) {
+            return props.data?.woocommerceAttributes?.length > 0
+        }
+    }
 
     useEffect(() => {
         async function createAttributeList() {
@@ -49,7 +56,7 @@ export default function ImportWoocommerceAttribute() {
     return (
         <form>
             <h2>Step 1</h2>
-            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block">
+            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block" disabled={isWoocommerceImportComplete()}>
                 Import Woocommerce Attributes
             </button>
         </form>
