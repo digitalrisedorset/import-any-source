@@ -24,7 +24,6 @@ export class ImportCreator {
 
     createCsvUpdateImport = async (data: WoocommerceProduct[]) => {
         let row = await this.importRowCreator.createHeaderFromCache()
-        console.log('Import update header', row)
         this.csvWriter.startUpdate()
         this.csvWriter.writeHeader(row)
         const mappingFields: ImportMappingFields = await this.importRowCreator.getMappingFields()
@@ -42,7 +41,7 @@ export class ImportCreator {
         this.csvWriter.startDelete()
         this.csvWriter.writeHeader(header)
 
-        const rows = []
+        const rows: any = []
         data.map(item => {
             rows.push({
                 sku: item.sku,

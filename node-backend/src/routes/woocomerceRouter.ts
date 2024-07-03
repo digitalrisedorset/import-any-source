@@ -1,5 +1,5 @@
 import express, {NextFunction, Request, Response} from 'express'
-import woocommerceController, {WoocommerceController} from "../controller/woocommerceController";
+import {WoocommerceController} from "../controller/woocommerceController";
 import {config} from "../config";
 import * as core from "express-serve-static-core";
 const cors = require("cors")

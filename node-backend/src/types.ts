@@ -51,7 +51,6 @@ export interface WoocommerceProduct extends WoocommerceSimpleProduct {
 }
 
 export interface WoocommerceDeleteRecord {
-    id: number;
     sku: string;
     status: string;
 }

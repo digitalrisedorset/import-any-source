@@ -1,6 +1,5 @@
 import { FsCacheService } from '../cache/data-cache-fs'
 import {WoocommerceProduct, CacheProduct} from "../../types";
-import {products} from "../../../../csv_import/keystone-products";
 
 const CACHE_PRODUCT_DELETED = 'product_deleted'
 
@@ -11,10 +10,6 @@ export class ProductDeletion {
 
     updateCacheWithProductDeletedData = (productId: number) => {
         let deletedProductData = this.getProductDeleteNotification()
-        console.log('deletedProductData read 1', {deletedProductData, productId})
-        if (deletedProductData === undefined) {
-            deletedProductData = []
-        }
 
         deletedProductData[productId] = {
             productId,
@@ -22,9 +17,8 @@ export class ProductDeletion {
             date: (new Date()).toISOString()
         }
 
-        console.log('deletedProductData read 2', deletedProductData)
-        this.cache.set(CACHE_PRODUCT_DELETED, deletedProductData)
-        console.log('deletedProductData set 3')
+        const result = deletedProductData.filter((item: any) => Number(item?.productId)!==0)
+        this.cache.set(CACHE_PRODUCT_DELETED, result)
     }
 
     getProductDeleteNotification = () => {
@@ -33,11 +27,18 @@ export class ProductDeletion {
             return []
         }
 
-        return list.filter(product => product!==null)
+        return list.filter((product: any) => Number(product.productId!==0)).map((product: any) => {
+            return {
+                productId: product.productId,
+                sku: this.getProductSku(product.productId),
+                date: product.date,
+            }
+        })
     }
 
     setMinimalProductData = (data: WoocommerceProduct[]) => {
-        this.cache.set(CACHE_PRODUCT_SKU_LIST, data.filter(product => product.sku!=='').map((product) => {
+        this.cache.set(CACHE_PRODUCT_SKU_LIST, data.filter(product => product.sku!=='')
+            .map((product) => {
             return {
                 productId: product.id,
                 sku: product.sku
@@ -47,12 +48,16 @@ export class ProductDeletion {
 
     getProductSku = (productId: number) => {
         const data = this.cache.read(CACHE_PRODUCT_SKU_LIST)
-        const product = data.filter(product => product.productId === productId)
-        return product?.sku
+        const product = data.filter((product: any) => product.productId === productId)
+
+        if (product.length > 0) {
+            return product[0]?.sku
+        }
     }
 
     getProductUpdate = async () => {
         const data = this.cache.read(CACHE_PRODUCT_SKU_LIST)
-        return data.filter(product => product instanceof CacheProduct).map(product => product.sku)
+        return data.filter((product: any) => product?.sku !== '')
+            .map((product: WoocommerceProduct) => product.sku)
     }
 }

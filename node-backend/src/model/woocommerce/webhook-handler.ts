@@ -12,7 +12,7 @@ export class WoocommerceWebHookHandler {
             return
         }
 
-        if (req.body['id'] === undefined) {
+        if (req.body['id'] === undefined || Number(req.body['id'])===0) {
             return
         }
 

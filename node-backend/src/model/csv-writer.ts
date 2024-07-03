@@ -34,7 +34,6 @@ export class CsvWriter {
     }
 
     writeHeader = (row: any) => {
-        console.log('Csv import Header', row)
         console.log(`${(new Date()).toLocaleString()}: write csv file at ${this.getFilePath()}`)
         this.writer = csvLibWriter.createObjectCsvWriter({
             path: path.resolve(this.getFilePath()),

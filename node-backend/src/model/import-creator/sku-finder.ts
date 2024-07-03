@@ -7,12 +7,13 @@ export class SkuFinder {
     cache = new CacheService();
 
     getSkuRecord = async (productId: number): Promise<string | undefined> => {
-        this.cache.get(`getProductData_${productId}`, async () => {
+        return this.cache.get(`getProductData_${productId}`, async () => {
             return await this.getProductData(productId)
         }).then((row: WoocommerceProduct) => {
             return row['sku']
         }).catch((e: Error) => {
             console.log(e.message)
+            return undefined
         })
     }
 
