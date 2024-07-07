@@ -17,7 +17,6 @@ interface MappingAttributeProps {
 export function MappingAttributes(props: MappingAttributeProps) {
     const navigate = useNavigate()
     const isMappingNotComplete = () => {
-        console.log('MappingAttributes', props.data)
         if (props.data?.woocommerceAttributes === undefined) {
             return true
         }
