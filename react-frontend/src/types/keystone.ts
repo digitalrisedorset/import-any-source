@@ -5,14 +5,19 @@ interface MagentoCode {
     readonly name: string;
 }
 
-export interface WoocommerceAttribute {
+interface BaseAttribute {
     readonly id?: string;
     readonly code: string;
     readonly name: string;
     readonly type: string;
     required: boolean;
-    ignored: boolean;
     readonly createdAt: string;
+}
+
+export type KeystoneAttribute = Pick<BaseAttribute, "code" | "name" | "type" | "required">
+
+export interface WoocommerceAttribute extends BaseAttribute {
+    ignored: boolean;
     magentoCode: MagentoCode
 }
 
@@ -20,19 +25,13 @@ export interface WoocommerceAttributeData {
     woocommerceAttributes: WoocommerceAttribute[]
 }
 
-export interface MagentoAttribute {
-    readonly id?: string;
-    readonly code: string;
-    readonly name: string;
-    readonly type: string;
-    required: boolean;
-    readonly createdAt: string;
+export interface MagentoAttribute extends BaseAttribute {
     assignedTo: AssignedToData
 }
 
 export interface AssignedToData {
-    code: string;
-    name: string;
+    readonly code: string;
+    readonly name: string;
 }
 
 export interface KeystoneMagentoAttributeData {
@@ -44,8 +43,8 @@ export interface KeystoneWoocommerceAttributeData {
 }
 
 export interface MatchingAttributeData {
-    label: string,
-    value: string
+    readonly label: string,
+    readonly value: string
 }
 
 export interface Mapping {
@@ -53,12 +52,7 @@ export interface Mapping {
     matchingAttributes: MagentoAttribute[]
 }
 
-export interface KeystoneAttribute {
-    readonly code: string;
-    readonly name: string;
-    readonly type: string;
-    required: boolean
-}
+
 
 export interface RemoteAttributesToCreate {
     attributesToCreate: KeystoneAttribute[]
@@ -77,20 +71,6 @@ export interface KeystoneProduct {
     status: PRODUCT_STATUS;
 }
 
-interface ImageData {
-    image: {
-        publicUrl: string
-    }
-}
-
-export interface WoocommerceProduct {
-    name: string;
-    description: string;
-    price: number;
-    photo: ImageData;
-    status: PRODUCT_STATUS;
-}
-
 export interface RemoteProductsToCreate {
     productsToCreate: KeystoneProduct[]
 }
@@ -102,12 +82,4 @@ export interface WoocommerceQueryResult extends QueryResult {
 export interface WoocommerceAttributeProps {
     data: WoocommerceAttributeData | undefined
     loading?: boolean
-}
-
-export interface MagentoAttributeProps {
-    data: KeystoneMagentoAttributeData | undefined
-}
-
-export interface MappingAttributeProps {
-    data: WoocommerceAttributeData | undefined
 }

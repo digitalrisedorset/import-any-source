@@ -17,7 +17,7 @@ export class WoocommerceDataMapper {
     woocommerceVariationBuilder = new WoocommerceVariationBuilder;
     cache = new FsCacheService();
 
-    setMappingFields = async (mappingFields: ImportMappingFields) => {
+    setMappingFields = async (mappingFields: Readonly<ImportMappingFields>) => {
         this.mappingFields = mappingFields
         await this.cache.set('mappingFields', mappingFields)
     }
@@ -48,21 +48,21 @@ export class WoocommerceDataMapper {
         return row
     }
 
-    getMagentoField = (key: string): string | undefined => {
+    getMagentoField = (key: Readonly<string>): string | undefined => {
         const mapping = this.mappingFields.mapping.filter(mapping => mapping.woocommerceFieldCode === key);
         if (mapping.length>0) {
             return mapping[0]?.magentoLinkedCode;
         }
     }
 
-    getWoocommerceField(key: string): string | undefined {
+    getWoocommerceField(key: Readonly<string>): string | undefined {
         const mapping = this.mappingFields.mapping.filter(mapping => mapping.magentoLinkedCode === key);
         if (mapping.length>0) {
             return mapping[0]?.woocommerceFieldCode;
         }
     }
 
-    getMagentoValue = async (item: WoocommerceProduct, woocommerceField: string, magentoField: string) => {
+    getMagentoValue = async (item: Readonly<WoocommerceProduct>, woocommerceField: Readonly<string>, magentoField: Readonly<string>) => {
         let value = item[woocommerceField as keyof WoocommerceProduct]
         switch(magentoField) {
             case MagentoProductFieldCase.status: // product_online
@@ -89,6 +89,7 @@ export class WoocommerceDataMapper {
                         return image?.src
                     }
                 }
+                break
             default:
                 if (item.attributes) {
                     item.attributes.forEach((attribute: VariationAttribute, index: number) => {
@@ -100,21 +101,5 @@ export class WoocommerceDataMapper {
 
                 return value;
         }
-    }
-
-    getKeystoneField = (value: FieldValue, woocommerceField: string) => {
-        switch(woocommerceField) {
-            case WoocommerceProductFieldCase.active: // status
-            case WoocommerceProductFieldCase.status: // product_online
-                return (value === 'publish')?'1':'0'
-            case WoocommerceProductFieldCase.visibility:  // visibility
-                return (value === 'visible')?'Catalog, Search':'Not Visible Individually'
-            default:
-                return value;
-        }
-    }
-
-    hasAttribute = (magentoFieldCode: string) => {
-        return this.getWoocommerceField(magentoFieldCode) !== undefined;
     }
 }

@@ -3,7 +3,7 @@ import path from "path";
 const fs = require('fs');
 
 export class FsCacheService {
-    set = (key: string, value: any) => {
+    set = (key: Readonly<string>, value: any) => {
         let result = this.readAll()
         result[key] = value
         console.log(`fscache set data ${key}`)
@@ -16,7 +16,7 @@ export class FsCacheService {
         }
         return JSON.parse(data)
     }
-    read = (key: string) => {
+    read = (key: Readonly<string>) => {
         const data = this.readAll()
         console.log(`fscache read data ${key}`)
 

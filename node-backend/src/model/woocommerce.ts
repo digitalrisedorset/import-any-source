@@ -26,24 +26,19 @@ export class Woocommerce {
         return [...attributesOptions, ...attributesToLink]
     }
     getOptionAttributes = async () => {
-        let result = await this.woocommerceApiHandler.callApiUrl('products/attributes')
+        const result = await this.woocommerceApiHandler.callApiUrl('products/attributes')
 
         if (result === null) {
             return [];
         }
 
-        const attributes: OptionAttribute[] = [];
-
-        for (let i = 0; i < result.length; i++) {
-            let elem = result[i];
-            attributes.push({
+       return  result.map(elem => {
+           return {
                 code: elem['slug'],
                 name: elem['name'],
                 type: OptionAttributeType.options
-            });
-        }
-
-        return attributes;
+            }
+        })
     };
     getAttributeListFromProduct = async () => {
         let result = await this.woocommerceApiHandler.callApiUrl('products', {

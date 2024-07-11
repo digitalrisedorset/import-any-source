@@ -12,13 +12,12 @@ export class WoocommerceController {
 
     apiGetAttributeList = async (req: Request, res: Response)=> {
         try {
-            debugger
             const wooClient = new Woocommerce()
             const result = await wooClient.getAttributeList()
             res.send(result)
         } catch (e) {
             res.status(500).send("Error")
-            errorWrapper.handle(e)
+            this.errorWrapper.handle(e)
         }
     }
 
@@ -29,7 +28,7 @@ export class WoocommerceController {
             res.send(result)
         } catch (e) {
             res.status(500).send("Error")
-            errorWrapper.handle(e)
+            this.errorWrapper.handle(e)
         }
     }
 
@@ -44,7 +43,7 @@ export class WoocommerceController {
             res.send({filename})
         } catch (e) {
             res.status(500).send("Error")
-            errorWrapper.handle(e)
+            this.errorWrapper.handle(e)
         }
     }
 
@@ -70,7 +69,7 @@ export class WoocommerceController {
             })
         } catch (e) {
             res.status(500).send("Error")
-            errorWrapper.handle(e)
+            this.errorWrapper.handle(e)
         }
     }
 
@@ -83,7 +82,7 @@ export class WoocommerceController {
             return {'message': 'success'}
         } catch (e) {
             res.status(500).send("Error")
-            errorWrapper.handle(e)
+            this.errorWrapper.handle(e)
         }
     }
 
@@ -105,7 +104,7 @@ export class WoocommerceController {
             })
         } catch (e) {
             res.status(500).send("Error")
-            errorWrapper.handle(e)
+            this.errorWrapper.handle(e)
         }
     }
 
@@ -130,7 +129,7 @@ export class WoocommerceController {
             })
         } catch (e) {
             res.status(500).send("Error")
-            errorWrapper.handle(e)
+            this.errorWrapper.handle(e)
         }
     }
 }

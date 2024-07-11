@@ -22,7 +22,7 @@ export class ImportCreator {
         return this.finaliseWriteRows([...simpleRows, ...rows])
     }
 
-    createCsvUpdateImport = async (data: WoocommerceProduct[]) => {
+    createCsvUpdateImport = async (data: Readonly<WoocommerceProduct[]>) => {
         let row = await this.importRowCreator.createHeaderFromCache()
         this.csvWriter.startUpdate()
         this.csvWriter.writeHeader(row)
@@ -36,7 +36,7 @@ export class ImportCreator {
         return this.finaliseWriteRows([...simpleRows, ...rows])
     }
 
-    createCsvDeleteImport = async (data: WoocommerceDeleteRecord[])=> {
+    createCsvDeleteImport = async (data: Readonly<WoocommerceDeleteRecord[]>)=> {
         const header = await this.importRowCreator.createHeaderFromCache()
         this.csvWriter.startDelete()
         this.csvWriter.writeHeader(header)
@@ -51,12 +51,12 @@ export class ImportCreator {
         return this.finaliseWriteRows(rows)
     }
 
-    finaliseWriteRows = (csvRows: (WoocommerceProduct | InitialProductData)[]) => {
+    finaliseWriteRows = (csvRows: Readonly<(WoocommerceProduct | InitialProductData)[]>) => {
         console.log(`Import file with ${csvRows.length}`)
         return this.csvWriter.writeRecords(csvRows)
     }
 
-    saveProductMinimalData = async (data: WoocommerceProduct[]) => {
+    saveProductMinimalData = async (data: Readonly<WoocommerceProduct[]>) => {
         const productDeletion= new ProductDeletion()
         await productDeletion.setMinimalProductData(data)
     }

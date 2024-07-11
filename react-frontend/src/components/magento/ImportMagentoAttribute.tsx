@@ -8,7 +8,6 @@ import { GET_MAGENTO_ATTRIBUTE_LIST_QUERY } from '../../graphql/magentoQuery'
 import {RemoteMagentoAttributeProvider} from "../../models/RemoteMagentoAttributeProvider";
 import {useActions} from "../../hooks/useActions";
 import {useNavigate} from "react-router-dom";
-import {APP_STATE} from "../../types/states";
 import {KeystoneMagentoAttributeData} from "../../types/keystone";
 import {MagentoAttributeData} from "../../types/magento"
 

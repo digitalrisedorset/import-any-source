@@ -10,7 +10,7 @@ export class ImportRowCreator {
     woocommerceDataMapper = new WoocommerceDataMapper()
     magentoData = new MagentoData()
 
-    getSkuRecord = function (record: WoocommerceProduct) {
+    getSkuRecord = function (record: Readonly<WoocommerceProduct>) {
         let sku = record['sku'];
         if (sku === '') {
             sku = record['name'].replace(/[/\\?%*:|"<>]/g, '-')
@@ -19,7 +19,7 @@ export class ImportRowCreator {
         return sku
     }
 
-    createHeader = async (mappingFields: ImportMappingFields) => {
+    createHeader = async (mappingFields: Readonly<ImportMappingFields>) => {
         await this.woocommerceDataMapper.setMappingFields(mappingFields)
         return this.woocommerceDataMapper.getMagentoCsvHeader()
     }
@@ -34,7 +34,7 @@ export class ImportRowCreator {
         return await this.woocommerceDataMapper.getMagentoFieldsFromCache();
     }
 
-    createCsvRow = async (record: WoocommerceProduct) => {
+    createCsvRow = async (record: Readonly<WoocommerceProduct>) => {
         const header: HeaderField[] = this.woocommerceDataMapper.getMagentoCsvHeader()
 
         let row: InitialProductData = this.magentoData.getInitialData()

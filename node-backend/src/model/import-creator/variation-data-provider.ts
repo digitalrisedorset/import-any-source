@@ -6,7 +6,7 @@ export class VariationDataProvider {
     woocommerceDataVariations = new WoocommerceDataVariations()
     importRowCreator = new ImportRowCreator()
 
-    getVariationRows = async (data: WoocommerceProduct[], mappingFields: ImportMappingFields): Promise<WoocommerceProduct[]> => {
+    getVariationRows = async (data: Readonly<WoocommerceProduct[]>, mappingFields: Readonly<ImportMappingFields>): Promise<WoocommerceProduct[]> => {
         await this.importRowCreator.createHeader(mappingFields)
 
         const simpleRowsWithVariation: WoocommerceProduct[] = await this.getApiData(data)
@@ -18,7 +18,7 @@ export class VariationDataProvider {
         return await this.buildCsvRows(simpleRowsWithVariation)
     }
 
-    getApiData = async (data: WoocommerceProduct[]): Promise<WoocommerceProduct[]> => {
+    getApiData = async (data: Readonly<WoocommerceProduct[]>): Promise<WoocommerceProduct[]> => {
         let simpleRowsWithVariation: WoocommerceProduct[] = []
 
         for (let i= 0; i < data.length; i++) {
@@ -33,7 +33,7 @@ export class VariationDataProvider {
         return simpleRowsWithVariation
     }
 
-    buildCsvRows = async (variationData: WoocommerceProduct[]) => {
+    buildCsvRows = async (variationData: Readonly<WoocommerceProduct[]>) => {
         const simpleRowFromVariation = await Promise.all(variationData.map(async (variation) => {
             return await this.importRowCreator.createCsvRow(variation as WoocommerceProduct)
         }, this))

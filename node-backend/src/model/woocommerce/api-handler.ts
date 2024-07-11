@@ -6,7 +6,7 @@ const fetch = require("cross-fetch");
 export class ApiHandler {
     errors = []
 
-    callApiUrl = async (apiSuffix: string, filter: ApiFilter | null = null) => {
+    callApiUrl = async (apiSuffix: Readonly<string>, filter: Readonly<ApiFilter> | null = null) => {
         let apiUrl = `${config.woocommerce.apiUrl}${apiSuffix}?consumer_key=${config.woocommerce.apiKey}&consumer_secret=${config.woocommerce.apiSecret}`
 
         if (filter !== null) {

@@ -70,7 +70,7 @@ export default function ImportProduct(props: MappingAttributeProps) {
         <Form>
             <h2>Step 4</h2>
 
-            <button type="submit" disabled={isMappingNotComplete()} onClick={handleSubmit}>
+            <button type="submit" disabled={importBuiling || isMappingNotComplete()} onClick={handleSubmit}>
                 Import Magento Products
             </button>
         </Form>

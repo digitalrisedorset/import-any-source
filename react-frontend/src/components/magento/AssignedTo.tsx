@@ -8,7 +8,7 @@ interface AssignedToProps {
     required: boolean
 }
 
-export function AssignedTo({assignedTo, required}: AssignedToProps): JSX.Element {
+export function AssignedTo({assignedTo, required}: AssignedToProps) {
     return (
         <>
             {assignedTo && (

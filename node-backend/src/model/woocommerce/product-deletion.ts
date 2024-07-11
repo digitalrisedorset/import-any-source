@@ -1,5 +1,5 @@
 import { FsCacheService } from '../cache/data-cache-fs'
-import {WoocommerceProduct, CacheProduct} from "../../types";
+import {WoocommerceProduct} from "../../types";
 
 const CACHE_PRODUCT_DELETED = 'product_deleted'
 
