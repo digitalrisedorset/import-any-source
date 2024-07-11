@@ -5,10 +5,6 @@ export enum ProductStatus {
     private = 'private'
 }
 
-export type CsvHeader = {
-
-}
-
 export type VariationAttribute = {
     name: string,
     slug: string,
@@ -37,27 +33,8 @@ export type validMagentoProductKeys = 'name' |  'description' | 'short_descripti
     'material' | 'configurable_variations'
 
 export interface WoocommerceProduct extends WoocommerceSimpleProduct {
-    id: number;
-    sku: string;
-    name: string;
-    slug: string;
-    description: string;
-    price: number;
-    images: ProductImage[],
     image: ProductImage,
-    status: ProductStatus;
-    attributes: []
     variations: number[]
-}
-
-export interface WoocommerceDeleteRecord {
-    sku: string;
-    status: string;
-}
-
-export interface CacheProduct {
-    productId: number;
-    sku: string
 }
 
 export interface WoocommerceSimpleProduct {
@@ -70,6 +47,16 @@ export interface WoocommerceSimpleProduct {
     images: ProductImage[]
     status: ProductStatus;
     attributes: []
+}
+
+export interface WoocommerceDeleteRecord {
+    sku: string;
+    status: string;
+}
+
+export interface CacheProduct {
+    productId: number;
+    sku: string
 }
 
 export enum WoocommerceProductFieldCase {

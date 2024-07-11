@@ -25,16 +25,4 @@ export class FsCacheService {
     getCacheFile = () => {
         return path.resolve(config.cache.fs.folder, 'cache.txt')
     }
-
-    isActive = (): boolean => {
-        try {
-            const data = require(this.getCacheFile())
-            if (data !== undefined) {
-                return true
-            }
-        } catch (e) {
-            return false;
-        }
-        return false;
-    }
 }

@@ -44,6 +44,6 @@ export class KeystoneImportCreator {
             return row
         })
 
-        await fs.writeFile(path.resolve(process.env.IMPORT_CSV_FOLDER, 'keystone-products.ts'), 'export const products = ' + JSON.stringify(rows, null, 2));
+        //await fs.writeFile(path.resolve(process.env.IMPORT_CSV_FOLDER, 'keystone-products.ts'), 'export const products = ' + JSON.stringify(rows, null, 2));
     }
 }

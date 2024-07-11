@@ -1,16 +1,14 @@
-import { createClient } from 'redis';
+import {createClient} from 'redis';
 import {config} from '../../config'
 
 export class CacheService {
     redisClientInit = async () => {
         const {username,password,host,port} = config.cache.redis
-        const client = await createClient({
+        return await createClient({
             url: `redis://default:${password}@${host}:${port}`
         })
-        .on('error', err => console.log('Redis Client Error', err))
-        .connect();
-
-        return client;
+            .on('error', err => console.log('Redis Client Error', err))
+            .connect();
     }
     async getAndStore(key: string, storeFunction: any) {
         const redis = await this.redisClientInit()
