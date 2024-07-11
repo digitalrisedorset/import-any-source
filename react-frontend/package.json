@@ -2,6 +2,7 @@
   "name": "typescript-react-app",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
     "@apollo/client": "^3.10.3",
     "@reduxjs/toolkit": "^2.2.4",
@@ -53,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^13.13.0"
   }
 }
