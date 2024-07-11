@@ -13,7 +13,6 @@ export function GetIgnoredAttribute() {
 
     const getIgnoredAttributesAlphabeticallyOrdered = (attributes: WoocommerceAttribute[]): WoocommerceAttribute[] => {
         const list = attributes.filter((attribute: WoocommerceAttribute) => attribute.ignored)
-        //const list = [...attributes]
         list.sort((a, b) => a.code.localeCompare(b.code))
 
         return list

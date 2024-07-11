@@ -101,6 +101,7 @@ export interface WoocommerceQueryResult extends QueryResult {
 
 export interface WoocommerceAttributeProps {
     data: WoocommerceAttributeData | undefined
+    loading?: boolean
 }
 
 export interface MagentoAttributeProps {

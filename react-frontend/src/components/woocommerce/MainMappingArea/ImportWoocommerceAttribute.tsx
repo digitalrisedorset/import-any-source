@@ -1,4 +1,4 @@
-import { useEffect} from "react"
+import {useEffect, useState} from "react"
 import {useMutation} from '@apollo/client';
 import {
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {WoocommerceAttributeProps} from "../../../types/keystone";
 
 export default function ImportWoocommerceAttribute(props: WoocommerceAttributeProps) {
-    const { addFlashMessage } = useActions()
+   const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const remoteAttributeProvider = RemoteWoocommerceAttributeProvider()
     const [createListAttribute] = useMutation(CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION, {

@@ -24,7 +24,7 @@ interface AttributeProps {
     attribute: WoocommerceAttribute
 }
 
-export function Attribute({attribute}: AttributeProps): JSX.Element {
+export function Attribute({attribute}: AttributeProps) {
     const canDelete = true
     const [setWoocommerceAttributeIgnore] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {
         variables: {

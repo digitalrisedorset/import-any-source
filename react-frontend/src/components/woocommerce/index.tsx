@@ -14,7 +14,7 @@ import {GetIgnoredAttribute} from "./IgnoreFieldArea/GetIgnoredAttribute";
 export function Woocommerce() {
     const { initialAttribute, matchingAttribute } = useParams();
     const { addFlashMessage } = useActions()
-    const { data, error, loading }: QueryResult<OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
+    const { data, error, loading } = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {},
     });
 
@@ -34,15 +34,13 @@ export function Woocommerce() {
         addFlashMessage(`The system has loaded ${data.woocommerceAttributes.length} woocommerce attributes`)
     }
 
-    if (loading) return <>Loading...</>
-
     return (
         <MappingScreen>
             <div className="fields">
                 {error && <h3>{error.message}</h3>}
                 {loading && <h3>Loading...</h3>}
                 <MappingStatusMagentoAttribute data={mappingResult.data as KeystoneMagentoAttributeData}/>
-                <GetWoocommerceAttribute data={data as WoocommerceAttributeData} />
+                <GetWoocommerceAttribute data={data as WoocommerceAttributeData} loading={loading}/>
             </div>
             <GetIgnoredAttribute />
         </MappingScreen>

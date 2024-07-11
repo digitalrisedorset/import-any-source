@@ -4,8 +4,9 @@ import CartStyles from "../styles/CartStyles";
 import { ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY } from '../../graphql/keystone'
 import { MagentoAttribute, KeystoneMagentoAttributeData} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
+import {LoadingDotsIcon } from "../../Loading"
 
-export default function ReadMagentoAttribute(): JSX.Element {
+export default function ReadMagentoAttribute() {
     const { addFlashMessage } = useActions()
     const { data, error, loading }: QueryResult<KeystoneMagentoAttributeData | OperationVariables> = useQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {}
@@ -18,6 +19,7 @@ export default function ReadMagentoAttribute(): JSX.Element {
     return (
         <CartStyles>
             <h2>Magento Attributes</h2>
+            {(loading || data?.magentoAttributes?.length===0) && <LoadingDotsIcon />}
             {(data?.magentoAttributes.map((attribute: MagentoAttribute ) => (
                     <Attribute key={attribute.id} attribute={attribute}/>
                 ))
