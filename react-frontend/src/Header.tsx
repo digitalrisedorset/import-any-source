@@ -44,7 +44,7 @@ interface headerProps {
     title: string
 }
 
-export default function Header($props: headerProps): JSX.Element {
+export default function Header($props: headerProps) {
     return (
         <HeaderStyles>
             <div className="bar">

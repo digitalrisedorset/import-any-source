@@ -10,9 +10,10 @@ interface AttributeProps {
 
 export default function Attribute({attribute}: AttributeProps) {
     const date = new Date(attribute.createdAt)
+    const canDelete = false
 
     return (
-        <ItemStyles candelete={false}>
+        <ItemStyles candelete={canDelete}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

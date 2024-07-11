@@ -1,9 +1,9 @@
 import exp from "node:constants";
 
 interface RemoteWoocommerceAttribute {
-    code: string;
-    name: string;
-    type: string;
+    readonly code: string;
+    readonly name: string;
+    readonly type: string;
 }
 export interface WocommerceApiAttributeResponse {
     data: RemoteWoocommerceAttribute[]
@@ -11,12 +11,12 @@ export interface WocommerceApiAttributeResponse {
 
 
 export interface RemoteWoocommerceProduct {
-    id: number
-    sku: string
-    name: string
-    description: string
-    status: string
-    price: number,
+    readonly id: number
+    readonly sku: string
+    readonly name: string
+    readonly description: string
+    readonly status: string
+    readonly price: number,
     images: [{
         src: string
     }]

@@ -1,18 +1,18 @@
 import {QueryResult} from "@apollo/client";
 
 interface MagentoCode {
-    code: string;
-    name: string;
+    readonly code: string;
+    readonly name: string;
 }
 
 export interface WoocommerceAttribute {
-    id?: string;
-    code: string;
-    name: string;
-    type: string;
+    readonly id?: string;
+    readonly code: string;
+    readonly name: string;
+    readonly type: string;
     required: boolean;
     ignored: boolean;
-    createdAt: string;
+    readonly createdAt: string;
     magentoCode: MagentoCode
 }
 
@@ -21,12 +21,12 @@ export interface WoocommerceAttributeData {
 }
 
 export interface MagentoAttribute {
-    id?: string;
-    code: string;
-    name: string;
-    type: string;
+    readonly id?: string;
+    readonly code: string;
+    readonly name: string;
+    readonly type: string;
     required: boolean;
-    createdAt: string;
+    readonly createdAt: string;
     assignedTo: AssignedToData
 }
 
@@ -54,9 +54,9 @@ export interface Mapping {
 }
 
 export interface KeystoneAttribute {
-    code: string;
-    name: string;
-    type: string;
+    readonly code: string;
+    readonly name: string;
+    readonly type: string;
     required: boolean
 }
 

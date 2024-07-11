@@ -1,8 +1,8 @@
 
 export interface RemoteMagentoAttribute {
-    code: string,
-    label: string,
-    frontend_input: string
+    readonly code: string,
+    readonly label: string,
+    readonly frontend_input: string
     is_required: boolean
 }
 
