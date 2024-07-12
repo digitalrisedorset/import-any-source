@@ -4,7 +4,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {MatchingAttributeData} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
 
-export function MatchingField(): JSX.Element {
+export function MatchingField() {
     const { addFlashMessage } = useActions()
     const { woocommerceAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.woocommerceMapping)
 

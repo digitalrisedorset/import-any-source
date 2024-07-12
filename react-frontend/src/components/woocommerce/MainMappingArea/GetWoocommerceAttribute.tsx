@@ -1,10 +1,15 @@
 import { Attribute } from "./Attribute";
 import CartStyles from "../../styles/CartStyles";
-import {WoocommerceAttribute, WoocommerceAttributeProps} from '../../../types/keystone'
+import {WoocommerceAttribute} from '../../../types/keystone'
 import {WoocommerceAttributeDescription} from "./WoocommerceAttributeDescription";
 import {LoadingDotsIcon} from "../../../Loading";
+import {useQuery} from "@apollo/client";
+import {ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY} from "../../../graphql/keystone";
 
-export function GetWoocommerceAttribute(props: WoocommerceAttributeProps) {
+export function GetWoocommerceAttribute() {
+    const { data, error, loading } = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
+        variables: {},
+    });
     const getActiveAttributes = (attributes: WoocommerceAttribute[]): WoocommerceAttribute[] => {
         return attributes.filter((attribute: WoocommerceAttribute) => !attribute.ignored)
     }
@@ -12,8 +17,9 @@ export function GetWoocommerceAttribute(props: WoocommerceAttributeProps) {
     return (
         <CartStyles>
             <WoocommerceAttributeDescription />
-            {props.loading || props.data?.woocommerceAttributes?.length===0 && <LoadingDotsIcon />}
-            {!props.loading && props.data && getActiveAttributes(props.data!.woocommerceAttributes).map(
+            {error && <h3>{error.message}</h3>}
+            {loading || data?.woocommerceAttributes?.length===0 && <LoadingDotsIcon />}
+            {!loading && data && getActiveAttributes(data?.woocommerceAttributes).map(
                 (attribute) => <Attribute key={attribute.id} attribute={attribute}/>
             )}
         </CartStyles>

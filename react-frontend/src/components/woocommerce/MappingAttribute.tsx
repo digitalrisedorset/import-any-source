@@ -1,4 +1,4 @@
-import {WoocommerceAttributeData} from "../../types/keystone";
+import {WoocommerceAttribute, WoocommerceAttributeData} from "../../types/keystone";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 
@@ -16,13 +16,13 @@ interface MappingAttributeProps {
 
 export function MappingAttributes(props: MappingAttributeProps) {
     const navigate = useNavigate()
-    const isMappingNotComplete = () => {
-        if (props.data?.woocommerceAttributes === undefined) {
+    const isMappingNotComplete = (attributes: WoocommerceAttribute[] | undefined) => {
+        if (attributes === undefined) {
             return true
         }
 
-        if (props.data?.woocommerceAttributes?.length !== undefined) {
-            return props.data?.woocommerceAttributes?.length > 0
+        if (attributes.length !== undefined) {
+            return attributes.length > 0
         }
     }
 
@@ -35,7 +35,7 @@ export function MappingAttributes(props: MappingAttributeProps) {
         <Form>
             <h2>Step 3</h2>
 
-            <button type="submit" disabled={!isMappingNotComplete()} onClick={handleSubmit}>
+            <button type="submit" disabled={!isMappingNotComplete(props.data?.woocommerceAttributes)} onClick={handleSubmit}>
                 Mapping Attributes
             </button>
         </Form>

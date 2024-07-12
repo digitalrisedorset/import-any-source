@@ -5,10 +5,9 @@ import {ImportUpdateResponse} from "../../types/woocommerce";
 import {RenderFileDownload} from "./DownloadLink"
 
 const InitResponse: ImportUpdateResponse = {
-    filename: 'test',
-    fileurl: 'test',
-    numberItem: 0
-}
+    filename: '',
+    fileurl: ''
+};
 
 interface UpdateResponse extends ImportUpdateResponse {
     numberItem: number

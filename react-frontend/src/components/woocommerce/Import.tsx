@@ -20,7 +20,6 @@ import {useEffect, useState} from "react";
 import {AllSteps, APP_STATE} from "../../types/states";
 
 export function Import() {
-    const [remaininSteps, setRemainingSteps] = useState([])
     const woocommerceAttributeData: QueryResult<KeystoneWoocommerceAttributeData | OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {},
     });

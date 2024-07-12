@@ -1,4 +1,3 @@
-import {useEffect, useState} from "react"
 import {useMutation} from '@apollo/client';
 import {
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
@@ -8,15 +7,15 @@ import {useActions} from "../../../hooks/useActions";
 import {RemoteWoocommerceAttributeProvider} from "../../../models/RemoteWoocommerceAttributeProvider"
 import {useNavigate} from "react-router-dom";
 import {WoocommerceAttributeProps} from "../../../types/keystone";
+import {LoadingDotsIcon} from "../../../Loading";
+import {useState} from "react";
 
 export default function ImportWoocommerceAttribute(props: WoocommerceAttributeProps) {
-   const { addFlashMessage } = useActions()
+    const [importing, setImporting] = useState(false)
+    const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const remoteAttributeProvider = RemoteWoocommerceAttributeProvider()
-    const [createListAttribute] = useMutation(CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION, {
-        variables: {
-            data: remoteAttributeProvider.getAttributesToCreate()
-        },
+    const [createListAttribute, {data: attributes, error: updateError, loading: updateLoading} ] = useMutation(CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION, {
         refetchQueries: [{ query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY }],
     });
 
@@ -26,32 +25,27 @@ export default function ImportWoocommerceAttribute(props: WoocommerceAttributePr
         }
     }
 
-    useEffect(() => {
-        async function createAttributeList() {
-            try {
-                if (remoteAttributeProvider.hasAttributesToCreate()) {
-                    createListAttribute();
-                    addFlashMessage(`${remoteAttributeProvider.getAttributesToCreateCount()} woocommerce attributes have been added`)
-                    navigate(`/woocommerce`);
-                }
-            } catch (e) {
-                console.log("There was a problem.")
-            }
-        }
-        createAttributeList()
-        return () => {
-
-        }
-    }, [remoteAttributeProvider.getAttributesToCreate()])
-
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
         try {
-            await remoteAttributeProvider.loadAttributes()
+            setImporting(true)
+            remoteAttributeProvider.loadAttributes().then(response => {
+                createListAttribute({
+                    variables: {
+                        data: response
+                    },
+                });
+                addFlashMessage(`${response.length} woocommerce attributes have been added`)
+                setImporting(false)
+                navigate(`/woocommerce`);
+            })
         } catch (e) {
             console.log('error');
+            setImporting(false)
         }
     }
+
+    if (importing) return <LoadingDotsIcon />
 
     return (
         <form>

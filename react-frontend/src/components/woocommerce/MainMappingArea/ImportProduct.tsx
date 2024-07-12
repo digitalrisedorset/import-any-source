@@ -34,7 +34,7 @@ export default function ImportProduct(props: MappingAttributeProps) {
         variables: {}
     });
 
-    const isMappingNotComplete = () => {
+    const isMappingNotComplete = (props: MappingAttributeProps) => {
         if (props.data?.woocommerceAttributes === undefined) {
             return true
         }
@@ -70,7 +70,7 @@ export default function ImportProduct(props: MappingAttributeProps) {
         <Form>
             <h2>Step 4</h2>
 
-            <button type="submit" disabled={importBuiling || isMappingNotComplete()} onClick={handleSubmit}>
+            <button type="submit" disabled={importBuiling || isMappingNotComplete(props)} onClick={handleSubmit}>
                 Import Magento Products
             </button>
         </Form>

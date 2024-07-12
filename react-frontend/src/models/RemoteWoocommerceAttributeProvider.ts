@@ -8,20 +8,23 @@ export function RemoteWoocommerceAttributeProvider() {
         attributesToCreate: []
     })
 
-    const loadAttributes = async function() {
+    const loadAttributes = async function(): Promise<any | void> {
         try {
             const ourRequest = Axios.CancelToken.source()
             const response: WocommerceApiAttributeResponse = await Axios.get('/getWoocommerceAttributeList', { cancelToken: ourRequest.token });
+            const data = response.data.map(attribute => ({
+                code: attribute.code,
+                name: attribute.name,
+                type: (attribute.type==='options')?'select':'text',
+                required: false,
+                ignored: getIgnoredStatus(attribute.code)
+            }));
+
             setState((draft: RemoteAttributesToCreate) => {
-                draft.attributesToCreate = response.data.map(attribute => ({
-                    code: attribute.code,
-                    name: attribute.name,
-                    type: (attribute.type==='options')?'select':'text',
-                    required: false,
-                    ignored: getIgnoredStatus(attribute.code)
-                }))
+                draft.attributesToCreate = data
             })
             ourRequest.cancel()
+            return data
         } catch (e) {
             console.log(e)
         }

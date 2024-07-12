@@ -23,7 +23,7 @@ export default function ImportMagentoAttribute(props: MagentoAttributeProps) {
         variables: {
             data: magentoImportProvider.getAttributesToCreate()
         },
-        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }, {query: ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY}],
+        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }],
     });
     const { data, loading }: QueryResult<MagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
         variables: {}, context: {clientName: 'magento'}
@@ -33,6 +33,10 @@ export default function ImportMagentoAttribute(props: MagentoAttributeProps) {
         if (props.data?.magentoAttributes?.length !== undefined) {
             return props.data?.magentoAttributes?.length > 0
         }
+    }
+
+    function update(cache: any, payload: any) {
+        cache.evict(cache.identify(payload.data.woocommerceAttributes));
     }
 
     useEffect(() => {

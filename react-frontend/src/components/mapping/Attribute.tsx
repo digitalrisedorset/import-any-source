@@ -33,7 +33,7 @@ interface MagentoQueryResult extends QueryResult {
     magentoAttributes: MagentoAttribute[]
 }
 
-export function Attribute({attribute, initialAttribute}: MappingProps): JSX.Element {
+export function Attribute({attribute, initialAttribute}: MappingProps) {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const [woocommerceAttributeStateId, setWoocommerceAttributeStateId] = useState('');
