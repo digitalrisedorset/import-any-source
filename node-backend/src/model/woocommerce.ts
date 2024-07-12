@@ -1,5 +1,6 @@
 import { CacheService } from './cache/data-cache'
 import { ApiHandler } from './woocommerce/api-handler'
+import {WoocommerceAttribute} from "../types";
 
 enum OptionAttributeType {
     options = 'options',
@@ -32,7 +33,7 @@ export class Woocommerce {
             return [];
         }
 
-       return  result.map(elem => {
+       return  result.map((elem: WoocommerceAttribute) => {
            return {
                 code: elem['slug'],
                 name: elem['name'],

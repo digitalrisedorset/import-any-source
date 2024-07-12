@@ -10,10 +10,10 @@ export const setupWoocommerceRoutes = (app: core.Express) => {
 
     const woocommerceController = new WoocommerceController()
 
-    router.use('/', (req: Request, res: Response, next: NextFunction) => {
-        console.log(`request: ${req.url}`)
-        next()
-    })
+    // router.use('/', (req: Request, res: Response, next: NextFunction) => {
+    //     console.log(`request: ${req.url}`)
+    //     next()
+    // })
 
     router.get("/getWoocommerceAttributeList", woocommerceController.apiGetAttributeList)
 

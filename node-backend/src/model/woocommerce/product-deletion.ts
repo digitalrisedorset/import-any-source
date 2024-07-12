@@ -36,7 +36,7 @@ export class ProductDeletion {
         })
     }
 
-    setMinimalProductData = (data: WoocommerceProduct[]) => {
+    setMinimalProductData = (data: readonly WoocommerceProduct[]) => {
         this.cache.set(CACHE_PRODUCT_SKU_LIST, data.filter(product => product.sku!=='')
             .map((product) => {
             return {

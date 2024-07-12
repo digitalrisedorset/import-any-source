@@ -12,6 +12,12 @@ export type VariationAttribute = {
     option: string
 }
 
+export interface WoocommerceAttribute {
+    slug: string
+    option: string
+    name: string
+}
+
 export interface ProductImage {
     name: string;
     src: string
@@ -20,6 +26,12 @@ export interface ProductImage {
 export interface WoocommerceProduct extends WoocommerceSimpleProduct {
     image: ProductImage,
     variations: number[]
+}
+
+export interface WoocommerceAttribute {
+    slug: string
+    option: string
+    name: string
 }
 
 export interface WoocommerceSimpleProduct {

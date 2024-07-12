@@ -14,7 +14,8 @@ export class SkuFinder {
         }).then((row: WoocommerceProduct) => {
             return row['sku']
         }).catch((e) => {
-            errorWrapper.handle(error)
+            this.errorWrapper.handle(e)
+            return undefined
         })
     }
 
