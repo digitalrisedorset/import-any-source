@@ -11,9 +11,7 @@ export function Woocommerce() {
 
     if (initialAttribute && matchingAttribute) {
         addFlashMessage(`The woocommerce attribute "${initialAttribute}" is matched with the magento attribute "${matchingAttribute}"`)
-    } //else if (!error && !loading && data) {
-        //addFlashMessage(`The system has loaded ${data.woocommerceAttributes.length} woocommerce attributes`)
-    //}
+    }
 
     return (
         <MappingScreen>

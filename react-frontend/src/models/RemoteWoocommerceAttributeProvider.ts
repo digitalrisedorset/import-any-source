@@ -1,13 +1,7 @@
-import {useImmer} from "use-immer";
 import Axios from "axios";
-import {RemoteAttributesToCreate} from '../types/keystone'
 import {WocommerceApiAttributeResponse} from '../types/woocommerce'
 
 export function RemoteWoocommerceAttributeProvider() {
-    const [state, setState] = useImmer({
-        attributesToCreate: []
-    })
-
     const loadAttributes = async function(): Promise<any | void> {
         try {
             const ourRequest = Axios.CancelToken.source()
@@ -20,9 +14,6 @@ export function RemoteWoocommerceAttributeProvider() {
                 ignored: getIgnoredStatus(attribute.code)
             }));
 
-            setState((draft: RemoteAttributesToCreate) => {
-                draft.attributesToCreate = data
-            })
             ourRequest.cancel()
             return data
         } catch (e) {
@@ -36,25 +27,7 @@ export function RemoteWoocommerceAttributeProvider() {
         return attributeToActivate.filter((word: string) => attributeCode.includes(word)).length === 0
     }
 
-    const hasAttributesToCreate = () => {
-        return getAttributesToCreateCount()>0
-    }
-
-    const getAttributesToCreateCount = () => {
-        if (state.attributesToCreate === undefined) {
-            return false;
-        }
-        return state.attributesToCreate.length
-    }
-
-    const getAttributesToCreate = () => {
-        return state.attributesToCreate
-    }
-
     return {
-        loadAttributes,
-        hasAttributesToCreate,
-        getAttributesToCreate,
-        getAttributesToCreateCount
+        loadAttributes
     }
 }

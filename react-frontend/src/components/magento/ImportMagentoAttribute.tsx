@@ -1,4 +1,4 @@
-import {useEffect, FormEvent} from "react"
+import { FormEvent} from "react"
 import {OperationVariables, QueryResult, useMutation, useQuery} from '@apollo/client';
 import {
     ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY,
@@ -19,10 +19,7 @@ export default function ImportMagentoAttribute(props: MagentoAttributeProps) {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
-    const [createListAttribute] = useMutation(CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION, {
-        variables: {
-            data: magentoImportProvider.getAttributesToCreate()
-        },
+    const [createListAttribute, {data: attributes, error: updateError, loading: updateLoading} ] = useMutation(CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION, {
         refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }],
     });
     const { data, loading }: QueryResult<MagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
@@ -35,35 +32,20 @@ export default function ImportMagentoAttribute(props: MagentoAttributeProps) {
         }
     }
 
-    function update(cache: any, payload: any) {
-        cache.evict(cache.identify(payload.data.woocommerceAttributes));
-    }
-
-    useEffect(() => {
-        async function createAttributeList() {
-            try {
-                if (magentoImportProvider.hasAttributesToCreate()) {
-                    createListAttribute();
-                    addFlashMessage(`${magentoImportProvider.getAttributesToCreateCount()} magento attributes have been added`)
-                    navigate(`/magento`);
-                }
-            } catch (e) {
-                console.log("There was a problem.")
-            }
-        }
-        createAttributeList()
-        return () => {
-
-        }
-    }, [magentoImportProvider.hasAttributesToCreate()])
-
     if (loading) return <>Loading...</>
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
         try {
             if (data?.attributesList?.items) {
-                magentoImportProvider.setAttributeListToCreate(data?.attributesList?.items)
+                const attributes = magentoImportProvider.setAttributeListToCreate(data?.attributesList?.items)
+                createListAttribute({
+                    variables: {
+                        data: attributes
+                    },
+                });
+                addFlashMessage(`${attributes.length} magento attributes have been added`)
+                navigate(`/magento`);
             }
         } catch (e) {
             console.log('error');

@@ -1,8 +1,5 @@
-import {produce} from "immer"
-import {useImmer} from "use-immer";
 import {RemoteMagentoAttribute} from '../types/magento'
 import {KeystoneAttribute} from '../types/keystone'
-import {Draft} from "@reduxjs/toolkit";
 
 const staticMagentoFields = [
     {
@@ -43,15 +40,7 @@ const nonMappableMagentoFields = [
     'custom_design_to','custom_design_from','custom_design','gallery','sku_type','price_view'
 ];
 
-interface State {
-    readonly attributesToCreate: KeystoneAttribute[]
-}
-
 export function RemoteMagentoAttributeProvider() {
-    const [state, setState] = useImmer({
-        attributesToCreate: []
-    })
-
     const setAttributeListToCreate = function (data: RemoteMagentoAttribute[]) {
         const attributeList: KeystoneAttribute[] = data.filter(
             attribute=> nonMappableMagentoFields.indexOf(attribute.code)===-1
@@ -71,30 +60,9 @@ export function RemoteMagentoAttributeProvider() {
             })
         })
 
-        setState(produce((draft: Draft<State>) => {
-            draft.attributesToCreate = attributeList
-        }))
-    }
-
-    const hasAttributesToCreate = function () {
-        return getAttributesToCreateCount()>0
-    }
-
-    const getAttributesToCreateCount = function () {
-        if (state.attributesToCreate === undefined) {
-            return false;
-        }
-        return state.attributesToCreate.length
-    }
-
-    const getAttributesToCreate = function () {
-        return state.attributesToCreate
+        return attributeList
     }
 
     return {
-        setAttributeListToCreate,
-        hasAttributesToCreate,
-        getAttributesToCreate,
-        getAttributesToCreateCount
-    }
+        setAttributeListToCreate}
 }
