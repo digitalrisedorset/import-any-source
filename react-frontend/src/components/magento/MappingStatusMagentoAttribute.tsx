@@ -2,11 +2,6 @@ import {KeystoneMagentoAttributeData, MagentoAttribute} from "../../types/keysto
 import AwaitingLinkStyle from "../styles/AwaitingLinkStyle";
 import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
 import {GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY} from "../../graphql/keystone";
-import {LoadingDotsIcon} from "../../Loading";
-
-interface MagentoAttributeProps {
-    data: KeystoneMagentoAttributeData | undefined
-}
 
 export function MappingStatusMagentoAttribute() {
     const mappingResult:QueryResult<KeystoneMagentoAttributeData | OperationVariables> = useQuery(GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY, {
@@ -18,8 +13,6 @@ export function MappingStatusMagentoAttribute() {
             }
         }
     });
-
-    if (mappingResult.loading) return <LoadingDotsIcon />
 
     return (
         <AwaitingLinkStyle>

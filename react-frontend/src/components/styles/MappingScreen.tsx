@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 interface StyleProps {
-    ignored?: boolean;
+  ignored?: boolean;
 }
 
 export const MappingScreen = styled.div<StyleProps>`
-  border: 1px solid var(--offWhite);
+    border: 1px solid var(--offWhite);
     position: relative;
-  box-shadow: var(--bs);
+    box-shadow: var(--bs);
     display: flex;
     .fields {
         width:85%

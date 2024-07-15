@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const AwaitingLinkStyle = styled.div`
+    position: absolute;
     background: white;
     border: 1px solid var(--offWhite);
     box-shadow: var(--bs);
@@ -10,9 +11,8 @@ const AwaitingLinkStyle = styled.div`
     font-style: italic;
     width:380px;
     height: 68px;
-    position: absolute;
     right: 5rem;
-    top: -95px;
+    top: 5px;
     h2 {
         margin-bottom: 20px;
     }

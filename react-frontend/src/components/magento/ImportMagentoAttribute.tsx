@@ -9,26 +9,30 @@ import {RemoteMagentoAttributeProvider} from "../../models/RemoteMagentoAttribut
 import {useActions} from "../../hooks/useActions";
 import {useNavigate} from "react-router-dom";
 import {KeystoneMagentoAttributeData} from "../../types/keystone";
-import {MagentoAttributeData} from "../../types/magento"
+import {RemoteMagentoAttributeData} from "../../types/magento"
 
 interface MagentoAttributeProps {
     data: KeystoneMagentoAttributeData | undefined
 }
 
-export default function ImportMagentoAttribute(props: MagentoAttributeProps) {
+export default function ImportMagentoAttribute() {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
-    const [createListAttribute, {data: attributes, error: updateError, loading: updateLoading} ] = useMutation(CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION, {
-        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }],
+    const [createListAttribute ] = useMutation(CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION, {
+        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }, {query: ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY}]
     });
-    const { data, loading }: QueryResult<MagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
+    const { data, loading }: QueryResult<RemoteMagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
         variables: {}, context: {clientName: 'magento'}
     });
 
+    const magentoAttributeData: QueryResult<KeystoneMagentoAttributeData | OperationVariables> = useQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
+        variables: {}
+    });
+
     const isMagentoImportComplete = () => {
-        if (props.data?.magentoAttributes?.length !== undefined) {
-            return props.data?.magentoAttributes?.length > 0
+        if (magentoAttributeData?.data?.magentoAttributes?.length !== undefined) {
+            return magentoAttributeData?.data?.magentoAttributes?.length > 0
         }
     }
 

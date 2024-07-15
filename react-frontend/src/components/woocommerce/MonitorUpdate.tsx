@@ -43,9 +43,9 @@ export function MonitorUpdate() {
     const [monitor, setMonitor] = useState(false)
     const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)
-    const updateModel = new UpdateModel()
 
     useEffect(() => {
+        const updateModel = new UpdateModel()
         const interval = setInterval(async () => {
             updateModel.createUpdateImport().then(response => {
                 setUpdateCsvFile(response as UpdateResponse)
@@ -58,7 +58,7 @@ export function MonitorUpdate() {
             })
         }, MINUTE_MS);
 
-        return () => {}
+        return () => clearInterval(interval && interval2)
     }, [monitor])
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {

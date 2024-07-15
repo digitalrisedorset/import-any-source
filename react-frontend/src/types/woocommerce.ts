@@ -1,14 +1,8 @@
-import exp from "node:constants";
-
-interface RemoteWoocommerceAttribute {
+export interface RemoteWoocommerceAttribute {
     readonly code: string;
     readonly name: string;
     readonly type: string;
 }
-export interface WocommerceApiAttributeResponse {
-    data: RemoteWoocommerceAttribute[]
-}
-
 
 export interface RemoteWoocommerceProduct {
     readonly id: number

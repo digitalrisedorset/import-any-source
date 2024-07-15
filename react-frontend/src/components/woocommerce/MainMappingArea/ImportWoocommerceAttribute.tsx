@@ -1,4 +1,4 @@
-import {useMutation} from '@apollo/client';
+import {OperationVariables, QueryResult, useMutation, useQuery} from '@apollo/client';
 import {
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
     CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION
@@ -6,22 +6,25 @@ import {
 import {useActions} from "../../../hooks/useActions";
 import {RemoteWoocommerceAttributeProvider} from "../../../models/RemoteWoocommerceAttributeProvider"
 import {useNavigate} from "react-router-dom";
-import {WoocommerceAttributeProps} from "../../../types/keystone";
+import {WoocommerceAttributeData} from "../../../types/keystone";
 import {LoadingDotsIcon} from "../../../Loading";
 import {useState} from "react";
 
-export default function ImportWoocommerceAttribute(props: WoocommerceAttributeProps) {
+export default function ImportWoocommerceAttribute() {
     const [importing, setImporting] = useState(false)
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
     const remoteAttributeProvider = RemoteWoocommerceAttributeProvider()
-    const [createListAttribute, {data: attributes, error: updateError, loading: updateLoading} ] = useMutation(CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION, {
+    const [createListAttribute] = useMutation(CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION, {
         refetchQueries: [{ query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY }],
+    });
+    const woocommerceAttributeData: QueryResult<WoocommerceAttributeData | OperationVariables> = useQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
+        variables: {},
     });
 
     const isWoocommerceImportComplete = () => {
-        if (props.data?.woocommerceAttributes?.length !== undefined) {
-            return props.data?.woocommerceAttributes?.length > 0
+        if (woocommerceAttributeData?.data?.woocommerceAttributes?.length !== undefined) {
+            return woocommerceAttributeData?.data?.woocommerceAttributes?.length > 0
         }
     }
 

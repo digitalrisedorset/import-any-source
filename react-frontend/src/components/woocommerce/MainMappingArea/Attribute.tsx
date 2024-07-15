@@ -25,7 +25,6 @@ interface AttributeProps {
 }
 
 export function Attribute({attribute}: AttributeProps) {
-    const canDelete = true
     const [setWoocommerceAttributeIgnore] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {
         variables: {
             "where": {"id":attribute.id},
@@ -48,7 +47,7 @@ export function Attribute({attribute}: AttributeProps) {
     }
 
     return (
-        <ItemStyles required={attribute.required} candelete={canDelete}>
+        <ItemStyles required={attribute.required} candelete="true">
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

@@ -1,10 +1,5 @@
 import {QueryResult} from "@apollo/client";
 
-interface MagentoCode {
-    readonly code: string;
-    readonly name: string;
-}
-
 interface BaseAttribute {
     readonly id?: string;
     readonly code: string;
@@ -14,15 +9,16 @@ interface BaseAttribute {
     readonly createdAt: string;
 }
 
+interface MagentoCode {
+    readonly code: string;
+    readonly name: string;
+}
+
 export type KeystoneAttribute = Pick<BaseAttribute, "code" | "name" | "type" | "required">
 
 export interface WoocommerceAttribute extends BaseAttribute {
     ignored: boolean;
     magentoCode: MagentoCode
-}
-
-export interface WoocommerceAttributeData {
-    woocommerceAttributes: WoocommerceAttribute[]
 }
 
 export interface MagentoAttribute extends BaseAttribute {
@@ -34,28 +30,17 @@ export interface AssignedToData {
     readonly name: string;
 }
 
-export interface KeystoneMagentoAttributeData {
-    magentoAttributes: MagentoAttribute[]
+export interface WoocommerceAttributeData {
+    woocommerceAttributes: WoocommerceAttribute[]
 }
 
-export interface KeystoneWoocommerceAttributeData {
-    woocommerceAttributes: WoocommerceAttribute[]
+export interface KeystoneMagentoAttributeData {
+    magentoAttributes: MagentoAttribute[]
 }
 
 export interface MatchingAttributeData {
     readonly label: string,
     readonly value: string
-}
-
-export interface Mapping {
-    woocommerceAttribute: WoocommerceAttribute;
-    matchingAttributes: MagentoAttribute[]
-}
-
-
-
-export interface RemoteAttributesToCreate {
-    attributesToCreate: KeystoneAttribute[]
 }
 
 export enum PRODUCT_STATUS {
@@ -77,9 +62,4 @@ export interface RemoteProductsToCreate {
 
 export interface WoocommerceQueryResult extends QueryResult {
     woocommerceAttributes: WoocommerceAttribute[]
-}
-
-export interface WoocommerceAttributeProps {
-    data: WoocommerceAttributeData | undefined
-    loading?: boolean
 }

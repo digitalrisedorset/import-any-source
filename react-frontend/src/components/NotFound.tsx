@@ -1,10 +1,10 @@
-import CartStyles from "./styles/CartStyles";
+import GridStyles from "./styles/GridStyles";
 
-export function NotFound(): JSX.Element {
+export function NotFound() {
 
     return (
-        <CartStyles>
+        <GridStyles>
             <h2>Whoops, we cannot find that page.</h2>
-        </CartStyles>
+        </GridStyles>
     )
 }

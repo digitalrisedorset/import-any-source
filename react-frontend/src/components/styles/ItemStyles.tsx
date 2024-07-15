@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 interface StyleProps {
     required?: boolean;
-    candelete?: boolean
+    candelete?: "true" | "false"
 }
 
 const ItemStyles = styled.div<StyleProps>`
@@ -20,7 +20,7 @@ const ItemStyles = styled.div<StyleProps>`
         font-style: italic;
         position: absolute;
         bottom: 5px;
-        right: ${(props: StyleProps): string => props.candelete?'50px':'0px' };
+        right: ${(props: StyleProps): string => (props.candelete === "true")?'50px':'0px' };
         width: 90px;
         font-size: x-small;
     }

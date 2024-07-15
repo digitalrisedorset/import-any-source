@@ -1,14 +1,13 @@
 import { config } from './config';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import {ApolloProvider} from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import { QueryClient, QueryClientProvider } from 'react-query'
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import { store } from './state'
 import Axios from "axios"
-import {apolloClient} from './apolloclient'
+import { apolloClient } from './apolloclient'
 
 const queryClient = new QueryClient()
 

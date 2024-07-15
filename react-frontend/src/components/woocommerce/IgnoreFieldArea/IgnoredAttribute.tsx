@@ -1,23 +1,10 @@
-import {IgnoreStyles} from '../../styles/IgnoreStyles';
+import {IgnoreStyles, ActivateButton} from '../../styles/IgnoreStyles';
 import {IgnoreTitle} from '../../styles/Title';
 import MapLink from "../MainMappingArea/MapLink";
 import { WoocommerceAttribute } from '../../../types/keystone'
-import styled from "styled-components";
 import React from "react";
 import {useMutation} from "@apollo/client";
 import {UPDATE_ATTRIBUTE_MUTATION} from "../../../graphql/keystone";
-
-const ActivateButton = styled.button`
-  background: black;
-  color: white;
-  font-size: 8px;
-  border: 0;
-  position: absolute;
-  z-index: 2;
-  right: 5px;
-    top:10px;
-    padding:4px 6px;
-`;
 
 interface AttributeProps {
     attribute: WoocommerceAttribute

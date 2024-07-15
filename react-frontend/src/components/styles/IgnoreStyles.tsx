@@ -24,3 +24,14 @@ export const IgnoreStyles = styled.div<StyleProps>`
   }
 `;
 
+export const ActivateButton = styled.button`
+  background: black;
+  color: white;
+  font-size: 8px;
+  border: 0;
+  position: absolute;
+  z-index: 2;
+  right: 5px;
+    top:10px;
+    padding:4px 6px;
+`;

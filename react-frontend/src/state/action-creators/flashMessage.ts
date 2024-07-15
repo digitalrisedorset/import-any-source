@@ -21,11 +21,3 @@ export const addDownloadMessage = (message: string, file:ImportResponse) => {
         })
     }
 }
-
-export const resetFlashMessage = () => {
-    return async (dispatch: Dispatch<FlassMessaggeActionList>) => {
-        dispatch({
-            type: FlashMessageActionType.RESET_FLASH_MESSAGE
-        })
-    }
-}

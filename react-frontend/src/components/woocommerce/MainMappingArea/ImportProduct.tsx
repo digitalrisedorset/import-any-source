@@ -1,14 +1,19 @@
-import {LazyQueryResultTuple, OperationVariables, useLazyQuery} from "@apollo/client";
+import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, useQuery} from "@apollo/client";
 import {
-    ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY,
+    ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY,
     ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY
 } from "../../../graphql/keystone";
 import {WoocommerceAttributeProvider} from "../../../models/KeystoneWoocommerceAttributeProvider"
 import {MagentoAttributeProvider} from "../../../models/KeystoneMagentoAttributeProvider"
 import {MappingModel} from "../../../models/MappingDataProvider"
-import {KeystoneMagentoAttributeData, WoocommerceAttributeData, WoocommerceQueryResult} from "../../../types/keystone";
+import {
+    WoocommerceAttributeData,
+    KeystoneMagentoAttributeData,
+    WoocommerceQueryResult,
+    WoocommerceAttribute
+} from "../../../types/keystone";
 import {useActions} from "../../../hooks/useActions";
-import { useState} from "react";
+import {useEffect, useState} from "react";
 import styled from "styled-components";
 import {ImportResponse} from "../../../types/woocommerce"
 
@@ -24,7 +29,8 @@ interface MappingAttributeProps {
     data: WoocommerceAttributeData | undefined
 }
 
-export default function ImportProduct(props: MappingAttributeProps) {
+export default function ImportProduct() {
+    const [mappingReady, setMappingReady] = useState(false)
     const [importBuiling, setImportBuilding] = useState(false)
     const { addDownloadMessage } = useActions()
     const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceAttributeData, OperationVariables> = useLazyQuery(ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY, {
@@ -34,15 +40,32 @@ export default function ImportProduct(props: MappingAttributeProps) {
         variables: {}
     });
 
-    const isMappingNotComplete = (props: MappingAttributeProps) => {
-        if (props.data?.woocommerceAttributes === undefined) {
-            return true
+    const mappingData: QueryResult<WoocommerceQueryResult | OperationVariables> = useQuery(ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY, {
+        variables: {
+            "where": {
+                "ignored": {
+                    "equals": false
+                },
+                "magentoCode": null
+            }
         }
+    });
 
-        if (props.data?.woocommerceAttributes?.length !== undefined) {
-            return props.data?.woocommerceAttributes?.length > 0
+    useEffect(() => {
+        const isMappingNotComplete = (attributes: WoocommerceAttribute[]) => {
+            if (attributes === undefined) {
+                setMappingReady(true)
+                return
+            }
+
+            if (attributes.length !== undefined) {
+                setMappingReady(attributes.length === 0)
+            }
         }
-    }
+        isMappingNotComplete(mappingData?.data?.woocommerceAttributes)
+
+        return () => {}
+    }, [mappingData?.data?.woocommerceAttributes])
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
@@ -70,7 +93,7 @@ export default function ImportProduct(props: MappingAttributeProps) {
         <Form>
             <h2>Step 4</h2>
 
-            <button type="submit" disabled={importBuiling || isMappingNotComplete(props)} onClick={handleSubmit}>
+            <button type="submit" disabled={importBuiling || !mappingReady} onClick={handleSubmit}>
                 Import Magento Products
             </button>
         </Form>

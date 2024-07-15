@@ -6,6 +6,6 @@ export interface RemoteMagentoAttribute {
     is_required: boolean
 }
 
-export interface MagentoAttributeData {
+export interface RemoteMagentoAttributeData {
     attributesList: RemoteMagentoAttribute[]
 }

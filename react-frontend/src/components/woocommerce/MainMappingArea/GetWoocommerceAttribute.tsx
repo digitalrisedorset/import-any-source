@@ -1,5 +1,5 @@
 import { Attribute } from "./Attribute";
-import CartStyles from "../../styles/CartStyles";
+import GridStyles from "../../styles/GridStyles";
 import {WoocommerceAttribute} from '../../../types/keystone'
 import {WoocommerceAttributeDescription} from "./WoocommerceAttributeDescription";
 import {LoadingDotsIcon} from "../../../Loading";
@@ -15,13 +15,13 @@ export function GetWoocommerceAttribute() {
     }
 
     return (
-        <CartStyles>
+        <GridStyles>
             <WoocommerceAttributeDescription />
             {error && <h3>{error.message}</h3>}
-            {loading || data?.woocommerceAttributes?.length===0 && <LoadingDotsIcon />}
+            {data?.woocommerceAttributes?.length===0 && <LoadingDotsIcon />}
             {!loading && data && getActiveAttributes(data?.woocommerceAttributes).map(
                 (attribute) => <Attribute key={attribute.id} attribute={attribute}/>
             )}
-        </CartStyles>
+        </GridStyles>
     )
 }

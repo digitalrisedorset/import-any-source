@@ -9,7 +9,6 @@ import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
 export function MapField() {
     const { code } = useParams();
-    const { resetFlashMessage } = useActions()
     const { setWoocommerceAttributesMatchFound } = useActions()
 
     const [attributeCodeState, setAttributeCodeState] = useState('');
@@ -30,8 +29,6 @@ export function MapField() {
             setAttributeCodeState(code)
         }
     }, [])
-
-    resetFlashMessage()
 
     return (
         <div>

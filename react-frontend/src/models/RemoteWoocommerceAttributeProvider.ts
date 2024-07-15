@@ -1,5 +1,9 @@
 import Axios from "axios";
-import {WocommerceApiAttributeResponse} from '../types/woocommerce'
+import {RemoteWoocommerceAttribute} from '../types/woocommerce'
+
+interface WocommerceApiAttributeResponse {
+    data: RemoteWoocommerceAttribute[]
+}
 
 export function RemoteWoocommerceAttributeProvider() {
     const loadAttributes = async function(): Promise<any | void> {

@@ -1,9 +1,8 @@
 import { GetWoocommerceAttribute } from "./MainMappingArea/GetWoocommerceAttribute";
 import { useActions } from "../../hooks/useActions";
 import { useParams } from "react-router-dom";
-import {MappingStatusMagentoAttribute} from "../magento/MappingStatusMagentoAttribute";
-import {MappingScreen} from '../styles/MappingScreen';
-import {GetIgnoredAttribute} from "./IgnoreFieldArea/GetIgnoredAttribute";
+import { MappingScreen } from '../styles/MappingScreen';
+import { GetIgnoredAttribute } from "./IgnoreFieldArea/GetIgnoredAttribute";
 
 export function Woocommerce() {
     const { initialAttribute, matchingAttribute } = useParams();
@@ -16,7 +15,6 @@ export function Woocommerce() {
     return (
         <MappingScreen>
             <div className="fields">
-                <MappingStatusMagentoAttribute />
                 <GetWoocommerceAttribute />
             </div>
             <GetIgnoredAttribute />

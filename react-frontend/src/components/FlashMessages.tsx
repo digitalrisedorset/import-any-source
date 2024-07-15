@@ -1,63 +1,61 @@
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import styled from "styled-components";
-import {RenderFileDownload} from "./woocommerce/DownloadLink"
+import { RenderFileDownload } from "./woocommerce/DownloadLink"
+import { SuccessStyles, ErrorStyles, AnimationStyles} from "./styles/FlashMessage"
+import React, {useEffect, useState} from "react";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-const SuccessStyles = styled.div`
-  padding: 2rem;
-  background: white;
-  margin: 2rem 0;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-left: 10px solid green;
-  p {
-    margin: 0;
-    font-weight: 100;
-  }
-  strong {
-    margin-right: 1rem;
-  }
-`;
-
-const ErrorStyles = styled.div`
-  padding: 2rem;
-  background: white;
-  margin: 2rem 0;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-left: 10px solid red;
-  p {
-    margin: 0;
-    font-weight: 100;
-  }
-  strong {
-    margin-right: 1rem;
-  }
-`;
+const MINUTE_MS = 5000;
 
 export function FlashMessages() {
     const { messages, downloadLink, messageType} = useTypedSelector((state) => state.flashMessages)
+    const [hidden, setHidden] = useState(false)
+
+    useEffect(() => {
+        setHidden(false)
+        const interval = setInterval(async () => {
+            setHidden(true)
+        }, MINUTE_MS);
+
+        return () => clearInterval(interval)
+    }, [messages])
 
     return (
-        <div className="floating-alerts">
-            {messageType === 'error' && messages.map((msg, index) => {
-                return (
-                    <ErrorStyles key={index}>
-                        <div className="alert alert-error text-center floating-alert shadow-sm">
-                            {msg}
-                            {downloadLink && RenderFileDownload(downloadLink)}
-                        </div>
-                    </ErrorStyles>
-                )
-            })}
+        <>
+            {!hidden && <AnimationStyles>
+                <TransitionGroup>
+                    <CSSTransition
+                        in={hidden}
+                        timeout={MINUTE_MS}
+                        classNames="display"
+                        unmountOnExit
+                        appear
+                    >
+                        <>
+                            {messageType === 'error' && messages.map((msg, index) => {
+                                return (
+                                    <ErrorStyles key={index}>
+                                        <div className="alert alert-error text-center floating-alert shadow-sm">
+                                            {msg}
+                                            {downloadLink && RenderFileDownload(downloadLink)}
+                                        </div>
+                                    </ErrorStyles>
+                                )
+                            })}
 
-            {messageType === 'success' && messages.map((msg, index) => {
-                return (
-                    <SuccessStyles key={index}>
-                        <div className="alert alert-success text-center floating-alert shadow-sm">
-                            {msg}
-                            {downloadLink && RenderFileDownload(downloadLink)}
-                        </div>
-                    </SuccessStyles>
-                )
-            })}
-        </div>
+                            {messageType === 'success' && messages.map((msg, index) => {
+                                return (
+                                    <SuccessStyles key={index}>
+                                        <div className="alert alert-success text-center floating-alert shadow-sm">
+                                            {msg}
+                                            {downloadLink && RenderFileDownload(downloadLink)}
+                                        </div>
+                                    </SuccessStyles>
+                                )
+                            })}
+                        </>
+                    </CSSTransition>
+                </TransitionGroup>
+            </AnimationStyles>}
+        </>
     )
 }

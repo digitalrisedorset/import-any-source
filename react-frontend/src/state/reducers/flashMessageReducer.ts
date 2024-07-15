@@ -24,8 +24,6 @@ const reducer = (
         case FlashMessageActionType.ADD_DOWNLOAD_MESSAGE:
             //state.messages.push(action.message)
             return { messages: [action.message], downloadLink: action.file, messageType: 'success' }
-        case FlashMessageActionType.RESET_FLASH_MESSAGE:
-            return { messages: [], messageType: 'success' }
         default:
             return state;
     }

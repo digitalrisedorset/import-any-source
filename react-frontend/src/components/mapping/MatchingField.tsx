@@ -1,5 +1,5 @@
 import { Attribute } from "./Attribute";
-import CartStyles from "../styles/CartStyles";
+import GridStyles from "../styles/GridStyles";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {MatchingAttributeData} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
@@ -11,13 +11,13 @@ export function MatchingField() {
     addFlashMessage(`The system has found ${magentoMatchAttributes.length} possible matching magento attributes`)
 
     return (
-        <CartStyles>
+        <GridStyles>
             <h2>Matching Attributes</h2>
             {(woocommerceAttribute && magentoMatchAttributes &&
                 magentoMatchAttributes.map((attribute: MatchingAttributeData) => (
                     <Attribute key={attribute.value} attribute={attribute} initialAttribute={woocommerceAttribute}/>
                 ))
             )}
-        </CartStyles>
+        </GridStyles>
     )
 }
