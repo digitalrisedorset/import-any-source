@@ -18,6 +18,12 @@ export interface WoocommerceAttribute {
     name: string
 }
 
+export interface Attribute {
+    code: string
+    name: string
+    type: string
+}
+
 export interface ProductImage {
     name: string;
     src: string
@@ -26,6 +32,12 @@ export interface ProductImage {
 export interface WoocommerceProduct extends WoocommerceSimpleProduct {
     image: ProductImage,
     variations: number[]
+}
+
+export interface WoocommerceAttribute {
+    slug: string
+    option: string
+    name: string
 }
 
 export interface WoocommerceAttribute {

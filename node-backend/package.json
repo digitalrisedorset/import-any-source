@@ -2,7 +2,7 @@
   "name": "complex-app",
   "version": "1.0.0",
   "description": "hey dude",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "start:build": "npx tsc -w",
     "start:run": "nodemon build/index.js",
@@ -41,5 +41,8 @@
     "socket.io": "^4.7.1",
     "typescript": "^5.5.3",
     "validator": "^13.9.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }

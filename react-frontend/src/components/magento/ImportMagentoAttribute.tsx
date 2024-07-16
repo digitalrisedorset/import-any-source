@@ -11,10 +11,6 @@ import {useNavigate} from "react-router-dom";
 import {KeystoneMagentoAttributeData} from "../../types/keystone";
 import {RemoteMagentoAttributeData} from "../../types/magento"
 
-interface MagentoAttributeProps {
-    data: KeystoneMagentoAttributeData | undefined
-}
-
 export default function ImportMagentoAttribute() {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()

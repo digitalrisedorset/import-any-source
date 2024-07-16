@@ -1,10 +1,12 @@
-import {ImportMappingFields, WoocommerceProduct} from "../../types";
+import {ImportMappingFields, WoocommerceProduct, WoocommerceSimpleProduct} from "../../types";
 import {WoocommerceDataVariations} from "../woocommerce/data-variation";
 import {ImportRowCreator} from "./row-creator";
+import {ErrorWrapper} from "../../error-handler";
 
 export class VariationDataProvider {
     woocommerceDataVariations = new WoocommerceDataVariations()
     importRowCreator = new ImportRowCreator()
+    errorWrapper = new ErrorWrapper()
 
     getVariationRows = async (data: Readonly<WoocommerceProduct[]>, mappingFields: Readonly<ImportMappingFields>): Promise<WoocommerceProduct[]> => {
         await this.importRowCreator.createHeader(mappingFields)
@@ -21,14 +23,18 @@ export class VariationDataProvider {
     getApiData = async (data: Readonly<WoocommerceProduct[]>): Promise<WoocommerceProduct[]> => {
         let simpleRowsWithVariation: WoocommerceProduct[] = []
 
-        for (let i= 0; i < data.length; i++) {
-            const variationData = await this.woocommerceDataVariations.getVariationData(data[i])
-            if (variationData !== undefined) {
-                variationData.map((variation => {
-                    simpleRowsWithVariation.push(variation as WoocommerceProduct)
-                }))
-            }
-        }
+        data.map((simpleProduct: WoocommerceProduct) => {
+            this.woocommerceDataVariations.getVariationData(simpleProduct)
+                .then((variationData: WoocommerceSimpleProduct[]) => {
+                    variationData.map((variation: WoocommerceSimpleProduct) => {
+                        simpleRowsWithVariation.push(variation as WoocommerceProduct)
+                    })
+                })
+                .catch(e => {
+                    this.errorWrapper.handle(e)
+                })
+
+        })
 
         return simpleRowsWithVariation
     }

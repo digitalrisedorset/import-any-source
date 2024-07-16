@@ -34,10 +34,10 @@ export class KeystoneImportCreator {
                 status: (record.status==='publish')?'AVAILABLE':'UNAVAILABLE',
                 price: record.price * 100,
                 photo: {
-                    filename: record.images[0]?.name,
+                    filename: record.images[0]?.name || '',
                     mimetype: ImageType.jpeg,
                     encoding: ImageEncoding.sevenbit,
-                    secure_url: record.images[0]?.src,
+                    secure_url: record.images[0]?.src || '',
                 }
             }
 

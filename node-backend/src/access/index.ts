@@ -1,8 +1,8 @@
 import {setupStaticFileAccess} from "./staticFile.js";
 import {setupJsonBodyParse} from "./jsonParser.js";
-import * as core from "express-serve-static-core";
+import {Application} from "express";
 
-export default (app: core.Express) => {
+export default (app: Application) => {
     setupJsonBodyParse(app)
     setupStaticFileAccess(app)
 }

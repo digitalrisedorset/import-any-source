@@ -4,6 +4,7 @@ const appRoot = require('app-root-path');
 
 export type configInfo = {
     port: number;
+    frontendUrl: string;
     woocommerce: {
         apiUrl: string,
         apiKey: string,
@@ -32,6 +33,8 @@ export type configInfo = {
 
 export const config: configInfo = {
     port: (process.env.PORT === undefined)? 8080: Number(process.env.PORT),
+
+    frontendUrl: (process.env.FRONTEND_URL === undefined)?'http://localhost:3001':process.env.FRONTEND_URL,
 
     woocommerce: {
         apiUrl: (process.env.WOOMMERCE_API_URL === undefined)?'localhost':process.env.WOOMMERCE_API_URL,

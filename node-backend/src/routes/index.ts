@@ -1,6 +1,6 @@
 import {setupWoocommerceRoutes} from "./woocomerceRouter.js";
-import * as core from "express-serve-static-core";
+import {Application} from "express";
 
-export default (app: core.Express) => {
+export default (app: Application) => {
     setupWoocommerceRoutes(app)
 }

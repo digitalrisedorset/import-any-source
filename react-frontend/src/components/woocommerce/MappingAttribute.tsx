@@ -1,4 +1,4 @@
-import {WoocommerceAttribute, WoocommerceAttributeData, WoocommerceQueryResult} from "../../types/keystone";
+import {WoocommerceAttribute, WoocommerceQueryResult} from "../../types/keystone";
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
@@ -12,10 +12,6 @@ const Form = styled.form`
     }
   }
 `;
-
-interface MappingAttributeProps {
-    data: WoocommerceAttributeData | undefined
-}
 
 export function MappingAttributes() {
     const [mappingReady, setMappingReady] = useState(false)

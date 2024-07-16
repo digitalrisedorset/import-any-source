@@ -6,22 +6,18 @@ export class WoocommerceDataVariations {
     woocommerceApiHandler = new ApiHandler;
     cache = new CacheService();
 
-    getVariationForProduct = async (productId: number, variationId: number) => {
-        return await this.woocommerceApiHandler.callApiUrl(`products/${productId}/variations/${variationId}`, []);
-    }
-
-    getVariationData = async (record: WoocommerceProduct): Promise<WoocommerceSimpleProduct[] | undefined> =>  {
+    getVariationData = async (record: WoocommerceProduct): Promise<WoocommerceSimpleProduct[]> =>  {
         const variations = record[WoocommerceProductFieldCase.variations]
         if (variations.length == 0) {
-            return;
+            throw new Error(`No variation exist for the record with id: ${record['id']}, sku: ${record['sku']}`)
         }
 
-        return await this.cache.get(`getVariationData_${record['id']}`, async () => {
+        return await this.cache.get(`getVariationData_${record['id']}`, async (): Promise<WoocommerceSimpleProduct[]> => {
             return await this.getApiVariationData(record['id'], variations)
         })
     }
 
-    getApiVariationData = async (recordId: number, variations: number[]): Promise<WoocommerceSimpleProduct[] | undefined> =>  {
+    getApiVariationData = async (recordId: number, variations: number[]): Promise<WoocommerceSimpleProduct[]> =>  {
         return await Promise.all(variations.map(async (variationId) => {
             return await this.woocommerceApiHandler.callApiUrl(`products/${recordId}/variations/${variationId}`, []);
         }, (this)));

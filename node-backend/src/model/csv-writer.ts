@@ -7,15 +7,15 @@ export class CsvWriter {
 
     private filename = ''
 
-    startUpdate() {
+    startUpdate = () => {
         this.setProductFilename('products-update')
     }
 
-    startDelete() {
+    startDelete = () => {
         this.setProductFilename('products-delete')
     }
 
-    startImport() {
+    startImport = () => {
         this.setProductFilename('products')
     }
 
@@ -42,13 +42,13 @@ export class CsvWriter {
     }
 
     writeRecords = async (rows: any) => {
-        let res = ''
+        if (this.writer === null) {
+            throw new Error('write has not been initialised')
+        }
 
-        // @ts-ignore
-        this.writer.writeRecords(rows).then(
-            res = this.getDownloadableFileLink()
-        )
-
-        return res;
+        //@ts-ignore
+        return this.writer.writeRecords(rows).then(() => {
+            return this.getDownloadableFileLink()
+        })
     }
 }

@@ -1,19 +1,19 @@
-import express, {NextFunction, Request, Response} from 'express'
+import express, {Application, Request, Response, NextFunction} from 'express'
 import {WoocommerceController} from "../controller/woocommerceController";
 import {config} from "../config";
-import * as core from "express-serve-static-core";
-const cors = require("cors")
+import { corsOptions } from '../lib/cors-setup'
 
-export const setupWoocommerceRoutes = (app: core.Express) => {
+export const setupWoocommerceRoutes = (app: Application) => {
     const router = express.Router()
-    router.use(cors())
+    const options = corsOptions();
+    router.use(options)
 
     const woocommerceController = new WoocommerceController()
 
-    // router.use('/', (req: Request, res: Response, next: NextFunction) => {
-    //     console.log(`request: ${req.url}`)
-    //     next()
-    // })
+    router.use('/', (req: Request, res: Response, next: NextFunction) => {
+        console.log(`request: ${req.url}`)
+        next()
+    })
 
     router.get("/getWoocommerceAttributeList", woocommerceController.apiGetAttributeList)
 
@@ -28,6 +28,8 @@ export const setupWoocommerceRoutes = (app: core.Express) => {
     router.post("/createKeystoneImport", woocommerceController.createKeystoneSeedImport)
 
     router.post("/notifyProductDeletion", woocommerceController.notifyProductDeletion)
+
+    router.options('*', options);
 
     app.use(config.route.apiPrefix, router)
 }

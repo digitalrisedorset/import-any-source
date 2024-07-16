@@ -1,6 +1,4 @@
 import {
-    WoocommerceProductFieldCase,
-    FieldValue,
     ImportMappingFields,
     MagentoProductFieldCase,
     WoocommerceProduct, ImportMapping, ProductImage, VariationAttribute

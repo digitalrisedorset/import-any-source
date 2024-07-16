@@ -25,10 +25,6 @@ const Form = styled.form`
   }
 `;
 
-interface MappingAttributeProps {
-    data: WoocommerceAttributeData | undefined
-}
-
 export default function ImportProduct() {
     const [mappingReady, setMappingReady] = useState(false)
     const [importBuiling, setImportBuilding] = useState(false)
