@@ -21,6 +21,7 @@ const config: configInfo = {
         port: (process.env.FRONTEND_HOST === undefined)?3001:Number(process.env.FRONTEND_PORT)
     },
     database: {
+        dbtype: (process.env.DB_TYPE === undefined)?'postgresql':process.env.DB_TYPE,
         name: (process.env.DB_DATABASE === undefined)?'keystone_import':process.env.DB_DATABASE,
         host: (process.env.DB_HOST === undefined)?'localhost':process.env.DB_HOST,
         user: (process.env.DB_USER === undefined)?'keystone_user':process.env.DB_USER,

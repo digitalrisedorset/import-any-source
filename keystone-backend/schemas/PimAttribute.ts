@@ -2,7 +2,7 @@ import {list} from "@keystone-6/core";
 import {allowAll} from "@keystone-6/core/access";
 import {checkbox, relationship, select, text, timestamp} from "@keystone-6/core/fields";
 
-export const WoocommerceAttribute = list({
+export const PimAttribute = list({
     access: allowAll,
     fields: {
         code: text({ validation: { isRequired: true }, isIndexed:true}),
@@ -26,8 +26,8 @@ export const WoocommerceAttribute = list({
         pimSystem: select({
             type: 'enum',
             options: [
-                { label: 'woocommerce', value: 'Woocommerce' },
-                { label: 'plant', value: 'PlantSystem' }
+                { label: 'Woocommerce', value: 'woocommerce' },
+                { label: 'PlantSystem', value: 'plant' }
             ],
         }),
     },

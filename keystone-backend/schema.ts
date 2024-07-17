@@ -1,6 +1,6 @@
 import type { Lists } from '.keystone/types'
 import {MagentoAttribute} from "./schemas/MagentoAttribute";
-import {WoocommerceAttribute} from "./schemas/WoocommerceAttribute";
+import {PimAttribute} from "./schemas/PimAttribute";
 import {User} from "./schemas/User";
 
 // WARNING: this example is for demonstration purposes only
@@ -16,6 +16,6 @@ export type Session = {
 
 export const lists = {
   User,
-  WoocommerceAttribute,
+  PimAttribute,
   MagentoAttribute
 } satisfies Lists

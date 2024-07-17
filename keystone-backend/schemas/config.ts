@@ -1,7 +1,15 @@
 import {keystoneconfig} from '../config'
 
+export const getDatabaseType = () => {
+    const {database} = keystoneconfig
+
+    return database.dbtype
+}
+
 export const getDatabaseConnection = () => {
     const {database} = keystoneconfig
 
-    return `mysql://${database.user}:${database.password}@${database.host}:${database.port}/${database.name}`
+    const dbPrefix = (database.dbtype==='mysql')?'mysql':'postgres'
+
+    return `${dbPrefix}://${database.user}:${database.password}@${database.host}:${database.port}/${database.name}`
 }
