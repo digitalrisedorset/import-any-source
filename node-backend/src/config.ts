@@ -13,6 +13,7 @@ export type configInfo = {
     },
     route: {
         apiPrefix: string;
+        woocommerceApiPrefix: string;
     },
     import: {
         csvFolder: string
@@ -47,7 +48,8 @@ export const config: configInfo = {
      * Routes access
      */
     route: {
-        apiPrefix: '/'
+        apiPrefix: '/',
+        woocommerceApiPrefix: '/woo'
     },
 
     import: {

@@ -93,7 +93,7 @@ export interface ImportMappingFields {
 }
 
 export interface ImportMapping {
-    woocommerceFieldCode: string,
+    pimFieldCode: string,
     magentoLinkedCode: string
 }
 

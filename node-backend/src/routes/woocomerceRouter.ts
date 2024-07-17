@@ -15,15 +15,15 @@ export const setupWoocommerceRoutes = (app: Application) => {
         next()
     })
 
-    router.get("/getWoocommerceAttributeList", woocommerceController.apiGetAttributeList)
+    router.get("/attributeList", woocommerceController.apiGetAttributeList)
 
-    router.get("/getWoocommerceProductList", woocommerceController.apiGetProductList)
+    router.get("/getProductList", woocommerceController.apiGetProductList)
 
-    router.post("/createWoocommerceImport", woocommerceController.createWoocommerceImport)
+    router.post("/createImport", woocommerceController.createWoocommerceImport)
 
-    router.post("/createWoocommerceUpdate", woocommerceController.createWoocommerceUpdateImport)
+    router.post("/createUpdate", woocommerceController.createWoocommerceUpdateImport)
 
-    router.post("/createWoocommerceDelete", woocommerceController.getWoocommerceDeleteNotification)
+    router.post("/createDelete", woocommerceController.getWoocommerceDeleteNotification)
 
     router.post("/createKeystoneImport", woocommerceController.createKeystoneSeedImport)
 
@@ -31,5 +31,5 @@ export const setupWoocommerceRoutes = (app: Application) => {
 
     router.options('*', options);
 
-    app.use(config.route.apiPrefix, router)
+    app.use(config.route.woocommerceApiPrefix, router)
 }

@@ -47,7 +47,7 @@ export class WoocommerceDataMapper {
     }
 
     getMagentoField = (key: Readonly<string>): string | undefined => {
-        const mapping = this.mappingFields.mapping.filter(mapping => mapping.woocommerceFieldCode === key);
+        const mapping = this.mappingFields.mapping.filter(mapping => mapping.pimFieldCode === key);
         if (mapping.length>0) {
             return mapping[0]?.magentoLinkedCode;
         }
@@ -56,7 +56,7 @@ export class WoocommerceDataMapper {
     getWoocommerceField(key: Readonly<string>): string | undefined {
         const mapping = this.mappingFields.mapping.filter(mapping => mapping.magentoLinkedCode === key);
         if (mapping.length>0) {
-            return mapping[0]?.woocommerceFieldCode;
+            return mapping[0]?.pimFieldCode;
         }
     }
 
