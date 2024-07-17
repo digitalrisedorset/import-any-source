@@ -1,6 +1,6 @@
 import {FlassMessaggeActionList} from '../actions'
 import {FlashMessageActionType} from '../action-types'
-import {ImportResponse} from "../../types/woocommerce"
+import {ImportResponse} from "../../types/pim"
 
 interface FlashMessageState {
     messages: string[]

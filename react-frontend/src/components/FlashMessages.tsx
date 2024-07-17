@@ -1,5 +1,5 @@
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { RenderFileDownload } from "./woocommerce/DownloadLink"
+import { RenderFileDownload } from "./pim/DownloadLink"
 import { SuccessStyles, ErrorStyles, AnimationStyles} from "./styles/FlashMessage"
 import React, {useEffect, useState} from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';

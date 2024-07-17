@@ -1,6 +1,6 @@
 import { FetchToDoAction, DeleteToDoAction } from "./todos";
 import { FetchMagentoAttributesAction, DeleteMagentoAttributeAction } from "./magento";
-import { FetchWoocommerceAttributesAction, DeleteWoocommerceAttributeAction } from "./woocommerce";
+import { FetchPimAttributesAction, DeletePimAttributeAction } from "./pim";
 
 export enum ActionTypes {
     fetchToDo,
@@ -16,9 +16,9 @@ export enum MagentoActionTypes {
 
 export type MagentoAction = FetchMagentoAttributesAction | DeleteMagentoAttributeAction
 
-export enum WoocommerceActionTypes {
-    fetchWoocommerceAttributes,
-    deleteWoocommerceAttribute
+export enum PimActionTypes {
+    fetchPimAttributes,
+    deletePimAttribute
 }
 
-export type WoocommerceAction = FetchWoocommerceAttributesAction | DeleteWoocommerceAttributeAction
+export type PimAction = FetchPimAttributesAction | DeletePimAttributeAction

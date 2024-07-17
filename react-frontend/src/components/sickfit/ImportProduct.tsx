@@ -1,8 +1,8 @@
 import { FormEvent} from "react"
-import {RemoteWoocommerceProductProvider} from "../../models/RemoteWoocommerceProductProvider";
+import {RemotePimProductProvider} from "../../models/RemotePimProductProvider";
 
 export default function ImportProduct(): JSX.Element {
-    const remoteProductProvider = RemoteWoocommerceProductProvider()
+    const remoteProductProvider = RemotePimProductProvider()
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();

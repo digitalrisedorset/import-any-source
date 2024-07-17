@@ -1,4 +1,4 @@
-import {ImportResponse} from "../../types/woocommerce"
+import {ImportResponse} from "../../types/pim"
 
 interface AddFlashMessageAction {
     type: 'add_flash_message',

@@ -10,8 +10,8 @@ export default function Nav() {
             <Link to="/magento" className="text-white">
                 Magento
             </Link>
-            <Link to="/woocommerce" className="text-white">
-                Woocommerce
+            <Link to="/pim" className="text-white">
+                PIM System
             </Link>
         </NavStyles>
     );

@@ -6,16 +6,16 @@ import { useActions } from "../../hooks/useActions";
 
 export function MatchingField() {
     const { addFlashMessage } = useActions()
-    const { woocommerceAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.woocommerceMapping)
+    const { pimAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.pimMapping)
 
     addFlashMessage(`The system has found ${magentoMatchAttributes.length} possible matching magento attributes`)
 
     return (
         <GridStyles>
             <h2>Matching Attributes</h2>
-            {(woocommerceAttribute && magentoMatchAttributes &&
+            {(pimAttribute && magentoMatchAttributes &&
                 magentoMatchAttributes.map((attribute: MatchingAttributeData) => (
-                    <Attribute key={attribute.value} attribute={attribute} initialAttribute={woocommerceAttribute}/>
+                    <Attribute key={attribute.value} attribute={attribute} initialAttribute={pimAttribute}/>
                 ))
             )}
         </GridStyles>

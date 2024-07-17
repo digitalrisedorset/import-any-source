@@ -9,7 +9,7 @@ import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
 export function MapField() {
     const { code } = useParams();
-    const { setWoocommerceAttributesMatchFound } = useActions()
+    const { setPimAttributesMatchFound } = useActions()
 
     const [attributeCodeState, setAttributeCodeState] = useState('');
     const [getAttributeList]: LazyQueryResultTuple<KeystoneMagentoAttributeData, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
@@ -21,7 +21,7 @@ export function MapField() {
         let optionsFromCode = data?.data?.magentoAttributes.map((attribute: MagentoAttribute) => ({label: attribute.code, value: attribute.name}))
         let match = filterOptions(optionsFromCode, attributeCodeState)
 
-        setWoocommerceAttributesMatchFound(code, match)
+        setPimAttributesMatchFound(code, match)
     }
 
     useEffect(() => {
@@ -40,7 +40,7 @@ export function MapField() {
             }}>
                 <fieldset>
                     <label htmlFor="code">
-                        Next Woocommerce Attribute Code to Link
+                        Next Pim Attribute Code to Link
                         <input
                             className="mb2"
                             value={attributeCodeState}
@@ -48,7 +48,7 @@ export function MapField() {
                                 setAttributeCodeState(e.target.value)
                             }
                             type="text"
-                            placeholder="Enter a Woocommerce Attribute Code"
+                            placeholder="Enter a Pim Attribute Code"
                         />
                     </label>
 

@@ -1,14 +1,16 @@
 import { combineReducers } from "redux";
-import woocommerceAttributesReducer from "./woocommerceAttributesReducer";
-import woocommerceMappingReducer from "./woocommerceMappingReducer"
+import pimAttributesReducer from "./pimAttributesReducer";
+import pimMappingReducer from "./pimMappingReducer"
 import flashMessageReducer from "./flashMessageReducer";
-import woocommerceImportReducer from "./woocommerceImportReducer";
+import pimImportReducer from "./pimImportReducer";
+import pimSystemReducer from "./pimSystemReducer";
 
 const reducers = combineReducers({
-    woocommerceAttributes: woocommerceAttributesReducer,
-    woocommerceImport: woocommerceImportReducer,
-    woocommerceMapping: woocommerceMappingReducer,
-    flashMessages: flashMessageReducer
+    pimAttributes: pimAttributesReducer,
+    pimImport: pimImportReducer,
+    pimMapping: pimMappingReducer,
+    flashMessages: flashMessageReducer,
+    pimSystem: pimSystemReducer
 })
 
 export default reducers

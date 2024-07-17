@@ -1,4 +1,5 @@
 import {QueryResult} from "@apollo/client";
+import { PimSystemTypes} from "./pim";
 
 interface BaseAttribute {
     readonly id?: string;
@@ -16,9 +17,10 @@ interface MagentoCode {
 
 export type KeystoneAttribute = Pick<BaseAttribute, "code" | "name" | "type" | "required">
 
-export interface WoocommerceAttribute extends BaseAttribute {
+export interface PimAttribute extends BaseAttribute {
     ignored: boolean;
     magentoCode: MagentoCode
+    pimSystem: string
 }
 
 export interface MagentoAttribute extends BaseAttribute {
@@ -30,8 +32,8 @@ export interface AssignedToData {
     readonly name: string;
 }
 
-export interface WoocommerceAttributeData {
-    woocommerceAttributes: WoocommerceAttribute[]
+export interface PimAttributeData {
+    pimAttributes: PimAttribute[]
 }
 
 export interface KeystoneMagentoAttributeData {
@@ -60,6 +62,6 @@ export interface RemoteProductsToCreate {
     productsToCreate: KeystoneProduct[]
 }
 
-export interface WoocommerceQueryResult extends QueryResult {
-    woocommerceAttributes: WoocommerceAttribute[]
+export interface PimQueryResult extends QueryResult {
+    pimAttributes: PimAttribute[]
 }

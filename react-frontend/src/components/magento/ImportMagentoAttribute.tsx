@@ -1,7 +1,7 @@
 import { FormEvent} from "react"
 import {OperationVariables, QueryResult, useMutation, useQuery} from '@apollo/client';
 import {
-    ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY,
+    ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY,
     CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION
 } from '../../graphql/keystone'
 import { GET_MAGENTO_ATTRIBUTE_LIST_QUERY } from '../../graphql/magentoQuery'
@@ -16,7 +16,7 @@ export default function ImportMagentoAttribute() {
     const navigate = useNavigate()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const [createListAttribute ] = useMutation(CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION, {
-        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }, {query: ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY}]
+        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }, {query: ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY}]
     });
     const { data, loading }: QueryResult<RemoteMagentoAttributeData | OperationVariables> = useQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
         variables: {}, context: {clientName: 'magento'}

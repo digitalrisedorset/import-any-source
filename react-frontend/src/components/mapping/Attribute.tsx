@@ -12,14 +12,14 @@ import {
 import {
     UPDATE_ATTRIBUTE_MUTATION,
     GET_MAGENTO_ATTRIBUTE_LIST_QUERY,
-    GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY,
-    ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY,
+    GET_PIM_ATTRIBUTE_LIST_QUERY,
+    ALL_PIM_PRODUCT_ATTRIBUTES_QUERY,
     GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY
 } from "../../graphql/keystone";
 
 import {
     MagentoAttribute,
-    WoocommerceQueryResult,
+    PimQueryResult,
     MatchingAttributeData
 } from "../../types/keystone";
 import {useActions} from "../../hooks/useActions";
@@ -36,22 +36,22 @@ interface MagentoQueryResult extends QueryResult {
 export function Attribute({attribute, initialAttribute}: MappingProps) {
     const { addFlashMessage } = useActions()
     const navigate = useNavigate()
-    const [woocommerceAttributeStateId, setWoocommerceAttributeStateId] = useState('');
+    const [pimAttributeStateId, setPimAttributeStateId] = useState('');
     const [magentoAttributeStateId, setMagentoAttributeStateId] = useState('');
 
     const [mapAttribute] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {
         variables: {
-            "where": {"id":woocommerceAttributeStateId},
+            "where": {"id":pimAttributeStateId},
             "data": {
                 "magentoCode": {
                     "connect": {"id":magentoAttributeStateId}
                 }
             }
         },
-        refetchQueries: [{query: GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}, {query: ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY}],
+        refetchQueries: [{query: GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}, {query: ALL_PIM_PRODUCT_ATTRIBUTES_QUERY}],
         update
     });
-    const [getWoocommerceAttributeList]: LazyQueryResultTuple<WoocommerceQueryResult, OperationVariables> = useLazyQuery(GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY, {
+    const [getPimAttributeList]: LazyQueryResultTuple<PimQueryResult, OperationVariables> = useLazyQuery(GET_PIM_ATTRIBUTE_LIST_QUERY, {
         variables: {
             "where": {
                 "code": {
@@ -71,20 +71,20 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
     });
 
     function update(cache: any, payload: any) {
-        cache.evict(cache.identify(payload.data.updateWoocommerceAttribute));
+        cache.evict(cache.identify(payload.data.updatePimAttribute));
     }
 
     const isMappingReady = () => {
-        return woocommerceAttributeStateId && magentoAttributeStateId
+        return pimAttributeStateId && magentoAttributeStateId
     }
 
     useEffect(() => {
         async function linkAttribute() {
             try {
-                if (woocommerceAttributeStateId!=='' && magentoAttributeStateId!=='') {
+                if (pimAttributeStateId!=='' && magentoAttributeStateId!=='') {
                     mapAttribute();
                     addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)
-                    navigate(`/woocommerce/${initialAttribute}/${attribute.label}`);
+                    navigate(`/pim/${initialAttribute}/${attribute.label}`);
                 }
             } catch (e) {
                 console.log("There was a problem.")
@@ -99,10 +99,10 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
     const mapField = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         try {
-            const data1 = await getWoocommerceAttributeList();
+            const data1 = await getPimAttributeList();
             const data2 = await getMagentoAttributeList();
-            if (data1?.data?.woocommerceAttributes[0].id && data2?.data?.magentoAttributes[0].id) {
-                setWoocommerceAttributeStateId(data1.data.woocommerceAttributes[0].id)
+            if (data1?.data?.pimAttributes[0].id && data2?.data?.magentoAttributes[0].id) {
+                setPimAttributeStateId(data1.data.pimAttributes[0].id)
                 setMagentoAttributeStateId(data2.data.magentoAttributes[0].id)
             }
         } catch (e) {

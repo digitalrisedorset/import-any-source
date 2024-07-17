@@ -1,14 +1,14 @@
 import Axios, {AxiosResponse} from "axios";
-import {MagentoAttribute, WoocommerceAttribute} from "../types/keystone";
+import {MagentoAttribute, PimAttribute} from "../types/keystone";
 import {config} from "../config";
-import {ImportResponse} from "../types/woocommerce"
+import {ImportResponse} from "../types/pim"
 
 export class MappingModel {
-    private wocommerceList: WoocommerceAttribute[] = [];
+    private wocommerceList: PimAttribute[] = [];
 
     private magentoList: MagentoAttribute[] = [];
 
-    constructor(wocommerceList: WoocommerceAttribute[], magentoList: MagentoAttribute[]) {
+    constructor(wocommerceList: PimAttribute[], magentoList: MagentoAttribute[]) {
         this.wocommerceList = wocommerceList
         this.magentoList = magentoList
     }
@@ -16,7 +16,7 @@ export class MappingModel {
     public async createAttributesImport(): Promise<ImportResponse | undefined> {
         const fields = this.getFieldList()
         const response = await Axios.post(
-            '/createWoocommerceImport',
+            'woo/createImport',
             {'mapping': fields}
         )
 
@@ -30,7 +30,7 @@ export class MappingModel {
         try {
             const fields = this.getFieldList()
             return await Axios.post(
-                '/createWoocommerceImport',
+                '/createPimImport',
                 {'mapping':fields }
             );
         } catch (e) {
@@ -40,18 +40,18 @@ export class MappingModel {
 
     public getFieldList() {
         return this.wocommerceList.map(attribute => ({
-            woocommerceFieldCode: attribute.code,
+            pimFieldCode: attribute.code,
             magentoLinkedCode: this.getMagentoFieldCode(attribute.code)
         }))
     }
 
-    public getMagentoFieldCode(woocommerceFieldCode: string) {
+    public getMagentoFieldCode(pimFieldCode: string) {
         const field = this.magentoList.filter(
-            attribute => attribute.assignedTo?.code === woocommerceFieldCode
+            attribute => attribute.assignedTo?.code === pimFieldCode
         );
 
         if (!field || field.length===0) {
-            throw new Error(`attribute ${woocommerceFieldCode} is not linked`);
+            throw new Error(`attribute ${pimFieldCode} is not linked`);
         }
 
         return field[0].code

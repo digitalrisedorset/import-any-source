@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {FlassMessaggeActionList} from "../actions";
 import {FlashMessageActionType} from "../action-types";
-import {ImportResponse} from "../../types/woocommerce"
+import {ImportResponse} from "../../types/pim"
 
 export const addFlashMessage = (message: string) => {
     return async (dispatch: Dispatch<FlassMessaggeActionList>) => {

@@ -1,4 +1,5 @@
 export * from './flashMessage'
 export * from './magentoAttributes'
-export * from './woocommerceAttributes'
-export * from './woocommerceMapping'
+export * from './pimAttributes'
+export * from './pimMapping'
+export * from './pimSystem'

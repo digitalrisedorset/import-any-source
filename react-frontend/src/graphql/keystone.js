@@ -1,8 +1,8 @@
 import {gql} from "@apollo/client";
 
-export const ALL_WOOCOMMERCE_PRODUCT_ATTRIBUTES_QUERY = gql`
+export const ALL_PIM_PRODUCT_ATTRIBUTES_QUERY = gql`
      {
-      woocommerceAttributes {
+      pimAttributes {
         id
         code
         name
@@ -35,9 +35,9 @@ export const ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY = gql`
   }
 `;
 
-export const ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY = gql`
-    query WoocommerceAttributes($where: WoocommerceAttributeWhereInput!) {
-      woocommerceAttributes(where: $where) {
+export const ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY = gql`
+    query PimAttributes($where: PimAttributeWhereInput!) {
+      pimAttributes(where: $where) {
         code
         ignored
         name
@@ -49,15 +49,15 @@ export const ALL_WOOCOMMERCE_ATTRIBUTES_NOT_MAPPED_QUERY = gql`
 `;
 
 
-const GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY = gql`    
-    query WoocommerceAttributes($where: WoocommerceAttributeWhereInput!) {
-      woocommerceAttributes(where: $where) {
+const GET_PIM_ATTRIBUTE_LIST_QUERY = gql`    
+    query PimAttributes($where: PimAttributeWhereInput!) {
+      pimAttributes(where: $where) {
         id
       }
     }
 `;
 
-export {GET_WOOCOMMERCE_ATTRIBUTE_LIST_QUERY}
+export {GET_PIM_ATTRIBUTE_LIST_QUERY}
 
 const GET_MAGENTO_ATTRIBUTE_LIST_QUERY = gql`        
     query MagentoAttributes($where: MagentoAttributeWhereInput!) {
@@ -84,9 +84,9 @@ const GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY = gql`
 
 export {GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}
 
-const CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION = gql`    
-      mutation CreateWoocommerceAttributes($data: [WoocommerceAttributeCreateInput!]!) {
-         createWoocommerceAttributes(data: $data) {
+const CREATE_PIM_ATTRIBUTE_LIST_MUTATION = gql`    
+      mutation CreatePimAttributes($data: [PimAttributeCreateInput!]!) {
+         createPimAttributes(data: $data) {
             id
             code
             name
@@ -96,7 +96,7 @@ const CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION = gql`
       }   
 `;
 
-export {CREATE_WOOCOMMERCE_ATTRIBUTE_LIST_MUTATION}
+export {CREATE_PIM_ATTRIBUTE_LIST_MUTATION}
 
 const CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION = gql`    
       mutation CreateMagentoAttributes($data: [MagentoAttributeCreateInput!]!) {
@@ -113,8 +113,8 @@ const CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION = gql`
 export {CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION}
 
 const UPDATE_ATTRIBUTE_MUTATION = gql`    
-    mutation UpdateWoocommerceAttribute($where: WoocommerceAttributeWhereUniqueInput!, $data: WoocommerceAttributeUpdateInput!) {
-      updateWoocommerceAttribute(where: $where, data: $data) {
+    mutation UpdatePimAttribute($where: PimAttributeWhereUniqueInput!, $data: PimAttributeUpdateInput!) {
+      updatePimAttribute(where: $where, data: $data) {
         id
       }
     }

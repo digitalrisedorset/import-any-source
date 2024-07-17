@@ -1,16 +1,16 @@
-import {MagentoAttribute, WoocommerceAttribute} from "../types/keystone";
+import {MagentoAttribute, PimAttribute} from "../types/keystone";
 
 interface MappingData {
     matching: {
         attributes: MagentoAttribute[];
-        initialAttribute? : WoocommerceAttribute
+        initialAttribute? : PimAttribute
     }
 }
 
 export class MatchingModel {
     private MAX_MATCHES = 5;
 
-    private initialAttribute: WoocommerceAttribute | undefined
+    private initialAttribute: PimAttribute | undefined
 
     private attributes: MagentoAttribute[] = []
 
@@ -21,7 +21,7 @@ export class MatchingModel {
         }
     }
 
-    getInitialAttribute(): WoocommerceAttribute | undefined {
+    getInitialAttribute(): PimAttribute | undefined {
         return this.initialAttribute
     }
 
