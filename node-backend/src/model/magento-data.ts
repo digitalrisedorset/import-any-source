@@ -1,4 +1,4 @@
-import {InitialProductData} from "../types";
+import {InitialProductData} from "../types/woocommerce";
 
 export class MagentoData {
     getInitialHeaderData = function () {

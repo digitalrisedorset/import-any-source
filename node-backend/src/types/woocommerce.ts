@@ -18,12 +18,6 @@ export interface WoocommerceAttribute {
     name: string
 }
 
-export interface Attribute {
-    code: string
-    name: string
-    type: string
-}
-
 export interface ProductImage {
     name: string;
     src: string
@@ -67,37 +61,9 @@ export enum WoocommerceProductFieldCase {
     variations = 'variations' // 'configurable_variations',  // variations
 }
 
-export enum MagentoProductFieldCase {
-    store_view_code = 'store_view_code',
-    attribute_set_code = 'attribute_set_code',
-    product_type = 'product_type',
-    product_websites = 'product_websites',
-    status = 'status', // status
-    visibility = 'visibility', // visibility
-    configurable_variations = 'configurable_variations',
-    image = 'image'
-}
-
 export type FieldValue = string | boolean | null | number[] | number | ProductImage | ProductImage[] | undefined;
 
 export type InitialProductData = {
     [Key in string]: FieldValue;
 };
 
-export type ApiFilter = any //{
-    //[Key in string]: FieldValue;
-//}
-
-export interface ImportMappingFields {
-    mapping: ImportMapping[]
-}
-
-export interface ImportMapping {
-    pimFieldCode: string,
-    magentoLinkedCode: string
-}
-
-export type HeaderField = {
-    id: string,
-    title: string
-}

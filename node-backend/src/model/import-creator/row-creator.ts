@@ -1,8 +1,10 @@
 import {
-    HeaderField,
-    ImportMappingFields, InitialProductData, MagentoProductFieldCase,
+    InitialProductData,
     WoocommerceProduct, WoocommerceProductFieldCase,
-} from "../../types";
+} from "../../types/woocommerce";
+import {ImportMappingFields} from "../../types/general";
+import {HeaderField} from "../../types/general";
+import {MagentoProductFieldCase} from "../../types/magento";
 import {WoocommerceDataMapper} from "../woocommerce/data-mapper";
 import {MagentoData } from '../magento-data'
 

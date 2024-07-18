@@ -1,12 +1,14 @@
 import { CacheService } from './cache/data-cache'
 import { ApiHandler } from './woocommerce/api-handler'
-import {Attribute, WoocommerceProduct} from "../types";
+import {WoocommerceProduct} from "../types/woocommerce";
+import {Attribute} from "../types/general";
 import { AttributeValidator } from "./woocommerce/api-handler/attribute-validator";
 import { ErrorWrapper } from "../error-handler";
 import {ProductValidator} from "./woocommerce/api-handler/product-validator";
+import {config} from "../config";
 
 export class Woocommerce {
-    cache = new CacheService();
+    cache = new CacheService(config.route.woocommerceApiPrefix);
     woocommerceApiHandler = new ApiHandler;
     attributeValidator = new AttributeValidator;
     productValidator = new ProductValidator;

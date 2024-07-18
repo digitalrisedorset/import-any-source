@@ -1,20 +1,17 @@
-import {Woocommerce} from "../model/woocommerce"
-import {ImportCreator} from "../model/import-creator"
-import {KeystoneImportCreator} from "../model/keystone-import-creator"
-import {Request, Response} from "express";
-import {WoocommerceWebHookHandler} from "../model/woocommerce/webhook-handler"
-import {ProductDeletion} from "../model/woocommerce/product-deletion"
 import {ErrorWrapper} from "../error-handler";
+import {Request, Response} from "express";
+import {BookSystem} from "../model/book-system";
+import {ImportCreator} from "../model/import-creator";
+import {ProductDeletion} from "../model/booksystem/product-deletion";
 import {ImportControllerInterface} from "./importControllerInterface";
 
-
-export class WoocommerceController implements ImportControllerInterface {
+export class BookController implements ImportControllerInterface {
     errorWrapper = new ErrorWrapper()
 
     apiGetAttributeList = async (req: Request, res: Response)=> {
         try {
-            const wooClient = new Woocommerce()
-            const result = await wooClient.getAttributeList()
+            const bookSystemClient = new BookSystem()
+            const result = await bookSystemClient.getAttributeList()
             res.send(result)
         } catch (e) {
             res.status(500).send("Error")
@@ -24,8 +21,8 @@ export class WoocommerceController implements ImportControllerInterface {
 
     apiGetProductList = async (req: Request, res: Response)=> {
         try {
-            const wooClient = new Woocommerce()
-            const result = await wooClient.getProductBatch();
+            const bookSystemClient = new BookSystem()
+            const result = await bookSystemClient.getProductBatch();
             res.send(result)
         } catch (e) {
             res.status(500).send("Error")
@@ -35,11 +32,11 @@ export class WoocommerceController implements ImportControllerInterface {
 
     createImport = async (req: Request, res: Response)=> {
         try {
-            const wooClient = new Woocommerce()
-            const list = await wooClient.getProductBatch()
-            const wooImporter = new ImportCreator()
-            wooImporter.saveProductMinimalData(list)
-            const filename = await wooImporter.createCsvImport(list, req.body)
+            const bookSystemClient = new BookSystem()
+            const list = await bookSystemClient.getProductBatch()
+            const plantImporter = new ImportCreator()
+            plantImporter.saveProductMinimalData(list)
+            const filename = await plantImporter.createCsvImport(list, req.body)
             console.log('Import complete', filename)
             res.send({filename})
         } catch (e) {
@@ -50,8 +47,8 @@ export class WoocommerceController implements ImportControllerInterface {
 
     createUpdateImport = async (req: Request, res: Response)=> {
         try {
-            const wooClient = new Woocommerce()
-            const list = await wooClient.getProductUpdate()
+            const bookSystemClient = new BookSystem()
+            const list = await bookSystemClient.getProductUpdate()
 
             if (list.length === 0) {
                 res.send({
@@ -61,8 +58,8 @@ export class WoocommerceController implements ImportControllerInterface {
                 return
             }
 
-            const wooImporter = new ImportCreator()
-            const filename = await wooImporter.createCsvUpdateImport(list)
+            const plantImporter = new ImportCreator()
+            const filename = await plantImporter.createCsvUpdateImport(list)
             console.log('Import complete', filename)
             res.send({
                 filename,
@@ -76,11 +73,7 @@ export class WoocommerceController implements ImportControllerInterface {
 
     createKeystoneSeedImport = async (req: Request, res: Response)=> {
         try {
-            const wooClient = new Woocommerce()
-            const list = await wooClient.getProductBatch()
-            const keystoneImportCreator = new KeystoneImportCreator()
-            await keystoneImportCreator.createSeedImport(list)
-            return {'message': 'success'}
+            res.send("No implementation yet")
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
@@ -89,20 +82,7 @@ export class WoocommerceController implements ImportControllerInterface {
 
     notifyProductDeletion = async (req: Request, res: Response)=> {
         try {
-            const woocommerceWebHookHandler = new WoocommerceWebHookHandler();
-
-            if (!woocommerceWebHookHandler.isWebhookValid(req)) {
-                res.send({'message': 'invalid webhook data'})
-                return
-            }
-
-            const productDeletion = new ProductDeletion()
-            productDeletion.updateCacheWithProductDeletedData(req.body['id'])
-
-            res.send({
-                delete: req.body['id'],
-                message: 'success'
-            })
+            res.send("No implementation yet")
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
@@ -121,8 +101,8 @@ export class WoocommerceController implements ImportControllerInterface {
                 })
             }
 
-            const wooImporter = new ImportCreator()
-            const filename = await wooImporter.createCsvDeleteImport(list)
+            const plantImporter = new ImportCreator()
+            const filename = await plantImporter.createCsvDeleteImport(list)
             console.log('Import complete', filename)
             res.send({
                 filename,

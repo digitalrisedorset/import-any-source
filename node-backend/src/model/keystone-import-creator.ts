@@ -1,4 +1,4 @@
-import {WoocommerceProduct} from "../types";
+import {WoocommerceProduct} from "../types/woocommerce";
 
 const fs = require('node:fs/promises');
 const path = require("path");

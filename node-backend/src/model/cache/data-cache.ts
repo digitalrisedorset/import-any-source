@@ -5,33 +5,28 @@ global
 const cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false });
 
 export class CacheService {
+    constructor(prefix: string) {
+        this.cachePrefix = prefix
+    }
     get = async (key: Readonly<string>, storeFunction: any) => {
-        const value = cache.get(key);
+        const value = cache.get(this.buildKey(key));
         if (value) {
             return Promise.resolve(value);
         }
 
         return storeFunction().then((result: any) => {
-            cache.set(key, result);
+            cache.set(this.buildKey(key), result);
             return result;
         });
     }
     del(keys: string) {
         cache.del(keys);
     }
-    delStartWith = (startStr = '') => {
-        if (!startStr) {
-            return;
+    buildKey = (key: string) => {
+        if (this.cachePrefix ==='') {
+            return key
         }
 
-        const keys = cache.keys();
-        for (const key of keys) {
-            if (key.indexOf(startStr) === 0) {
-                this.del(key);
-            }
-        }
-    }
-    flush = () => {
-        cache.flushAll();
+        return `${this.cachePrefix}_${key}`
     }
 }

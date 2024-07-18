@@ -1,4 +1,4 @@
-import {WoocommerceAttribute, WoocommerceSimpleProduct} from '../../../types'
+import {WoocommerceAttribute, WoocommerceSimpleProduct} from '../../../types/woocommerce'
 
 export class WoocommerceVariationBuilder {
     // sku=MH01-XS-Black,size=XS,color=Black|sku=MH01-XS-Gray,size=XS,color=Gray

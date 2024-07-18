@@ -1,4 +1,4 @@
-import {ApiFilter} from "../../types";
+import {ApiFilter} from "../../types/woocommerce";
 import {config} from "../../config";
 
 const fetch = require("cross-fetch");

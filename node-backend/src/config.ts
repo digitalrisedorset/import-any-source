@@ -11,9 +11,14 @@ export type configInfo = {
         apiSecret: string
         webhookSecret: string
     },
+    feedSystem: {
+        feedFolder: string
+    },
     route: {
         apiPrefix: string;
         woocommerceApiPrefix: string;
+        plantApiPrefix: string;
+        bookApiPrefix: string;
     },
     import: {
         csvFolder: string
@@ -44,12 +49,18 @@ export const config: configInfo = {
         webhookSecret: (process.env.WEBHOOK_SECRET === undefined)? 'fggfdhdth': process.env.WEBHOOK_SECRET,
     },
 
+    feedSystem: {
+        feedFolder:  (process.env.PLANT_FEED_FOLDER === undefined)? 'pim_system': process.env.PLANT_FEED_FOLDER
+    },
+
     /**
      * Routes access
      */
     route: {
         apiPrefix: '/',
-        woocommerceApiPrefix: '/woocommerce'
+        woocommerceApiPrefix: '/woocommerce',
+        plantApiPrefix: '/plant',
+        bookApiPrefix: '/book'
     },
 
     import: {

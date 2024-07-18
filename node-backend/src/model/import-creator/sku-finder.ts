@@ -1,6 +1,6 @@
 import {ApiHandler} from "../woocommerce/api-handler";
 import {CacheService} from "../cache/data-cache";
-import {WoocommerceProduct} from "../../types";
+import {WoocommerceProduct} from "../../types/woocommerce";
 import {ErrorWrapper} from "../../error-handler";
 
 export class SkuFinder {

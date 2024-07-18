@@ -1,4 +1,5 @@
-import {ImportMappingFields, WoocommerceProduct, WoocommerceSimpleProduct} from "../../types";
+import {WoocommerceProduct, WoocommerceSimpleProduct} from "../../types/woocommerce";
+import {ImportMappingFields} from "../../types/general";
 import {WoocommerceDataVariations} from "../woocommerce/data-variation";
 import {ImportRowCreator} from "./row-creator";
 import {ErrorWrapper} from "../../error-handler";

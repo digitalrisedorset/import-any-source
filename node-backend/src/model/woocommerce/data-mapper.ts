@@ -1,8 +1,6 @@
-import {
-    ImportMappingFields,
-    MagentoProductFieldCase,
-    WoocommerceProduct, ImportMapping, ProductImage, VariationAttribute
-} from '../../types'
+import {WoocommerceProduct, ProductImage, VariationAttribute} from '../../types/woocommerce'
+import {ImportMapping, ImportMappingFields} from '../../types/general'
+import {MagentoProductFieldCase} from "../../types/magento";
 import {WoocommerceDataVariations} from "./data-variation";
 import {MagentoData} from "../magento-data";
 import { WoocommerceVariationBuilder } from './data-mapper/variation-builder'

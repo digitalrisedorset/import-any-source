@@ -1,6 +1,5 @@
-import {WoocommerceAttribute} from "../../../types/woocommerce";
-import {Attribute} from "../../../types/general";
-import {isArray, isObject} from "../../../lib/type-checker";
+import { WoocommerceAttribute, Attribute } from "../../../types/woocommerce";
+import { isArray, isObject } from "../../../lib/type-checker";
 
 enum OptionAttributeType {
     options = 'options',
@@ -15,23 +14,7 @@ interface OptionAttribute {
 
 export class AttributeValidator {
     filterValidAttributes = (apiResponse: unknown): Attribute[] => {
-        if (!isArray(apiResponse)) {
-            throw new Error('The API response is not valid')
-        }
-
-        return (apiResponse as Array<any>).filter(
-            (item: any): boolean => {
-                return isObject(item)
-                    && "slug" in item && typeof item["slug"] === "string"
-                    && "name" in item && typeof item["name"] === "string"
-            }
-        ).map((elem: WoocommerceAttribute): Attribute => {
-            return {
-                code: elem['slug'],
-                name: elem['name'],
-                type: OptionAttributeType.options
-            }
-        })
+        return []
     }
 
     filterValidAttributesFromProduct = (apiResponse: unknown): Attribute[] => {
@@ -53,3 +36,4 @@ export class AttributeValidator {
         return attributes;
     }
 }
+

@@ -11,19 +11,19 @@ export const setupWoocommerceRoutes = (app: Application) => {
     const woocommerceController = new WoocommerceController()
 
     router.use('/', (req: Request, res: Response, next: NextFunction) => {
-        console.log(`request: ${req.url}`)
+        console.log(`woocommerce request: ${req.url}`)
         next()
     })
 
     router.get("/attributeList", woocommerceController.apiGetAttributeList)
 
-    router.get("/getProductList", woocommerceController.apiGetProductList)
+    router.get("/productList", woocommerceController.apiGetProductList)
 
-    router.post("/createImport", woocommerceController.createWoocommerceImport)
+    router.post("/createImport", woocommerceController.createImport)
 
-    router.post("/createUpdate", woocommerceController.createWoocommerceUpdateImport)
+    router.post("/createUpdate", woocommerceController.createUpdateImport)
 
-    router.post("/createDelete", woocommerceController.getWoocommerceDeleteNotification)
+    router.post("/createDelete", woocommerceController.getDeleteNotification)
 
     router.post("/createKeystoneImport", woocommerceController.createKeystoneSeedImport)
 
