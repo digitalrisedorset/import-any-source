@@ -16,7 +16,7 @@ export class MappingModel {
     public async createAttributesImport(): Promise<ImportResponse | undefined> {
         const fields = this.getFieldList()
         const response = await Axios.post(
-            'woo/createImport',
+            'woocommerce/createImport',
             {'mapping': fields}
         )
 
@@ -30,7 +30,7 @@ export class MappingModel {
         try {
             const fields = this.getFieldList()
             return await Axios.post(
-                '/createPimImport',
+                'woocommerce/createPimImport',
                 {'mapping':fields }
             );
         } catch (e) {

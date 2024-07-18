@@ -49,7 +49,7 @@ export const config: configInfo = {
      */
     route: {
         apiPrefix: '/',
-        woocommerceApiPrefix: '/woo'
+        woocommerceApiPrefix: '/woocommerce'
     },
 
     import: {

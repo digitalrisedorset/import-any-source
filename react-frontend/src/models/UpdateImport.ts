@@ -5,7 +5,7 @@ import {config} from "../config";
 export class UpdateModel {
     createUpdateImport = async (): Promise<ImportUpdateResponse | undefined> => {
         try {
-            const response = await Axios.post('woo/createUpdate', {});
+            const response = await Axios.post('woocommerce/createUpdate', {});
 
             return {
                 filename: response.data.filename,
@@ -19,7 +19,7 @@ export class UpdateModel {
 
     createDeleteImport = async () => {
         try {
-            const response = await Axios.post('woo/createDelete', {});
+            const response = await Axios.post('woocommerce/createDelete', {});
 
             return {
                 filename: response.data.filename,
@@ -38,7 +38,7 @@ export class UpdateModel {
 
     readDeleteNotification = async () => {
         try {
-            const response = await Axios.post('/pimDeleteNotification', {});
+            const response = await Axios.post('woocommerce/pimDeleteNotification', {});
             if (response.data.length>0) {
                 return response.data;
             }
