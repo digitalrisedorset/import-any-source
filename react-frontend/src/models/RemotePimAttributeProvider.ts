@@ -9,7 +9,6 @@ interface PimApiAttributeResponse {
 
 export function RemotePimAttributeProvider() {
     const loadAttributes = async function(pimSystemCode: string): Promise<any | void> {
-        const pimSystemHandler = new PimSystemHandler
         try {
             const ourRequest = Axios.CancelToken.source()
             const response: PimApiAttributeResponse = await Axios.get(`${pimSystemCode}/attributeList`, { cancelToken: ourRequest.token });

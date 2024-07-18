@@ -1,5 +1,3 @@
-export * from './pimAttribute'
-export * from './pimImport'
-export * from './pimMapping'
 export * from './pimSystem'
 export * from './flashMessage'
+export * from './pimMapping'

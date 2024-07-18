@@ -1,7 +1,25 @@
 import {gql, LazyQueryResultTuple, OperationVariables, useLazyQuery, useQuery} from '@apollo/client';
-import {ALL_PIM_PRODUCT_ATTRIBUTES_QUERY} from "../keystone";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {PimAttributeData} from "../../types/keystone";
+
+export const ALL_PIM_PRODUCT_ATTRIBUTES_QUERY = gql`
+     query PimAttributes($where: PimAttributeWhereInput!) {
+      pimAttributes(where: $where) {
+        id
+        code
+        name
+        type
+        required
+        ignored
+        createdAt
+        magentoCode {
+            code
+            name
+        },
+        pimSystem
+      } 
+  }
+`;
 
 export const usePimAttributes = () => {
     const { pimSystemCode } = useTypedSelector((state) => state.pimSystem)

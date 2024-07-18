@@ -26,6 +26,8 @@ export function Attribute({attribute}: AttributeProps) {
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>
+            {/*{<span>{attribute.id}</span>}*/}
+            {/*<span>{attribute.pimSystem}</span>*/}
             <span className="type">{attribute.type}</span>
             <span className="date-created">created: <br/>{date.toDateString()} </span>
             <LinkedWith magentoCode={attribute.magentoCode}/>

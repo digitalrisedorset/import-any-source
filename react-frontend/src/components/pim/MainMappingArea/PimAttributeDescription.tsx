@@ -4,8 +4,10 @@ import {
     PimQueryResult
 } from "../../../types/keystone";
 import {usePimAttributesNotMapped} from "../../../graphql/keystone/useFindPimAttributesNotMapped";
+import {useCurrentPimSystem} from "../../../hooks/useCurrentPimSystem";
 
 export function PimAttributeDescription() {
+    const currentPimSystem = useCurrentPimSystem()
     const { data }: QueryResult<PimQueryResult | OperationVariables> = usePimAttributesNotMapped()
 
     const getCountAttributesToMap = (attributes: PimAttribute[]) => {
@@ -17,6 +19,6 @@ export function PimAttributeDescription() {
     }
 
     return (
-        <h2>Pim Attributes {data && getCountAttributesToMap(data?.pimAttributes)}</h2>
+        <h2>{currentPimSystem} Attributes {data && getCountAttributesToMap(data?.pimAttributes)}</h2>
     )
 }

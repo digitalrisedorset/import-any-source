@@ -9,9 +9,11 @@ import {PimSystemHandler} from "../../../models/PimSystem";
 import {usePimAttributes} from "../../../graphql/keystone/usePimAttributes";
 import {useCreatePimAttributes} from "../../../graphql/keystone/useCreatePimAttributes";
 import StepForm from "../../styles/StepForm";
+import {useCurrentPimSystem} from "../../../hooks/useCurrentPimSystem";
 
 export default function ImportPimAttribute() {
     const { pimSystemCode } = useTypedSelector((state) => state.pimSystem)
+    const currentPimSystem = useCurrentPimSystem()
     const { data, error, loading } = usePimAttributes()
     const pimSystemHandler = new PimSystemHandler()
     const [importing, setImporting] = useState(false)
@@ -54,7 +56,7 @@ export default function ImportPimAttribute() {
             <PimSystemSelect />
             <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block"
                     disabled={isPimImportComplete() || pimSystemCode === ''}>
-                Import {pimSystemHandler.getActiveSystemLabel(pimSystemCode)} Attributes
+                Import {currentPimSystem} Attributes
             </button>
         </StepForm>
     )

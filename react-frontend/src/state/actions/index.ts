@@ -1,5 +1,3 @@
 export * from './flashMessage'
-export * from './magentoAttributes'
-export * from './pimAttributes'
 export * from './pimMapping'
 export * from './pimSystem'

@@ -36,7 +36,8 @@ export interface ImportUpdateResponse extends DownlinkFile {
 
 export enum PIM_SYSTEM {
     woocommerce = 'Woocommerce',
-    plant = 'Plant System'
+    plant = 'Plant System',
+    book = 'Book Feed'
 }
 
-export type PimSystemTypes = PIM_SYSTEM.woocommerce | PIM_SYSTEM.plant
+export type PimSystemTypes = PIM_SYSTEM.woocommerce | PIM_SYSTEM.plant | PIM_SYSTEM.book

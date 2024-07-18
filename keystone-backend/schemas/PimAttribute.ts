@@ -4,6 +4,11 @@ import {checkbox, relationship, select, text, timestamp} from "@keystone-6/core/
 
 export const PimAttribute = list({
     access: allowAll,
+    ui: {
+        listView: {
+            initialColumns: ['code', 'type', 'magentoCode', 'pimSystem'],
+        },
+    },
     fields: {
         code: text({ validation: { isRequired: true }, isIndexed:true}),
         name: text({}),
@@ -27,6 +32,7 @@ export const PimAttribute = list({
             type: 'enum',
             options: [
                 { label: 'Woocommerce', value: 'woocommerce' },
+                { label: 'BookFeed', value: 'book' },
                 { label: 'PlantSystem', value: 'plant' }
             ],
         }),

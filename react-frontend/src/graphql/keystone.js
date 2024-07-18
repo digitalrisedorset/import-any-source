@@ -1,23 +1,5 @@
 import {gql} from "@apollo/client";
 
-export const ALL_PIM_PRODUCT_ATTRIBUTES_QUERY = gql`
-     query PimAttributes($where: PimAttributeWhereInput!) {
-      pimAttributes(where: $where) {
-        id
-        code
-        name
-        type
-        required
-        ignored
-        createdAt
-        magentoCode {
-            code
-            name
-        }
-      } 
-  }
-`;
-
 export const ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY = gql`
      {
       magentoAttributes {

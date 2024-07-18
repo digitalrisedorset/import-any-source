@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom"
 import NavStyles from './components/styles/NavStyles';
-import {useTypedSelector} from "./hooks/useTypedSelector";
-import {PimSystemHandler} from "./models/PimSystem";
+import {useCurrentPimSystem} from "./hooks/useCurrentPimSystem";
 
 export default function Nav() {
-    const { pimSystemCode } = useTypedSelector((state) => state.pimSystem)
-    const pimSystemHandler = new PimSystemHandler()
+    const currentPimSystem = useCurrentPimSystem()
 
     return (
         <NavStyles>
@@ -16,7 +14,7 @@ export default function Nav() {
                 Magento
             </Link>
             <Link to="/pim" className="text-white">
-                {pimSystemHandler.getActiveSystemLabel(pimSystemCode)} System
+                {currentPimSystem} System
             </Link>
         </NavStyles>
     );

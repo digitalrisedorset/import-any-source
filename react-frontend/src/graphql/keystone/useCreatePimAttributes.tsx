@@ -1,8 +1,6 @@
 import { useMutation} from '@apollo/client';
-import {
-     ALL_PIM_PRODUCT_ATTRIBUTES_QUERY,
-     CREATE_PIM_ATTRIBUTE_LIST_MUTATION
-} from "../keystone";
+import {CREATE_PIM_ATTRIBUTE_LIST_MUTATION} from "../keystone";
+import {ALL_PIM_PRODUCT_ATTRIBUTES_QUERY} from "./usePimAttributes";
 
 export const useCreatePimAttributes = () => {
     const [createListAttribute] = useMutation(CREATE_PIM_ATTRIBUTE_LIST_MUTATION, {

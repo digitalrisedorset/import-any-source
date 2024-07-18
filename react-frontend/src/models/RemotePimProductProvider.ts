@@ -39,7 +39,7 @@ export function RemotePimProductProvider() {
     const loadProducts = async function() {
         try {
             const ourRequest = Axios.CancelToken.source()
-            const response: PimApiProducteResponse = await Axios.get('/getPimProductList', { cancelToken: ourRequest.token });
+            const response: PimApiProducteResponse = await Axios.get('/productList', { cancelToken: ourRequest.token });
             setState((draft: RemoteProductsToCreate) => {
                 draft.productsToCreate = response.data.map(product => ({
                     name: product.name,
