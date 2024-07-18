@@ -2,19 +2,16 @@ import Form from './../styles/Form';
 import { useState, useEffect } from "react"
 import { useParams} from "react-router-dom"
 import { filterOptions } from 'fuzzy-match-utils';
-import {LazyQueryResultTuple, OperationVariables, useLazyQuery} from "@apollo/client";
-import {KeystoneMagentoAttributeData, MagentoAttribute} from "../../types/keystone";
+import { MagentoAttribute} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
-import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
+import {useMagentoAttributesLazy} from "../../graphql/keystone/useMagentoAttributes";
 
 export function MapField() {
     const { code } = useParams();
     const { setPimAttributesMatchFound } = useActions()
 
     const [attributeCodeState, setAttributeCodeState] = useState('');
-    const [getAttributeList]: LazyQueryResultTuple<KeystoneMagentoAttributeData, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {}
-    });
+    const getAttributeList = useMagentoAttributesLazy()
 
     async function findMagentoAttribute(code: string) {
         const data = await getAttributeList();

@@ -6,7 +6,7 @@ interface PimSystemState {
 }
 
 const initialState = {
-    pimSystemCode: ''
+    pimSystemCode: localStorage.getItem('pimSystemCode') || ''
 }
 
 const reducer = (
@@ -15,6 +15,7 @@ const reducer = (
 ): PimSystemState => {
     switch (action.type) {
         case PimSystemActionType.SET_PIM_SYSTEM:
+            localStorage.setItem('pimSystemCode', action.pimSystemCode)
             return { pimSystemCode: action.pimSystemCode }
         default:
             return state;

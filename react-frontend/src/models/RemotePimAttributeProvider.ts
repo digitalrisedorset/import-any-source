@@ -19,7 +19,7 @@ export function RemotePimAttributeProvider() {
                 type: (attribute.type==='options')?'select':'text',
                 required: false,
                 ignored: getIgnoredStatus(attribute.code),
-                pimSystem: pimSystemHandler.getPimSystemLongCode(pimSystemCode)
+                pimSystem: pimSystemCode
             } as PimAttribute));
 
             ourRequest.cancel()

@@ -1,51 +1,27 @@
-import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, useQuery} from "@apollo/client";
-import {
-    ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY,
-    ALL_PIM_PRODUCT_ATTRIBUTES_QUERY
-} from "../../../graphql/keystone";
+import { OperationVariables, QueryResult} from "@apollo/client";
 import {PimAttributeProvider} from "../../../models/KeystonePimAttributeProvider"
 import {MagentoAttributeProvider} from "../../../models/KeystoneMagentoAttributeProvider"
 import {MappingModel} from "../../../models/MappingDataProvider"
 import {
-    PimAttributeData,
-    KeystoneMagentoAttributeData,
     PimQueryResult,
     PimAttribute
 } from "../../../types/keystone";
 import {useActions} from "../../../hooks/useActions";
 import {useEffect, useState} from "react";
-import styled from "styled-components";
 import {ImportResponse} from "../../../types/pim"
-
-const Form = styled.form`
-  button {
-    &[disabled] {
-      opacity: 0.5;
-    }
-  }
-`;
+import {usePimAttributesLazy} from "../../../graphql/keystone/usePimAttributes";
+import {usePimAttributesNotMapped} from "../../../graphql/keystone/useFindPimAttributesNotMapped";
+import {useMagentoAttributesLazy} from "../../../graphql/keystone/useMagentoAttributes";
+import StepForm from "../../styles/StepForm"
 
 export default function ImportProduct() {
     const [mappingReady, setMappingReady] = useState(false)
     const [importBuiling, setImportBuilding] = useState(false)
     const { addDownloadMessage } = useActions()
-    const [getPimAttributeList]: LazyQueryResultTuple<PimAttributeData, OperationVariables> = useLazyQuery(ALL_PIM_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {}
-    });
-    const [getMagentoAttributeList]: LazyQueryResultTuple<KeystoneMagentoAttributeData, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {}
-    });
 
-    const mappingData: QueryResult<PimQueryResult | OperationVariables> = useQuery(ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY, {
-        variables: {
-            "where": {
-                "ignored": {
-                    "equals": false
-                },
-                "magentoCode": null
-            }
-        }
-    });
+    const getPimAttributeList = usePimAttributesLazy()
+    const getMagentoAttributeList = useMagentoAttributesLazy()
+    const mappingData: QueryResult<PimQueryResult | OperationVariables> = usePimAttributesNotMapped()
 
     useEffect(() => {
         const isMappingNotComplete = (attributes: PimAttribute[]) => {
@@ -86,12 +62,12 @@ export default function ImportProduct() {
     }
 
     return (
-        <Form>
+        <StepForm>
             <h2>Step 4</h2>
 
             <button type="submit" disabled={importBuiling || !mappingReady} onClick={handleSubmit}>
                 Import Magento Products
             </button>
-        </Form>
+        </StepForm>
     )
 }

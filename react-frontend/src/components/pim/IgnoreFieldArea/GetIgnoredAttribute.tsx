@@ -1,15 +1,10 @@
-import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
-import {ALL_PIM_PRODUCT_ATTRIBUTES_QUERY } from "../../../graphql/keystone";
 import {MappingIgnoredArea} from "../../styles/MappingScreen";
-import {PimAttribute, PimAttributeData} from "../../../types/keystone";
+import {PimAttribute} from "../../../types/keystone";
 import {IgnoredAttribute} from "./IgnoredAttribute";
+import {usePimAttributes} from "../../../graphql/keystone/usePimAttributes";
 
 export function GetIgnoredAttribute() {
-    const { data, error, loading }: QueryResult<PimAttributeData | OperationVariables > = useQuery(ALL_PIM_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {}
-    });
-
-    if (loading) return <>Loading...</>
+    const { data, error, loading } = usePimAttributes()
 
     const getIgnoredAttributesAlphabeticallyOrdered = (attributes: PimAttribute[]): PimAttribute[] => {
         const list = attributes.filter((attribute: PimAttribute) => attribute.ignored)

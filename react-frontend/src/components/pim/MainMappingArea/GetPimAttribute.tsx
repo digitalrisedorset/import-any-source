@@ -3,13 +3,11 @@ import GridStyles from "../../styles/GridStyles";
 import {PimAttribute} from '../../../types/keystone'
 import {PimAttributeDescription} from "./PimAttributeDescription";
 import {LoadingDotsIcon} from "../../../Loading";
-import {useQuery} from "@apollo/client";
-import {ALL_PIM_PRODUCT_ATTRIBUTES_QUERY} from "../../../graphql/keystone";
+import {usePimAttributes} from "../../../graphql/keystone/usePimAttributes";
 
 export function GetPimAttribute() {
-    const { data, error, loading } = useQuery(ALL_PIM_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {},
-    });
+    const { data, error, loading } = usePimAttributes()
+
     const getActiveAttributes = (attributes: PimAttribute[]): PimAttribute[] => {
         return attributes.filter((attribute: PimAttribute) => !attribute.ignored)
     }
@@ -18,8 +16,8 @@ export function GetPimAttribute() {
         <GridStyles>
             <PimAttributeDescription />
             {error && <h3>{error.message}</h3>}
-            {data?.pimAttributes?.length===0 && <LoadingDotsIcon />}
-            {!loading && data && getActiveAttributes(data?.pimAttributes).map(
+            {loading && <LoadingDotsIcon />}
+            {!loading && getActiveAttributes(data?.pimAttributes).map(
                 (attribute) => <Attribute key={attribute.id} attribute={attribute}/>
             )}
         </GridStyles>

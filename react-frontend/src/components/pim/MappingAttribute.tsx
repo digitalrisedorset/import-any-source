@@ -1,17 +1,9 @@
 import {PimAttribute, PimQueryResult} from "../../types/keystone";
-import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
 import {ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY} from "../../graphql/keystone";
 import {useEffect, useState} from "react";
-
-const Form = styled.form`
-  button {
-    &[disabled] {
-      opacity: 0.5;
-    }
-  }
-`;
+import StepForm from "../styles/StepForm";
 
 export function MappingAttributes() {
     const [mappingReady, setMappingReady] = useState(false)
@@ -51,12 +43,12 @@ export function MappingAttributes() {
     }
 
     return (
-        <Form>
+        <StepForm>
             <h2>Step 3</h2>
 
             <button type="submit" disabled={!mappingReady} onClick={handleSubmit}>
                 Mapping Attributes
             </button>
-        </Form>
+        </StepForm>
     )
 }

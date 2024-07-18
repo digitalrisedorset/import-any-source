@@ -24,8 +24,4 @@ export class PimSystemHandler {
     getPimSystemLabel = (systemCode: string) => {
         return systemCode === "woocommerce" ? 'Woocommerce' : 'Plant System'
     }
-
-    getPimSystemLongCode = (systemCode: string) => {
-        return systemCode === "woocommerce" ? 'woocommerce' : 'plant'
-    }
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 export const SuccessStyles = styled.div`
   padding: 2rem;
@@ -47,5 +48,10 @@ export const AnimationStyles = styled.span`
         background-color: var(--menu-bg-color);
         transition: all 8s;
     }
+`;
 
+export const DownloadLink = styled(Link)`
+  font-style: italic;
+    color: green;
+    margin-left: 10px;
 `;

@@ -1,16 +1,13 @@
-import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
 import Attribute from "./Attribute";
 import GridStyles from "../styles/GridStyles";
-import { ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY } from '../../graphql/keystone'
-import { MagentoAttribute, KeystoneMagentoAttributeData} from "../../types/keystone";
+import { MagentoAttribute} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
 import {LoadingDotsIcon } from "../../Loading"
+import {useMagentoAttributes} from "../../graphql/keystone/useMagentoAttributes";
 
 export default function ReadMagentoAttribute() {
     const { addFlashMessage } = useActions()
-    const { data, error, loading }: QueryResult<KeystoneMagentoAttributeData | OperationVariables> = useQuery(ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, {
-        variables: {}
-    });
+    const { data, error, loading } = useMagentoAttributes()
 
     if (!error && !loading && data) {
         addFlashMessage(`The system has loaded ${data?.magentoAttributes?.length} magento attributes`)

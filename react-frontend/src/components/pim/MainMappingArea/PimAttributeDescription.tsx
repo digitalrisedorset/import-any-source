@@ -1,21 +1,12 @@
 import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
-import {ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY} from "../../../graphql/keystone";
 import {
     PimAttribute,
     PimQueryResult
 } from "../../../types/keystone";
+import {usePimAttributesNotMapped} from "../../../graphql/keystone/useFindPimAttributesNotMapped";
 
 export function PimAttributeDescription() {
-    const { data }: QueryResult<PimQueryResult | OperationVariables> = useQuery(ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY, {
-        variables: {
-            "where": {
-                "ignored": {
-                    "equals": false
-                },
-                "magentoCode": null
-            }
-        }
-    });
+    const { data }: QueryResult<PimQueryResult | OperationVariables> = usePimAttributesNotMapped()
 
     const getCountAttributesToMap = (attributes: PimAttribute[]) => {
         if (attributes.length === 0) {

@@ -2,35 +2,15 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ItemStyles from './../styles/ItemStyles';
 import { Title } from '../styles/Title';
-import {
-    LazyQueryResultTuple,
-    OperationVariables,
-    QueryResult,
-    useLazyQuery,
-    useMutation
-} from "@apollo/client";
-import {
-    UPDATE_ATTRIBUTE_MUTATION,
-    GET_MAGENTO_ATTRIBUTE_LIST_QUERY,
-    GET_PIM_ATTRIBUTE_LIST_QUERY,
-    ALL_PIM_PRODUCT_ATTRIBUTES_QUERY,
-    GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY
-} from "../../graphql/keystone";
-
-import {
-    MagentoAttribute,
-    PimQueryResult,
-    MatchingAttributeData
-} from "../../types/keystone";
+import {  MatchingAttributeData} from "../../types/keystone";
 import {useActions} from "../../hooks/useActions";
+import {useMapAttribute} from "../../graphql/keystone/useMapAttribute";
+import {useFindPimAttributes} from "../../graphql/keystone/useFindPimAttributes";
+import {useFindMagentoAttributes} from "../../graphql/keystone/useFindMagentoAttributes";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
     initialAttribute: string
-}
-
-interface MagentoQueryResult extends QueryResult {
-    magentoAttributes: MagentoAttribute[]
 }
 
 export function Attribute({attribute, initialAttribute}: MappingProps) {
@@ -38,41 +18,9 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
     const navigate = useNavigate()
     const [pimAttributeStateId, setPimAttributeStateId] = useState('');
     const [magentoAttributeStateId, setMagentoAttributeStateId] = useState('');
-
-    const [mapAttribute] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {
-        variables: {
-            "where": {"id":pimAttributeStateId},
-            "data": {
-                "magentoCode": {
-                    "connect": {"id":magentoAttributeStateId}
-                }
-            }
-        },
-        refetchQueries: [{query: GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY}, {query: ALL_PIM_PRODUCT_ATTRIBUTES_QUERY}],
-        update
-    });
-    const [getPimAttributeList]: LazyQueryResultTuple<PimQueryResult, OperationVariables> = useLazyQuery(GET_PIM_ATTRIBUTE_LIST_QUERY, {
-        variables: {
-            "where": {
-                "code": {
-                    "equals": initialAttribute
-                }
-            }
-        }
-    });
-    const [getMagentoAttributeList]: LazyQueryResultTuple<MagentoQueryResult, OperationVariables> = useLazyQuery(GET_MAGENTO_ATTRIBUTE_LIST_QUERY, {
-        variables: {
-            "where": {
-                "code": {
-                    "equals": attribute.label
-                }
-            }
-        }
-    });
-
-    function update(cache: any, payload: any) {
-        cache.evict(cache.identify(payload.data.updatePimAttribute));
-    }
+    const mapAttribute = useMapAttribute(pimAttributeStateId, magentoAttributeStateId)
+    const getPimAttributeList = useFindPimAttributes(initialAttribute)
+    const getMagentoAttributeList = useFindMagentoAttributes(attribute.label)
 
     const isMappingReady = () => {
         return pimAttributeStateId && magentoAttributeStateId

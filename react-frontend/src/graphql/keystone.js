@@ -1,8 +1,8 @@
 import {gql} from "@apollo/client";
 
 export const ALL_PIM_PRODUCT_ATTRIBUTES_QUERY = gql`
-     {
-      pimAttributes {
+     query PimAttributes($where: PimAttributeWhereInput!) {
+      pimAttributes(where: $where) {
         id
         code
         name

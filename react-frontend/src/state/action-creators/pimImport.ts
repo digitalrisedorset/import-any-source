@@ -13,7 +13,13 @@ export const importPimAttributes = () => {
 
         try {
             const [getAttributeList] = useLazyQuery<PimAttributeData>(ALL_PIM_PRODUCT_ATTRIBUTES_QUERY, {
-                variables: {}
+                variables: {
+                    "where": {
+                        "pimSystem": {
+                            "equals": "woocommerce"
+                        }
+                    }
+                }
             });
 
             getAttributeList().then((response) => {

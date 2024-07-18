@@ -42,3 +42,15 @@ export const MonitoringArea = styled.div<StyleProps>`
   position: relative;
   width:46%;
 `;
+
+export const DeleteButton = styled.button`
+  background: black;
+  color: white;
+  font-size: 8px;
+  border: 0;
+  position: absolute;
+  z-index: 2;
+  right: 0;
+    bottom:0;
+    padding:4px 8px;
+`;

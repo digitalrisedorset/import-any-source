@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux'
-import {MagentoAttributesLoadActionType, PimAttributesLoadActionType} from "../action-types";
+import {MagentoAttributesLoadActionType} from "../action-types";
 import {MagentoAttributesLoadActionList} from "../actions";
 import {KeystoneMagentoAttributeData } from "../../types/keystone";
 import {useLazyQuery} from "@apollo/client";
-import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY, ALL_PIM_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
+import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../graphql/keystone";
 
 export const loadMagentoAttributes = () => {
     return async (dispatch: Dispatch<MagentoAttributesLoadActionList>) => {
