@@ -8,7 +8,7 @@ interface AttributeProps {
 export function MapLink({attribute}: AttributeProps): JSX.Element {
     return (
         <Link key={attribute.id} to={`/map/${attribute.code}`}>
-            <strong>{attribute.name}</strong>{" "}
+            <span>{attribute.name}</span>{" "}
         </Link>
     )
 }

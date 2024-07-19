@@ -16,6 +16,9 @@ export default function Nav() {
             <Link to="/pim" className="text-white">
                 {currentPimSystem} System
             </Link>
+            <Link to="/config" className="text-white">
+                Configuration
+            </Link>
         </NavStyles>
     );
 }

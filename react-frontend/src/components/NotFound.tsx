@@ -1,10 +1,10 @@
-import GridStyles from "./styles/GridStyles";
+import CardStyles from "./styles/CardStyles";
 
 export function NotFound() {
 
     return (
-        <GridStyles>
+        <CardStyles>
             <h2>Whoops, we cannot find that page.</h2>
-        </GridStyles>
+        </CardStyles>
     )
 }

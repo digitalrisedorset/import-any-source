@@ -1,5 +1,5 @@
 import Attribute from "./Attribute";
-import GridStyles from "../styles/GridStyles";
+import CardStyles from "../styles/CardStyles";
 import { MagentoAttribute} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
 import {LoadingDotsIcon } from "../../Loading"
@@ -14,13 +14,13 @@ export default function ReadMagentoAttribute() {
     }
 
     return (
-        <GridStyles>
+        <CardStyles>
             <h2>Magento Attributes</h2>
             {(loading || data?.magentoAttributes?.length===0) && <LoadingDotsIcon />}
             {(data?.magentoAttributes.map((attribute: MagentoAttribute ) => (
                     <Attribute key={attribute.id} attribute={attribute}/>
                 ))
             )}
-        </GridStyles>
+        </CardStyles>
     )
 }

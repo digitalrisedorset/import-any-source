@@ -12,3 +12,7 @@ export enum FlashMessageActionType {
 export enum PimSystemActionType {
     SET_PIM_SYSTEM = 'set_pim_system',
 }
+
+export enum ConfigActionType {
+    SET_THEME_PREFERENCE = 'set_active_theme',
+}

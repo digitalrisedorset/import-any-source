@@ -17,6 +17,8 @@ export const MappingScreen = styled.div<StyleProps>`
 export const MappingIgnoredArea = styled.div<StyleProps>`
   border: 1px solid var(--offWhite);
   box-shadow: var(--bs);
+  padding: 0.2em 1em;
+  margin:0.5em;
   position: relative;
     width:15%;
     margin-top:110px;
@@ -50,7 +52,7 @@ export const DeleteButton = styled.button`
   border: 0;
   position: absolute;
   z-index: 2;
-  right: 0;
+  right: 0.5em;
     bottom:0;
     padding:4px 8px;
 `;

@@ -18,9 +18,10 @@ const ItemStyles = styled.div<StyleProps>`
     width: 300px;
     .date-created {
         font-style: italic;
+        text-align: right;
         position: absolute;
-        bottom: 5px;
-        right: ${(props: StyleProps): string => (props.candelete === "true")?'50px':'0px' };
+        bottom: 35px;
+        right: 0.5em;
         width: 90px;
         font-size: x-small;
     }

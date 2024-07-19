@@ -1,5 +1,5 @@
 import { Attribute } from "./Attribute";
-import GridStyles from "../styles/GridStyles";
+import CardStyles from "../styles/CardStyles";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {MatchingAttributeData} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
@@ -11,13 +11,13 @@ export function MatchingField() {
     addFlashMessage(`The system has found ${magentoMatchAttributes.length} possible matching magento attributes`)
 
     return (
-        <GridStyles>
+        <CardStyles>
             <h2>Matching Attributes</h2>
             {(pimAttribute && magentoMatchAttributes &&
                 magentoMatchAttributes.map((attribute: MatchingAttributeData) => (
                     <Attribute key={attribute.value} attribute={attribute} initialAttribute={pimAttribute}/>
                 ))
             )}
-        </GridStyles>
+        </CardStyles>
     )
 }

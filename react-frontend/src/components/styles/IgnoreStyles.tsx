@@ -32,6 +32,5 @@ export const ActivateButton = styled.button`
   position: absolute;
   z-index: 2;
   right: 5px;
-    top:10px;
     padding:4px 6px;
 `;

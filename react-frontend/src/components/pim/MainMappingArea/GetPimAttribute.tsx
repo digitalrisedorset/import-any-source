@@ -1,5 +1,5 @@
 import { Attribute } from "./Attribute";
-import GridStyles from "../../styles/GridStyles";
+import CardStyles from "../../styles/CardStyles";
 import {PimAttribute} from '../../../types/keystone'
 import {PimAttributeDescription} from "./PimAttributeDescription";
 import {LoadingDotsIcon} from "../../../Loading";
@@ -13,13 +13,13 @@ export function GetPimAttribute() {
     }
 
     return (
-        <GridStyles>
+        <CardStyles>
             <PimAttributeDescription />
             {error && <h3>{error.message}</h3>}
             {loading && <LoadingDotsIcon />}
             {!loading && getActiveAttributes(data?.pimAttributes).map(
                 (attribute) => <Attribute key={attribute.id} attribute={attribute}/>
             )}
-        </GridStyles>
+        </CardStyles>
     )
 }

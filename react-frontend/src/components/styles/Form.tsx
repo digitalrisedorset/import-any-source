@@ -29,7 +29,7 @@ const Form = styled.form`
   select {
     width: 100%;
     padding: 0.5rem;
-    font-size: 1rem;
+      font-size: 1.2rem;
     border: 1px solid black;
     &:focus {
       outline: 0;
@@ -39,11 +39,11 @@ const Form = styled.form`
   button,
   input[type='submit'] {
     width: auto;
-    background: red;
+    background: var(--red);
     color: white;
     border: 0;
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 200;
     padding: 0.5rem 1.2rem;
   }
   fieldset {
@@ -60,9 +60,9 @@ const Form = styled.form`
           display: block;
           background-image: linear-gradient(
                   to right,
-                  #ff3019 0%,
-                  #e2b04a 50%,
-                  #ff3019 100%
+                  var(--red) 0%,
+                  var(--offWhite) 50%,
+                  var(--black) 100%
           );
       }
 

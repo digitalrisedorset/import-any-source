@@ -25,7 +25,7 @@ const PimSystem = styled.div`
         select {
         width: 100%;
         padding: 0.5rem;
-        font-size: 1rem;
+        font-size: 1.2rem;
         border: 1px solid black;
     &:focus {
             outline: 0;
@@ -56,9 +56,9 @@ const PimSystem = styled.div`
             display: block;
             background-image: linear-gradient(
                 to right,
-                #ff3019 0%,
-                #e2b04a 50%,
-                #ff3019 100%
+                var(--red) 0%,
+                var(--offWhite) 50%,
+                var(--black) 100%
         );
         }
     
