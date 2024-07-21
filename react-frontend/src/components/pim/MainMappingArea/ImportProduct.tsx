@@ -13,8 +13,10 @@ import {usePimAttributesLazy} from "../../../graphql/keystone/usePimAttributes";
 import {usePimAttributesNotMapped} from "../../../graphql/keystone/useFindPimAttributesNotMapped";
 import {useMagentoAttributesLazy} from "../../../graphql/keystone/useMagentoAttributes";
 import StepForm from "../../styles/StepForm"
+import {useCurrentPimSystemCode} from "../../../hooks/useCurrentPimSystem";
 
 export default function ImportProduct() {
+    const pimSystemCode = useCurrentPimSystemCode()
     const [mappingReady, setMappingReady] = useState(false)
     const [importBuiling, setImportBuilding] = useState(false)
     const { addDownloadMessage } = useActions()
@@ -51,7 +53,7 @@ export default function ImportProduct() {
                 const pim = new PimAttributeProvider(pimData.data.pimAttributes)
 
                 const MappingData = new MappingModel(pim.getListWithMapping(), magento.getListWithMapping())
-                const response = await MappingData.createAttributesImport()
+                const response = await MappingData.createAttributesImport(pimSystemCode)
                 addDownloadMessage('The import has successfully created a csv import file', response as ImportResponse)
                 globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                 setImportBuilding(false)

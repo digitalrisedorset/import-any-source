@@ -19,7 +19,7 @@ export function PimSystemSelect() {
                     <select onChange={onPimSystemChange} className="form-select">
                         <option value="">-</option>
                         {pimSystemHandler.getPimSystemOptions().map((item, key) => {
-                            return (<option value={item.value}>{item.label}</option>)
+                            return (<option key={item.value} value={item.value}>{item.label}</option>)
                         })}
                     </select>
                 </label>

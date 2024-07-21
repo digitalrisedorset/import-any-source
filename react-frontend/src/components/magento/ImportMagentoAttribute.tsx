@@ -4,24 +4,16 @@ import {useActions} from "../../hooks/useActions";
 import {useNavigate} from "react-router-dom";
 import {useCreateMagentoAttributes} from "../../graphql/keystone/useCreateMagentoAttributes";
 import {useProductAttributes} from "../../graphql/magento/useProductAttributes";
-import {useMagentoAttributes} from "../../graphql/keystone/useMagentoAttributes";
 import StepForm from "../styles/StepForm";
+import {useMagentoAttributes} from "../../hooks/useMagentoAttributes";
 
 export default function ImportMagentoAttribute() {
-    const { addFlashMessage } = useActions()
+    const { addFlashMessage, setMagentoAttributesImported } = useActions()
     const navigate = useNavigate()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const createListAttribute = useCreateMagentoAttributes()
-    const magentoAttributeData = useMagentoAttributes()
-    const { data, loading } = useProductAttributes()
-
-    const isMagentoImportComplete = () => {
-        if (magentoAttributeData?.data?.magentoAttributes?.length !== undefined) {
-            return magentoAttributeData?.data?.magentoAttributes?.length > 0
-        }
-    }
-
-    if (loading) return <>Loading...</>
+    const magentoAttributes = useMagentoAttributes()
+    const { data } = useProductAttributes()
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -34,6 +26,7 @@ export default function ImportMagentoAttribute() {
                     },
                 });
                 addFlashMessage(`${attributes.length} magento attributes have been added`)
+                setMagentoAttributesImported(attributes.length)
                 navigate(`/magento`);
             }
         } catch (e) {
@@ -41,10 +34,21 @@ export default function ImportMagentoAttribute() {
         }
     }
 
+    const StepMessage = () => {
+        let heading = 'Step 2'
+        if (magentoAttributes === 0) {
+            heading = heading.concat(`: no attributes were imported from Magento`)
+        } else {
+            heading = heading.concat(`: ${magentoAttributes} were imported from Magento`)
+        }
+
+        return heading
+    }
+
     return (
         <StepForm>
-            <h2>Step 2</h2>
-            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block" disabled={isMagentoImportComplete()}>
+            <h2>{StepMessage()}</h2>
+            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block" disabled={magentoAttributes > 0}>
                 Import Magento Attributes
             </button>
         </StepForm>

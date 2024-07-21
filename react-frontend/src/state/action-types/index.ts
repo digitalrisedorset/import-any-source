@@ -9,10 +9,15 @@ export enum FlashMessageActionType {
     ADD_DOWNLOAD_MESSAGE = 'add_download_message',
 }
 
-export enum PimSystemActionType {
-    SET_PIM_SYSTEM = 'set_pim_system',
-}
-
 export enum ConfigActionType {
     SET_THEME_PREFERENCE = 'set_active_theme',
+}
+
+export enum PimAttributesActionType {
+    SET_PIM_ATTRIBUTES_IMPORT = 'set_pim_attributes_import',
+    SET_PIM_ATTRIBUTES_ACTIVE = 'set_pim_attributes_active'
+}
+
+export enum MagentoAttributesActionType {
+    SET_MAGENTO_ATTRIBUTES_IMPORT = 'set_magento_attributes_import',
 }

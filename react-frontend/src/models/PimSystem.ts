@@ -13,6 +13,21 @@ export class PimSystemHandler {
             })
     }
 
+    getPimSystemInitialStates = () => {
+        return Object
+            .keys(PIM_SYSTEM)
+            .filter((v) => isNaN(Number(v)))
+            .map((key, item) => {
+                return {
+                    name: key,
+                    active: false,
+                    pimAttributes: 0,
+                    magentoMapping: 0,
+                    remainingMapping: 0
+                }
+            })
+    }
+
     getActiveSystemLabel = (systemCode: string) => {
         if (systemCode === '') {
             return 'PIM'

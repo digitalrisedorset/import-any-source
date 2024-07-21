@@ -4,19 +4,19 @@ import {config} from "../config";
 import {ImportResponse} from "../types/pim"
 
 export class MappingModel {
-    private wocommerceList: PimAttribute[] = [];
+    private pimAttributeList: PimAttribute[] = [];
 
     private magentoList: MagentoAttribute[] = [];
 
-    constructor(wocommerceList: PimAttribute[], magentoList: MagentoAttribute[]) {
-        this.wocommerceList = wocommerceList
+    constructor(pimAttributeList: PimAttribute[], magentoList: MagentoAttribute[]) {
+        this.pimAttributeList = pimAttributeList
         this.magentoList = magentoList
     }
 
-    public async createAttributesImport(): Promise<ImportResponse | undefined> {
+    public async createAttributesImport(pimSystemCode: string): Promise<ImportResponse | undefined> {
         const fields = this.getFieldList()
         const response = await Axios.post(
-            'woocommerce/createImport',
+            `${pimSystemCode}/createImport`,
             {'mapping': fields}
         )
 
@@ -26,11 +26,11 @@ export class MappingModel {
         };
     }
 
-    public async createKeystoneSeedImport(): Promise<AxiosResponse | undefined> {
+    public async createKeystoneSeedImport(pimSystemCode: string): Promise<AxiosResponse | undefined> {
         try {
             const fields = this.getFieldList()
             return await Axios.post(
-                'woocommerce/createPimImport',
+                `${pimSystemCode}/createImport`,
                 {'mapping':fields }
             );
         } catch (e) {
@@ -39,16 +39,16 @@ export class MappingModel {
     }
 
     public getFieldList() {
-        return this.wocommerceList.map(attribute => ({
+        return this.pimAttributeList.map(attribute => ({
             pimFieldCode: attribute.code,
             magentoLinkedCode: this.getMagentoFieldCode(attribute.code)
         }))
     }
 
     public getMagentoFieldCode(pimFieldCode: string) {
-        const field = this.magentoList.filter(
-            attribute => attribute.assignedTo?.code === pimFieldCode
-        );
+        const field = this.magentoList.filter((attribute) =>
+            attribute.assignedTo!== null && attribute.assignedTo[0]?.code === pimFieldCode
+        )
 
         if (!field || field.length===0) {
             throw new Error(`attribute ${pimFieldCode} is not linked`);

@@ -18,7 +18,7 @@ export class MagentoAttributeProvider {
         const attributes = this.getAttributes()
         return attributes.filter(
             attribute => (
-                attribute.assignedTo !== null && attribute.assignedTo.code !== ''
+                attribute.assignedTo !== null /*&& attribute.assignedTo.code !== ''*/
             )
         )
     }

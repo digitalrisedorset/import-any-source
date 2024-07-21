@@ -7,3 +7,26 @@ export enum APP_STATE {
 
 export const AllSteps = [APP_STATE.pimComplete, APP_STATE.magentoComplete, APP_STATE.mappingComplete]
 
+export interface PimImportState {
+    name: string,
+    active: boolean,
+    pimAttributes: number,
+    magentoMapping?: number,
+    remainingMapping?: number
+}
+
+export interface PimImportStateData {
+    pimImportState: PimImportState[]
+}
+
+export interface MagentoImportStateData {
+    magentoAttributes: number
+}
+
+export const defaultImportState = {
+    name: '',
+    active: false,
+    pimAttributes: 0,
+    magentoMapping: 0,
+    remainingMapping: 0
+}

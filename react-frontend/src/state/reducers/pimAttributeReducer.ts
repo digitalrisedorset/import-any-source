@@ -1,0 +1,48 @@
+import {PimAttributesActionType} from "../action-types";
+import {SetPimAttributeActionList} from "../actions";
+import { PimImportStateData} from "../../types/states"
+import {PimSystemHandler} from "../../models/PimSystem";
+
+const buildInitialImportState = () => {
+    const pimSystemHandler = new PimSystemHandler()
+    const loadStoragePimData = localStorage.getItem('pimSystems')
+
+    if (loadStoragePimData === null) {
+        return {pimImportState: pimSystemHandler.getPimSystemInitialStates()}
+    }
+
+    const data = JSON.parse(loadStoragePimData)
+    return data as PimImportStateData
+}
+
+const initialState = buildInitialImportState()
+
+const reducer = (
+    state: PimImportStateData = initialState,
+    action: SetPimAttributeActionList
+): PimImportStateData => {
+    let newState
+    switch (action.type) {
+        case PimAttributesActionType.SET_PIM_ATTRIBUTES_IMPORT:
+            newState = {
+                pimImportState: state.pimImportState.map(
+                    (pimImportState) => pimImportState.name === action.pimImportState.name ?
+                        {...pimImportState, pimAttributes: action.pimImportState.pimAttributes}
+                        : pimImportState)
+            }
+            localStorage.setItem('pimSystems', JSON.stringify(newState))
+            return newState
+        case PimAttributesActionType.SET_PIM_ATTRIBUTES_ACTIVE:
+            newState = {
+                pimImportState: state.pimImportState.map(
+                    (pimImportState) => pimImportState.name === action.pimSystemCode ? {...pimImportState, active: true}
+                        : {...pimImportState, active: false})
+            }
+            localStorage.setItem('pimSystems', JSON.stringify(newState))
+            return newState
+        default:
+            return state;
+    }
+}
+
+export default reducer

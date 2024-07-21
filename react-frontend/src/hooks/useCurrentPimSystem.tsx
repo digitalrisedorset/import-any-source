@@ -1,16 +1,28 @@
 import {useTypedSelector} from "./useTypedSelector";
 import {PimSystemHandler} from "../models/PimSystem";
+import {defaultImportState, PimImportState} from "../types/states";
+
+export const useActivePimSystem = (): PimImportState => {
+    const { pimImportState } = useTypedSelector((state) => state.pimAttribute)
+    let currentActiveSystem = pimImportState.find(item => item.active === true);
+
+    if (currentActiveSystem === undefined) {
+        defaultImportState.active = true
+        currentActiveSystem = defaultImportState;
+    }
+
+    return currentActiveSystem
+}
 
 export const useCurrentPimSystem = () => {
-    const { pimSystemCode } = useTypedSelector((state) => state.pimSystem)
-    const pimSystemHandler = new PimSystemHandler()
+    const currentActiveSystem = useActivePimSystem()
 
-    return pimSystemHandler.getActiveSystemLabel(pimSystemCode)
+    const pimSystemHandler = new PimSystemHandler()
+    return pimSystemHandler.getActiveSystemLabel(currentActiveSystem?.name || 'woocommerce')
 }
 
 export const useCurrentPimSystemCode = () => {
-    const {pimSystemCode} = useTypedSelector((state) => state.pimSystem)
-    const pimSystemHandler = new PimSystemHandler()
+    const currentActiveSystem = useActivePimSystem()
 
-    return pimSystemCode
+    return currentActiveSystem?.name || 'woocommerce'
 }

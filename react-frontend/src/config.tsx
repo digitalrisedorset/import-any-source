@@ -35,9 +35,9 @@ export const config: configInfo = {
     },{
         name: 'blue',
         colors: {
-            font: '#168fcc',
+            font: 'black',
             deep: '#0077B6',
-            normal: '#023E8A',
+            normal: '#2f4e87',
             light: '#D1E8E2'
         }
     }, {
@@ -52,7 +52,7 @@ export const config: configInfo = {
     {
         name: 'happy',
         colors: {
-            font: '#db9943',
+            font: 'black',
             deep: '#FF9F1C',
             normal: '#FFBF69',
             light: '#CB997E'
@@ -61,7 +61,7 @@ export const config: configInfo = {
     {
         name: 'forest',
         colors: {
-            font: '#55A630',
+            font: 'black',
             deep: '#2B9348',
             normal: '#80B918',
             light: '#CB997E'

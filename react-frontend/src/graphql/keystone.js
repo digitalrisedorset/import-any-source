@@ -10,6 +10,7 @@ export const ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY = gql`
         required
         createdAt
         assignedTo {
+            id
             code
             name
         }

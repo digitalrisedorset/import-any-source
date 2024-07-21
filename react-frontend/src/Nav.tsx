@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import NavStyles from './components/styles/NavStyles';
-import {useCurrentPimSystem} from "./hooks/useCurrentPimSystem";
+import {useActivePimSystem} from "./hooks/useCurrentPimSystem";
 
 export default function Nav() {
-    const currentPimSystem = useCurrentPimSystem()
+    const currentPimSystem = useActivePimSystem()
 
     return (
         <NavStyles>
@@ -14,7 +14,7 @@ export default function Nav() {
                 Magento
             </Link>
             <Link to="/pim" className="text-white">
-                {currentPimSystem} System
+                {currentPimSystem?.name} System
             </Link>
             <Link to="/config" className="text-white">
                 Configuration

@@ -4,20 +4,29 @@ import MapStyleAwaitingLink from './../styles/MapStyleAwaitingLink';
 import {AssignedToData} from "../../types/keystone";
 
 interface AssignedToProps {
-    assignedTo: AssignedToData,
+    assignedTo: AssignedToData[],
     required: boolean
 }
 
 export function AssignedTo({assignedTo, required}: AssignedToProps) {
+    const getAssignedToAttribute = (assignedTo: AssignedToData[]) => {
+        return assignedTo.reduce((description ,assignedAttribute) => {
+            if (description !=='') {
+                description += ', '
+            }
+            return description += assignedAttribute.name;
+        }, '');
+    }
+
     return (
         <>
-            {assignedTo && (
-                <MapStyleLinked><span>Linked to Pim with attribute '{assignedTo.name}' (code: {assignedTo.code})</span></MapStyleLinked>
+            {assignedTo.length>0 && (
+                <MapStyleLinked><span>Linked to Pim with attribute {getAssignedToAttribute(assignedTo)}</span></MapStyleLinked>
             )}
-            {!assignedTo && !required && (
+            {assignedTo.length==0 && !required && (
                 <MapStyle><span>Not Linked to Pim</span></MapStyle>
             )}
-            {!assignedTo  && required && (
+            {assignedTo.length==0  && required && (
                 <MapStyleAwaitingLink><span>Link required for the import to work: <b>Awaiting link</b></span></MapStyleAwaitingLink>
             )}
         </>

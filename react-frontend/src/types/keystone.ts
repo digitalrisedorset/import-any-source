@@ -24,7 +24,7 @@ export interface PimAttribute extends BaseAttribute {
 }
 
 export interface MagentoAttribute extends BaseAttribute {
-    assignedTo: AssignedToData
+    assignedTo: AssignedToData[]
 }
 
 export interface AssignedToData {

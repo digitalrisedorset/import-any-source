@@ -12,6 +12,10 @@ export class ConfigReader {
     }
 
     getThemeByName = (name: string): Theme => {
+        if (name === '') {
+            name = 'default'
+        }
+
         const themes = config.themes
             .filter((theme) => theme.name === name)
 

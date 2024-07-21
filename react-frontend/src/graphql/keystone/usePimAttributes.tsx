@@ -1,6 +1,6 @@
 import {gql, LazyQueryResultTuple, OperationVariables, useLazyQuery, useQuery} from '@apollo/client';
-import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {PimAttributeData} from "../../types/keystone";
+import {useCurrentPimSystemCode} from "../../hooks/useCurrentPimSystem";
 
 export const ALL_PIM_PRODUCT_ATTRIBUTES_QUERY = gql`
      query PimAttributes($where: PimAttributeWhereInput!) {
@@ -22,7 +22,7 @@ export const ALL_PIM_PRODUCT_ATTRIBUTES_QUERY = gql`
 `;
 
 export const usePimAttributes = () => {
-    const { pimSystemCode } = useTypedSelector((state) => state.pimSystem)
+    const pimSystemCode = useCurrentPimSystemCode()
     const pimAttributesData = useQuery(ALL_PIM_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {
             "where": {
@@ -38,7 +38,7 @@ export const usePimAttributes = () => {
 }
 
 export const usePimAttributesLazy = () => {
-    const { pimSystemCode } = useTypedSelector((state) => state.pimSystem)
+    const pimSystemCode = useCurrentPimSystemCode()
     const [getPimAttributeList]: LazyQueryResultTuple<PimAttributeData, OperationVariables> = useLazyQuery(ALL_PIM_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {
             "where": {
