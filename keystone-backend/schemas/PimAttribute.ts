@@ -6,7 +6,7 @@ export const PimAttribute = list({
     access: allowAll,
     ui: {
         listView: {
-            initialColumns: ['code', 'type', 'magentoCode', 'pimSystem'],
+            initialColumns: ['id', 'code', 'type', 'magentoCode', 'pimSystem'],
         },
     },
     fields: {

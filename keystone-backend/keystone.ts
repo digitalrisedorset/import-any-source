@@ -4,7 +4,7 @@ import type { TypeInfo } from '.keystone/types'
 import { withAuth } from "./auth";
 import { statelessSessions } from '@keystone-6/core/session';
 import { type Session, lists } from './schema'
-import { getDatabaseConnection } from './schemas/config'
+import {getDatabaseConnection, getDatabaseType, getShadowDatabaseConnection} from './schemas/config'
 import {keystoneconfig} from './config'
 
 // WARNING: you need to change this
@@ -16,6 +16,7 @@ const sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --'
 const sessionMaxAge = 60 * 60
 
 console.log(`Keystone frontend: http://${keystoneconfig.frontend.host}`)
+console.log(`database ${getDatabaseConnection()}`)
 
 export default withAuth<TypeInfo<Session>>(
     config<TypeInfo>({
@@ -26,12 +27,21 @@ export default withAuth<TypeInfo<Session>>(
             extendExpressApp: async (app, commonContext) => { /* ... */ },
             extendHttpServer: async (httpServer, commonContext) => { /* ... */ },
         },
+        // db: {
+        //     provider: 'sqlite',
+        //     url: process.env.DATABASE_URL || 'file:./keystone-example.db',
+        //
+        //     // WARNING: this is only needed for our monorepo examples, dont do this
+        //     ...fixPrismaPath,
+        // },
         db: {
-            provider: 'sqlite',
-            url: process.env.DATABASE_URL || 'file:./keystone-example.db',
-
-            // WARNING: this is only needed for our monorepo examples, dont do this
-            ...fixPrismaPath,
+            provider: getDatabaseType(),
+            url: getDatabaseConnection(),
+            //onConnect: async context => { /* ... */ },
+            // Optional advanced configuration
+            //enableLogging: true,
+            //idField: { kind: 'uuid' },
+            //shadowDatabaseUrl: getShadowDatabaseConnection(),
         },
         lists,
         ui: {
