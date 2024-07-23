@@ -5,7 +5,7 @@ import {ErrorWrapper} from "../../error-handler";
 
 export class SkuFinder {
     woocommerceApiHandler = new ApiHandler;
-    cache = new CacheService();
+    cache = new CacheService('sku_list');
     errorWrapper = new ErrorWrapper()
 
     getSkuRecord = async (productId: Readonly<number>): Promise<string | undefined> => {

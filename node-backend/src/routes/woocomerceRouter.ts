@@ -25,8 +25,6 @@ export const setupWoocommerceRoutes = (app: Application) => {
 
     router.post("/createDelete", woocommerceController.getDeleteNotification)
 
-    router.post("/createKeystoneImport", woocommerceController.createKeystoneSeedImport)
-
     router.post("/notifyProductDeletion", woocommerceController.notifyProductDeletion)
 
     router.options('*', options);

@@ -1,5 +1,5 @@
 import {Attribute} from "../types/general";
-import {PlantFileHandler} from "./booksystem/file-handler"
+import {BookFileHandler} from "./booksystem/file-handler"
 import {CacheService} from "./cache/data-cache";
 import {AttributeValidator} from "./booksystem/file-handler/attribute-validator";
 import {ProductValidator} from "./booksystem/file-handler/product-validator";
@@ -9,7 +9,7 @@ import {config} from "../config";
 
 export class BookSystem {
     cache = new CacheService(config.route.bookApiPrefix);
-    plantFileHandler = new PlantFileHandler()
+    bookFileHandler = new BookFileHandler()
     attributeValidator = new AttributeValidator()
     productValidator = new ProductValidator()
     errorWrapper = new ErrorWrapper()
@@ -26,7 +26,7 @@ export class BookSystem {
     }
 
     getOptionAttributes = async (): Promise<Attribute[]> => {
-        return this.plantFileHandler.getAttributes()
+        return this.bookFileHandler.getAttributes()
             .then(response => {
                 return this.attributeValidator.filterValidAttributes(response)
             })
@@ -36,7 +36,7 @@ export class BookSystem {
             })
     }
     getAttributeListFromProduct = async (): Promise<Attribute[]> => {
-        return this.plantFileHandler.getProduct({
+        return this.bookFileHandler.getProduct({
             'per_page': '1',
             'page': '1'
         })
@@ -50,7 +50,25 @@ export class BookSystem {
     }
 
     getProductBatch = async (): Promise<BookProduct[]> => {
-        return this.plantFileHandler.getProduct({
+        return this.bookFileHandler.getProduct({
+            'per_page': '1',
+            'page': '1'
+        })
+            .then(response => {
+                return this.productValidator.filterValidProduct(response)
+            })
+            .catch((e: unknown) => {
+                this.errorWrapper.handle(e)
+                throw e
+            })
+    }
+
+    getProductUpdate = async (): Promise<BookProduct[]> => {
+        let now = new Date(),
+            dateThreshold = new Date(now);
+        dateThreshold.setMinutes(now.getMinutes() - 5);
+
+        return this.bookFileHandler.getProduct({
             'per_page': '1',
             'page': '1'
         })

@@ -4,7 +4,7 @@ import {CacheService} from "../cache/data-cache";
 
 export class WoocommerceDataVariations {
     woocommerceApiHandler = new ApiHandler;
-    cache = new CacheService();
+    cache = new CacheService('woocommerce_variations');
 
     getVariationData = async (record: WoocommerceProduct): Promise<WoocommerceSimpleProduct[]> =>  {
         const variations = record[WoocommerceProductFieldCase.variations]

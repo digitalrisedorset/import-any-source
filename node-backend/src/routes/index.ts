@@ -5,6 +5,6 @@ import { Application } from "express";
 
 export default (app: Application) => {
     setupWoocommerceRoutes(app)
-    setupPlantSystemRoutes(app)
-    setupBookRoutes(app)
+    //setupPlantSystemRoutes(app)
+    //setupBookRoutes(app)
 }

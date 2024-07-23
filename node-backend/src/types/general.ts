@@ -18,3 +18,8 @@ export interface Attribute {
     name: string
     type: string
 }
+
+export interface SearchFilter {
+    per_page: string,
+    page: string
+}

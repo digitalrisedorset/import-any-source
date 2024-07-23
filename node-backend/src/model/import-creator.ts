@@ -1,5 +1,5 @@
 import {WoocommerceProduct, InitialProductData, WoocommerceDeleteRecord} from "../types/woocommerce";
-import {ImportMappingFields} from "../../types/general";
+import {ImportMappingFields} from "../types/general";
 import {CsvWriter} from './csv-writer'
 import {ImportRowCreator} from './import-creator/row-creator'
 import {VariationDataProvider} from "./import-creator/variation-data-provider"

@@ -25,8 +25,6 @@ export const setupPlantSystemRoutes = (app: Application) => {
 
     router.post("/createDelete", plantController.getDeleteNotification)
 
-    router.post("/createKeystoneImport", plantController.createKeystoneSeedImport)
-
     router.post("/notifyProductDeletion", plantController.notifyProductDeletion)
 
     router.options('*', options);

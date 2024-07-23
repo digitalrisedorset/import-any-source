@@ -5,6 +5,7 @@ global
 const cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false });
 
 export class CacheService {
+    private cachePrefix
     constructor(prefix: string) {
         this.cachePrefix = prefix
     }

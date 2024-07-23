@@ -4,7 +4,7 @@ import {CacheService} from "./cache/data-cache";
 import {AttributeValidator} from "./plantsystem/file-handler/attribute-validator";
 import {ProductValidator} from "./plantsystem/file-handler/product-validator";
 import {ErrorWrapper} from "../error-handler";
-import {WoocommerceProduct} from "../types/woocommerce";
+import {PlantProduct} from "../types/plant";
 import {config} from "../config";
 
 export class PlantSystem {
@@ -49,7 +49,25 @@ export class PlantSystem {
             })
     }
 
-    getProductBatch = async (): Promise<WoocommerceProduct[]> => {
+    getProductBatch = async (): Promise<PlantProduct[]> => {
+        return this.plantFileHandler.getProduct({
+            'per_page': '1',
+            'page': '1'
+        })
+            .then(response => {
+                return this.productValidator.filterValidProduct(response)
+            })
+            .catch((e: unknown) => {
+                this.errorWrapper.handle(e)
+                throw e
+            })
+    }
+
+    getProductUpdate = async (): Promise<PlantProduct[]> => {
+        let now = new Date(),
+            dateThreshold = new Date(now);
+        dateThreshold.setMinutes(now.getMinutes() - 5);
+
         return this.plantFileHandler.getProduct({
             'per_page': '1',
             'page': '1'

@@ -61,6 +61,8 @@ export enum WoocommerceProductFieldCase {
     variations = 'variations' // 'configurable_variations',  // variations
 }
 
+export type ApiFilter = any
+
 export type FieldValue = string | boolean | null | number[] | number | ProductImage | ProductImage[] | undefined;
 
 export type InitialProductData = {

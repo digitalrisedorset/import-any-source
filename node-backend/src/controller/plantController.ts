@@ -35,8 +35,9 @@ export class PlantController implements ImportControllerInterface {
             const plantSystemClient = new PlantSystem()
             const list = await plantSystemClient.getProductBatch()
             const plantImporter = new ImportCreator()
-            plantImporter.saveProductMinimalData(list)
-            const filename = await plantImporter.createCsvImport(list, req.body)
+            //plantImporter.saveProductMinimalData(list)
+            //const filename = await plantImporter.createCsvImport(list, req.body)
+            const filename = 'test'
             console.log('Import complete', filename)
             res.send({ filename })
         } catch (e) {
@@ -59,21 +60,13 @@ export class PlantController implements ImportControllerInterface {
             }
 
             const plantImporter = new ImportCreator()
-            const filename = await plantImporter.createCsvUpdateImport(list)
+            //const filename = await plantImporter.createCsvUpdateImport(list)
+            const filename = 'test'
             console.log('Import complete', filename)
             res.send({
                 filename,
                 update: list.length
             })
-        } catch (e) {
-            res.status(500).send("Error")
-            this.errorWrapper.handle(e)
-        }
-    }
-
-    createKeystoneSeedImport = async (req: Request, res: Response) => {
-        try {
-            res.send("No implementation yet")
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)

@@ -1,5 +1,4 @@
-import { WoocommerceAttribute, Attribute } from "../../../types/woocommerce";
-import { isArray, isObject } from "../../../lib/type-checker";
+import { isArray } from "../../../lib/type-checker";
 
 enum OptionAttributeType {
     options = 'options',
@@ -13,11 +12,11 @@ interface OptionAttribute {
 }
 
 export class AttributeValidator {
-    filterValidAttributes = (apiResponse: unknown): Attribute[] => {
+    filterValidAttributes = (apiResponse: unknown): [] => {
         return []
     }
 
-    filterValidAttributesFromProduct = (apiResponse: unknown): Attribute[] => {
+    filterValidAttributesFromProduct = (apiResponse: unknown): OptionAttribute[] => {
         if (!isArray(apiResponse)) {
             throw new Error('The API response is not valid')
         }
@@ -25,7 +24,7 @@ export class AttributeValidator {
         const attributes: OptionAttribute[] = [];
         let record = (apiResponse as Array<any>)[0];
 
-        Object.keys(record).forEach((key, index) => {
+        Object.keys(record).forEach((key) => {
             attributes.push({
                 code: key,
                 name: key,

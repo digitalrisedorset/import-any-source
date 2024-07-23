@@ -1,6 +1,5 @@
-import {WoocommerceAttribute} from "../../../types/woocommerce";
-import {Attribute} from "../../../types/general";
-import {isArray, isObject} from "../../../lib/type-checker";
+import {isArray} from "../../../lib/type-checker";
+import {z} from "zod";
 
 enum OptionAttributeType {
     options = 'options',
@@ -13,28 +12,29 @@ interface OptionAttribute {
     type: OptionAttributeType
 }
 
+const AttributeResult = z.object({
+    slug: z.string(),
+    name: z.string()
+})
+
 export class AttributeValidator {
-    filterValidAttributes = (apiResponse: unknown): Attribute[] => {
+    filterValidAttributes = (apiResponse: unknown): OptionAttribute[] => {
         if (!isArray(apiResponse)) {
             throw new Error('The API response is not valid')
         }
 
         return (apiResponse as Array<any>).filter(
-            (item: any): boolean => {
-                return isObject(item)
-                    && "slug" in item && typeof item["slug"] === "string"
-                    && "name" in item && typeof item["name"] === "string"
-            }
-        ).map((elem: WoocommerceAttribute): Attribute => {
+            (item: any) => AttributeResult.parse(item)
+        ).map((elem): OptionAttribute => {
             return {
-                code: elem['slug'],
-                name: elem['name'],
+                code: elem.slug,
+                name: elem.name,
                 type: OptionAttributeType.options
             }
         })
     }
 
-    filterValidAttributesFromProduct = (apiResponse: unknown): Attribute[] => {
+    filterValidAttributesFromProduct = (apiResponse: unknown): OptionAttribute[] => {
         if (!isArray(apiResponse)) {
             throw new Error('The API response is not valid')
         }

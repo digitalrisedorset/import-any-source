@@ -1,8 +1,9 @@
 import { isArray, isObject } from "../../../lib/type-checker";
 import {BookProduct} from "../../../types/book";
+import {PlantProduct} from "../../../types/plant";
 
 export class ProductValidator {
-    filterValidProduct = (apiResponse: unknown): BookProduct[] => {
+    filterValidProduct = (apiResponse: unknown): PlantProduct[] => {
         if (!isArray(apiResponse)) {
             throw new Error('The API response is not valid')
         }

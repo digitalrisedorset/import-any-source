@@ -1,18 +1,19 @@
-import {Woocommerce} from "../model/woocommerce"
-import {ImportCreator} from "../model/import-creator"
-import {KeystoneImportCreator} from "../model/keystone-import-creator"
-import {Request, Response} from "express";
-import {WoocommerceWebHookHandler} from "../model/woocommerce/webhook-handler"
-import {ProductDeletion} from "../model/woocommerce/product-deletion"
-import {ErrorWrapper} from "../error-handler";
-import {ImportControllerInterface} from "./importControllerInterface";
+import { Woocommerce } from "../model/woocommerce"
+import { ImportCreator } from "../model/import-creator"
+import { KeystoneImportCreator } from "../model/keystone-import-creator"
+import { Request, Response } from "express";
+import { WoocommerceWebHookHandler } from "../model/woocommerce/webhook-handler"
+import { ProductDeletion } from "../model/woocommerce/product-deletion"
+import { ErrorWrapper } from "../error-handler";
+import { ImportControllerInterface } from "./importControllerInterface";
 
 
 export class WoocommerceController implements ImportControllerInterface {
     errorWrapper = new ErrorWrapper()
 
-    apiGetAttributeList = async (req: Request, res: Response)=> {
+    apiGetAttributeList = async (req: Request, res: Response) => {
         try {
+            debugger
             const wooClient = new Woocommerce()
             const result = await wooClient.getAttributeList()
             res.send(result)
@@ -22,7 +23,7 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    apiGetProductList = async (req: Request, res: Response)=> {
+    apiGetProductList = async (req: Request, res: Response) => {
         try {
             const wooClient = new Woocommerce()
             const result = await wooClient.getProductBatch();
@@ -33,7 +34,7 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    createImport = async (req: Request, res: Response)=> {
+    createImport = async (req: Request, res: Response) => {
         try {
             const wooClient = new Woocommerce()
             const list = await wooClient.getProductBatch()
@@ -41,14 +42,14 @@ export class WoocommerceController implements ImportControllerInterface {
             wooImporter.saveProductMinimalData(list)
             const filename = await wooImporter.createCsvImport(list, req.body)
             console.log('Import complete', filename)
-            res.send({filename})
+            res.send({ filename })
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
         }
     }
 
-    createUpdateImport = async (req: Request, res: Response)=> {
+    createUpdateImport = async (req: Request, res: Response) => {
         try {
             const wooClient = new Woocommerce()
             const list = await wooClient.getProductUpdate()
@@ -74,25 +75,12 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    createKeystoneSeedImport = async (req: Request, res: Response)=> {
-        try {
-            const wooClient = new Woocommerce()
-            const list = await wooClient.getProductBatch()
-            const keystoneImportCreator = new KeystoneImportCreator()
-            await keystoneImportCreator.createSeedImport(list)
-            return {'message': 'success'}
-        } catch (e) {
-            res.status(500).send("Error")
-            this.errorWrapper.handle(e)
-        }
-    }
-
-    notifyProductDeletion = async (req: Request, res: Response)=> {
+    notifyProductDeletion = async (req: Request, res: Response) => {
         try {
             const woocommerceWebHookHandler = new WoocommerceWebHookHandler();
 
             if (!woocommerceWebHookHandler.isWebhookValid(req)) {
-                res.send({'message': 'invalid webhook data'})
+                res.send({ 'message': 'invalid webhook data' })
                 return
             }
 
@@ -109,7 +97,7 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    getDeleteNotification = async (req: Request, res: Response)=> {
+    getDeleteNotification = async (req: Request, res: Response) => {
         try {
             const productDeletion = new ProductDeletion()
             const list = await productDeletion.getProductDeleteNotification()
@@ -119,6 +107,7 @@ export class WoocommerceController implements ImportControllerInterface {
                     filename: '',
                     delete: 0
                 })
+                return
             }
 
             const wooImporter = new ImportCreator()

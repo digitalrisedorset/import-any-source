@@ -25,8 +25,6 @@ export const setupBookRoutes = (app: Application) => {
 
     router.post("/createDelete", bookController.getDeleteNotification)
 
-    router.post("/createKeystoneImport", bookController.createKeystoneSeedImport)
-
     router.post("/notifyProductDeletion", bookController.notifyProductDeletion)
 
     router.options('*', options);

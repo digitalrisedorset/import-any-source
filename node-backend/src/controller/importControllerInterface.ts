@@ -9,8 +9,6 @@ export interface ImportControllerInterface {
 
     createUpdateImport: (req: Request, res: Response) => Promise<void>;
 
-    createKeystoneSeedImport: (req: Request, res: Response) => Promise<void>;
-
     notifyProductDeletion: (req: Request, res: Response) => Promise<void>;
 
     getDeleteNotification: (req: Request, res: Response) => Promise<void>;
