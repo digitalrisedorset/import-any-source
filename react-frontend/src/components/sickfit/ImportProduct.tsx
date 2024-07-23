@@ -1,7 +1,7 @@
 import { FormEvent} from "react"
 import {RemotePimProductProvider} from "../../models/RemotePimProductProvider";
 
-export default function ImportProduct(): JSX.Element {
+export const ImportProduct = () => {
     const remoteProductProvider = RemotePimProductProvider()
 
     async function handleSubmit(e: FormEvent) {

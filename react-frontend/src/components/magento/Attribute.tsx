@@ -8,7 +8,7 @@ interface AttributeProps {
     attribute: MagentoAttribute
 }
 
-export default function Attribute({attribute}: AttributeProps) {
+export const Attribute = ({attribute}: AttributeProps) => {
     const date = new Date(attribute.createdAt)
 
     return (

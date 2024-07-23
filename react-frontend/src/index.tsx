@@ -1,7 +1,7 @@
 import { config } from './config';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import {App} from './App';
 import { ApolloProvider } from "@apollo/client";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from "react-redux";

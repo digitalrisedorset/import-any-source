@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { MappingScreen } from '../styles/MappingScreen';
 import { GetIgnoredAttribute } from "./IgnoreFieldArea/GetIgnoredAttribute";
 
-export function Pim() {
+export const Pim = () => {
     const { initialAttribute, matchingAttribute } = useParams();
     const { addFlashMessage } = useActions()
 

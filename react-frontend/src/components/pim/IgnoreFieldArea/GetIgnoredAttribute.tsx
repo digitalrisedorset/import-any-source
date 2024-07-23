@@ -3,7 +3,7 @@ import {PimAttribute} from "../../../types/keystone";
 import {IgnoredAttribute} from "./IgnoredAttribute";
 import {usePimAttributes} from "../../../graphql/keystone/usePimAttributes";
 
-export function GetIgnoredAttribute() {
+export const GetIgnoredAttribute = () => {
     const { data, error, loading } = usePimAttributes()
 
     const getIgnoredAttributesAlphabeticallyOrdered = (attributes: PimAttribute[]): PimAttribute[] => {

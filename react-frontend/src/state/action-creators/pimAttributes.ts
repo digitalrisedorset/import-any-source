@@ -2,17 +2,42 @@ import {Dispatch} from "redux";
 import {SetPimAttributeActionList} from "../actions";
 import {PimAttributesActionType} from "../action-types";
 
-export const setPimAttributesImported = (name: string, pimAttributes: number, magentoMapping?: number, remainingMapping?: number) => {
+export const setPimAttributesImported = (pimSystemCode: string, pimAttributes: number, ignoredAttributes: number) => {
     return async (dispatch: Dispatch<SetPimAttributeActionList>) => {
         dispatch({
             type: PimAttributesActionType.SET_PIM_ATTRIBUTES_IMPORT,
             pimImportState: {
-                name,
-                active: true,
+                name: pimSystemCode,
                 pimAttributes,
-                magentoMapping,
-                remainingMapping
+                ignoredAttributes
             }
+        })
+    }
+}
+
+export const addPimAttributeMapped = (pimSystemCode: string) => {
+    return async (dispatch: Dispatch<SetPimAttributeActionList>) => {
+        dispatch({
+            type: PimAttributesActionType.SET_PIM_ATTRIBUTE_MAPPED,
+            pimSystemCode
+        })
+    }
+}
+
+export const addPimAttributeIgnored = (pimSystemCode: string) => {
+    return async (dispatch: Dispatch<SetPimAttributeActionList>) => {
+        dispatch({
+            type: PimAttributesActionType.SET_PIM_ATTRIBUTE_IGNORED,
+            pimSystemCode
+        })
+    }
+}
+
+export const addPimAttributeActivated = (pimSystemCode: string) => {
+    return async (dispatch: Dispatch<SetPimAttributeActionList>) => {
+        dispatch({
+            type: PimAttributesActionType.SET_PIM_ATTRIBUTE_ACTIVATED,
+            pimSystemCode
         })
     }
 }

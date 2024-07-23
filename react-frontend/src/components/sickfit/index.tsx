@@ -1,6 +1,6 @@
-import ImportProduct from "./ImportProduct";
+import {ImportProduct} from "./ImportProduct";
 
-export function SickFit() {
+export const SickFit = () => {
     return (
         <>
             <ImportProduct />

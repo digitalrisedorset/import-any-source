@@ -1,24 +1,29 @@
 import ItemStyles from '../../styles/ItemStyles';
-import { Title } from '../../styles/Title';
-import { LinkedWith } from "./LinkedWith";
-import MapLink from "./MapLink";
-import { PimAttribute } from '../../../types/keystone'
+import {Title} from '../../styles/Title';
+import {LinkedWith} from "./LinkedWith";
+import {MapLink} from "./MapLink";
+import {PimAttribute} from '../../../types/keystone'
 import React from "react";
 import {DeleteButton} from "../../styles/MappingScreen";
 import {useSetPimgAttributeIgnored} from "../../../graphql/keystone/useSetPimAttributeIgnored";
+import {useActivePimSystem} from "../../../hooks/useCurrentPimSystem";
+import {useActions} from "../../../hooks/useActions";
 
 interface AttributeProps {
     attribute: PimAttribute
 }
 
-export function Attribute({attribute}: AttributeProps) {
+export const Attribute = ({attribute}: AttributeProps) => {
+    const currentPimSystem = useActivePimSystem()
     const setPimAttributeIgnore = useSetPimgAttributeIgnored(attribute.id)
+    const { addPimAttributeIgnored } = useActions()
 
     const date = new Date(attribute.createdAt)
 
     const removeField = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         setPimAttributeIgnore()
+        addPimAttributeIgnored(currentPimSystem.name)
     }
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from "./Header";
+import {Header} from "./Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Pim } from "./components/pim";
 import { Magento } from "./components/magento";
@@ -10,7 +10,7 @@ import { Page } from "./Page";
 import { Import } from "./components/pim/Import";
 import { Config} from "./components/Config"
 
-export default function App() {
+export const App = () => {
   return (<Page>
     <BrowserRouter>
       <Header title="Welcome on the Import Attribute Reader"/>

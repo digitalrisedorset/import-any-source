@@ -11,8 +11,14 @@ export interface PimImportState {
     name: string,
     active: boolean,
     pimAttributes: number,
-    magentoMapping?: number,
-    remainingMapping?: number
+    magentoMapping: number
+    ignoredAttributes: number
+}
+
+export interface PimImportAttributeState {
+    name: string,
+    pimAttributes: number,
+    ignoredAttributes: number
 }
 
 export interface PimImportStateData {
@@ -28,5 +34,5 @@ export const defaultImportState = {
     active: false,
     pimAttributes: 0,
     magentoMapping: 0,
-    remainingMapping: 0
+    ignoredAttributes: 0
 }

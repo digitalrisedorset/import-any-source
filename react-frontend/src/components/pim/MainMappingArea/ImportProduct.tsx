@@ -15,7 +15,7 @@ import {useMagentoAttributesLazy} from "../../../graphql/keystone/useMagentoAttr
 import StepForm from "../../styles/StepForm"
 import {useCurrentPimSystemCode} from "../../../hooks/useCurrentPimSystem";
 
-export default function ImportProduct() {
+export const ImportProduct = () => {
     const pimSystemCode = useCurrentPimSystemCode()
     const [mappingReady, setMappingReady] = useState(false)
     const [importBuiling, setImportBuilding] = useState(false)
@@ -65,11 +65,13 @@ export default function ImportProduct() {
 
     return (
         <StepForm>
-            <h2>Step 4</h2>
+            <div className="main">
+                <h2>Step 4</h2>
 
-            <button type="submit" disabled={importBuiling || !mappingReady} onClick={handleSubmit}>
-                Import Magento Products
-            </button>
+                <button type="submit" disabled={importBuiling || !mappingReady} onClick={handleSubmit}>
+                    Import Magento Products
+                </button>
+            </div>
         </StepForm>
-    )
+)
 }

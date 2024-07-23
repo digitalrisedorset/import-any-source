@@ -1,6 +1,6 @@
 import CardStyles from "./styles/CardStyles";
 
-export function NotFound() {
+export const NotFound = () => {
 
     return (
         <CardStyles>

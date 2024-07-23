@@ -1,19 +1,24 @@
-import { FormEvent} from "react"
+import StepForm from "../styles/StepForm";
+import {FormEvent} from "react"
 import {RemoteMagentoAttributeProvider} from "../../models/RemoteMagentoAttributeProvider";
 import {useActions} from "../../hooks/useActions";
 import {useNavigate} from "react-router-dom";
 import {useCreateMagentoAttributes} from "../../graphql/keystone/useCreateMagentoAttributes";
 import {useProductAttributes} from "../../graphql/magento/useProductAttributes";
-import StepForm from "../styles/StepForm";
 import {useMagentoAttributes} from "../../hooks/useMagentoAttributes";
+import {MagentoReport} from "./MagentoReport";
 
-export default function ImportMagentoAttribute() {
+export const ImportMagentoAttribute = () => {
     const { addFlashMessage, setMagentoAttributesImported } = useActions()
-    const navigate = useNavigate()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const createListAttribute = useCreateMagentoAttributes()
     const magentoAttributes = useMagentoAttributes()
     const { data } = useProductAttributes()
+    const navigate = useNavigate()
+
+    const magentoAttributeImported = (): boolean => {
+        return magentoAttributes > 0
+    }
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -34,23 +39,15 @@ export default function ImportMagentoAttribute() {
         }
     }
 
-    const StepMessage = () => {
-        let heading = 'Step 2'
-        if (magentoAttributes === 0) {
-            heading = heading.concat(`: no attributes were imported from Magento`)
-        } else {
-            heading = heading.concat(`: ${magentoAttributes} were imported from Magento`)
-        }
-
-        return heading
-    }
-
     return (
         <StepForm>
-            <h2>{StepMessage()}</h2>
-            <button type="submit" onClick={handleSubmit} className="py-3 mt-4 btn btn-lg btn-success btn-block" disabled={magentoAttributes > 0}>
-                Import Magento Attributes
-            </button>
+            <div className="main">
+                <h2>Step 2</h2>
+                <button type="submit" onClick={handleSubmit} disabled={magentoAttributeImported()}>
+                    Import Magento Attributes
+                </button>
+            </div>
+            <MagentoReport/>
         </StepForm>
     )
 }

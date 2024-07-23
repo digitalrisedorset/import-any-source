@@ -3,7 +3,7 @@ import PimSystem from "./styles/PimSystem";
 import {ConfigReader} from "../models/ConfigReader";
 import {useActions} from "../hooks/useActions";
 
-export function Config() {
+export const Config = () => {
     const { setActiveTheme } = useActions()
     const configReader = new ConfigReader()
 

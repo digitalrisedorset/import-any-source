@@ -7,6 +7,7 @@ import {ALL_PIM_PRODUCT_ATTRIBUTES_QUERY} from "./usePimAttributes";
 
 export const useMapAttribute = (pimAttributeStateId: string, magentoAttributeStateId: string) => {
     console.log(`useMapAttribute pimAttributeStateId ${pimAttributeStateId}, magentoAttributeStateId: ${magentoAttributeStateId}`)
+
     const [mapAttribute] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {
         variables: {
             "where": {"id":pimAttributeStateId},

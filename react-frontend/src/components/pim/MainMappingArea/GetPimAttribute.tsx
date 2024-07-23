@@ -5,7 +5,7 @@ import {PimAttributeDescription} from "./PimAttributeDescription";
 import {LoadingDotsIcon} from "../../../Loading";
 import {usePimAttributes} from "../../../graphql/keystone/usePimAttributes";
 
-export function GetPimAttribute() {
+export const GetPimAttribute = () => {
     const { data, error, loading } = usePimAttributes()
 
     const getActiveAttributes = (attributes: PimAttribute[]): PimAttribute[] => {

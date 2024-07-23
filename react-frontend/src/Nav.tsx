@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom"
+import {Link} from "react-router-dom"
 import NavStyles from './components/styles/NavStyles';
 import {useActivePimSystem} from "./hooks/useCurrentPimSystem";
 
-export default function Nav() {
+export const Nav = () => {
     const currentPimSystem = useActivePimSystem()
 
     return (

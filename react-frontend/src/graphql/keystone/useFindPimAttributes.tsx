@@ -15,7 +15,8 @@ export const useFindPimAttributes = (initialAttribute: string) => {
                     "equals": pimSystemCode
                 }
             }
-        }
+        },
+        fetchPolicy: 'network-only'
     });
 
     return getPimAttributeList;

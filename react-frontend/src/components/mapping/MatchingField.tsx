@@ -4,7 +4,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {MatchingAttributeData} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
 
-export function MatchingField() {
+export const MatchingField = () => {
     const { addFlashMessage } = useActions()
     const { pimAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.pimMapping)
 

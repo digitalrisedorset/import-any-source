@@ -1,7 +1,6 @@
 import Axios from "axios";
 import {RemotePimAttribute} from '../types/pim'
 import {PimAttribute} from "../types/keystone";
-import {PimSystemHandler} from "./PimSystem";
 
 interface PimApiAttributeResponse {
     data: RemotePimAttribute[]

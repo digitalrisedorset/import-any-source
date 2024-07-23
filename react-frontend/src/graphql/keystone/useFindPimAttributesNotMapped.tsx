@@ -16,7 +16,8 @@ export const usePimAttributesNotMapped = () => {
                     "equals": pimSystemCode
                 }
             }
-        }
+        },
+        fetchPolicy: 'network-only'
     });
 
     return mappingData;

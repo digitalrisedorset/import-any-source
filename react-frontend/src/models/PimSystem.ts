@@ -23,12 +23,12 @@ export class PimSystemHandler {
                     active: false,
                     pimAttributes: 0,
                     magentoMapping: 0,
-                    remainingMapping: 0
+                    ignoredAttributes: 0
                 }
             })
     }
 
-    getActiveSystemLabel = (systemCode: string) => {
+    getActiveSystemLabel = (systemCode: string): string => {
         if (systemCode === '') {
             return 'PIM'
         }
@@ -36,7 +36,7 @@ export class PimSystemHandler {
         return this.getPimSystemLabel(systemCode)
     }
 
-    getPimSystemLabel = (systemCode: string) => {
+    getPimSystemLabel = (systemCode: string): string => {
         const enumKeys = Object.keys(PIM_SYSTEM).filter(k => isNaN(Number(k)))
         const enumValues = Object.values(PIM_SYSTEM).filter((o) => typeof o == 'string');
 

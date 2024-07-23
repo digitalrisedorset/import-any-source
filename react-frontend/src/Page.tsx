@@ -5,7 +5,7 @@ interface PageProps {
     children: any
 }
 
-export function Page({ children }: PageProps) {
+export const Page = ({ children }: PageProps) => {
     const themeColors = useActiveThemeColor()
 
     return (

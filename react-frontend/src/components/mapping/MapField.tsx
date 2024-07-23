@@ -6,7 +6,7 @@ import { MagentoAttribute} from "../../types/keystone";
 import { useActions } from "../../hooks/useActions";
 import {useMagentoAttributesLazy} from "../../graphql/keystone/useMagentoAttributes";
 
-export function MapField() {
+export const MapField = () => {
     const { code } = useParams();
     const { setPimAttributesMatchFound } = useActions()
 

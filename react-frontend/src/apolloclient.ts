@@ -5,7 +5,7 @@ import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 const keystone = ApolloLink.from([
     // this uses apollo-link-http under the hood, so all the options here come from that package
     createUploadLink({
-        uri: config.graphqlEndpoint,
+        uri: config.keystone.graphqlEndpoint,
         credentials: 'include',
         headers: {
             'apollo-require-preflight': 'true'

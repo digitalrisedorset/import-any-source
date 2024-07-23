@@ -14,7 +14,7 @@ export const useActivePimSystem = (): PimImportState => {
     return currentActiveSystem
 }
 
-export const useCurrentPimSystem = () => {
+export const useCurrentPimSystem = (): string => {
     const currentActiveSystem = useActivePimSystem()
 
     const pimSystemHandler = new PimSystemHandler()

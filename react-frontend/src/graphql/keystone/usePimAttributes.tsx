@@ -31,7 +31,7 @@ export const usePimAttributes = () => {
                 }
             }
         },
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'cache-and-network'
     });
 
     return pimAttributesData;
@@ -46,7 +46,8 @@ export const usePimAttributesLazy = () => {
                     "equals": pimSystemCode
                 }
             }
-        }
+        },
+        fetchPolicy: 'network-only'
     });
 
     return getPimAttributeList;

@@ -1,11 +1,11 @@
-import Attribute from "./Attribute";
 import CardStyles from "../styles/CardStyles";
-import { MagentoAttribute} from "../../types/keystone";
-import { useActions } from "../../hooks/useActions";
+import {Attribute} from "./Attribute";
+import {MagentoAttribute} from "../../types/keystone";
+import {useActions} from "../../hooks/useActions";
 import {LoadingDotsIcon } from "../../Loading"
 import {useMagentoAttributes} from "../../graphql/keystone/useMagentoAttributes";
 
-export default function ReadMagentoAttribute() {
+export const ReadMagentoAttribute = () => {
     const { addFlashMessage } = useActions()
     const { data, error, loading } = useMagentoAttributes()
 

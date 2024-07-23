@@ -39,7 +39,7 @@ const RenderDelete = (deleteCsvFile: UpdateResponse) => (
     </>
 )
 
-export function MonitorUpdate() {
+export const MonitorUpdate = () => {
     const [monitor, setMonitor] = useState(false)
     const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)

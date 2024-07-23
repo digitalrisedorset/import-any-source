@@ -8,8 +8,8 @@ interface AssignedToProps {
     required: boolean
 }
 
-export function AssignedTo({assignedTo, required}: AssignedToProps) {
-    const getAssignedToAttribute = (assignedTo: AssignedToData[]) => {
+export const AssignedTo = ({assignedTo, required}: AssignedToProps) => {
+    const getAssignedToAttribute = (assignedTo: AssignedToData[]): string => {
         return assignedTo.reduce((description ,assignedAttribute) => {
             if (description !=='') {
                 description += ', '

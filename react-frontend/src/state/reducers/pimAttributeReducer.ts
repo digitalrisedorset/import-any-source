@@ -27,7 +27,10 @@ const reducer = (
             newState = {
                 pimImportState: state.pimImportState.map(
                     (pimImportState) => pimImportState.name === action.pimImportState.name ?
-                        {...pimImportState, pimAttributes: action.pimImportState.pimAttributes}
+                        {...pimImportState,
+                            pimAttributes: action.pimImportState.pimAttributes,
+                            ignoredAttributes: action.pimImportState.ignoredAttributes
+                        }
                         : pimImportState)
             }
             localStorage.setItem('pimSystems', JSON.stringify(newState))
@@ -37,6 +40,36 @@ const reducer = (
                 pimImportState: state.pimImportState.map(
                     (pimImportState) => pimImportState.name === action.pimSystemCode ? {...pimImportState, active: true}
                         : {...pimImportState, active: false})
+            }
+            localStorage.setItem('pimSystems', JSON.stringify(newState))
+            return newState
+        case PimAttributesActionType.SET_PIM_ATTRIBUTE_MAPPED:
+            newState = {
+                pimImportState: state.pimImportState.map(
+                    (pimImportState) => pimImportState.name === action.pimSystemCode ? {
+                        ...pimImportState,
+                        magentoMapping: pimImportState.magentoMapping + 1
+                    } : {...pimImportState})
+            }
+            localStorage.setItem('pimSystems', JSON.stringify(newState))
+            return newState
+        case PimAttributesActionType.SET_PIM_ATTRIBUTE_IGNORED:
+            newState = {
+                pimImportState: state.pimImportState.map(
+                    (pimImportState) => pimImportState.name === action.pimSystemCode ? {
+                        ...pimImportState,
+                        ignoredAttributes: pimImportState.ignoredAttributes + 1
+                    } : {...pimImportState})
+            }
+            localStorage.setItem('pimSystems', JSON.stringify(newState))
+            return newState
+        case PimAttributesActionType.SET_PIM_ATTRIBUTE_ACTIVATED:
+            newState = {
+                pimImportState: state.pimImportState.map(
+                    (pimImportState) => pimImportState.name === action.pimSystemCode ? {
+                        ...pimImportState,
+                        ignoredAttributes: pimImportState.ignoredAttributes - 1
+                    } : {...pimImportState})
             }
             localStorage.setItem('pimSystems', JSON.stringify(newState))
             return newState

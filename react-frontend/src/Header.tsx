@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom"
-import Nav from './Nav';
-import { Logo, HeaderStyles } from './components/styles/Header'
+import {Link} from "react-router-dom"
+import {Nav} from './Nav';
+import {Logo, HeaderStyles} from './components/styles/Header'
 
 interface headerProps {
     title: string
 }
 
-export default function Header($props: headerProps) {
+export const Header = ($props: headerProps) => {
     return (
         <HeaderStyles>
             <div className="bar">

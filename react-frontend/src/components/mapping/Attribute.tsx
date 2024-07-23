@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import ItemStyles from './../styles/ItemStyles';
-import { Title } from '../styles/Title';
-import {  MatchingAttributeData} from "../../types/keystone";
+import {Title} from '../styles/Title';
+import {MatchingAttributeData} from "../../types/keystone";
 import {useActions} from "../../hooks/useActions";
 import {useMapAttribute} from "../../graphql/keystone/useMapAttribute";
 import {useFindPimAttributes} from "../../graphql/keystone/useFindPimAttributes";
 import {useFindMagentoAttributes} from "../../graphql/keystone/useFindMagentoAttributes";
+import {useActivePimSystem} from "../../hooks/useCurrentPimSystem";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
     initialAttribute: string
 }
 
-export function Attribute({attribute, initialAttribute}: MappingProps) {
-    const { addFlashMessage } = useActions()
+export const Attribute = ({attribute, initialAttribute}: MappingProps) => {
+    const currentPimSystem = useActivePimSystem()
+    const { addFlashMessage, addPimAttributeMapped } = useActions()
     const navigate = useNavigate()
     const [pimAttributeStateId, setPimAttributeStateId] = useState('');
     const [magentoAttributeStateId, setMagentoAttributeStateId] = useState('');
@@ -31,6 +33,7 @@ export function Attribute({attribute, initialAttribute}: MappingProps) {
             try {
                 if (pimAttributeStateId!=='' && magentoAttributeStateId!=='') {
                     mapAttribute();
+                    addPimAttributeMapped(currentPimSystem.name)
                     addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)
                     navigate(`/pim/${initialAttribute}/${attribute.label}`);
                 }

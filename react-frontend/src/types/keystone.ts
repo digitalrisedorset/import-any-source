@@ -1,5 +1,4 @@
 import {QueryResult} from "@apollo/client";
-import { PimSystemTypes} from "./pim";
 
 interface BaseAttribute {
     readonly id?: string;
@@ -38,6 +37,14 @@ export interface PimAttributeData {
 
 export interface KeystoneMagentoAttributeData {
     magentoAttributes: MagentoAttribute[]
+}
+
+export interface KeystoneUpdatePimAttributeData {
+    data: {
+        updatePimAttributes: {
+            id: string
+        }
+    }
 }
 
 export interface MatchingAttributeData {

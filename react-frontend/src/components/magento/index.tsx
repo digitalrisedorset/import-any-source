@@ -1,6 +1,6 @@
-import ReadMagentoAttribute from "./ReadMagentoAttribute";
+import {ReadMagentoAttribute} from "./ReadMagentoAttribute";
 
-export function Magento() {
+export const Magento = () => {
     return (
         <ReadMagentoAttribute />
     )

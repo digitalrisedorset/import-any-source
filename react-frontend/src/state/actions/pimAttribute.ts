@@ -1,8 +1,8 @@
-import {PimImportState} from "../../types/states";
+import {PimImportAttributeState, PimImportState} from "../../types/states";
 
 interface SetAttributeImportAction {
     type: 'set_pim_attributes_import',
-    pimImportState: PimImportState
+    pimImportState: PimImportAttributeState
 }
 
 interface SetAttributeActiveAction {
@@ -10,4 +10,19 @@ interface SetAttributeActiveAction {
     pimSystemCode: string
 }
 
-export type SetPimAttributeActionList = SetAttributeImportAction | SetAttributeActiveAction
+interface SetAttributeMappedAction {
+    type: 'set_pim_attribute_mapped',
+    pimSystemCode: string
+}
+
+interface SetAttributeIgnoredAction {
+    type: 'set_pim_attribute_ignored',
+    pimSystemCode: string
+}
+
+interface SetAttributeActivatedAction {
+    type: 'set_pim_attribute_activated',
+    pimSystemCode: string
+}
+
+export type SetPimAttributeActionList = SetAttributeImportAction | SetAttributeActiveAction | SetAttributeMappedAction | SetAttributeIgnoredAction | SetAttributeActivatedAction

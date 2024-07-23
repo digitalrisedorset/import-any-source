@@ -1,5 +1,5 @@
 import Axios, {AxiosResponse} from "axios";
-import {MagentoAttribute, PimAttribute} from "../types/keystone";
+import {AssignedToData, MagentoAttribute, PimAttribute} from "../types/keystone";
 import {config} from "../config";
 import {ImportResponse} from "../types/pim"
 
@@ -39,15 +39,19 @@ export class MappingModel {
     }
 
     public getFieldList() {
-        return this.pimAttributeList.map(attribute => ({
+        return this.pimAttributeList.map((attribute: PimAttribute) => ({
             pimFieldCode: attribute.code,
             magentoLinkedCode: this.getMagentoFieldCode(attribute.code)
         }))
     }
 
     public getMagentoFieldCode(pimFieldCode: string) {
-        const field = this.magentoList.filter((attribute) =>
-            attribute.assignedTo!== null && attribute.assignedTo[0]?.code === pimFieldCode
+        const findAssignedAttribute = (attribute: MagentoAttribute, pimAttribute: string) => {
+            return attribute.assignedTo.find(assign => assign.code === pimAttribute)
+        }
+
+        const field = this.magentoList.filter((attribute: MagentoAttribute) =>
+            attribute.assignedTo!== null && findAssignedAttribute(attribute, pimFieldCode)
         )
 
         if (!field || field.length===0) {
