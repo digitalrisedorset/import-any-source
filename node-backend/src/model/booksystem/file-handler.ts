@@ -1,10 +1,10 @@
 import path from "path";
 import { config } from "../../config";
 import { readFileSync } from 'fs';
-import { XMLParser, XMLValidator } from 'fast-xml-parser';
 import { SearchFilter } from '../../types/general'
 import { z } from "zod";
 import { BookProduct } from "../../types/book";
+import { XmlParser } from '../xml-parser'
 
 interface FeedResult {
     book: BookProduct[]
@@ -25,10 +25,11 @@ const FeedContent = z.object({
 });
 
 export class BookFileHandler {
+
     getAttributes = async () => {
         const data = await this.getProduct()
 
-        return data.book.pop()
+        return await data.book.pop()
     }
 
     getProduct = async (filter?: SearchFilter): Promise<FeedResult> => {
@@ -38,24 +39,16 @@ export class BookFileHandler {
             throw new Error('the feed was empty');
         }
 
-        return FeedContent.parse(data.catalog);
+        return await FeedContent.parse(data.catalog);
     }
 
     getImportFile = () => {
         return path.resolve(config.feedSystem.feedFolder, 'book_import.xml')
     }
 
-    readFeed = (): unknown => {
+    readFeed = (): any => {
+        const xmlParser = new XmlParser()
         const xmlFile = readFileSync(this.getImportFile(), { encoding: 'utf8', flag: 'r' })
-        const result = XMLValidator.validate(xmlFile);
-
-        if (result === true) {
-            console.log(`XML file is valid`, result);
-        } else {
-            console.log(`XML is invalid`, result.err.msg);
-        }
-
-        const parser = new XMLParser();
-        return parser.parse(xmlFile)
+        return xmlParser.read(xmlFile)
     }
 }

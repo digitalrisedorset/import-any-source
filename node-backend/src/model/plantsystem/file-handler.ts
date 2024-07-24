@@ -1,22 +1,18 @@
 import path from "path";
 import { config } from "../../config";
 import { readFileSync } from 'fs';
-import {XMLParser, XMLValidator} from 'fast-xml-parser';
 import {z} from "zod";
 import {SearchFilter} from '../../types/general'
 import {PlantProduct} from "../../types/plant";
-
-interface FeedResult {
-    book: PlantProduct[]
-}
+import { XmlParser } from '../xml-parser'
 
 const PlantProductValidator = z.object({
     COMMON: z.string(),
     BOTANICAL: z.string(),
-    ZONE: z.number(),
+    ZONE: z.any(),
     LIGHT: z.string(),
     PRICE: z.string(),
-    AVAILABILITY: z.string(),
+    AVAILABILITY: z.number(),
 })
 
 const FeedContent = z.object({
@@ -27,7 +23,7 @@ export class PlantFileHandler {
     getAttributes = async () => {
         const data = await this.getProduct()
 
-        return data.PLANT.pop()
+        return data.pop()
     }
 
     getProduct = async (filter?: SearchFilter) => {
@@ -37,24 +33,17 @@ export class PlantFileHandler {
             throw new Error('the feed was empty');
         }
 
-        return FeedContent.parse(data.CATALOG);
+        const zodResult = FeedContent.parse(data.CATALOG);
+        return zodResult.PLANT
     }
 
     getImportFile = () => {
         return path.resolve(config.feedSystem.feedFolder, 'plant_import.xml')
     }
 
-    readFeed = (): unknown => {
+    readFeed = (): any => {
+        const xmlParser = new XmlParser()
         const xmlFile = readFileSync(this.getImportFile(), { encoding: 'utf8', flag: 'r' })
-        const result = XMLValidator.validate(xmlFile);
-
-        if (result === true) {
-            console.log(`XML file is valid`, result);
-        } else {
-            console.log(`XML is invalid`, result.err.msg);
-        }
-
-        const parser = new XMLParser();
-        return parser.parse(xmlFile)
+        return xmlParser.read(xmlFile)
     }
 }

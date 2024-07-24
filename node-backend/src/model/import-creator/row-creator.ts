@@ -26,8 +26,8 @@ export class ImportRowCreator {
         return this.woocommerceDataMapper.getMagentoCsvHeader()
     }
 
-    createHeaderFromCache = async () => {
-        await this.woocommerceDataMapper.getMagentoFieldsFromCache()
+    createHeaderFromCache = () => {
+        this.woocommerceDataMapper.getMagentoFieldsFromCache()
 
         return this.woocommerceDataMapper.getMagentoCsvHeader()
     }

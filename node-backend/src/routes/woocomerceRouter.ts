@@ -1,6 +1,6 @@
-import express, {Application, Request, Response, NextFunction} from 'express'
-import {WoocommerceController} from "../controller/woocommerceController";
-import {config} from "../config";
+import express, { Application, Request, Response, NextFunction } from 'express'
+import { WoocommerceController } from "../controller/woocommerceController";
+import { config } from "../config";
 import { corsOptions } from '../lib/cors-setup'
 
 export const setupWoocommerceRoutes = (app: Application) => {

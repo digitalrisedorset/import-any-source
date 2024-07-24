@@ -85,7 +85,7 @@ export class PlantController implements ImportControllerInterface {
     getDeleteNotification = async (req: Request, res: Response) => {
         try {
             const productDeletion = new ProductDeletion()
-            const list = await productDeletion.getProductDeleteNotification()
+            const list = productDeletion.getProductDeleteNotification()
 
             if (list.length === 0) {
                 res.send({

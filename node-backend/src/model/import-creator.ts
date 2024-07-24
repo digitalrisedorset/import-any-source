@@ -1,12 +1,12 @@
 import {WoocommerceProduct, InitialProductData, WoocommerceDeleteRecord} from "../types/woocommerce";
-import {ImportMappingFields} from "../types/general";
-import {CsvWriter} from './csv-writer'
+import {CachedDeletedProduct, DeleteRowProduct, ImportMappingFields, MinimalProduct} from "../types/general";
+import {CsvWriterWrapper} from './csv-writer-wrapper'
 import {ImportRowCreator} from './import-creator/row-creator'
 import {VariationDataProvider} from "./import-creator/variation-data-provider"
 import { ProductDeletion } from "./woocommerce/product-deletion";
 
 export class ImportCreator {
-    csvWriter = new CsvWriter()
+    csvWriter = new CsvWriterWrapper()
     importRowCreator = new ImportRowCreator()
     variationDataProvider = new VariationDataProvider()
 
@@ -37,24 +37,23 @@ export class ImportCreator {
         return this.finaliseWriteRows([...simpleRows, ...rows])
     }
 
-    createCsvDeleteImport = async (data: Readonly<WoocommerceDeleteRecord[]>)=> {
-        const header = await this.importRowCreator.createHeaderFromCache()
+    createCsvDeleteImport = async (data: Readonly<CachedDeletedProduct[]>) => {
+        const header = this.importRowCreator.createHeaderFromCache()
         this.csvWriter.startDelete()
         this.csvWriter.writeHeader(header)
 
-        const rows: any = []
-        data.map(item => {
-            rows.push({
+        const rows = data.map((item: CachedDeletedProduct) => {
+            return {
                 sku: item.sku,
                 status: 'delete'
-            })
+            }
         })
-        return this.finaliseWriteRows(rows)
+        return await this.finaliseWriteRows(rows)
     }
 
-    finaliseWriteRows = (csvRows: Readonly<(WoocommerceProduct | InitialProductData)[]>) => {
+    finaliseWriteRows = async (csvRows: Readonly<(WoocommerceProduct | InitialProductData)[]>) => {
         console.log(`Import file with ${csvRows.length}`)
-        return this.csvWriter.writeRecords(csvRows)
+        return await this.csvWriter.writeRecords(csvRows)
     }
 
     saveProductMinimalData = async (data: Readonly<WoocommerceProduct[]>) => {

@@ -52,7 +52,7 @@ export interface WoocommerceSimpleProduct {
     attributes: []
 }
 
-export type WoocommerceDeleteRecord = Pick<WoocommerceSimpleProduct, "sku" | "status">
+export type WoocommerceDeleteRecord = Pick<WoocommerceSimpleProduct, "id" | "sku">
 
 export enum WoocommerceProductFieldCase {
     active = 'product_online', // product_online

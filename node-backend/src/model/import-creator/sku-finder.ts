@@ -22,7 +22,7 @@ export class SkuFinder {
     getProductData = async (productId: Readonly<number>): Promise<WoocommerceProduct> =>  {
         const row = await this.woocommerceApiHandler.callApiUrl(`products/${productId}`, [])
         if (row === undefined) {
-            throw new Error(`No product found with id: ${productId}`)
+            //throw new Error(`No product found with id: ${productId}`)
         }
 
         return row as WoocommerceProduct

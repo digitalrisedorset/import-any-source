@@ -2,7 +2,7 @@ const csvLibWriter = require('csv-writer');
 const path = require('path');
 import {config} from '../config'
 
-export class CsvWriter {
+export class CsvWriterWrapper {
     writer = null;
 
     private filename = ''
@@ -41,13 +41,13 @@ export class CsvWriter {
         });
     }
 
-    writeRecords = async (rows: any) => {
+    writeRecords = async (rows: any): Promise<string> => {
         if (this.writer === null) {
-            throw new Error('write has not been initialised')
+            //throw new Error('write has not been initialised')
         }
 
         //@ts-ignore
-        return this.writer.writeRecords(rows).then(() => {
+        return await this.writer.writeRecords(rows).then(() => {
             return this.getDownloadableFileLink()
         })
     }

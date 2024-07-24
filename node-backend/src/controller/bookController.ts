@@ -1,14 +1,15 @@
-import {ErrorWrapper} from "../error-handler";
-import {Request, Response} from "express";
-import {BookSystem} from "../model/book-system";
-import {ImportCreator} from "../model/import-creator";
-import {ProductDeletion} from "../model/booksystem/product-deletion";
-import {ImportControllerInterface} from "./importControllerInterface";
+import { ErrorWrapper } from "../error-handler";
+import { Request, Response } from "express";
+import { BookSystem } from "../model/book-system";
+import { ImportCreator } from "../model/import-creator";
+import { ProductDeletion } from "../model/booksystem/product-deletion";
+import { ImportControllerInterface } from "./importControllerInterface";
+import { CachedDeletedProduct } from "../types/general"
 
 export class BookController implements ImportControllerInterface {
     errorWrapper = new ErrorWrapper()
 
-    apiGetAttributeList = async (req: Request, res: Response)=> {
+    apiGetAttributeList = async (req: Request, res: Response) => {
         try {
             const bookSystemClient = new BookSystem()
             const result = await bookSystemClient.getAttributeList()
@@ -19,7 +20,7 @@ export class BookController implements ImportControllerInterface {
         }
     }
 
-    apiGetProductList = async (req: Request, res: Response)=> {
+    apiGetProductList = async (req: Request, res: Response) => {
         try {
             const bookSystemClient = new BookSystem()
             const result = await bookSystemClient.getProductBatch();
@@ -30,7 +31,7 @@ export class BookController implements ImportControllerInterface {
         }
     }
 
-    createImport = async (req: Request, res: Response)=> {
+    createImport = async (req: Request, res: Response) => {
         try {
             const bookSystemClient = new BookSystem()
             const list = await bookSystemClient.getProductBatch()
@@ -39,14 +40,15 @@ export class BookController implements ImportControllerInterface {
             //const filename = await plantImporter.createCsvImport(list, req.body)
             const filename = 'test';
             console.log('Import complete', filename)
-            res.send({filename})
+            res.send({ filename })
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
         }
     }
 
-    createUpdateImport = async (req: Request, res: Response)=> {
+    createUpdateImport = async (req: Request, res: Response) => {
+        debugger
         try {
             const bookSystemClient = new BookSystem()
             const list = await bookSystemClient.getProductUpdate()
@@ -73,7 +75,8 @@ export class BookController implements ImportControllerInterface {
         }
     }
 
-    notifyProductDeletion = async (req: Request, res: Response)=> {
+    notifyProductDeletion = async (req: Request, res: Response) => {
+        debugger
         try {
             res.send("No implementation yet")
         } catch (e) {
@@ -82,10 +85,11 @@ export class BookController implements ImportControllerInterface {
         }
     }
 
-    getDeleteNotification = async (req: Request, res: Response)=> {
+    getDeleteNotification = async (req: Request, res: Response) => {
+        debugger
         try {
             const productDeletion = new ProductDeletion()
-            const list = await productDeletion.getProductDeleteNotification()
+            const list: CachedDeletedProduct[] = productDeletion.getProductDeleteNotification()
 
             if (list.length === 0) {
                 res.send({

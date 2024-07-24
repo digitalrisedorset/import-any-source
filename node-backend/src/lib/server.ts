@@ -1,6 +1,6 @@
-import express, {Application} from 'express'
-import {config} from "../config";
-import {initialiseApp} from "./initilisers";
+import express, { Application } from 'express'
+import { config } from "../config";
+import { initialiseApp } from "./initilisers";
 import { ErrorWrapper } from "../error-handler";
 
 export const startServer = async () => {

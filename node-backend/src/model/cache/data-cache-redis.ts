@@ -1,7 +1,12 @@
 import {createClient} from 'redis';
 import {config} from '../../config'
+import {CacheKeyBuilder} from "./cache-key-builder";
 
 export class CacheService {
+    private cacheKeyBuilder
+    constructor(prefix: string) {
+        this.cacheKeyBuilder = new CacheKeyBuilder(prefix)
+    }
     redisClientInit = async () => {
         const {username,password,host,port} = config.cache.redis
         return await createClient({
@@ -10,32 +15,10 @@ export class CacheService {
             .on('error', err => console.log('Redis Client Error', err))
             .connect();
     }
-    async getAndStore(key: string, storeFunction: any) {
-        const redis = await this.redisClientInit()
-
-        const value = storeFunction().then(async (result: any) => {
-            await redis.set(key, result);
-            return result;
-        });
-
-        const cacheValue = await redis.get(key);
-        if (cacheValue) {
-            await redis.quit();
-            return Promise.resolve(cacheValue);
-        }
-    }
-    async getOnly(key: string) {
-        const redis = await this.redisClientInit()
-
-        const cacheValue = await redis.get(key);
-        if (cacheValue) {
-            await redis.quit();
-            return Promise.resolve(cacheValue);
-        }
-    }
     set = async (key: string, value: any) => {
         try {
             const redis = await this.redisClientInit()
+            key = this.cacheKeyBuilder.getKey(key)
 
             const response = await redis.set(key, JSON.stringify(value));
             await redis.quit();
@@ -47,6 +30,7 @@ export class CacheService {
     }
     read = async (key: string) => {
         const redis = await this.redisClientInit()
+        key = this.cacheKeyBuilder.getKey(key)
 
         const cacheValue = await redis.get(key);
         if (cacheValue) {
@@ -54,9 +38,5 @@ export class CacheService {
             return JSON.parse(cacheValue);
         }
         await redis.quit();
-    }
-    del = async (keys: string)=> {
-        const redis = await this.redisClientInit()
-        redis.del(keys);
     }
 }

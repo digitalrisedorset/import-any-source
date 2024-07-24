@@ -1,11 +1,11 @@
-import {Attribute} from "../types/general";
-import {BookFileHandler} from "./booksystem/file-handler"
-import {CacheService} from "./cache/data-cache";
-import {AttributeValidator} from "./booksystem/file-handler/attribute-validator";
-import {ProductValidator} from "./booksystem/file-handler/product-validator";
-import {ErrorWrapper} from "../error-handler";
-import {BookProduct} from "../types/book";
-import {config} from "../config";
+import { Attribute } from "../types/general";
+import { BookFileHandler } from "./booksystem/file-handler"
+import { CacheService } from "./cache/data-cache";
+import { AttributeValidator } from "./booksystem/file-handler/attribute-validator";
+import { ProductValidator } from "./booksystem/file-handler/product-validator";
+import { ErrorWrapper } from "../error-handler";
+import { BookProduct } from "../types/book";
+import { config } from "../config";
 
 export class BookSystem {
     cache = new CacheService(config.route.bookApiPrefix);
@@ -41,7 +41,7 @@ export class BookSystem {
             'page': '1'
         })
             .then(response => {
-                return this.attributeValidator.filterValidAttributesFromProduct(response)
+                return this.attributeValidator.filterValidAttributesFromProduct(response.book)
             })
             .catch((e: unknown) => {
                 this.errorWrapper.handle(e)
@@ -55,7 +55,7 @@ export class BookSystem {
             'page': '1'
         })
             .then(response => {
-                return this.productValidator.filterValidProduct(response)
+                return this.productValidator.filterValidProduct(response.book)
             })
             .catch((e: unknown) => {
                 this.errorWrapper.handle(e)

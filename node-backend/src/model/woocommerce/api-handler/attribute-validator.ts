@@ -20,7 +20,7 @@ const AttributeResult = z.object({
 export class AttributeValidator {
     filterValidAttributes = (apiResponse: unknown): OptionAttribute[] => {
         if (!isArray(apiResponse)) {
-            throw new Error('The API response is not valid')
+            //throw new Error('The API response is not valid')
         }
 
         return (apiResponse as Array<any>).filter(
@@ -36,7 +36,7 @@ export class AttributeValidator {
 
     filterValidAttributesFromProduct = (apiResponse: unknown): OptionAttribute[] => {
         if (!isArray(apiResponse)) {
-            throw new Error('The API response is not valid')
+            //throw new Error('The API response is not valid')
         }
 
         const attributes: OptionAttribute[] = [];

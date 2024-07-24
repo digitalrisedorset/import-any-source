@@ -9,7 +9,7 @@ export interface ImportControllerInterface {
 
     createUpdateImport: (req: Request, res: Response) => Promise<void>;
 
-    notifyProductDeletion: (req: Request, res: Response) => Promise<void>;
+    notifyProductDeletion: (req: Request, res: Response) => void;
 
     getDeleteNotification: (req: Request, res: Response) => Promise<void>;
 }

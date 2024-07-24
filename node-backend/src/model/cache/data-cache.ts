@@ -1,3 +1,5 @@
+import {CacheKeyBuilder} from "./cache-key-builder";
+
 const NodeCache = require('node-cache');
 
 const ttlSeconds = 60 * 60 * 365; // cache for 48 Hour
@@ -5,29 +7,19 @@ global
 const cache = new NodeCache({ stdTTL: ttlSeconds, checkperiod: ttlSeconds * 0.2, useClones: false });
 
 export class CacheService {
-    private cachePrefix
+    private cacheKeyBuilder: CacheKeyBuilder
     constructor(prefix: string) {
-        this.cachePrefix = prefix
+        this.cacheKeyBuilder = new CacheKeyBuilder(prefix)
     }
     get = async (key: Readonly<string>, storeFunction: any) => {
-        const value = cache.get(this.buildKey(key));
-        if (value) {
+        const value: unknown = cache.get(this.cacheKeyBuilder.getKey(key));
+        if (value !== undefined) {
             return Promise.resolve(value);
         }
 
-        return storeFunction().then((result: any) => {
-            cache.set(this.buildKey(key), result);
+        return storeFunction().then((result: unknown) => {
+            cache.set(this.cacheKeyBuilder.getKey(key), result);
             return result;
         });
-    }
-    del(keys: string) {
-        cache.del(keys);
-    }
-    buildKey = (key: string) => {
-        if (this.cachePrefix ==='') {
-            return key
-        }
-
-        return `${this.cachePrefix}_${key}`
     }
 }

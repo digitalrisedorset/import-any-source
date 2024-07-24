@@ -1,6 +1,5 @@
 import { Woocommerce } from "../model/woocommerce"
 import { ImportCreator } from "../model/import-creator"
-import { KeystoneImportCreator } from "../model/keystone-import-creator"
 import { Request, Response } from "express";
 import { WoocommerceWebHookHandler } from "../model/woocommerce/webhook-handler"
 import { ProductDeletion } from "../model/woocommerce/product-deletion"
@@ -100,7 +99,7 @@ export class WoocommerceController implements ImportControllerInterface {
     getDeleteNotification = async (req: Request, res: Response) => {
         try {
             const productDeletion = new ProductDeletion()
-            const list = await productDeletion.getProductDeleteNotification()
+            const list = productDeletion.getProductDeleteNotification()
 
             if (list.length === 0) {
                 res.send({

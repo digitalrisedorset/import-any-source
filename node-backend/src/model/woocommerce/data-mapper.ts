@@ -6,30 +6,35 @@ import {MagentoData} from "../magento-data";
 import { WoocommerceVariationBuilder } from './data-mapper/variation-builder'
 import { FsCacheService } from '../cache/data-cache-fs'
 
+type HeaderField = {
+    id: string,
+    title: string
+}
+
 export class WoocommerceDataMapper {
     magentoData = new MagentoData()
     mappingFields: ImportMappingFields = {'mapping': []}
     woocommerceDataVariations = new WoocommerceDataVariations()
     woocommerceVariationBuilder = new WoocommerceVariationBuilder;
-    cache = new FsCacheService();
+    cache = new FsCacheService('woocommerce');
 
     setMappingFields = async (mappingFields: Readonly<ImportMappingFields>) => {
         this.mappingFields = mappingFields
         await this.cache.set('mappingFields', mappingFields)
     }
 
-    getMagentoFieldsFromCache = async () => {
-        this.mappingFields = await this.cache.read('mappingFields');
+    getMagentoFieldsFromCache = (): ImportMappingFields => {
+        this.mappingFields = this.cache.read('mappingFields');
 
         if (!this.mappingFields) {
-            throw new Error('No mapping is in the cache')
+            //throw new Error('No mapping is in the cache')
         }
 
         return this.mappingFields
     }
 
-    getMagentoCsvHeader = () => {
-        let row = this.magentoData.getInitialHeaderData()
+    getMagentoCsvHeader = (): HeaderField[] => {
+        let row: HeaderField[] = this.magentoData.getInitialHeaderData()
 
         this.mappingFields.mapping.forEach((mapping: ImportMapping) => {
             const magentoFieldCode = mapping.magentoLinkedCode;

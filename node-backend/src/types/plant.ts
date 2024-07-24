@@ -1,8 +1,8 @@
 export interface PlantProduct {
     COMMON: string;
     BOTANICAL: string;
-    ZONE: number;
+    ZONE: any;
     LIGHT: string;
     PRICE: string;
-    AVAILABILITY: string
+    AVAILABILITY: number
 }

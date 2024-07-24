@@ -23,3 +23,24 @@ export interface SearchFilter {
     per_page: string,
     page: string
 }
+
+export type MinimalProduct = {
+    id: number,
+    sku: string
+}
+
+export type CachedProduct = {
+    productId: number,
+    sku: string
+}
+
+export type CachedDeletedProduct = {
+    productId: number,
+    sku: string,
+    date: string
+}
+
+export type DeleteRowProduct = {
+    sku: string,
+    status: 'delete'
+}

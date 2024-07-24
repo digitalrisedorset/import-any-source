@@ -1,7 +1,7 @@
-import express, {Application, Request, Response, NextFunction} from 'express'
-import {config} from "../config";
+import express, { Application, Request, Response, NextFunction } from 'express'
+import { config } from "../config";
 import { corsOptions } from '../lib/cors-setup'
-import {BookController} from "../controller/bookController";
+import { BookController } from "../controller/bookController";
 
 export const setupBookRoutes = (app: Application) => {
     const router = express.Router()
