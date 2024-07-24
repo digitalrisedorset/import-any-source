@@ -35,5 +35,6 @@ csv_import/*
 *.js
 
 node-backend/fs_cache
+node-backend/csv_import
 
 secret
