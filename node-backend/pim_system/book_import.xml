@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <catalog>
     <book id="bk101">
+        <sku>bk101</sku>
         <author>Gambardella, Matthew</author>
         <title>XML Developer's Guide</title>
         <genre>Computer</genre>
@@ -10,6 +11,7 @@
             with XML.</description>
     </book>
     <book id="bk102">
+        <sku>bk102</sku>
         <author>Ralls, Kim</author>
         <title>Midnight Rain</title>
         <genre>Fantasy</genre>
@@ -20,6 +22,7 @@
             of the world.</description>
     </book>
     <book id="bk103">
+        <sku>bk103</sku>
         <author>Corets, Eva</author>
         <title>Maeve Ascendant</title>
         <genre>Fantasy</genre>
@@ -30,6 +33,7 @@
             foundation for a new society.</description>
     </book>
     <book id="bk104">
+        <sku>bk104</sku>
         <author>Corets, Eva</author>
         <title>Oberon's Legacy</title>
         <genre>Fantasy</genre>
@@ -41,6 +45,7 @@
             Ascendant.</description>
     </book>
     <book id="bk105">
+        <sku>bk105</sku>
         <author>Corets, Eva</author>
         <title>The Sundered Grail</title>
         <genre>Fantasy</genre>
@@ -51,6 +56,7 @@
             Oberon's Legacy.</description>
     </book>
     <book id="bk106">
+        <sku>bk106</sku>
         <author>Randall, Cynthia</author>
         <title>Lover Birds</title>
         <genre>Romance</genre>
@@ -60,6 +66,7 @@
             conference, tempers fly as feathers get ruffled.</description>
     </book>
     <book id="bk107">
+        <sku>bk107</sku>
         <author>Thurman, Paula</author>
         <title>Splish Splash</title>
         <genre>Romance</genre>
@@ -69,6 +76,7 @@
             thousand leagues beneath the sea.</description>
     </book>
     <book id="bk108">
+        <sku>bk108</sku>
         <author>Knorr, Stefan</author>
         <title>Creepy Crawlies</title>
         <genre>Horror</genre>
@@ -78,6 +86,7 @@
             centipedes, scorpions  and other insects.</description>
     </book>
     <book id="bk109">
+        <sku>bk109</sku>
         <author>Kress, Peter</author>
         <title>Paradox Lost</title>
         <genre>Science Fiction</genre>
@@ -88,6 +97,7 @@
             of being quantum.</description>
     </book>
     <book id="bk110">
+        <sku>bk110</sku>
         <author>O'Brien, Tim</author>
         <title>Microsoft .NET: The Programming Bible</title>
         <genre>Computer</genre>
@@ -97,6 +107,7 @@
             detail in this deep programmer's reference.</description>
     </book>
     <book id="bk111">
+        <sku>bk111</sku>
         <author>O'Brien, Tim</author>
         <title>MSXML3: A Comprehensive Guide</title>
         <genre>Computer</genre>
@@ -107,6 +118,7 @@
             SAX and more.</description>
     </book>
     <book id="bk112">
+        <sku>bk112</sku>
         <author>Galos, Mike</author>
         <title>Visual Studio 7: A Comprehensive Guide</title>
         <genre>Computer</genre>

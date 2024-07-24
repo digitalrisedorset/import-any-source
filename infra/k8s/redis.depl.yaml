@@ -28,6 +28,7 @@ metadata:
 spec:
   selector:
     app: redis
+  type: NodePort
   ports:
     - name: redis
       protocol: TCP

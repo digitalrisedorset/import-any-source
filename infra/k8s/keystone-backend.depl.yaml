@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: keystone-backend
-          image: herve010/keystone-build:0.0.7
+          image: herve010/keystone-build:0.0.9
           env:
             - name: FRONTEND_HOST
               value: "import-any-source.digitalrisedorset.co.uk"

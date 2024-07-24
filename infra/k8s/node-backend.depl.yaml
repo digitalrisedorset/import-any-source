@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: node-backend
-          image: herve010/node_import:1.0.7
+          image: herve010/node_import:1.1.0
           env:
             - name: WOOMMERCE_API_URL
               value: "https://www.digitalrisedorset.co.uk/wp-json/wc/v3/"
@@ -42,6 +42,7 @@ metadata:
 spec:
   selector:
     app: node-backend
+  type: NodePort
   ports:
     - name: node-backend
       protocol: TCP

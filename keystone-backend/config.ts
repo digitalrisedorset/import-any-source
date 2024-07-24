@@ -22,9 +22,9 @@ const config: configInfo = {
     },
     database: {
         dbtype: (process.env.DB_TYPE === undefined)?'postgresql':process.env.DB_TYPE,
-        name: (process.env.DB_DATABASE === undefined)?'keystone_import':process.env.DB_DATABASE,
+        name: (process.env.DB_DATABASE === undefined)?'template1':process.env.DB_DATABASE,
         host: (process.env.DB_HOST === undefined)?'localhost':process.env.DB_HOST,
-        user: (process.env.DB_USER === undefined)?'keystone_user':process.env.DB_USER,
+        user: (process.env.DB_USER === undefined)?'postgres':process.env.DB_USER,
         password: (process.env.DB_PWD === undefined)?'passw0rd':process.env.DB_PWD,
         port: (process.env.DB_PORT === undefined)?'3306':process.env.DB_PORT
     }

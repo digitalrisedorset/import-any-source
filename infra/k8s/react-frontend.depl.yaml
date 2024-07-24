@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: herve010/react_import:0.0.4
+          image: herve010/react_import:0.0.6
           env:
             - name: REACT_APP_KEYSTONE_HOST
               value: "import-keystone.digitalrisedorset.co.uk"

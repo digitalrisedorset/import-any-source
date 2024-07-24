@@ -23,7 +23,7 @@ services:
     container_name: keystone_backend
     image: herve010/keystone-build:0.0.9
     environment:
-      - FRONTEND_HOST=localhost:3001
+      - FRONTEND_HOST=import-any-source.digitalrisedorset.co.uk
       - FRONTEND_PORT=3001
       - DB_TYPE=postgresql
       - DB_DATABASE=keystone_import
@@ -85,11 +85,11 @@ services:
     build: ./react-frontend
     restart: always
     environment:
-      - REACT_APP_KEYSTONE_HOST=localhost:3000
+      - REACT_APP_KEYSTONE_HOST=import-keystone.digitalrisedorset.co.uk
       - REACT_APP_KEYSTONE_PORT=3000
-      - REACT_APP_NODE_HOST=localhost:8080
+      - REACT_APP_NODE_HOST=import-node.digitalrisedorset.co.uk
       - REACT_APP_NODE_PORT=8080
-      - REACT_APP_MAGENTO_HOST=http://magentodevelop24.com/
+      - REACT_APP_MAGENTO_HOST=https://demo.digitalrisedorset.co.uk/
       - PORT=3001
     ports:
       - "3001:3001"
