@@ -20,7 +20,7 @@ export class ApiHandler {
         })
 
         if (!res.ok) {
-            //throw new Error('The product API failed')  // res.errors?.message)
+            throw new Error('The product API failed')  // res.errors?.message)
         }
 
         return await res.json();

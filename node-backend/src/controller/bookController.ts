@@ -48,7 +48,6 @@ export class BookController implements ImportControllerInterface {
     }
 
     createUpdateImport = async (req: Request, res: Response) => {
-        debugger
         try {
             const bookSystemClient = new BookSystem()
             const list = await bookSystemClient.getProductUpdate()
@@ -76,7 +75,6 @@ export class BookController implements ImportControllerInterface {
     }
 
     notifyProductDeletion = async (req: Request, res: Response) => {
-        debugger
         try {
             res.send("No implementation yet")
         } catch (e) {
@@ -86,7 +84,6 @@ export class BookController implements ImportControllerInterface {
     }
 
     getDeleteNotification = async (req: Request, res: Response) => {
-        debugger
         try {
             const productDeletion = new ProductDeletion()
             const list: CachedDeletedProduct[] = productDeletion.getProductDeleteNotification()

@@ -20,11 +20,13 @@ const AttributeResult = z.object({
 export class AttributeValidator {
     filterValidAttributes = (apiResponse: unknown): OptionAttribute[] => {
         if (!isArray(apiResponse)) {
-            //throw new Error('The API response is not valid')
+            throw new Error('The API response is not valid')
         }
 
         return (apiResponse as Array<any>).filter(
-            (item: any) => AttributeResult.parse(item)
+            (item: any) => {
+                AttributeResult.parse(item)
+            }
         ).map((elem): OptionAttribute => {
             return {
                 code: elem.slug,

@@ -1,6 +1,6 @@
-import {config} from '../../config'
+import { config } from '../../config'
 import path from "path";
-import {CacheKeyBuilder} from './cache-key-builder'
+import { CacheKeyBuilder } from './cache-key-builder'
 const fs = require('fs');
 
 export class FsCacheService {
@@ -30,6 +30,15 @@ export class FsCacheService {
         return data[key]
     }
     getCacheFile = () => {
-        return path.resolve(config.cache.fs.folder, 'cache.txt')
+        const filepath = path.resolve(config.cache.fs.folder, 'cache.txt')
+
+        if (!fs.existsSync(filepath)) {
+            fs.mkdir(config.cache.fs.folder, { recursive: true }, (err: unknown) => {
+                if (err) throw err;
+            });
+            fs.writeFileSync(filepath, '', { flag: 'a+' });
+        }
+
+        return filepath
     }
 }

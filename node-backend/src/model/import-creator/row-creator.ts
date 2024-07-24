@@ -2,11 +2,12 @@ import {
     InitialProductData,
     WoocommerceProduct, WoocommerceProductFieldCase,
 } from "../../types/woocommerce";
-import {ImportMappingFields} from "../../types/general";
-import {HeaderField} from "../../types/general";
-import {MagentoProductFieldCase} from "../../types/magento";
-import {WoocommerceDataMapper} from "../woocommerce/data-mapper";
-import {MagentoData } from '../magento-data'
+import { ImportMappingFields } from "../../types/general";
+import { HeaderField } from "../../types/general";
+import { MagentoProductFieldCase } from "../../types/magento";
+import { WoocommerceDataMapper } from "../woocommerce/data-mapper";
+import { MagentoData } from '../magento-data'
+import { response } from "express";
 
 export class ImportRowCreator {
     woocommerceDataMapper = new WoocommerceDataMapper()
@@ -22,8 +23,10 @@ export class ImportRowCreator {
     }
 
     createHeader = async (mappingFields: Readonly<ImportMappingFields>) => {
-        await this.woocommerceDataMapper.setMappingFields(mappingFields)
-        return this.woocommerceDataMapper.getMagentoCsvHeader()
+        return this.woocommerceDataMapper.setMappingFields(mappingFields)
+            .then(() => {
+                return this.woocommerceDataMapper.getMagentoCsvHeader()
+            })
     }
 
     createHeaderFromCache = () => {
@@ -57,7 +60,7 @@ export class ImportRowCreator {
             }
         })
 
-        row['product_type'] = (record[WoocommerceProductFieldCase.variations] === undefined || record[WoocommerceProductFieldCase.variations].length===0)?'simple':'configurable'
+        row['product_type'] = (record[WoocommerceProductFieldCase.variations] === undefined || record[WoocommerceProductFieldCase.variations].length === 0) ? 'simple' : 'configurable'
 
         return row
     }

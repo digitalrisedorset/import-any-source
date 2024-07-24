@@ -1,6 +1,6 @@
 import { FsCacheService } from './cache/data-cache-fs'
-import {z} from "zod";
-import {MinimalProduct, CachedProduct, CachedDeletedProduct} from '../types/general'
+import { z } from "zod";
+import { MinimalProduct, CachedProduct, CachedDeletedProduct } from '../types/general'
 
 const CACHE_PRODUCT_DELETED = 'product_deleted'
 
@@ -42,7 +42,7 @@ export class BaseProductDeletion {
             date: (new Date()).toISOString()
         }
 
-        const result = deletedProductData.filter((item: any) => Number(item?.productId)!==0)
+        const result = deletedProductData.filter((item: any) => Number(item?.productId) !== 0)
         this.cache.set(CACHE_PRODUCT_DELETED, result)
     }
 
@@ -55,24 +55,24 @@ export class BaseProductDeletion {
             return []
         }
 
-        return list.filter((product: CachedDeletedProduct) => Number(product.productId!==0))
+        return list.filter((product: CachedDeletedProduct) => Number(product.productId !== 0))
             .map((product: CachedDeletedProduct) => {
-            return {
-                productId: product.productId,
-                sku: this.getProductSku(product.productId),
-                date: product.date,
-            }
-        })
+                return {
+                    productId: product.productId,
+                    sku: this.getProductSku(product.productId),
+                    date: product.date,
+                }
+            })
     }
 
     setMinimalProductData = (data: readonly MinimalProduct[]): void => {
-        const list = CachedProductList.parse(data);
+        const list = DeleteNotifications.parse(data);
 
         if (list === undefined) {
-            //throw new Error(`The data is not valid to be set`)
+            throw new Error(`The data is not valid to be set`)
         }
 
-        this.cache.set(CACHE_PRODUCT_SKU_LIST, data.filter((product: MinimalProduct) => product.sku!=='')
+        this.cache.set(CACHE_PRODUCT_SKU_LIST, data.filter((product: MinimalProduct) => product.sku !== '')
             .map((product: MinimalProduct) => {
                 return {
                     productId: product.id,
@@ -86,7 +86,7 @@ export class BaseProductDeletion {
         const list = CachedProductList.parse(data);
 
         if (list === undefined) {
-            //throw new Error(`No sku was found for the product id ${productId}`)
+            throw new Error(`No sku was found for the product id ${productId}`)
         }
 
         const product = list.find((product: CachedProduct, index) => product.productId === productId)

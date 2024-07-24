@@ -12,7 +12,6 @@ export class WoocommerceController implements ImportControllerInterface {
 
     apiGetAttributeList = async (req: Request, res: Response) => {
         try {
-            debugger
             const wooClient = new Woocommerce()
             const result = await wooClient.getAttributeList()
             res.send(result)
@@ -38,7 +37,7 @@ export class WoocommerceController implements ImportControllerInterface {
             const wooClient = new Woocommerce()
             const list = await wooClient.getProductBatch()
             const wooImporter = new ImportCreator()
-            wooImporter.saveProductMinimalData(list)
+            await wooImporter.saveProductMinimalData(list)
             const filename = await wooImporter.createCsvImport(list, req.body)
             console.log('Import complete', filename)
             res.send({ filename })

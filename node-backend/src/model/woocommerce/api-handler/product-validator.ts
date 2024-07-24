@@ -4,7 +4,7 @@ import { isArray, isObject } from "../../../lib/type-checker";
 export class ProductValidator {
     filterValidProduct = (apiResponse: unknown): WoocommerceProduct[] => {
         if (!isArray(apiResponse)) {
-            //throw new Error('The API response is not valid')
+            throw new Error('The API response is not valid')
         }
 
         return (apiResponse as Array<any>).filter(
