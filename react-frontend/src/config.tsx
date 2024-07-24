@@ -34,17 +34,9 @@ export const config: configInfo = {
     },
     nodejsEndpoint: `http://${process.env.REACT_APP_NODE_HOST}`,
     magentographqlEndpoint: `${process.env.REACT_APP_MAGENTO_HOST}/graphql`,
-    themes: [{ // more themes at: https://webflow.com/blog/elegant-color-palettes
-        name: 'default',
-        colors: {
-            font: '',
-            deep: '',
-            normal: '',
-            light: ''
-        }
-    },{
+    themes: [{
         name: 'blue',
-        colors: {
+        colors: { // more themes at: https://webflow.com/blog/elegant-color-palettes
             font: 'black',
             deep: '#0077B6',
             normal: '#2f4e87',

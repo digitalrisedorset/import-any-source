@@ -13,7 +13,7 @@ export class ConfigReader {
 
     getThemeByName = (name: string): Theme => {
         if (name === '') {
-            name = 'default'
+            name = 'blue'
         }
 
         const themes = config.themes
