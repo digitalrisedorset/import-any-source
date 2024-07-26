@@ -23,17 +23,14 @@ export type configInfo = {
 }
 
 export const config: configInfo = {
-    // graphqlEndpoint: (process.env.REACT_APP_KEYSTONE_HOST === undefined) ? 'http://localhost:3000/api/graphql' : `http://${process.env.REACT_APP_KEYSTONE_HOST}/api/graphql`,
-    // nodejsEndpoint: (process.env.REACT_APP_NODE_HOST === undefined) ? 'http://localhost:8080' : `http://${process.env.REACT_APP_NODE_HOST}`,
-    // magentographqlEndpoint: (process.env.REACT_APP_MAGENTO_HOST === undefined) ? 'http://magentodevelop24.com' : process.env.REACT_APP_MAGENTO_HOST
+    nodejsEndpoint: (process.env.REACT_APP_NODE_HOST === undefined) ? 'http://localhost:8080' : process.env.REACT_APP_NODE_HOST,
+    magentographqlEndpoint: process.env.REACT_APP_MAGENTO_HOST === undefined ? 'http://magentodevelop24.com/graphql' : `${process.env.REACT_APP_MAGENTO_HOST}/graphql`,
     keystone: {
-        graphqlEndpoint: `http://${process.env.REACT_APP_KEYSTONE_HOST}/api/graphql`,
+        graphqlEndpoint: (process.env.REACT_APP_KEYSTONE_HOST === undefined) ? 'http://localhost:3000/api/graphql' : `${process.env.REACT_APP_KEYSTONE_HOST}/api/graphql`,
         headers: {
             'apollo-require-preflight': (process.env.REACT_REQUIRE_PREFLIGHT)? 'true': 'false'
         }
     },
-    nodejsEndpoint: `http://${process.env.REACT_APP_NODE_HOST}`,
-    magentographqlEndpoint: `${process.env.REACT_APP_MAGENTO_HOST}/graphql`,
     themes: [{
         name: 'blue',
         colors: { // more themes at: https://webflow.com/blog/elegant-color-palettes
@@ -70,3 +67,5 @@ export const config: configInfo = {
         }
     }]
 }
+
+console.log(config)

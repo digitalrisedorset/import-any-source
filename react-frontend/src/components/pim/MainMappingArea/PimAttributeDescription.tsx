@@ -1,4 +1,4 @@
-import {OperationVariables, QueryResult, useQuery} from "@apollo/client";
+import {OperationVariables, QueryResult} from "@apollo/client";
 import {
     PimAttribute,
     PimQueryResult

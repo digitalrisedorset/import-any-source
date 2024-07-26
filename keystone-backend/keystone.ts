@@ -15,13 +15,13 @@ const sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --'
 //   we use an expiry of one hour for this example
 const sessionMaxAge = 60 * 60
 
-console.log(`Keystone frontend: http://${keystoneconfig.frontend.host}`)
+console.log(`Keystone frontend: ${keystoneconfig.frontend.host}`)
 console.log(`database ${getDatabaseConnection()}`)
 
 export default withAuth<TypeInfo<Session>>(
     config<TypeInfo>({
         server: {
-            cors: { origin: [`http://${keystoneconfig.frontend.host}`], credentials: true },
+            cors: { origin: [keystoneconfig.frontend.host], credentials: true },
             port: 3000,
             maxFileSize: 200 * 1024 * 1024,
             extendExpressApp: async (app, commonContext) => { /* ... */ },

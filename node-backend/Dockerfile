@@ -1,14 +1,11 @@
 FROM node:18-alpine
 
-ARG APP=/user/src/node-backend
-
-WORKDIR $APP
-
-VOLUME csv_import $APP/csv_import
+WORKDIR /user/src/node-backend
 
 COPY package*.json ./
 
-RUN npm install -g typescript  && \
+RUN npm install -g concurrently  && \
+    npm install && \
     npm ci --only=production
 
 COPY . .

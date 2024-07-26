@@ -23,10 +23,10 @@ export const AssignedTo = ({assignedTo, required}: AssignedToProps) => {
             {assignedTo.length>0 && (
                 <MapStyleLinked><span>Linked to Pim with attribute {getAssignedToAttribute(assignedTo)}</span></MapStyleLinked>
             )}
-            {assignedTo.length==0 && !required && (
+            {assignedTo.length===0 && !required && (
                 <MapStyle><span>Not Linked to Pim</span></MapStyle>
             )}
-            {assignedTo.length==0  && required && (
+            {assignedTo.length===0  && required && (
                 <MapStyleAwaitingLink><span>Link required for the import to work: <b>Awaiting link</b></span></MapStyleAwaitingLink>
             )}
         </>

@@ -22,7 +22,7 @@ export const Config = () => {
                         <select onChange={onThemeChange} className="form-select">
                             <option value="">-</option>
                             {configReader.getThemeOptions().map((item) => {
-                                return (<option value={item.value}>{item.label}</option>)
+                                return (<option key={item.value} value={item.value}>{item.label}</option>)
                             })}
                         </select>
                     </label>

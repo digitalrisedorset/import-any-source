@@ -1,5 +1,5 @@
 import Axios, {AxiosResponse} from "axios";
-import {AssignedToData, MagentoAttribute, PimAttribute} from "../types/keystone";
+import {MagentoAttribute, PimAttribute} from "../types/keystone";
 import {config} from "../config";
 import {ImportResponse} from "../types/pim"
 
