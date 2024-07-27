@@ -1,4 +1,4 @@
-import {PimImportAttributeState, PimImportState} from "../../types/states";
+import {PimImportAttributeState} from "../../types/states";
 
 interface SetAttributeImportAction {
     type: 'set_pim_attributes_import',

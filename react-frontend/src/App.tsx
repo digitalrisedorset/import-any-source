@@ -13,8 +13,8 @@ import { Config} from "./components/Config"
 export const App = () => {
   return (<Page>
     <BrowserRouter>
+      <FlashMessages />
       <Header title="Welcome on the Import Attribute Reader"/>
-        <FlashMessages />
         <Routes>
           <Route path="/" element={<Import/>}/>
           <Route path="/config" element={<Config />} />

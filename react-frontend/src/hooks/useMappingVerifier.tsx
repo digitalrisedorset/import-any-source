@@ -9,5 +9,5 @@ export const useMappingVerifier = () => {
 export const useMappingRemaining = () => {
     const {pimAttributes, magentoMapping, ignoredAttributes} = useActivePimSystem()
 
-    return pimAttributes - magentoMapping - ignoredAttributes
+    return Math.max(pimAttributes - magentoMapping - ignoredAttributes, 0)
 }

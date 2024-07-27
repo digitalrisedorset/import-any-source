@@ -36,3 +36,8 @@ export const defaultImportState = {
     magentoMapping: 0,
     ignoredAttributes: 0
 }
+
+export interface PimImportProductState {
+    name: string,
+    pimProducts: number
+}
