@@ -1,6 +1,6 @@
 import {list} from "@keystone-6/core";
 import {allowAll, denyAll} from "@keystone-6/core/access";
-import {password, text, checkbox} from "@keystone-6/core/fields";
+import {password, text, checkbox, relationship} from "@keystone-6/core/fields";
 import type {Session} from "../schema";
 
 export function hasSession ({ session }: { session?: Session }) {
@@ -46,6 +46,11 @@ export function isAdmin ({ session }: { session?: Session }) {
 
 export const User = list({
     access: allowAll,
+    ui: {
+        listView: {
+            initialColumns: ['name', 'email', 'role'],
+        },
+    },
     fields: {
         name: text({
             access: {
@@ -62,7 +67,21 @@ export const User = list({
                 isRequired: true,
             },
         }),
-        email: text({ isRequired: true, isUnique: true }),
+        email: text({
+            access: {
+                // only the respective user, or an admin can read this field
+                read: isAdminOrSameUser,
+
+                // only admins can update this field
+                update: isAdmin,
+            },
+            isFilterable: false,
+            isOrderable: false,
+            isIndexed: 'unique',
+            validation: {
+                isRequired: true,
+            },
+        }),
         // the user's password, used as the secret field for authentication
         //   should not be publicly visible
         password: password({
@@ -82,6 +101,9 @@ export const User = list({
                     fieldMode: 'hidden', // TODO: is this required?
                 },
             },
+        }),
+        role: relationship({
+            ref: 'Role.assignedTo'
         }),
         // a flag to indicate if this user is an admin
         //  should not be publicly visible

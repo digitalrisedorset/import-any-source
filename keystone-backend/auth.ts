@@ -6,7 +6,7 @@ export const { withAuth } = createAuth({
     listKey: 'User',
 
     // an identity field, typically a username or an email address
-    identityField: 'name',
+    identityField: 'email',
 
     // a secret field must be a password field type
     secretField: 'password',
@@ -18,7 +18,7 @@ export const { withAuth } = createAuth({
     //   see https://keystonejs.com/docs/config/auth#init-first-item for more
     initFirstItem: {
         // the following fields are used by the "Create First User" form
-        fields: ['name', 'password'],
+        fields: ['email', 'password'],
 
         // the following fields are configured by default for this item
         itemData: {

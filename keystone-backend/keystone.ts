@@ -7,13 +7,10 @@ import { type Session, lists } from './schema'
 import {getDatabaseConnection, getDatabaseType, getShadowDatabaseConnection} from './schemas/config'
 import {keystoneconfig} from './config'
 
-// WARNING: you need to change this
-const sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --'
-
-// statelessSessions uses cookies for session tracking
-//   these cookies have an expiry, in seconds
-//   we use an expiry of one hour for this example
-const sessionMaxAge = 60 * 60
+const sessionConfig = {
+    maxAge: 60 * 60, // How long they stay signed in?
+    secret: 'this is a very long secret that has 32 characters',// keystoneconfig.session.cookieSecret,
+};
 
 console.log(`Keystone frontend: ${keystoneconfig.frontend.host}`)
 console.log(`database ${getDatabaseConnection()}`)
@@ -37,11 +34,10 @@ export default withAuth<TypeInfo<Session>>(
         db: {
             provider: getDatabaseType(),
             url: getDatabaseConnection(),
-            //onConnect: async context => { /* ... */ },
-            // Optional advanced configuration
-            //enableLogging: true,
-            //idField: { kind: 'uuid' },
-            //shadowDatabaseUrl: getShadowDatabaseConnection(),
+            onConnect: async context => { /* ... */ },
+            //Optional advanced configuration
+            enableLogging: true,
+            idField: { kind: 'uuid' }
         },
         lists,
         ui: {
@@ -51,11 +47,6 @@ export default withAuth<TypeInfo<Session>>(
             },
         },
         // you can find out more at https://keystonejs.com/docs/apis/session#session-api
-        session: statelessSessions({
-            // the maxAge option controls how long session cookies are valid for before they expire
-            maxAge: sessionMaxAge,
-            // the session secret is used to encrypt cookie data
-            secret: sessionSecret,
-        })
+        session: statelessSessions(sessionConfig)
     })
 )
