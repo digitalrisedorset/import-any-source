@@ -17,6 +17,12 @@ export type configInfo = {
             'apollo-require-preflight': string
         }
     },
+    access: {
+        canTriggerImport: boolean,
+        canMonitorUpdate: boolean,
+        canMonitorDelete: boolean,
+        canMapAttribute: boolean,
+    },
     nodejsEndpoint: string,
     magentographqlEndpoint: string
     themes: Theme[]
@@ -30,6 +36,12 @@ export const config: configInfo = {
         headers: {
             'apollo-require-preflight': (process.env.REACT_REQUIRE_PREFLIGHT)? 'true': 'false'
         }
+    },
+    access: {
+        canTriggerImport: true,
+        canMonitorUpdate: true,
+        canMonitorDelete: true,
+        canMapAttribute: true,
     },
     themes: [{
         name: 'blue',

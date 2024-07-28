@@ -24,3 +24,7 @@ export enum PimAttributesActionType {
 export enum MagentoAttributesActionType {
     SET_MAGENTO_ATTRIBUTES_IMPORT = 'set_magento_attributes_import',
 }
+
+export enum UserActionType {
+    SET_USER_LOGIN = 'set_user_login',
+}

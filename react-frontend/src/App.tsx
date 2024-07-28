@@ -9,6 +9,8 @@ import { NotFound } from './components/NotFound'
 import { Page } from "./Page";
 import { Import } from "./components/pim/Import";
 import { Config} from "./components/Config"
+import Sign from "./components/signin/Sign";
+import Account from "./components/signin/Account";
 
 export const App = () => {
   return (<Page>
@@ -17,6 +19,8 @@ export const App = () => {
       <Header title="Welcome on the Import Attribute Reader"/>
         <Routes>
           <Route path="/" element={<Import/>}/>
+          <Route path="/signin" element={<Sign />}/>
+          <Route path="/account" element={<Account/>}/>
           <Route path="/config" element={<Config />} />
           <Route path="/magento" element={<Magento/>}/>
           <Route path="/pim" element={<Pim/>}/>

@@ -4,16 +4,20 @@ import {ImportHome} from '../styles/MappingScreen';
 import {MonitorUpdate} from "./MonitorUpdate";
 import {ImportProduct} from "./MainMappingArea/ImportProduct";
 import {MappingAttributes } from './MappingAttribute'
+import {useAccess} from "../../hooks/useAccess";
 
 export const Import = () => {
+    const  {canImportPIMAttribute, canImportMagentoAttribute, canMapAttribute, canImportProduct, canSetupImport} = useAccess()
+
     return (
         <ImportHome>
+            {canSetupImport &&
             <div className="steps">
-                <ImportPimAttribute />
-                <ImportMagentoAttribute />
-                <MappingAttributes />
-                <ImportProduct />
-            </div>
+                {canImportPIMAttribute && <ImportPimAttribute />}
+                {canImportMagentoAttribute && <ImportMagentoAttribute />}
+                {canMapAttribute && <MappingAttributes />}
+                {canImportProduct &&<ImportProduct />}
+            </div>}
             <MonitorUpdate />
         </ImportHome>
     )

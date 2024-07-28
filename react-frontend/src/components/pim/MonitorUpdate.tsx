@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {UpdateModel} from "../../models/UpdateImport"
 import {ImportUpdateResponse} from "../../types/pim";
 import {RenderFileDownload} from "./DownloadLink"
+import {useAccess} from "../../hooks/useAccess";
 
 const InitResponse: ImportUpdateResponse = {
     filename: '',
@@ -43,22 +44,26 @@ export const MonitorUpdate = () => {
     const [monitor, setMonitor] = useState(false)
     const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)
+    const  {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
 
     useEffect(() => {
-        const updateModel = new UpdateModel()
-        const interval = setInterval(async () => {
-            updateModel.createUpdateImport().then(response => {
-                setUpdateCsvFile(response as UpdateResponse)
-            })
-        }, MINUTE_MS);
+        if (monitor) {
+            console.log('starting monitoring', monitor)
+            const updateModel = new UpdateModel()
+            const interval = setInterval(async () => {
+                updateModel.createUpdateImport().then(response => {
+                    setUpdateCsvFile(response as UpdateResponse)
+                })
+            }, MINUTE_MS);
 
-        const interval2 = setInterval(async () => {
-            updateModel.createDeleteImport().then(response => {
-                setDeleteCsvFile(response as UpdateResponse)
-            })
-        }, MINUTE_MS);
+            const interval2 = setInterval(async () => {
+                updateModel.createDeleteImport().then(response => {
+                    setDeleteCsvFile(response as UpdateResponse)
+                })
+            }, MINUTE_MS);
 
-        return () => clearInterval(interval && interval2)
+            return () => clearInterval(interval && interval2)
+        }
     }, [monitor])
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -74,7 +79,7 @@ export const MonitorUpdate = () => {
         <MonitoringArea>
             <form>
                 <h2>Product Update Status</h2>
-                {!monitor && <button type="submit" onClick={handleSubmit}>
+                {canMonitorData && !monitor && <button type="submit" onClick={handleSubmit}>
                     Launch Product Monitoring
                 </button>
                 }
@@ -82,8 +87,8 @@ export const MonitorUpdate = () => {
                     <button type="submit" onClick={handleSubmit}>
                         Stop Product Monitoring
                     </button>
-                    {RenderUpdate(updateCsvFile)}
-                    {RenderDelete(deleteCsvFile)}
+                    {canUpdateProducts && RenderUpdate(updateCsvFile)}
+                    {canDeleteProducts && RenderDelete(deleteCsvFile)}
                 </>}
             </form>
         </MonitoringArea>

@@ -12,6 +12,9 @@ export type configInfo = {
         user: string,
         password: string,
         port: number
+    },
+    session: {
+        cookieSecret: string
     }
 }
 
@@ -27,6 +30,9 @@ const config: configInfo = {
         user: (process.env.DB_USER === undefined)?'postgres':process.env.DB_USER,
         password: (process.env.DB_PWD === undefined)?'passw0rd':process.env.DB_PWD,
         port: (process.env.DB_PORT === undefined)?'3306':process.env.DB_PORT
+    },
+    session: {
+        cookieSecret: (process.env.COOKIE_SECRET === undefined)?'this is a very long secret that has 32 characters':process.env.COOKIE_SECRET
     }
 }
 
