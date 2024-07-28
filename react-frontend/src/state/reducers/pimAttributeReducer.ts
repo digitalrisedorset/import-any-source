@@ -1,7 +1,7 @@
 import {PimAttributesActionType} from "../action-types";
 import {SetPimAttributeActionList} from "../actions";
 import { PimImportStateData} from "../../types/states"
-import {PimSystemHandler} from "../../models/PimSystem";
+import {PimSystemHandler} from "../../pim/models/PimSystem";
 
 const buildInitialImportState = () => {
     const pimSystemHandler = new PimSystemHandler()
