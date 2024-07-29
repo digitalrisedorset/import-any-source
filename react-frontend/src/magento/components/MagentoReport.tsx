@@ -1,5 +1,5 @@
 import {useMagentoAttributes} from "../hooks/useMagentoAttributes";
-import {Title, ReportStyles} from "../../styles/ReportStyles";
+import {Title, ReportStyles} from "../../global/styles/ReportStyles";
 
 export const MagentoReport = () => {
     const magentoAttributes = useMagentoAttributes()

@@ -1,4 +1,4 @@
-import {MonitoringArea} from '../../styles/MappingScreen';
+import {MonitoringArea} from '../../global/styles/MappingScreen';
 import {useEffect, useState} from "react";
 import {UpdateModel} from "../models/UpdateImport"
 import {ImportUpdateResponse} from "../../types/pim";

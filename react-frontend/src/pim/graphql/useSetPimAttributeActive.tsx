@@ -1,5 +1,5 @@
 import {useMutation} from '@apollo/client';
-import {UPDATE_ATTRIBUTE_MUTATION} from "../../graphql/keystone";
+import {UPDATE_ATTRIBUTE_MUTATION} from "./useSetPimAttributeIgnored";
 
 export const useSetPimgAttributeActive = (attributeId?: string) => {
     const [setPimAttributeActivate] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {

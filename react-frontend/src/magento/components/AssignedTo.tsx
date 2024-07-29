@@ -1,6 +1,6 @@
-import MapStyle from '../../styles/MapStyle';
-import MapStyleLinked from '../../styles/MapStyleLinked';
-import MapStyleAwaitingLink from '../../styles/MapStyleAwaitingLink';
+import MapStyle from '../../pim/styles/MapStyle';
+import MapStyleLinked from '../../pim/styles/MapStyleLinked';
+import MapStyleAwaitingLink from '../../pim/styles/MapStyleAwaitingLink';
 import {AssignedToData} from "../../types/keystone";
 
 interface AssignedToProps {

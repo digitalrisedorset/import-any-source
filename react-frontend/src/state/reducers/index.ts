@@ -1,10 +1,9 @@
 import { combineReducers } from "redux";
-import pimMappingReducer from "./pimMappingReducer"
-import flashMessageReducer from "./flashMessageReducer";
-import configurationPreferenceReducer from "./configurationPreferenceReducer";
-import pimAttributeReducer from "./pimAttributeReducer"
-import magentoAttributeReducer from "./magentoAttributeReducer";
-import userLoginReducer from "./userLoginReducer";
+import pimMappingReducer from "../../mapping/state/reducers/pimMappingReducer"
+import flashMessageReducer from "../../global/state/reducers/flashMessageReducer";
+import configurationPreferenceReducer from "../../configuration/state/reducers/configurationPreferenceReducer";
+import pimAttributeReducer from "../../pim/state/reducers/pimAttributeReducer"
+import magentoAttributeReducer from "../../magento/state/reducers/magentoAttributeReducer";
 
 const reducers = combineReducers({
     pimMapping: pimMappingReducer,
@@ -12,7 +11,6 @@ const reducers = combineReducers({
     configurationPreference: configurationPreferenceReducer,
     pimAttribute: pimAttributeReducer,
     magentoAttribute: magentoAttributeReducer,
-    userLogin: userLoginReducer
 })
 
 export default reducers

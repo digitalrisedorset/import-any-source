@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom"
 import {Nav} from './Nav';
-import {Logo, HeaderStyles} from '../../styles/Header'
+import {Logo, HeaderStyles} from '../styles/Header'
 
 interface headerProps {
     title: string

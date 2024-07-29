@@ -1,7 +1,7 @@
 import { GetPimAttribute } from "./MainMappingArea/GetPimAttribute";
 import { useActions } from "../../global/hooks/useActions";
 import { useParams } from "react-router-dom";
-import { MappingScreen } from '../../styles/MappingScreen';
+import { MappingScreen } from '../../global/styles/MappingScreen';
 import { GetIgnoredAttribute } from "./IgnoreFieldArea/GetIgnoredAttribute";
 
 export const Pim = () => {

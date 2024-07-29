@@ -1,4 +1,4 @@
-import CardStyles from "../../styles/CardStyles";
+import CardStyles from "../../configuration/styles/CardStyles";
 
 export const NotFound = () => {
 

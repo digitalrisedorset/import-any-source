@@ -1,9 +1,19 @@
-import { useMutation} from '@apollo/client';
-import {
-    GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY,
-    UPDATE_ATTRIBUTE_MUTATION
-} from "../../graphql/keystone";
+import {gql, useMutation} from '@apollo/client';
 import {ALL_PIM_PRODUCT_ATTRIBUTES_QUERY} from "../../pim/graphql/usePimAttributes";
+import {UPDATE_ATTRIBUTE_MUTATION} from "../../pim/graphql/useSetPimAttributeIgnored"
+
+const GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY = gql`        
+    query MagentoAttributes($where: MagentoAttributeWhereInput!) {
+      magentoAttributes(where: $where) {       
+        code
+        name
+        assignedTo {
+            code
+            name
+        }
+      }
+    }
+`;
 
 export const useMapAttribute = (pimAttributeStateId: string, magentoAttributeStateId: string) => {
     console.log(`useMapAttribute pimAttributeStateId ${pimAttributeStateId}, magentoAttributeStateId: ${magentoAttributeStateId}`)

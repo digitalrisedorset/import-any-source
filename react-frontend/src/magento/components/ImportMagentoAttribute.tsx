@@ -1,4 +1,4 @@
-import StepForm from "../../styles/StepForm";
+import StepForm from "../../global/styles/StepForm";
 import {FormEvent} from "react"
 import {RemoteMagentoAttributeProvider} from "../models/RemoteMagentoAttributeProvider";
 import {useActions} from "../../global/hooks/useActions";

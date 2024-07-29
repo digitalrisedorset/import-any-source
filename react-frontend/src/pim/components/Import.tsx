@@ -1,6 +1,6 @@
 import {ImportPimAttribute} from "./MainMappingArea/ImportPimAttribute";
 import {ImportMagentoAttribute} from "../../magento/components/ImportMagentoAttribute";
-import {ImportHome} from '../../styles/MappingScreen';
+import {ImportHome} from '../../global/styles/MappingScreen';
 import {MonitorUpdate} from "./MonitorUpdate";
 import {ImportProduct} from "./MainMappingArea/ImportProduct";
 import {MappingAttributes } from './MappingAttribute'

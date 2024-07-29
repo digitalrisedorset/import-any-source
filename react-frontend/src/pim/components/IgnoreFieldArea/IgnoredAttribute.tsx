@@ -1,5 +1,5 @@
-import {IgnoreStyles, ActivateButton} from '../../../styles/IgnoreStyles';
-import {IgnoreTitle} from '../../../styles/Title';
+import {IgnoreStyles, ActivateButton} from '../../styles/IgnoreStyles';
+import {IgnoreTitle} from '../../../global/styles/Title';
 import {MapLink} from "../MainMappingArea/MapLink";
 import {PimAttribute} from '../../../types/keystone'
 import React from "react";

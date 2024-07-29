@@ -1,4 +1,4 @@
-import Form from '../../styles/Form';
+import Form from '../../global/styles/Form';
 import { useState, useEffect } from "react"
 import { useParams} from "react-router-dom"
 import { filterOptions } from 'fuzzy-match-utils';

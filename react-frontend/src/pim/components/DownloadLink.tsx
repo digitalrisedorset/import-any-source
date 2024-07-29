@@ -1,5 +1,5 @@
 import {DownlinkFile} from "../../types/pim";
-import {DownloadLink} from "../../styles/FlashMessage"
+import {DownloadLink} from "../../global/styles/FlashMessage"
 
 
 export const RenderFileDownload = (link: DownlinkFile) => (

@@ -1,5 +1,5 @@
 import {LazyQueryResultTuple, OperationVariables, QueryResult, useLazyQuery, useQuery} from '@apollo/client';
-import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "../../../graphql/keystone";
+import {ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY} from "./useCreateMagentoAttributes";
 import {KeystoneMagentoAttributeData} from "../../../types/keystone";
 
 export const useMagentoAttributes = () => {

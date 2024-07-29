@@ -1,5 +1,12 @@
-import {useMutation} from '@apollo/client';
-import {UPDATE_ATTRIBUTE_MUTATION} from "../../graphql/keystone";
+import {gql, useMutation} from '@apollo/client';
+
+export const UPDATE_ATTRIBUTE_MUTATION = gql`    
+    mutation UpdatePimAttribute($where: PimAttributeWhereUniqueInput!, $data: PimAttributeUpdateInput!) {
+      updatePimAttribute(where: $where, data: $data) {
+        id
+      }
+    }
+`
 
 export const useSetPimgAttributeIgnored = (attributeId?: string) => {
     const [setPimAttributeIgnore] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {

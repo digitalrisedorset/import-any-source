@@ -1,5 +1,5 @@
 import {useActivePimSystem} from "../hooks/useCurrentPimSystem";
-import {ReportStyles, Title} from "../../styles/ReportStyles";
+import {ReportStyles, Title} from "../../global/styles/ReportStyles";
 
 export const PimSystemReport = () => {
     const currentPimSystem = useActivePimSystem()

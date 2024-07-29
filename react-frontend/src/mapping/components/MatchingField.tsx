@@ -1,5 +1,5 @@
 import { Attribute } from "./Attribute";
-import CardStyles from "../../styles/CardStyles";
+import CardStyles from "../../configuration/styles/CardStyles";
 import { useTypedSelector } from "../../global/hooks/useTypedSelector";
 import {MatchingAttributeData} from "../../types/keystone";
 import { useActions } from "../../global/hooks/useActions";

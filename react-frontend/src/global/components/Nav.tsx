@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom"
-import NavStyles from '../../styles/NavStyles';
+import NavStyles from '../styles/NavStyles';
 import {useActivePimSystem} from "../../pim/hooks/useCurrentPimSystem";
 import {useUser} from "../../user-authentication/hooks/useUser"
 import SignOut from "../../user-authentication/components/SignOut";

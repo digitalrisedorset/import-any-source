@@ -1,5 +1,5 @@
 import {useTypedSelector} from "../../global/hooks/useTypedSelector";
-import {PimSystemHandler} from "../models/PimSystem";
+import {PimSystemHandler} from "../../configuration/models/PimSystem";
 import {defaultImportState, PimImportState} from "../../types/states";
 
 export const useActivePimSystem = (): PimImportState => {

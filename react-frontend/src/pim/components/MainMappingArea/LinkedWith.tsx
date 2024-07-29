@@ -1,5 +1,5 @@
-import MapStyle from '../../../styles/MapStyle';
-import MapStyleLinked from '../../../styles/MapStyleLinked';
+import MapStyle from '../../styles/MapStyle';
+import MapStyleLinked from '../../styles/MapStyleLinked';
 
 interface AttributeProps {
     magentoCode: { name: string; code: string; }

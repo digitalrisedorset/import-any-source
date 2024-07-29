@@ -1,6 +1,6 @@
-import PimSystem from "../../../styles/PimSystem";
+import PimSystem from "../../../configuration/styles/PimSystem";
 import {useActions} from "../../../global/hooks/useActions";
-import {PimSystemHandler} from "../../models/PimSystem";
+import {PimSystemHandler} from "../../../configuration/models/PimSystem";
 
 export const PimSystemSelect = () => {
     const { setActivePimSystem } = useActions()

@@ -1,4 +1,4 @@
-import { GlobalStyles } from "../../styles/Global";
+import { GlobalStyles } from "../styles/Global";
 import {useActiveThemeColor} from "../../configuration/hooks/useActiveTheme";
 
 interface PageProps {

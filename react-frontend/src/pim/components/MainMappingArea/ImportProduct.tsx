@@ -12,7 +12,7 @@ import {ImportResponse} from "../../../types/pim"
 import {usePimAttributesLazy} from "../../graphql/usePimAttributes";
 import {usePimAttributesNotMapped} from "../../graphql/useFindPimAttributesNotMapped";
 import {useMagentoAttributesLazy} from "../../../magento/graphql/keystone/useMagentoAttributes";
-import StepForm from "../../../styles/StepForm"
+import StepForm from "../../../global/styles/StepForm"
 import {useCurrentPimSystemCode} from "../../hooks/useCurrentPimSystem";
 
 export const ImportProduct = () => {

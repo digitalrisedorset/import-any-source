@@ -1,5 +1,5 @@
 import React from "react"
-import {DotLoading} from '../../styles/DotLoading';
+import {DotLoading} from '../styles/DotLoading';
 
 export const LoadingDotsIcon = () => {
     return (

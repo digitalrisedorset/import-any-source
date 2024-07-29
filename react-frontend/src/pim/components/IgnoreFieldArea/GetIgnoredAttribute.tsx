@@ -1,4 +1,4 @@
-import {MappingIgnoredArea} from "../../../styles/MappingScreen";
+import {MappingIgnoredArea} from "../../../global/styles/MappingScreen";
 import {PimAttribute} from "../../../types/keystone";
 import {IgnoredAttribute} from "./IgnoredAttribute";
 import {usePimAttributes} from "../../graphql/usePimAttributes";

@@ -5,7 +5,7 @@ import {LoadingDotsIcon} from "../../../global/components/Loading";
 import {useState} from "react";
 import {PimSystemSelect} from "./PimSystemSelect"
 import {useCreatePimAttributes} from "../../graphql/useCreatePimAttributes";
-import StepForm from "../../../styles/StepForm";
+import StepForm from "../../../global/styles/StepForm";
 import {useActivePimSystem} from "../../hooks/useCurrentPimSystem";
 import {PimAttribute} from "../../../types/keystone";
 import {PimSystemReport} from "../PimSystemReport";

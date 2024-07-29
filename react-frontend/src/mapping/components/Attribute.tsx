@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import {useNavigate} from "react-router-dom"
-import ItemStyles from '../../styles/ItemStyles';
-import {Title} from '../../styles/Title';
+import ItemStyles from '../../global/components/ItemStyles';
+import {Title} from '../../global/styles/Title';
 import {MatchingAttributeData} from "../../types/keystone";
 import {useActions} from "../../global/hooks/useActions";
 import {useMapAttribute} from "../graphql/useMapAttribute";

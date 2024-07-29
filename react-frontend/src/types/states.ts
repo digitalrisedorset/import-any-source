@@ -15,6 +15,18 @@ export interface PimImportState {
     ignoredAttributes: number
 }
 
+export interface AccessState {
+    canCreateProducts: boolean,
+    canUpdateProducts: boolean,
+    canDeleteProducts: boolean,
+    canImportPIMAttribute: boolean,
+    canImportMagentoAttribute: boolean,
+    canMapAttribute: boolean,
+    canImportProduct: boolean,
+    canMonitorData: boolean,
+    canSetupImport: boolean
+}
+
 export interface PimImportAttributeState {
     name: string,
     pimAttributes: number,

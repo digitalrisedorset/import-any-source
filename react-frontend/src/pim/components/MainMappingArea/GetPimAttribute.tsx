@@ -1,5 +1,5 @@
 import { Attribute } from "./Attribute";
-import CardStyles from "../../../styles/CardStyles";
+import CardStyles from "../../../configuration/styles/CardStyles";
 import {PimAttribute} from '../../../types/keystone'
 import {PimAttributeDescription} from "./PimAttributeDescription";
 import {LoadingDotsIcon} from "../../../global/components/Loading";

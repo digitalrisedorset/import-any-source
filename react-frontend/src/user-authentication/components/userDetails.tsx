@@ -1,5 +1,5 @@
 import {useUser} from '../hooks/useUser';
-import Form from "../../styles/Form";
+import Form from "../../global/styles/Form";
 import {useNavigate} from "react-router-dom";
 import {useAllAccess} from "../../configuration/hooks/useAccess";
 
