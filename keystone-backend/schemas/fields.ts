@@ -36,3 +36,28 @@ export type Permission = keyof typeof permissionFields;
 export const permissionsList: Permission[] = Object.keys(
     permissionFields
 ) as Permission[];
+
+export const themeFields = {
+    happyTheme: checkbox({
+        defaultValue: 'happy',
+        label: 'Yellow Theme',
+    }),
+    blueTheme: checkbox({
+        defaultValue: 'blue',
+        label: 'Blue Theme',
+    }),
+    redTheme: checkbox({
+        defaultValue: 'red',
+        label: 'Red Theme',
+    }),
+    brownTheme: checkbox({
+        defaultValue: 'forest',
+        label: 'Brown Theme',
+    })
+}
+
+export type Theme = keyof typeof themeFields;
+
+export const themeList: Theme[] = Object.keys(
+    themeFields
+) as Theme[];

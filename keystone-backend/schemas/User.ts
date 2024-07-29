@@ -1,6 +1,6 @@
 import {list} from "@keystone-6/core";
 import {allowAll, denyAll} from "@keystone-6/core/access";
-import {password, text, checkbox, relationship} from "@keystone-6/core/fields";
+import {password, text, checkbox, relationship, select} from "@keystone-6/core/fields";
 import type {Session} from "../schema";
 
 export function hasSession ({ session }: { session?: Session }) {
@@ -104,6 +104,15 @@ export const User = list({
         }),
         role: relationship({
             ref: 'Role.assignedTo'
+        }),
+        theme: select({
+            type: 'enum',
+            options: [
+                { label: 'Yellow', value: 'happy' },
+                { label: 'Red', value: 'red' },
+                { label: 'Blue', value: 'blue' },
+                { label: 'Brown', value: 'forest' },
+            ],
         }),
         // a flag to indicate if this user is an admin
         //  should not be publicly visible

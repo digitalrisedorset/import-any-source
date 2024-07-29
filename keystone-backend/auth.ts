@@ -26,6 +26,11 @@ export const { withAuth } = createAuth({
             isAdmin: true,
         },
     },
+    passwordResetLink: {
+        async sendToken(args) {
+            console.log(args)
+        }
+    },
 
     // add isAdmin to the session data
     sessionData: 'isAdmin',

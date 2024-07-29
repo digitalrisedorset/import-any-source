@@ -1,6 +1,6 @@
 import { relationship, text } from "@keystone-6/core/fields";
 import {list} from "@keystone-6/core";
-import { permissionFields } from './fields';
+import {permissionFields, themeList} from './fields';
 import {isAdmin, isAdminOrSameUser} from "./User";
 import {allowAll} from "@keystone-6/core/access";
 

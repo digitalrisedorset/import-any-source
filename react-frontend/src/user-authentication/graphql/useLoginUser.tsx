@@ -11,6 +11,7 @@ const SIGNIN_MUTATION = gql`
           id
           email
           name
+          theme
           role {
             name          
             canUpdateProducts
@@ -31,7 +32,7 @@ const SIGNIN_MUTATION = gql`
 `;
 
 export const useLoginUser = (inputs: any) => {
-    const { setUserAccess } = useActions()
+    const { setUserAccess, setActiveTheme } = useActions()
 
     const [signin, { data, loading }] = useMutation(SIGNIN_MUTATION, {
         variables: inputs,
@@ -43,6 +44,7 @@ export const useLoginUser = (inputs: any) => {
         if (res?.data?.authenticateUserWithPassword?.item) {
             const user = res.data.authenticateUserWithPassword.item
             setUserAccess(user.role)
+            setActiveTheme(user.theme)
         }
 
         return (res?.data?.authenticateUserWithPassword.__typename === 'UserAuthenticationWithPasswordFailure')

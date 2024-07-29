@@ -12,8 +12,6 @@ export default function UserDetails() {
         navigate(`/`);
     }
 
-    console.log(accessSummary)
-
     return (
         <Form>
             <h2>Your details</h2>

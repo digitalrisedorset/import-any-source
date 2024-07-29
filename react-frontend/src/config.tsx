@@ -79,5 +79,3 @@ export const config: configInfo = {
         }
     }]
 }
-
-console.log(config)
