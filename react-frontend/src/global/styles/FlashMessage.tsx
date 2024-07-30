@@ -6,7 +6,7 @@ export const SuccessStyles = styled.div`
     z-index: 10;
   padding: 1rem;
   background: white;
-  margin: 6rem 0;
+  margin-top: 77px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-left: 10px solid green;
   p {

@@ -29,6 +29,7 @@ export const HeaderStyles = styled.header`
     grid-template-columns: auto 1fr;
     justify-content: space-between;
     align-items: stretch;
+      margin-bottom: 50px;
   }
 
   .sub-bar {

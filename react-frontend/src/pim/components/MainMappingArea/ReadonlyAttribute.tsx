@@ -10,11 +10,10 @@ import {useActivePimSystem} from "../../hooks/useCurrentPimSystem";
 import {useActions} from "../../../global/hooks/useActions";
 
 interface AttributeProps {
-    attribute: PimAttribute,
-    candelete: boolean
+    attribute: PimAttribute
 }
 
-export const Attribute = ({attribute}: AttributeProps, candelete: boolean) => {
+export const ReadonlyAttribute = ({attribute}: AttributeProps) => {
     const currentPimSystem = useActivePimSystem()
     const setPimAttributeIgnore = useSetPimgAttributeIgnored(attribute.id)
     const { addPimAttributeIgnored } = useActions()
@@ -35,7 +34,6 @@ export const Attribute = ({attribute}: AttributeProps, candelete: boolean) => {
             <span className="type">{attribute.type}</span>
             <span className="date-created">created: <br/>{date.toDateString()} </span>
             <LinkedWith magentoCode={attribute.magentoCode}/>
-            <DeleteButton onClick={removeField}>Delete</DeleteButton>
         </ItemStyles>
     )
 }

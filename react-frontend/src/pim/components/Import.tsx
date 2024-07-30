@@ -1,24 +1,29 @@
-import {ImportPimAttribute} from "./MainMappingArea/ImportPimAttribute";
-import {ImportMagentoAttribute} from "../../magento/components/ImportMagentoAttribute";
 import {ImportHome} from '../../global/styles/MappingScreen';
-import {MonitorUpdate} from "./MonitorUpdate";
-import {ImportProduct} from "./MainMappingArea/ImportProduct";
-import {MappingAttributes } from './MappingAttribute'
 import {useAccess} from "../../configuration/hooks/useAccess";
+import TabButtons from "./TabButtons";
+import TabContent from "./TabContent";
+import {useState} from "react";
+import {StepDataReader} from "../../global/models/StepDataReader";
+import {TabContainer} from "../../global/styles/TabButtonsStyle";
 
 export const Import = () => {
-    const  {canImportPIMAttribute, canImportMagentoAttribute, canMapAttribute, canImportProduct, canSetupImport} = useAccess()
+    const stepDataReader = new StepDataReader()
+    const [activeTab, setActiveTab] = useState(0);
+    const stepData = stepDataReader.getImportStep();
+    const {canSetupImport} = useAccess()
 
     return (
         <ImportHome>
             {canSetupImport &&
-            <div className="steps">
-                {canImportPIMAttribute && <ImportPimAttribute />}
-                {canImportMagentoAttribute && <ImportMagentoAttribute />}
-                {canMapAttribute && <MappingAttributes />}
-                {canImportProduct &&<ImportProduct />}
-            </div>}
-            <MonitorUpdate />
+            <TabContainer>
+                <TabButtons
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                    stepData={stepData}
+                />
+                <TabContent stepData={stepData} activeTab={activeTab} />
+            </TabContainer>
+            }
         </ImportHome>
     )
 }

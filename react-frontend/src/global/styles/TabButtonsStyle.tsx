@@ -1,14 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const NavStyles = styled.ul`
-  margin: 0;
+export const TabStyles = styled.ul`
+  margin: 0 0 0 40px;
   padding: 0;
   display: flex;
+    list-style: none;
   justify-self: end;
   font-size: 2rem;
-    li {
-      list-style: none;  
-    },
   a,
   button {
     padding: 1rem 3rem;
@@ -68,4 +66,17 @@ const NavStyles = styled.ul`
   }
 `;
 
-export default NavStyles;
+export const TabContainer = styled.div`
+      display: flex;
+      flex-direction: column;
+      font-size: 2rem;
+      width: 100%;
+        border: 1px solid var(--offWhite);
+        box-shadow: var(--bs);
+`;
+
+export const TabContentElt = styled.div`
+    padding: 1rem;
+    min-height: 25rem;
+    border: 2px solid var(--text-color);    
+`;

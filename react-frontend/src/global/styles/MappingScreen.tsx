@@ -25,12 +25,12 @@ export const MappingIgnoredArea = styled.div<StyleProps>`
 `;
 
 export const ImportHome = styled.div`
-    display: flex;
+    width:100%;
     .steps {
         border: 1px solid var(--offWhite);
         box-shadow: var(--bs);
         margin: 1rem;
-        width:53%;
+        width:100%;
     }
     form {
         margin: 10px;
