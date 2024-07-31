@@ -7,7 +7,7 @@ const StepForm = styled.form`
         box-shadow: var(--bs);
         margin: 1rem;
         padding: 0 1rem;
-        width:65%;
+        width:100%;
     }
     .report {
         margin: 10px;

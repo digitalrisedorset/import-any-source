@@ -8,18 +8,21 @@ import {
 } from "../../../types/keystone";
 import {useActions} from "../../../global/hooks/useActions";
 import {useEffect, useState} from "react";
-import {ImportResponse} from "../../../types/pim"
 import {usePimAttributesLazy} from "../../graphql/usePimAttributes";
 import {usePimAttributesNotMapped} from "../../graphql/useFindPimAttributesNotMapped";
 import {useMagentoAttributesLazy} from "../../../magento/graphql/keystone/useMagentoAttributes";
 import StepForm from "../../../global/styles/StepForm"
 import {useCurrentPimSystemCode} from "../../hooks/useCurrentPimSystem";
+import {addFlashMessage} from "../../../global/state/action-creators/flashMessage";
+import {ProductImportList} from "../ImportProduct/ProductImportList"
+import {RemotePimProduct} from "../../../types/pim";
 
 export const ImportProduct = () => {
+    const [pimProducts, setPimProducts] = useState<RemotePimProduct[]>([])
     const pimSystemCode = useCurrentPimSystemCode()
     const [mappingReady, setMappingReady] = useState(false)
     const [importBuiling, setImportBuilding] = useState(false)
-    const { addDownloadMessage } = useActions()
+    const { setPimProductBatchLoaded } = useActions()
 
     const getPimAttributeList = usePimAttributesLazy()
     const getMagentoAttributeList = useMagentoAttributesLazy()
@@ -53,10 +56,14 @@ export const ImportProduct = () => {
                 const pim = new PimAttributeProvider(pimData.data.pimAttributes)
 
                 const MappingData = new MappingModel(pim.getListWithMapping(), magento.getListWithMapping())
-                const response = await MappingData.createAttributesImport(pimSystemCode)
-                addDownloadMessage('The import has successfully created a csv import file', response as ImportResponse)
-                globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-                setImportBuilding(false)
+                const response = await MappingData.getProductDataImport(pimSystemCode)
+                if (response !== undefined) {
+                    addFlashMessage('The import has successfully read the produdts to import')
+                    setPimProductBatchLoaded(response)
+                    setPimProducts(response)
+                    globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                    setImportBuilding(false)
+                }
             }
         } catch (e) {
             console.log('error');
@@ -71,6 +78,7 @@ export const ImportProduct = () => {
                 <button type="submit" disabled={importBuiling || !mappingReady} onClick={handleSubmit}>
                     Import Magento Products
                 </button>
+                <ProductImportList />
             </div>
         </StepForm>
 )

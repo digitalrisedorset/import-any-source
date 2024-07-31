@@ -32,6 +32,21 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
+    getProductToImport = async (req: Request, res: Response) => {
+        try {
+            const wooClient = new Woocommerce()
+            const list = await wooClient.getProductBatch()
+            const wooImporter = new ImportCreator()
+            await wooImporter.saveProductMinimalData(list)
+            const rows = await wooImporter.getProductData(list, req.body)
+            console.log('import response', rows)
+            res.send({ rows })
+        } catch (e) {
+            res.status(500).send("Error")
+            this.errorWrapper.handle(e)
+        }
+    }
+
     createImport = async (req: Request, res: Response) => {
         try {
             const wooClient = new Woocommerce()

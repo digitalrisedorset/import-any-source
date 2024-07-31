@@ -31,6 +31,10 @@ export class BookController implements ImportControllerInterface {
         }
     }
 
+    getProductToImport = async (req: Request, res: Response) => {
+
+    }
+
     createImport = async (req: Request, res: Response) => {
         try {
             const bookSystemClient = new BookSystem()

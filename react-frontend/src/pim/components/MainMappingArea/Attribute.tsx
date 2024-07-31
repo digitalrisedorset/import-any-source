@@ -14,7 +14,7 @@ interface AttributeProps {
     candelete: boolean
 }
 
-export const Attribute = ({attribute}: AttributeProps, candelete: boolean) => {
+export const Attribute = ({attribute, candelete}: AttributeProps) => {
     const currentPimSystem = useActivePimSystem()
     const setPimAttributeIgnore = useSetPimgAttributeIgnored(attribute.id)
     const { addPimAttributeIgnored } = useActions()
@@ -28,7 +28,7 @@ export const Attribute = ({attribute}: AttributeProps, candelete: boolean) => {
     }
 
     return (
-        <ItemStyles required={attribute.required} candelete="true" id={attribute.id}>
+        <ItemStyles required={attribute.required} id={attribute.id}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

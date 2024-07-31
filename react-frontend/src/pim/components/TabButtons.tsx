@@ -7,12 +7,12 @@ type TabsButtonProps = {
     setActiveTab: any
 }
 
-export default function TabButtons({ stepData, activeTab, setActiveTab  }: TabsButtonProps) {
+export default function TabButtons({ stepData, activeTab, setActiveTab }: TabsButtonProps) {
     return (
         <TabStyles>
             {stepData.map((item, index) => (
                 <li
-                    className={`${index === activeTab && "active"} tab__button`}
+                    className={`${index === activeTab && "active"}`}
                     key={item.step}
                     onClick={() => setActiveTab(index)}
                 >

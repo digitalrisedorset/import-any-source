@@ -12,7 +12,7 @@ export class WoocommerceDataVariations {
         if (variations.length == 0) {
             return undefined
         }
-        
+
         return await this.cache.get(`getVariationData_${record['id']}`, async (): Promise<WoocommerceSimpleProduct[]> => {
             return await this.getApiVariationData(record['id'], variations)
         })

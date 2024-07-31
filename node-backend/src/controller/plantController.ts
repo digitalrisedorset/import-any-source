@@ -30,6 +30,10 @@ export class PlantController implements ImportControllerInterface {
         }
     }
 
+    getProductToImport = async (req: Request, res: Response) => {
+
+    }
+
     createImport = async (req: Request, res: Response) => {
         try {
             const plantSystemClient = new PlantSystem()

@@ -1,7 +1,7 @@
 import Axios, {AxiosResponse} from "axios";
 import {MagentoAttribute, PimAttribute} from "../../types/keystone";
 import {config} from "../../config";
-import {ImportResponse} from "../../types/pim"
+import {ImportResponse, RemotePimProduct} from "../../types/pim"
 
 export class MappingModel {
     private pimAttributeList: PimAttribute[] = [];
@@ -13,7 +13,7 @@ export class MappingModel {
         this.magentoList = magentoList
     }
 
-    public async createAttributesImport(pimSystemCode: string): Promise<ImportResponse | undefined> {
+    createAttributesImport = async (pimSystemCode: string): Promise<ImportResponse | undefined> => {
         const fields = this.getFieldList()
         const response = await Axios.post(
             `${pimSystemCode}/createImport`,
@@ -26,7 +26,19 @@ export class MappingModel {
         };
     }
 
-    public async createKeystoneSeedImport(pimSystemCode: string): Promise<AxiosResponse | undefined> {
+    getProductDataImport = async (pimSystemCode: string): Promise<RemotePimProduct[] | undefined> => {
+        const fields = this.getFieldList()
+        const response = await Axios.post(
+            `${pimSystemCode}/getProductToImport`,
+            {'mapping': fields}
+        )
+
+        if ("data" in response && "rows" in response?.data) {
+            return response?.data?.rows as RemotePimProduct[]
+        }
+    }
+
+    createKeystoneSeedImport = async (pimSystemCode: string): Promise<AxiosResponse | undefined> => {
         try {
             const fields = this.getFieldList()
             return await Axios.post(
@@ -38,14 +50,14 @@ export class MappingModel {
         }
     }
 
-    public getFieldList() {
+    getFieldList = () => {
         return this.pimAttributeList.map((attribute: PimAttribute) => ({
             pimFieldCode: attribute.code,
             magentoLinkedCode: this.getMagentoFieldCode(attribute.code)
         }))
     }
 
-    public getMagentoFieldCode(pimFieldCode: string) {
+    getMagentoFieldCode = (pimFieldCode: string) => {
         const findAssignedAttribute = (attribute: MagentoAttribute, pimAttribute: string) => {
             return attribute.assignedTo.find(assign => assign.code === pimAttribute)
         }

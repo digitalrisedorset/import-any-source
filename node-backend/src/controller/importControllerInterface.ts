@@ -5,6 +5,8 @@ export interface ImportControllerInterface {
 
     apiGetProductList: (req: Request, res: Response) => Promise<void>;
 
+    getProductToImport: (req: Request, res: Response) => Promise<void>;
+
     createImport: (req: Request, res: Response) => Promise<void>;
 
     createUpdateImport: (req: Request, res: Response) => Promise<void>;

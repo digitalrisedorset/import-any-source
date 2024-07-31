@@ -1,3 +1,4 @@
+import {RemotePimProduct} from "./pim";
 
 export enum APP_STATE {
     pimComplete = 'pim_attribute_imported',
@@ -50,6 +51,6 @@ export const defaultImportState = {
 }
 
 export interface PimImportProductState {
-    name: string,
-    pimProducts: number
+    pimProductHeader: string[],
+    pimProducts: RemotePimProduct[]
 }
