@@ -19,7 +19,7 @@ export const setupPlantSystemRoutes = (app: Application) => {
 
     router.get("/productList", plantController.apiGetProductList)
 
-    router.post("/getProductToImport", plantController.getProductToImport)
+    router.post("/setProductImported", plantController.setProductImported)
 
     router.post("/createImport", plantController.createImport)
 

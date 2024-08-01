@@ -30,8 +30,8 @@ export class PlantController implements ImportControllerInterface {
         }
     }
 
-    getProductToImport = async (req: Request, res: Response) => {
-
+    setProductImported = (req: Request, res: Response) => {
+        res.send('success')
     }
 
     createImport = async (req: Request, res: Response) => {
@@ -99,7 +99,7 @@ export class PlantController implements ImportControllerInterface {
             }
 
             const plantImporter = new ImportCreator()
-            const filename = await plantImporter.createCsvDeleteImport(list)
+            const filename = '';//await plantImporter.createCsvDeleteImport(list)
             console.log('Import complete', filename)
             res.send({
                 filename,

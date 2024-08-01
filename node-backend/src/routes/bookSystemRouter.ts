@@ -19,7 +19,7 @@ export const setupBookRoutes = (app: Application) => {
 
     router.get("/productList", bookController.apiGetProductList)
 
-    router.post("/getProductToImport", bookController.getProductToImport)
+    router.post("/setProductImported", bookController.setProductImported)
 
     router.post("/createImport", bookController.createImport)
 

@@ -3,9 +3,11 @@ import { ImportMappingFields } from "../../types/general";
 import { WoocommerceDataVariations } from "../woocommerce/data-variation";
 import { ImportRowCreator } from "./row-creator";
 import { ErrorWrapper } from "../../error-handler";
+import {ProductDeletion} from "../woocommerce/product-deletion";
 
 export class VariationDataProvider {
     woocommerceDataVariations = new WoocommerceDataVariations()
+    productDeletion = new ProductDeletion()
     importRowCreator = new ImportRowCreator()
     errorWrapper = new ErrorWrapper()
 
@@ -44,10 +46,10 @@ export class VariationDataProvider {
         let simpleRows: WoocommerceProduct[] = []
 
         if (simpleRowFromVariation.length > 0) {
-            simpleRowFromVariation.map(simpleRow => {
-                simpleRows.push(simpleRow as any)
-            })
-        }
+            simpleRowFromVariation.filter((simpleRow: WoocommerceProduct) => this.productDeletion.isProductValidForImport(simpleRow['id']))
+                .map(simpleRow => {
+                    simpleRows.push(simpleRow as any)
+                })        }
 
         return simpleRows;
     }

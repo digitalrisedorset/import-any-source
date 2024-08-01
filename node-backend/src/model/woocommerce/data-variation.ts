@@ -9,7 +9,7 @@ export class WoocommerceDataVariations {
     getVariationData = async (record: WoocommerceProduct): Promise<WoocommerceSimpleProduct[] | undefined> => {
 
         const variations = record[WoocommerceProductFieldCase.variations]
-        if (variations.length == 0) {
+        if (variations?.length == 0) {
             return undefined
         }
 

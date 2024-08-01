@@ -19,7 +19,7 @@ export const setupWoocommerceRoutes = (app: Application) => {
 
     router.get("/productList", woocommerceController.apiGetProductList)
 
-    router.post("/getProductToImport", woocommerceController.getProductToImport)
+    router.post("/setProductImported", woocommerceController.setProductImported)
 
     router.post("/createImport", woocommerceController.createImport)
 

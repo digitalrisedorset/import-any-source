@@ -1,6 +1,6 @@
 import { FsCacheService } from './cache/data-cache-fs'
 import { z } from "zod";
-import { MinimalProduct, CachedProduct, CachedDeletedProduct } from '../types/general'
+import { CachedDeletedProduct, CachedProduct, DeleteProduct, ProductStatusRequest } from '../types/general'
 
 const CACHE_PRODUCT_DELETED = 'product_deleted'
 
@@ -8,7 +8,8 @@ const CACHE_PRODUCT_SKU_LIST = 'product_sku_list'
 
 const CachedProductValidator = z.object({
     productId: z.number(),
-    sku: z.string()
+    sku: z.string(),
+    import_status: z.string()
 })
 
 const CachedProductList = z.array(CachedProductValidator)
@@ -49,7 +50,11 @@ export class BaseProductDeletion {
     getProductDeleteNotification = (): CachedDeletedProduct[] => {
         const data = this.cache.read(CACHE_PRODUCT_DELETED)
 
-        const list = CachedDeletedProductList.parse(data);
+        let list
+
+        if (data !== undefined) {
+            list = CachedDeletedProductList.parse(data);
+        }
 
         if (list === undefined) {
             return []
@@ -65,23 +70,50 @@ export class BaseProductDeletion {
             })
     }
 
-    setMinimalProductData = (data: readonly MinimalProduct[]): void => {
+    setMinimalProductData = (data: readonly DeleteProduct[]): void => {
         const list = DeleteNotifications.parse(data);
 
         if (list === undefined) {
             throw new Error(`The data is not valid to be set`)
         }
 
-        this.cache.set(CACHE_PRODUCT_SKU_LIST, data.filter((product: MinimalProduct) => product.sku !== '')
-            .map((product: MinimalProduct) => {
-                return {
-                    productId: product.id,
-                    sku: product.sku
+        const newList = data
+            .filter((product: DeleteProduct) => product.sku !== '')
+            .map((product: DeleteProduct): CachedProduct => {
+                const match = this.findProductInCache(product.id)
+                if (match === undefined) {
+                    return {
+                        productId: product.id,
+                        sku: product.sku,
+                        import_status: 'unknown'
+                    }
                 }
-            }))
+
+                return match
+            })
+
+        this.cache.set(CACHE_PRODUCT_SKU_LIST, newList)
     }
 
-    getProductSku = (productId: number): string => {
+    updateProductImportStatus = (data: ProductStatusRequest) => {
+        const cacheData: unknown = this.cache.read(CACHE_PRODUCT_SKU_LIST)
+        const list = CachedProductList.parse(cacheData);
+
+        if (list === undefined) {
+            throw new Error(`No sku was found for the product id ${data.sku}`)
+        }
+
+        this.cache.set(CACHE_PRODUCT_SKU_LIST, list.map((product: CachedProduct) => {
+            if (product.sku === data.sku) {
+                return {
+                    ...product, import_status: data.import_status
+                }
+            }
+            return product
+        }))
+    }
+
+    findProductInCache = (productId: number) => {
         const data: unknown = this.cache.read(CACHE_PRODUCT_SKU_LIST)
         const list = CachedProductList.parse(data);
 
@@ -89,7 +121,20 @@ export class BaseProductDeletion {
             throw new Error(`No sku was found for the product id ${productId}`)
         }
 
-        const product = list.find((product: CachedProduct, index) => product.productId === productId)
+        return list.find((product: CachedProduct) => product.productId === productId)
+    }
+
+    getProductSku = (productId: number): string => {
+        const product = this.findProductInCache(productId)
         return product?.sku || ''
+    }
+
+    getProductImportStatus = (productId: number): string => {
+        const product = this.findProductInCache(productId)
+        return product?.import_status || ''
+    }
+
+    isProductValidForImport = (productId: number): boolean => {
+        return this.getProductImportStatus(productId) !== 'imported'
     }
 }

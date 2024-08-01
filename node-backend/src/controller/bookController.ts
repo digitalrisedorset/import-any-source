@@ -31,9 +31,10 @@ export class BookController implements ImportControllerInterface {
         }
     }
 
-    getProductToImport = async (req: Request, res: Response) => {
-
+    setProductImported = (req: Request, res: Response) => {
+        res.send('success')
     }
+
 
     createImport = async (req: Request, res: Response) => {
         try {
@@ -100,7 +101,7 @@ export class BookController implements ImportControllerInterface {
             }
 
             const plantImporter = new ImportCreator()
-            const filename = await plantImporter.createCsvDeleteImport(list)
+            const filename = '';// await plantImporter.createCsvDeleteImport(list)
             console.log('Import complete', filename)
             res.send({
                 filename,

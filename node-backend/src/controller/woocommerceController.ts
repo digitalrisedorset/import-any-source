@@ -32,15 +32,11 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    getProductToImport = async (req: Request, res: Response) => {
+    setProductImported = (req: Request, res: Response) => {
         try {
-            const wooClient = new Woocommerce()
-            const list = await wooClient.getProductBatch()
             const wooImporter = new ImportCreator()
-            await wooImporter.saveProductMinimalData(list)
-            const rows = await wooImporter.getProductData(list, req.body)
-            console.log('import response', rows)
-            res.send({ rows })
+            wooImporter.saveProductImported(req.body)
+            res.send('success')
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
@@ -53,9 +49,10 @@ export class WoocommerceController implements ImportControllerInterface {
             const list = await wooClient.getProductBatch()
             const wooImporter = new ImportCreator()
             await wooImporter.saveProductMinimalData(list)
-            const filename = await wooImporter.createCsvImport(list, req.body)
+            const rows = await wooImporter.getProductImportData(list, req.body)
+            const filename = await wooImporter.finaliseWriteRows(rows)
             console.log('Import complete', filename)
-            res.send({ filename })
+            res.send({ filename, rows })
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
@@ -76,11 +73,13 @@ export class WoocommerceController implements ImportControllerInterface {
             }
 
             const wooImporter = new ImportCreator()
-            const filename = await wooImporter.createCsvUpdateImport(list)
+            const rows = await wooImporter.getProductUpdateData(list)
+            const filename = await wooImporter.finaliseWriteRows(rows)
             console.log('Import complete', filename)
             res.send({
                 filename,
-                update: list.length
+                update: list.length,
+                rows
             })
         } catch (e) {
             res.status(500).send("Error")
@@ -118,17 +117,21 @@ export class WoocommerceController implements ImportControllerInterface {
             if (list.length === 0) {
                 res.send({
                     filename: '',
-                    delete: 0
+                    delete: 0,
+                    rows: []
                 })
                 return
             }
 
             const wooImporter = new ImportCreator()
-            const filename = await wooImporter.createCsvDeleteImport(list)
+            const rows = await wooImporter.getProductDeleteData(list)
+            const filename = await wooImporter.finaliseWriteRows(rows)
+
             console.log('Import complete', filename)
             res.send({
                 filename,
-                delete: list.length
+                delete: list.length,
+                rows
             })
         } catch (e) {
             res.status(500).send("Error")

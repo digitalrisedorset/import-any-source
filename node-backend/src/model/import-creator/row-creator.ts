@@ -7,7 +7,6 @@ import { HeaderField } from "../../types/general";
 import { MagentoProductFieldCase } from "../../types/magento";
 import { WoocommerceDataMapper } from "../woocommerce/data-mapper";
 import { MagentoData } from '../magento-data'
-import { response } from "express";
 
 export class ImportRowCreator {
     woocommerceDataMapper = new WoocommerceDataMapper()
