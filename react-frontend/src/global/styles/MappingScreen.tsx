@@ -43,6 +43,7 @@ export const MonitoringArea = styled.div<StyleProps>`
   box-shadow: var(--bs);
   position: relative;
   width:46%;
+  font-size: 1em;
 `;
 
 export const DeleteButton = styled.button`

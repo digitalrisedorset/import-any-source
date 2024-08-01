@@ -1,8 +1,6 @@
 import {useActions} from "../../../global/hooks/useActions";
 import {RemotePimAttributeProvider} from "../../../mapping/models/RemotePimAttributeProvider"
 import {useNavigate} from "react-router-dom";
-import {LoadingDotsIcon} from "../../../global/components/Loading";
-import {useState} from "react";
 import {PimSystemSelect} from "./PimSystemSelect"
 import {useCreatePimAttributes} from "../../graphql/useCreatePimAttributes";
 import StepForm from "../../../global/styles/StepForm";
@@ -12,7 +10,6 @@ import {PimSystemReport} from "../PimSystemReport";
 
 export const ImportPimAttribute = () => {
     const currentPimSystem = useActivePimSystem()
-    const [importing, setImporting] = useState(false)
     const { addFlashMessage, setPimAttributesImported } = useActions()
     const navigate = useNavigate()
     const remoteAttributeProvider = RemotePimAttributeProvider()
@@ -25,7 +22,6 @@ export const ImportPimAttribute = () => {
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
         try {
-            setImporting(true)
             remoteAttributeProvider.loadAttributes(currentPimSystem.name).then(response => {
                 createListAttribute({
                     variables: {
@@ -39,15 +35,11 @@ export const ImportPimAttribute = () => {
                 }).catch(() => {
                     throw new Error('The attributes could not be created')
                 })
-                setImporting(false)
             })
         } catch (e) {
             console.log('error');
-            setImporting(false)
         }
     }
-
-    if (importing) return <LoadingDotsIcon />
 
     return (
         <StepForm>

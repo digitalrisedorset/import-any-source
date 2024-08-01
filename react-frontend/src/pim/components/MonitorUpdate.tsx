@@ -4,10 +4,13 @@ import {UpdateModel} from "../models/UpdateImport"
 import {ImportUpdateResponse} from "../../types/pim";
 import {RenderFileDownload} from "./DownloadLink"
 import {useAccess} from "../../configuration/hooks/useAccess";
+import {useActions} from "../../global/hooks/useActions";
+import {useProductImport} from "../hooks/useProductImport";
 
 const InitResponse: ImportUpdateResponse = {
     filename: '',
-    fileurl: ''
+    fileurl: '',
+    rows: []
 };
 
 interface UpdateResponse extends ImportUpdateResponse {
@@ -41,35 +44,50 @@ const RenderDelete = (deleteCsvFile: UpdateResponse) => (
 )
 
 export const MonitorUpdate = () => {
-    const [monitor, setMonitor] = useState(false)
     const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)
-    const  {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
+    const {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
+    const { setPimProductUpdateNotification, addFlashMessage, setProductMonitoredAction } = useActions()
+    const {importMonitored} = useProductImport()
 
     useEffect(() => {
-        if (monitor) {
-            console.log('starting monitoring', monitor)
+        if (importMonitored) {
             const updateModel = new UpdateModel()
+
             const interval = setInterval(async () => {
-                updateModel.createUpdateImport().then(response => {
-                    setUpdateCsvFile(response as UpdateResponse)
-                })
+                if (canUpdateProducts) {
+                    updateModel.createUpdateImport().then(response => {
+                        setUpdateCsvFile(response as UpdateResponse)
+                        if (response?.rows !== undefined) {
+                            setPimProductUpdateNotification(response?.rows, 'update')
+                            addFlashMessage(`${response?.rows?.length} updates have been made`)
+                        }
+                    })
+                }
             }, MINUTE_MS);
 
             const interval2 = setInterval(async () => {
-                updateModel.createDeleteImport().then(response => {
-                    setDeleteCsvFile(response as UpdateResponse)
-                })
+                if (canDeleteProducts)
+                {
+                    console.log('delete notification')
+                    updateModel.createDeleteImport().then(response => {
+                        setDeleteCsvFile(response as UpdateResponse)
+                        if (response?.rows !== undefined) {
+                            setPimProductUpdateNotification(response?.rows, 'delete')
+                            addFlashMessage(`${response?.rows?.length} products have been deleted`)
+                        }
+                    })
+                }
             }, MINUTE_MS);
 
             return () => clearInterval(interval && interval2)
         }
-    }, [monitor])
+    }, [importMonitored])
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         e.preventDefault();
         try {
-            setMonitor(!monitor)
+            setProductMonitoredAction(!importMonitored)
         } catch (e) {
             console.log('error');
         }
@@ -79,11 +97,11 @@ export const MonitorUpdate = () => {
         <MonitoringArea>
             <form>
                 <h2>Product Update Status</h2>
-                {canMonitorData && !monitor && <button type="submit" onClick={handleSubmit}>
+                {canMonitorData && !importMonitored && <button type="submit" onClick={handleSubmit}>
                     Launch Product Monitoring
                 </button>
                 }
-                {monitor && <>The product update are being monitored<br/>
+                {importMonitored && <>The product updates are being monitored<br/>
                     <button type="submit" onClick={handleSubmit}>
                         Stop Product Monitoring
                     </button>

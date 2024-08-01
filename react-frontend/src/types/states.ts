@@ -51,6 +51,8 @@ export const defaultImportState = {
 }
 
 export interface PimImportProductState {
+    importMonitored: boolean,
+    importStatus: string,
     pimProductHeader: string[],
     pimProducts: RemotePimProduct[]
 }

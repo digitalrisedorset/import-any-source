@@ -1,13 +1,21 @@
 import styled from "styled-components";
 
 export const TabStyles = styled.ul`
+    li {
+        &.active {
+            color: var(--red)
+        },
+        &.complete {
+            color: var(--lightGrey);
+        }
+    }
   margin: 0 0 0 40px;
   padding: 0;
   display: flex;
     list-style: none;
   justify-self: end;
   font-size: 2rem;
-  a,
+  .link,
   button {
     padding: 1rem 3rem;
     display: flex;
@@ -64,6 +72,20 @@ export const TabStyles = styled.ul`
     justify-content: center;
     font-size: 1.5rem;
   }
+
+    @-webkit-keyframes blinker {
+        from { opacity: 1.0; }
+        to { opacity: 0.0; }
+    }
+
+    .monitoring-warning {
+        -webkit-animation-name: blinker;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
+        -webkit-animation-duration: 1.7s;
+        color: var(--red);
+        margin-top: 9px;
+    }
 `;
 
 export const TabContainer = styled.div`

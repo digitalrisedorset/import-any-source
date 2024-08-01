@@ -34,7 +34,7 @@ const SIGNIN_MUTATION = gql`
 export const useLoginUser = (inputs: any) => {
     const { setUserAccess, setActiveTheme } = useActions()
 
-    const [signin, { data, loading }] = useMutation(SIGNIN_MUTATION, {
+    const [signin] = useMutation(SIGNIN_MUTATION, {
         variables: inputs,
         refetchQueries: [{ query: CURRENT_USER_QUERY }],
     });

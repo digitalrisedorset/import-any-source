@@ -72,3 +72,4 @@ export interface RemoteProductsToCreate {
 export interface PimQueryResult extends QueryResult {
     pimAttributes: PimAttribute[]
 }
+

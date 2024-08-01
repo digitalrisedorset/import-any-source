@@ -10,8 +10,20 @@ export class UpdateModel {
             return {
                 filename: response.data.filename,
                 fileurl: `${config.nodejsEndpoint}/${response.data.filename}`,
-                numberItem: response.data?.update
+                numberItem: response.data?.update,
+                rows: response.data?.rows
             } as ImportUpdateResponse;
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    updateProductImportStatus = async (sku: string) => {
+        try {
+            const response = await Axios.post('woocommerce/setProductImported', {sku, import_status: 'imported'});
+            if (response.data === 'success') {
+                return true
+            }
         } catch (e) {
             console.log(e)
         }
@@ -33,17 +45,6 @@ export class UpdateModel {
                 fileurl: ``,
                 numberItem: 0
             } as ImportUpdateResponse;
-        }
-    }
-
-    readDeleteNotification = async () => {
-        try {
-            const response = await Axios.post('woocommerce/pimDeleteNotification', {});
-            if (response.data.length>0) {
-                return response.data;
-            }
-        } catch (e) {
-            console.log(e)
         }
     }
 }

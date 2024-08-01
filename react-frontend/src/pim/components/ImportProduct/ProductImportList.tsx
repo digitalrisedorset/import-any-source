@@ -1,68 +1,43 @@
 import {useProductImport} from "../../hooks/useProductImport";
-import {Table} from '../../styles/GridStyle';
+import {useMagentoProducts} from "../../../magento/graphql/magento/useMagentoProducts";
+import {useActions} from "../../../global/hooks/useActions";
+import {useProductImportGrid} from "../../../global/hooks/useProductGrid";
 
 export const ProductImportList = () => {
-    const {pimProductHeader, pimProducts} = useProductImport()
+    const {importStatus, pimProducts} = useProductImport()
+    const getProductDataBySku = useMagentoProducts()
+    const { setPimProductBatchValidated, addFlashMessage } = useActions()
+    const getProductGrid = useProductImportGrid()
 
     if (!pimProducts) return <></>
 
-    const getClassname = (elt: string) => {
-        let result = ''
-        switch (elt) {
-            case 'store_view_code':
-            case 'attribute_set_code':
-            case 'product_websites':
-            case 'price':
-            case 'special_price':
-            case 'status':
-                result = 'small'
-                break;
-            case 'sku':
-                result = 'medium'
-                break
-            case 'name':
-            case 'short_description':
-            case 'description':
-                result = 'truncated'
-                break
-            default:
-                result = 'medium'
-        }
+    const handleValidateProduct = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
 
-        return `${elt} ${result}`
-    }
+        const products = await getProductDataBySku();
 
-    const getColumnContent = (content: string, elt: string) => {
-        switch (elt) {
-            case 'short_description':
-            case 'description':
-                return content.substring(0, 45) + "...";
-                break
-            default:
-                return content
+        if (products?.data?.products?.items !== undefined) {
+            setPimProductBatchValidated(products?.data?.products?.items)
+            addFlashMessage(`${pimProducts?.length} magento product have been validated`)
         }
     }
 
-    const getRow = (item: any) => {
-        console.log('getRow', Object.entries(item))
-        return Object.entries(item).map((elt: any) => {
-            return <td className={getClassname(elt[0])}>{getColumnContent(elt[1], elt[0])}</td>
-        })
-    }
-
-    const getHeader = (item: any) => {
-        return Object.values(item).map((elt: any) => {
-                const label = elt.replaceAll('_', ' ');
-                return <th className={getClassname(elt)}>{label}</th>
-            })
+    const handleImportProduct = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
     }
 
     return (
-        <Table>
-            {pimProducts?.length>0 && <tr>{getHeader(pimProductHeader)}</tr>}
-            {pimProducts?.length>0 && pimProducts.map((item: any) =>
-                <tr>{getRow(item)}</tr>
-            )}
-        </Table>
+        <>
+            {pimProducts?.length > 0 && <>
+                <button type="submit" disabled={importStatus === 'validated' || importStatus === 'ready'} onClick={handleValidateProduct}>
+                    Validate Products
+                </button>
+                &nbsp;
+                <button type="submit" disabled={importStatus !== 'ready'} onClick={handleImportProduct}>
+                    Import Products
+                </button>
+                {getProductGrid}
+            </>}
+        </>
     );
 };

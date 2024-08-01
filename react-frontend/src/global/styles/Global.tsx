@@ -16,15 +16,20 @@ export const GlobalStyles = createGlobalStyle<StyleProps>`
       color: ${(props: StyleProps): string => props.colors.font?props.colors.font:'#595f39' };
       --red: ${(props: StyleProps): string => props.colors.deep?props.colors.deep:'#595f39' };
       --black:  ${(props: StyleProps): string => props.colors.normal?props.colors.normal:'#1B1B1B' };
-      --grey: ${(props: StyleProps): string => props.colors.light?props.colors.light:'#C4C5BA' }; 
+      --grey: ${(props: StyleProps): string => props.colors.light?props.colors.light:'#C4C5BA' };
     --gray: var(--grey);
     --lightGrey: #e1e1e1;
     --lightGray: var(--lightGrey);
     --offWhite: #E4E4DE;
     --maxWidth: 1000px;
     --bs: 0 12px 24px 0 rgba(0,0,0,0.09);
+    --valid: #cdf2e2;
+    --invalid: #ff9d00;
+    --updated: lightblue;
+    --deleted: var(--red);  
     box-sizing: border-box;
     font-size: 10px;
+      
   }
   *, *:before, *:after {
     box-sizing: inherit;

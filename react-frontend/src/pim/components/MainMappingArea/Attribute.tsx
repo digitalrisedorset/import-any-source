@@ -11,7 +11,7 @@ import {useActions} from "../../../global/hooks/useActions";
 
 interface AttributeProps {
     attribute: PimAttribute,
-    candelete: boolean
+    candelete: "true" | "false"
 }
 
 export const Attribute = ({attribute, candelete}: AttributeProps) => {
@@ -28,14 +28,14 @@ export const Attribute = ({attribute, candelete}: AttributeProps) => {
     }
 
     return (
-        <ItemStyles required={attribute.required} id={attribute.id}>
+        <ItemStyles required={attribute.required} candelete={candelete} id={attribute.id}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>
             <span className="type">{attribute.type}</span>
             <span className="date-created">created: <br/>{date.toDateString()} </span>
             <LinkedWith magentoCode={attribute.magentoCode}/>
-            <DeleteButton onClick={removeField}>Delete</DeleteButton>
+            {candelete=== 'true' && <DeleteButton onClick={removeField}>Delete</DeleteButton>}
         </ItemStyles>
     )
 }

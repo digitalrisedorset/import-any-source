@@ -27,4 +27,24 @@ export const Table = styled.table`
     td.truncated {
         width: 300px;
     }
+    td.price {
+        text-align: center;
+    }
+    tr.valid {
+        background: var(--valid);
+    }
+    tr.not_needed {
+        background:  var(--invalid);
+    }
+    tr.updated {
+        background:  var(--updated);
+    }
+    tr.deleted {
+        background:  var(--deleted);
+    }
+    button {
+        font-size: small;
+        margin: 0;
+        padding: 5px;
+    }
 `

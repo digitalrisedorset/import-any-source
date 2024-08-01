@@ -10,7 +10,7 @@ import {GetMagentoMappedAttribute} from "../../magento/components/GetMagentoMapp
 
 export class StepDataReader {
     getImportStep = () => {
-        const  {canImportPIMAttribute, canImportMagentoAttribute, canMapAttribute, canImportProduct, canSetupImport} = useAccess()
+        const  {canImportPIMAttribute, canImportMagentoAttribute, canMapAttribute, canImportProduct, canMonitorData} = useAccess()
 
         const stepData: StepData = []
 
@@ -48,10 +48,12 @@ export class StepDataReader {
             })
         }
 
-        stepData.push({
-            step: "Step 5",
-            component: <MonitorUpdate/>
-        })
+        if (canMonitorData) {
+            stepData.push({
+                step: "Step 5",
+                component: <MonitorUpdate/>
+            })
+        }
 
         return stepData
     }

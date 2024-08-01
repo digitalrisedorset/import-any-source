@@ -4,12 +4,13 @@ import {MagentoAttribute} from "../../types/keystone";
 import {Attribute} from "./Attribute";
 
 export const GetMagentoMappedAttribute = () => {
-    const { data, error, loading } = useMagentoAttributes()
+    const { data, loading } = useMagentoAttributes()
 
     const getActiveAttributes = (attributes: MagentoAttribute[]): MagentoAttribute[] => {
-        return attributes.filter((attribute: MagentoAttribute) => attribute.assignedTo.length>0)
-        return attributes
+        return attributes?.filter((attribute: MagentoAttribute) => attribute.assignedTo.length>0)
     }
+
+    if (!loading && getActiveAttributes(data?.magentoAttributes).length === 0) return <CardStyles><h3>No Attribute is mapped yet</h3></CardStyles>
 
     return (
         <CardStyles>

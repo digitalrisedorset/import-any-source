@@ -7,7 +7,7 @@ import {usePimAttributes} from "../../graphql/usePimAttributes";
 
 export const GetPimAttribute = () => {
     const { data, error, loading } = usePimAttributes()
-    const candelete: boolean = true
+    const candelete = "true"
 
     const getActiveAttributes = (attributes: PimAttribute[]): PimAttribute[] => {
         return attributes.filter((attribute: PimAttribute) => !attribute.ignored)

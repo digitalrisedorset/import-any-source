@@ -22,14 +22,15 @@ export class MappingModel {
 
         return {
             filename: response.data.filename,
-            fileurl: `${config.nodejsEndpoint}/${response.data.filename}`
+            fileurl: `${config.nodejsEndpoint}/${response.data.filename}`,
+            rows: response.data.rows
         };
     }
 
     getProductDataImport = async (pimSystemCode: string): Promise<RemotePimProduct[] | undefined> => {
         const fields = this.getFieldList()
         const response = await Axios.post(
-            `${pimSystemCode}/getProductToImport`,
+            `${pimSystemCode}/createImport`,
             {'mapping': fields}
         )
 

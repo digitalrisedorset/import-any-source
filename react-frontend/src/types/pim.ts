@@ -13,7 +13,8 @@ export interface RemotePimProduct {
     readonly price: number,
     images: [{
         src: string
-    }]
+    }],
+    import_status: string
 }
 
 export interface PimApiProducteResponse {
@@ -26,12 +27,14 @@ export interface DownlinkFile {
 }
 
 export interface ImportResponse extends DownlinkFile {
+    rows: RemotePimProduct[]
 }
 
 export interface ImportUpdateResponse extends DownlinkFile {
     filename: string,
     fileurl: string,
-    numberItem?: number
+    numberItem?: number,
+    rows: RemotePimProduct[]
 }
 
 export enum PIM_SYSTEM {
