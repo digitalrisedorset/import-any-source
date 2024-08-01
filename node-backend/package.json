@@ -11,7 +11,8 @@
     "cron": "nodemon build/cron.js",
     "docker:build": "docker build -t import-attribute-node-backend:latest-dev .",
     "docker:run": "docker run -p 3000:3000 -v ./:/user/src/app --name node_backend import-attribute-node-backend:latest-dev",
-    "docker:stop": "docker stop node_backend"
+    "docker:stop": "docker stop node_backend",
+    "ts-coverage": "typescript-coverage-report"
   },
   "keywords": [],
   "author": "",
@@ -45,6 +46,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17"
+    "@types/cors": "^2.8.17",
+    "typescript-coverage-report": "^1.0.0"
   }
 }

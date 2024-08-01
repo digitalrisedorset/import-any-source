@@ -37,7 +37,8 @@
     "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ts-coverage": "typescript-coverage-report"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^13.13.0"
+    "cypress": "^13.13.0",
+    "typescript-coverage-report": "^1.0.0"
   }
 }
