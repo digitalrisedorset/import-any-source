@@ -61,13 +61,6 @@ export class BaseProductDeletion {
         }
 
         return list.filter((product: CachedDeletedProduct) => Number(product.productId !== 0))
-            .map((product: CachedDeletedProduct) => {
-                return {
-                    productId: product.productId,
-                    sku: this.getProductSku(product.productId),
-                    date: product.date,
-                }
-            })
     }
 
     setMinimalProductData = (data: readonly DeleteProduct[]): void => {

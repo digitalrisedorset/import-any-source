@@ -16,9 +16,9 @@ export class ImportCreator {
     productDeletion = new ProductDeletion()
 
     getProductImportData = async (data: Readonly<WoocommerceProduct[]>, mappingFields: ImportMappingFields) => {
-        const row = await this.importRowCreator.createHeader(mappingFields)
+        const header = await this.importRowCreator.createHeader(mappingFields)
         this.csvWriter.startImport()
-        this.csvWriter.writeHeader(row)
+        this.csvWriter.writeHeader(header)
 
         const simpleRows = await this.variationDataProvider.getVariationRows(data, mappingFields)
 
@@ -29,7 +29,9 @@ export class ImportCreator {
     }
 
     getProductUpdateData = async (data: Readonly<WoocommerceProduct[]>) => {
-        const row = await this.importRowCreator.createHeaderFromCache()
+        const header = await this.importRowCreator.createHeaderFromCache()
+        this.csvWriter.startUpdate()
+        this.csvWriter.writeHeader(header)
 
         const mappingFields: ImportMappingFields = await this.importRowCreator.getMappingFields()
         const simpleRows = await this.variationDataProvider.getVariationRows(data, mappingFields)
