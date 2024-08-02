@@ -1,7 +1,7 @@
 import {MonitoringArea} from '../../global/styles/MappingScreen';
 import {useEffect, useState} from "react";
 import {UpdateModel} from "../models/UpdateImport"
-import {IMPORT_DELETE_RECEIVED, IMPORT_UPDATE_RECEIVED, ImportUpdateResponse} from "../../types/pim";
+import {ImportUpdateResponse} from "../../types/pim";
 import {RenderFileDownload} from "./DownloadLink"
 import {useAccess} from "../../configuration/hooks/useAccess";
 import {useActions} from "../../global/hooks/useActions";

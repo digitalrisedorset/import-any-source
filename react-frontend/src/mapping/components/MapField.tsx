@@ -25,7 +25,7 @@ export const MapField = () => {
         if (code) {
             setAttributeCodeState(code)
         }
-    }, [])
+    }, [code])
 
     return (
         <div>

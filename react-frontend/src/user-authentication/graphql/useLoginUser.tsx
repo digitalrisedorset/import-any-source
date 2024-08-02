@@ -44,7 +44,7 @@ export const useLoginUser = (inputs: any) => {
         if (res?.data?.authenticateUserWithPassword?.item) {
             const user = res.data.authenticateUserWithPassword.item
             setUserAccess(user.role)
-            setActiveTheme(user.theme)
+            setActiveTheme(user.theme || '')
         }
 
         return (res?.data?.authenticateUserWithPassword.__typename === 'UserAuthenticationWithPasswordFailure')

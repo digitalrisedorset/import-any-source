@@ -4,10 +4,10 @@ import {PimProductsActionType} from "../action-types/PimProductsAction";
 import {
     IMPORT_DELETE_RECEIVED,
     IMPORT_LOADED, IMPORT_READY, IMPORT_UPDATE_RECEIVED,
-    IMPORT_VALIDATED, PRODUCT_DELETED,
+    IMPORT_VALIDATED,
     PRODUCT_EXIST,
     PRODUCT_READY, PRODUCT_UPDATE,
-    RemotePimProduct, UPDATE_NOTIFICATION_TYPE
+    RemotePimProduct
 } from "../../../types/pim";
 import {MagentoProduct} from "../../../magento/types/magento";
 

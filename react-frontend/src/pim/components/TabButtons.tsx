@@ -31,7 +31,7 @@ const RenderMonitoring = (canDeleteProducts: boolean, canUpdateProducts: boolean
 
 export default function TabButtons({ stepData, activeTab, setActiveTab }: TabsButtonProps) {
     const {importMonitored} = useProductImport()
-    const {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
+    const {canDeleteProducts, canUpdateProducts} = useAccess()
 
     const getTabClassname = (index: number): string => {
         if (index === activeTab) {

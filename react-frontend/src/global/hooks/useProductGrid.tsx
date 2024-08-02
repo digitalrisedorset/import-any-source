@@ -51,21 +51,26 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: any[]) =
 
     const getRow = (item: RemotePimProduct) => {
         return Object.entries(item).map((elt: any) => {
-            return <td className={getClassname(elt[0])}>{getColumnContent(item, elt[1], elt[0])}</td>
+            const key = `col-${elt[0]}`
+            return <td key={key} className={getClassname(elt[0])}>{getColumnContent(item, elt[1], elt[0])}</td>
         })
     }
 
     const getHeader = (item: any) => {
         return Object.values(item).map((elt: any) => {
             const label = elt.replaceAll('_', ' ');
-            return <th className={getClassname(elt)}>{label}</th>
+            const key = `head-${elt}`
+            return <th key={key} className={getClassname(elt)}>{label}</th>
         })
     }
 
     return <Table>
-        <tr>{getHeader(pimProductHeader)}</tr>
-        {pimProducts.map((item: RemotePimProduct) =>
-            <tr key={item.id} className={getStatusClassname(item)}>{getRow(item)}</tr>
+        <tr key="header-${Math.random()}">{getHeader(pimProductHeader)}</tr>
+        {pimProducts.map((item: RemotePimProduct) => {
+            const key = `row-${item.id}`
+            return (
+                <tr key={key} className={getStatusClassname(item)}>{getRow(item)}</tr>
+            )}
         )}
     </Table>
 }
