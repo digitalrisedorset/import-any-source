@@ -61,11 +61,7 @@ export const User = list({
                 update: isAdmin,
             },
             isFilterable: false,
-            isOrderable: false,
-            isIndexed: 'unique',
-            validation: {
-                isRequired: true,
-            },
+            isOrderable: false
         }),
         email: text({
             access: {
