@@ -3,8 +3,7 @@ import {RemotePimProduct} from "../../types/pim";
 import {Table} from "../../pim/styles/GridStyle";
 import {useProductImport} from "../../pim/hooks/useProductImport";
 
-export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePimProduct[]) => {
-    //const {pimProductHeader, pimProducts} = useProductImport()
+export const useProductGrid = (pimProductHeader: string[], pimProducts: any[]) => {
     const getClassname = (elt: string) => {
         let result = ''
         switch (elt) {
@@ -66,7 +65,7 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePi
     return <Table>
         <tr>{getHeader(pimProductHeader)}</tr>
         {pimProducts.map((item: RemotePimProduct) =>
-            <tr className={getStatusClassname(item)}>{getRow(item)}</tr>
+            <tr key={item.id} className={getStatusClassname(item)}>{getRow(item)}</tr>
         )}
     </Table>
 }
@@ -76,7 +75,8 @@ export const useProductImportGrid = () => {
     return useProductGrid(pimProductHeader, pimProducts)
 }
 
-export const useProductUpdateGrid = () => {
-    const {pimProductHeader, pimProducts} = useProductImport()
-    return useProductGrid(pimProductHeader, pimProducts)
+export const useProductDeletedGrid = () => {
+    const { pimDeletedProducts} = useProductImport()
+    const pimProductHeader = ['sku', 'deleted']
+    return useProductGrid(pimProductHeader, pimDeletedProducts)
 }

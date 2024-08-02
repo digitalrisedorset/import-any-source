@@ -3,7 +3,7 @@ import {RemotePimAttributeProvider} from "../../../mapping/models/RemotePimAttri
 import {useNavigate} from "react-router-dom";
 import {PimSystemSelect} from "./PimSystemSelect"
 import {useCreatePimAttributes} from "../../graphql/useCreatePimAttributes";
-import StepForm from "../../../global/styles/StepForm";
+import {StepForm} from "../../../global/styles/StepForm";
 import {useActivePimSystem} from "../../hooks/useCurrentPimSystem";
 import {PimAttribute} from "../../../types/keystone";
 import {PimSystemReport} from "../PimSystemReport";

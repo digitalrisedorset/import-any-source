@@ -1,15 +1,16 @@
 import {useTypedSelector} from "../../global/hooks/useTypedSelector";
-import {RemotePimProduct} from "../../types/pim";
+import {DeletedPimProduct, RemotePimProduct} from "../../types/pim";
 
 interface ImportProductResponse {
     importMonitored: boolean,
     importStatus: string,
     pimProducts: RemotePimProduct[],
+    pimDeletedProducts: DeletedPimProduct[],
     pimProductHeader: string[]
 }
 
 export const useProductImport = (): ImportProductResponse => {
-    const { importMonitored, importStatus, pimProducts, pimProductHeader } = useTypedSelector((state) => state.pimProduct)
+    const { importMonitored, importStatus, pimProducts, pimProductHeader, pimDeletedProducts } = useTypedSelector((state) => state.pimProduct)
 
-    return {importMonitored, importStatus, pimProductHeader, pimProducts}
+    return {importMonitored, importStatus, pimProductHeader, pimProducts, pimDeletedProducts}
 }

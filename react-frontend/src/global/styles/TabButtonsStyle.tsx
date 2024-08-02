@@ -84,7 +84,9 @@ export const TabStyles = styled.ul`
         -webkit-animation-timing-function: cubic-bezier(.5, 0, 1, 1);
         -webkit-animation-duration: 1.7s;
         color: var(--red);
-        margin-top: 9px;
+        margin-top: 5px;
+        line-height: 1.3em;
+        font-size: medium;
     }
 `;
 

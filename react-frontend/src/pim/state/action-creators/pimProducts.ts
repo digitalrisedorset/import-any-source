@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {SetPimProductActionList} from "../actions/pimProduct";
 import {PimProductsActionType} from "../action-types/PimProductsAction";
-import {RemotePimProduct} from "../../../types/pim";
+import {DeletedPimProduct, RemotePimProduct} from "../../../types/pim";
 import {MagentoProduct} from "../../../magento/types/magento";
 
 export const setProductMonitoredAction = (active: boolean) => {
@@ -40,12 +40,20 @@ export const setPimProductRemoved = (sku: string) => {
     }
 }
 
-export const setPimProductUpdateNotification = (magentoProducts: MagentoProduct[], changeType: string) => {
+export const setPimProductUpdateNotification = (magentoProducts: MagentoProduct[]) => {
     return async (dispatch: Dispatch<SetPimProductActionList>) => {
         dispatch({
             type: PimProductsActionType.SET_PIM_PRODUCT_UPDATE_NOTIFCATION,
-            magentoProducts,
-            changeType
+            magentoProducts
+        })
+    }
+}
+
+export const setPimProductDeleteNotification = (magentoProducts: DeletedPimProduct[]) => {
+    return async (dispatch: Dispatch<SetPimProductActionList>) => {
+        dispatch({
+            type: PimProductsActionType.SET_PIM_PRODUCT_DELETE_NOTIFICATION,
+            magentoProducts
         })
     }
 }

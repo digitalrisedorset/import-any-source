@@ -1,7 +1,7 @@
 import {MonitoringArea} from '../../global/styles/MappingScreen';
 import {useEffect, useState} from "react";
 import {UpdateModel} from "../models/UpdateImport"
-import {ImportUpdateResponse} from "../../types/pim";
+import {IMPORT_DELETE_RECEIVED, IMPORT_UPDATE_RECEIVED, ImportUpdateResponse} from "../../types/pim";
 import {RenderFileDownload} from "./DownloadLink"
 import {useAccess} from "../../configuration/hooks/useAccess";
 import {useActions} from "../../global/hooks/useActions";
@@ -17,7 +17,7 @@ interface UpdateResponse extends ImportUpdateResponse {
     numberItem: number
 }
 
-const MINUTE_MS = 15000;
+const MINUTE_MS = 1500;
 
 const RenderUpdate = (updateCsvFile: UpdateResponse) => {
     return (
@@ -31,23 +31,25 @@ const RenderUpdate = (updateCsvFile: UpdateResponse) => {
     )
 }
 
-const RenderDelete = (deleteCsvFile: UpdateResponse) => (
-    <>
-        {deleteCsvFile?.numberItem===0 && <>
-            <h3>No Product have been deleted</h3>
-        </>}
-        {deleteCsvFile?.numberItem>0 && <>
-            <h3>The last product validation has {deleteCsvFile.numberItem} product deleted</h3>
-            {RenderFileDownload(deleteCsvFile)}
-        </>}
-    </>
-)
+const RenderDelete = (deleteCsvFile: UpdateResponse) => {
+    return (
+        <>
+            {deleteCsvFile?.numberItem === 0 && <>
+                <h3>No Product have been deleted</h3>
+            </>}
+            {deleteCsvFile?.numberItem > 0 && <>
+                <h3>The last product validation has {deleteCsvFile.numberItem} product deleted</h3>
+                {RenderFileDownload(deleteCsvFile)}
+            </>}
+        </>
+    )
+}
 
 export const MonitorUpdate = () => {
     const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)
     const {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
-    const { setPimProductUpdateNotification, addFlashMessage, setProductMonitoredAction } = useActions()
+    const { setPimProductUpdateNotification, setPimProductDeleteNotification, addFlashMessage, setProductMonitoredAction } = useActions()
     const {importMonitored} = useProductImport()
 
     useEffect(() => {
@@ -59,7 +61,7 @@ export const MonitorUpdate = () => {
                     updateModel.createUpdateImport().then(response => {
                         setUpdateCsvFile(response as UpdateResponse)
                         if (response?.rows !== undefined) {
-                            setPimProductUpdateNotification(response?.rows, 'update')
+                            setPimProductUpdateNotification(response?.rows)
                             addFlashMessage(`${response?.rows?.length} updates have been made`)
                         }
                     })
@@ -67,14 +69,15 @@ export const MonitorUpdate = () => {
             }, MINUTE_MS);
 
             const interval2 = setInterval(async () => {
-                if (canDeleteProducts)
-                {
+                if (canDeleteProducts) {
                     console.log('delete notification')
                     updateModel.createDeleteImport().then(response => {
                         setDeleteCsvFile(response as UpdateResponse)
                         if (response?.rows !== undefined) {
-                            setPimProductUpdateNotification(response?.rows, 'delete')
-                            addFlashMessage(`${response?.rows?.length} products have been deleted`)
+                            setPimProductDeleteNotification(response?.rows)
+                            if (response?.rows?.length > 0) {
+                                addFlashMessage(`${response?.rows?.length} products have been deleted`)
+                            }
                         }
                     })
                 }

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StepForm = styled.form`
+export const StepForm = styled.form`
     display: flex;
     .main {
         border: 1px solid var(--offWhite);
@@ -19,4 +19,3 @@ const StepForm = styled.form`
   }
 `;
 
-export default StepForm;

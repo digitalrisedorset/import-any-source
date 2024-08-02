@@ -1,5 +1,24 @@
 import styled from "styled-components";
 
+export const GridReport = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    .main {
+        margin: 0.5rem 0.5rem 0 0;
+        padding: 1.5rem;
+        border: 2px solid black;
+        box-shadow: 2px 2px 10px black;
+        width: 80%;
+    }
+    .delete {
+        margin: 0.5rem;
+        padding: 1.5rem;
+        border: 2px solid black;
+        box-shadow: 2px 2px 10px black;
+        width: 15%;
+    }
+`
 
 export const Table = styled.table`
     font-size: small;

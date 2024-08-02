@@ -36,7 +36,8 @@ export class UpdateModel {
             return {
                 filename: response.data.filename,
                 fileurl: `${config.nodejsEndpoint}/${response.data.filename}`,
-                numberItem: response.data?.delete
+                numberItem: response.data?.delete,
+                rows: response.data?.rows
             } as ImportUpdateResponse;
         } catch (e) {
             console.log(e)

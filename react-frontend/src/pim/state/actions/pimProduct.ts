@@ -1,5 +1,5 @@
 import {PimProductsActionType} from "../action-types/PimProductsAction"
-import {RemotePimProduct} from "../../../types/pim";
+import {DeletedPimProduct, RemotePimProduct} from "../../../types/pim";
 import {MagentoProduct} from "../../../magento/types/magento";
 
 interface SetProductMonitoredAction {
@@ -24,8 +24,13 @@ interface SetProductRemovedAction {
 
 interface SetProductUpdateNotificationAction {
     type: PimProductsActionType.SET_PIM_PRODUCT_UPDATE_NOTIFCATION,
-    magentoProducts: MagentoProduct[],
-    changeType: string
+    magentoProducts: MagentoProduct[]
 }
 
-export type SetPimProductActionList = SetProductImportAction | SetProductValidationAction | SetProductRemovedAction | SetProductUpdateNotificationAction | SetProductMonitoredAction
+interface SetProductDeleteNotificationAction {
+    type: PimProductsActionType.SET_PIM_PRODUCT_DELETE_NOTIFICATION,
+    magentoProducts: DeletedPimProduct[]
+}
+
+export type SetPimProductActionList = SetProductImportAction | SetProductValidationAction |
+    SetProductRemovedAction | SetProductUpdateNotificationAction | SetProductMonitoredAction | SetProductDeleteNotificationAction

@@ -1,13 +1,15 @@
 import {useProductImport} from "../../hooks/useProductImport";
 import {useMagentoProducts} from "../../../magento/graphql/magento/useMagentoProducts";
 import {useActions} from "../../../global/hooks/useActions";
-import {useProductImportGrid} from "../../../global/hooks/useProductGrid";
+import {useProductDeletedGrid, useProductImportGrid} from "../../../global/hooks/useProductGrid";
+import {GridReport} from "../../styles/GridStyle"
 
 export const ProductImportList = () => {
     const {importStatus, pimProducts} = useProductImport()
     const getProductDataBySku = useMagentoProducts()
     const { setPimProductBatchValidated, addFlashMessage } = useActions()
     const getProductGrid = useProductImportGrid()
+    const getProductDeletedGrid = useProductDeletedGrid()
 
     if (!pimProducts) return <></>
 
@@ -36,7 +38,10 @@ export const ProductImportList = () => {
                 <button type="submit" disabled={importStatus !== 'ready'} onClick={handleImportProduct}>
                     Import Products
                 </button>
-                {getProductGrid}
+                <GridReport>
+                    <div className="main">{getProductGrid}</div>
+                    <div className="delete">{getProductDeletedGrid}</div>
+                </GridReport>
             </>}
         </>
     );

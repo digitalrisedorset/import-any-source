@@ -17,6 +17,11 @@ export interface RemotePimProduct {
     import_status: string
 }
 
+export interface DeletedPimProduct {
+    readonly sku: string
+    import_status: string
+}
+
 export interface PimApiProducteResponse {
     data: RemotePimProduct[]
 }
@@ -43,4 +48,25 @@ export enum PIM_SYSTEM {
     book = 'Book Feed'
 }
 
+export const UPDATE_NOTIFICATION_TYPE = 'update'
+export const DELETE_NOTIFICATION_TYPE = 'delete'
+
+
+export const PRODUCT_READY = 'valid'
+export const PRODUCT_EXIST = 'not_needed'
+
+export const PRODUCT_UPDATE = 'updated'
+
+export const PRODUCT_DELETED = 'deleted'
+
 export type PimSystemTypes = PIM_SYSTEM.woocommerce | PIM_SYSTEM.plant | PIM_SYSTEM.book
+
+export const IMPORT_LOADED = 'loaded'
+
+export const IMPORT_VALIDATED = 'validated'
+
+export const IMPORT_READY = 'ready'
+
+export const IMPORT_UPDATE_RECEIVED = 'update_received'
+
+export const IMPORT_DELETE_RECEIVED = 'delete_received'

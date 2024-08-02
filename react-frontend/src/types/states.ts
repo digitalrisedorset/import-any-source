@@ -1,4 +1,4 @@
-import {RemotePimProduct} from "./pim";
+import {DeletedPimProduct, RemotePimProduct} from "./pim";
 
 export enum APP_STATE {
     pimComplete = 'pim_attribute_imported',
@@ -54,5 +54,6 @@ export interface PimImportProductState {
     importMonitored: boolean,
     importStatus: string,
     pimProductHeader: string[],
-    pimProducts: RemotePimProduct[]
+    pimProducts: RemotePimProduct[],
+    pimDeletedProducts: DeletedPimProduct[]
 }

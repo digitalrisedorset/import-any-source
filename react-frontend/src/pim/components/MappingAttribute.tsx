@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import StepForm from "../../global/styles/StepForm";
+import {StepForm} from "../../global/styles/StepForm";
 import {useMappingVerifier} from "../../mapping/hooks/useMappingVerifier";
 import {MappingReport} from "./MappingReport"
 

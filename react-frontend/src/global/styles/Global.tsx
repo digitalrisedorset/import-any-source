@@ -67,4 +67,8 @@ export const GlobalStyles = createGlobalStyle<StyleProps>`
             opacity: 0.5;
         }
     }
+    .small-hint {
+        font-size: medium;
+        font-weight: normal;
+    }
 `;

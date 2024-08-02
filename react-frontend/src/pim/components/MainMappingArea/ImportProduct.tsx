@@ -2,19 +2,17 @@ import { OperationVariables, QueryResult} from "@apollo/client";
 import {PimAttributeProvider} from "../../models/KeystonePimAttributeProvider"
 import {MagentoAttributeProvider} from "../../../magento/models/KeystoneMagentoAttributeProvider"
 import {MappingModel} from "../../../mapping/models/MappingDataProvider"
-import {
-    PimQueryResult,
-    PimAttribute
-} from "../../../types/keystone";
+import {PimQueryResult, PimAttribute} from "../../../types/keystone";
 import {useActions} from "../../../global/hooks/useActions";
 import {useEffect, useState} from "react";
 import {usePimAttributesLazy} from "../../graphql/usePimAttributes";
 import {usePimAttributesNotMapped} from "../../graphql/useFindPimAttributesNotMapped";
 import {useMagentoAttributesLazy} from "../../../magento/graphql/keystone/useMagentoAttributes";
-import StepForm from "../../../global/styles/StepForm"
+import {StepForm} from "../../../global/styles/StepForm"
 import {useCurrentPimSystemCode} from "../../hooks/useCurrentPimSystem";
 import {ProductImportList} from "../ImportProduct/ProductImportList"
 import {ImportResponse} from "../../../types/pim";
+import {useProductImport} from "../../hooks/useProductImport";
 
 export const ImportProduct = () => {
     const pimSystemCode = useCurrentPimSystemCode()
@@ -22,6 +20,7 @@ export const ImportProduct = () => {
     const [importBuiling, setImportBuilding] = useState(false)
     const { setPimProductBatchLoaded } = useActions()
     const { addDownloadMessage, addFlashMessage } = useActions()
+    const {importStatus, pimProducts} = useProductImport()
 
     const getPimAttributeList = usePimAttributesLazy()
     const getMagentoAttributeList = useMagentoAttributesLazy()
@@ -95,7 +94,7 @@ export const ImportProduct = () => {
     return (
         <StepForm>
             <div className="main">
-                <h2>Step 4</h2>
+                <h2>Step 4 {pimProducts?.length>0 && <span className="small-hint">({pimProducts?.length} products are {importStatus})</span>}</h2>
 
                 <button type="submit" disabled={importBuiling || !mappingReady} onClick={handleDownloadProduct}>
                     Download Products to Import
