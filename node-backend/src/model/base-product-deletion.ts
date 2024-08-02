@@ -106,8 +106,13 @@ export class BaseProductDeletion {
         }))
     }
 
-    findProductInCache = (productId: number) => {
+    findProductInCache = (productId: number): CachedProduct | undefined => {
         const data: unknown = this.cache.read(CACHE_PRODUCT_SKU_LIST)
+
+        if (data === undefined) {
+            return undefined
+        }
+
         const list = CachedProductList.parse(data);
 
         if (list === undefined) {
