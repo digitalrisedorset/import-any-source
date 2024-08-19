@@ -4,7 +4,7 @@ import {
 } from "../../types/woocommerce";
 import { ImportMappingFields } from "../../types/general";
 import { HeaderField } from "../../types/general";
-import { MagentoProductFieldCase } from "../../types/magento";
+import { MagentoProductFieldMap } from "../../types/magento";
 import { WoocommerceDataMapper } from "../woocommerce/data-mapper";
 import { MagentoData } from '../magento-data'
 
@@ -52,14 +52,14 @@ export class ImportRowCreator {
                 row[magentoFieldCode] = this.getSkuRecord(record)
             } else if (pimFieldCode) {
                 row[magentoFieldCode] = await this.woocommerceDataMapper.getMagentoValue(record, pimFieldCode, magentoFieldCode)
-                if (magentoFieldCode === MagentoProductFieldCase.image) {
+                if (magentoFieldCode === 'image') {
                     row['thumbnail'] = row[magentoFieldCode]
                     row['small_image'] = row[magentoFieldCode]
                 }
             }
         })
 
-        row['product_type'] = (record[WoocommerceProductFieldCase.variations] === undefined || record[WoocommerceProductFieldCase.variations].length === 0) ? 'simple' : 'configurable'
+        row['product_type'] = (record['variations'] === undefined || record['variations'].length === 0) ? 'simple' : 'configurable'
 
         return row
     }

@@ -4,24 +4,29 @@ import { Request, Response } from "express";
 import { WoocommerceWebHookHandler } from "../model/woocommerce/webhook-handler"
 import { ProductDeletion } from "../model/woocommerce/product-deletion"
 import { ErrorWrapper } from "../error-handler";
-import { ImportControllerInterface } from "./importControllerInterface";
+import {
+    AttributeResponse, CsvDeleteApiResponse, CsvImportCreationResponse, CsvImportUpdateResponse,
+    ImportControllerInterface,
+    MinimalResponse,
+    ProductResponse, WebhookApiResponse
+} from "./importControllerInterface";
 
 
 export class WoocommerceController implements ImportControllerInterface {
     errorWrapper = new ErrorWrapper()
 
-    apiGetAttributeList = async (req: Request, res: Response) => {
+    apiGetAttributeList = async (req: Request, res: Response): Promise<AttributeResponse> => {
         try {
             const wooClient = new Woocommerce()
             const result = await wooClient.getAttributeList()
             res.send(result)
         } catch (e) {
-            res.status(500).send("Error")
+            res.status(500).send({ "error": "The Attributes could not be loaded" })
             this.errorWrapper.handle(e)
         }
     }
 
-    apiGetProductList = async (req: Request, res: Response) => {
+    apiGetProductList = async (req: Request, res: Response): Promise<ProductResponse> => {
         try {
             const wooClient = new Woocommerce()
             const result = await wooClient.getProductBatch();
@@ -32,7 +37,7 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    setProductImported = (req: Request, res: Response) => {
+    setProductImported = (req: Request, res: Response): MinimalResponse => {
         try {
             const wooImporter = new ImportCreator()
             wooImporter.saveProductImported(req.body)
@@ -43,7 +48,7 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    createImport = async (req: Request, res: Response) => {
+    createImport = async (req: Request, res: Response): Promise<void> => {
         try {
             const wooClient = new Woocommerce()
             const list = await wooClient.getProductBatch()
@@ -52,14 +57,14 @@ export class WoocommerceController implements ImportControllerInterface {
             const rows = await wooImporter.getProductImportData(list, req.body)
             const filename = await wooImporter.finaliseWriteRows(rows)
             console.log('Import complete', filename)
-            res.send({ filename, rows })
+            res.send({ filename, rows } as CsvImportCreationResponse)
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
         }
     }
 
-    createUpdateImport = async (req: Request, res: Response) => {
+    createUpdateImport = async (req: Request, res: Response): Promise<CsvImportUpdateResponse> => {
         try {
             const wooClient = new Woocommerce()
             const list = await wooClient.getProductUpdate()
@@ -87,7 +92,7 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    notifyProductDeletion = async (req: Request, res: Response) => {
+    notifyProductDeletion = (req: Request, res: Response): WebhookApiResponse => {
         try {
             const woocommerceWebHookHandler = new WoocommerceWebHookHandler();
 
@@ -109,7 +114,7 @@ export class WoocommerceController implements ImportControllerInterface {
         }
     }
 
-    getDeleteNotification = async (req: Request, res: Response) => {
+    getDeleteNotification = async (req: Request, res: Response): Promise<CsvDeleteApiResponse> => {
         try {
             const productDeletion = new ProductDeletion()
             const list = productDeletion.getProductDeleteNotification()

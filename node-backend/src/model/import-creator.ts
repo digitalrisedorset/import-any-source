@@ -16,6 +16,7 @@ export class ImportCreator {
     productDeletion = new ProductDeletion()
 
     getProductImportData = async (data: Readonly<WoocommerceProduct[]>, mappingFields: ImportMappingFields) => {
+        debugger
         const header = await this.importRowCreator.createHeader(mappingFields)
         this.csvWriter.startImport()
         this.csvWriter.writeHeader(header)
@@ -39,7 +40,7 @@ export class ImportCreator {
         const rows = await Promise.all(data.filter(record => this.productDeletion.isProductValidForImport(record['id']))
             .map(async (record) => {
                 return await this.importRowCreator.createCsvRow(record)
-        }, this))
+            }, this))
         return [...simpleRows, ...rows]
     }
 

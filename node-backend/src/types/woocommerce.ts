@@ -1,9 +1,4 @@
-export enum ProductStatus {
-    publish = 'publish',
-    draft = 'draft',
-    pending = 'pending',
-    private = 'private'
-}
+export type ProductStatus = 'publish' | 'draft' | 'pending' | 'private' | (string & {})
 
 export type VariationAttribute = {
     name: string,
@@ -34,12 +29,6 @@ export interface WoocommerceAttribute {
     name: string
 }
 
-export interface WoocommerceAttribute {
-    slug: string
-    option: string
-    name: string
-}
-
 export interface WoocommerceSimpleProduct {
     id: number;
     sku: string;
@@ -54,18 +43,16 @@ export interface WoocommerceSimpleProduct {
 
 export type WoocommerceDeleteRecord = Pick<WoocommerceSimpleProduct, "id" | "sku">
 
-export enum WoocommerceProductFieldCase {
-    active = 'product_online', // product_online
-    status = 'status', // status
-    visibility = 'visibility', // visibility
-    variations = 'variations' // 'configurable_variations',  // variations
-}
+export type WoocommerceProductFieldCase = 'product_online' | 'status' | 'visibility' | 'variations' | (string & {})
 
 export type ApiFilter = any
 
 export type FieldValue = string | boolean | null | number[] | number | ProductImage | ProductImage[] | undefined;
 
+export type InitialDefaultFields = 'store_view_code' | 'attribute_set_code' | 'product_websites' | (string & {})
+
 export type InitialProductData = {
-    [Key in string]: FieldValue;
+    [any]: FieldValue;
 };
+
 

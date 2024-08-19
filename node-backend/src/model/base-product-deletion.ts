@@ -4,6 +4,8 @@ import { CachedDeletedProduct, CachedProduct, DeleteProduct, ProductStatusReques
 
 const CACHE_PRODUCT_DELETED = 'product_deleted'
 
+const PRODUCT_IMPORTED = 'imported'
+
 const CACHE_PRODUCT_SKU_LIST = 'product_sku_list'
 
 const CachedProductValidator = z.object({
@@ -133,6 +135,6 @@ export class BaseProductDeletion {
     }
 
     isProductValidForImport = (productId: number): boolean => {
-        return this.getProductImportStatus(productId) !== 'imported'
+        return this.getProductImportStatus(productId) !== PRODUCT_IMPORTED
     }
 }

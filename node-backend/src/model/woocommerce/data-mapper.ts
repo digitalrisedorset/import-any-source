@@ -1,6 +1,6 @@
 import { WoocommerceProduct, ProductImage, VariationAttribute } from '../../types/woocommerce'
 import { ImportMapping, ImportMappingFields } from '../../types/general'
-import { MagentoProductFieldCase } from "../../types/magento";
+import { MagentoProductFieldMap } from "../../types/magento";
 import { WoocommerceDataVariations } from "./data-variation";
 import { MagentoData } from "../magento-data";
 import { WoocommerceVariationBuilder } from './data-mapper/variation-builder'
@@ -27,7 +27,7 @@ export class WoocommerceDataMapper {
         this.mappingFields = this.cache.read('mappingFields');
 
         if (!this.mappingFields) {
-            //throw new Error('No mapping is in the cache')
+            throw new Error('No mapping is in the cache')
         }
 
         return this.mappingFields
@@ -66,11 +66,11 @@ export class WoocommerceDataMapper {
     getMagentoValue = async (item: Readonly<WoocommerceProduct>, woocommerceField: Readonly<string>, magentoField: Readonly<string>) => {
         let value = item[woocommerceField as keyof WoocommerceProduct]
         switch (magentoField) {
-            case MagentoProductFieldCase.status: // product_online
+            case 'status': // product_online
                 return (value === 'publish') ? '1' : '0'
-            case MagentoProductFieldCase.visibility:  // visibility
+            case 'visibility':  // visibility
                 return (value === 'visible') ? 'Catalog, Search' : 'Not Visible Individually'
-            case MagentoProductFieldCase.configurable_variations:  // variations
+            case 'configurable_variations':  // variations
                 if (value && (value as number[]).length > 0) {
                     const variationData = await this.woocommerceDataVariations.getVariationData(item)
                     if (variationData !== undefined) {
@@ -78,7 +78,7 @@ export class WoocommerceDataMapper {
                     }
                 }
                 return ''
-            case MagentoProductFieldCase.image:  // images
+            case 'image':  // images
                 if (value === undefined) {
                     value = item['image']
                     if (value) {
