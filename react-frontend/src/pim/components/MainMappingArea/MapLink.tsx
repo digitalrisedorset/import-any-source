@@ -1,11 +1,12 @@
 import {Link} from "react-router-dom"
 import {PimAttribute} from "../../../types/keystone";
+import React from "react";
 
 interface MapLinkProps {
     attribute: PimAttribute
 }
 
-export const MapLink = ({attribute}: MapLinkProps) => {
+export const MapLink: React.FC<MapLinkProps> = ({attribute}: MapLinkProps) => {
     return (
         <>
             {!attribute.magentoCode && <Link key={attribute.id} to={`/map/${attribute.code}`}>

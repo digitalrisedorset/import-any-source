@@ -1,5 +1,5 @@
 import {StepForm} from "../../global/styles/StepForm";
-import {FormEvent} from "react"
+import React, {FormEvent} from "react"
 import {RemoteMagentoAttributeProvider} from "../models/RemoteMagentoAttributeProvider";
 import {useActions} from "../../global/hooks/useActions";
 import {useNavigate} from "react-router-dom";
@@ -8,7 +8,7 @@ import {useProductAttributes} from "../graphql/magento/useProductAttributes";
 import {useMagentoAttributes} from "../hooks/useMagentoAttributes";
 import {MagentoReport} from "./MagentoReport";
 
-export const ImportMagentoAttribute = () => {
+export const ImportMagentoAttribute: React.FC = () => {
     const { addFlashMessage, setMagentoAttributesImported } = useActions()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const createListAttribute = useCreateMagentoAttributes()

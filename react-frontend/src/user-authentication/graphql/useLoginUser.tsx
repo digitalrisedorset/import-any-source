@@ -39,7 +39,7 @@ export const useLoginUser = (inputs: any) => {
         refetchQueries: [{ query: CURRENT_USER_QUERY }],
     });
 
-    const setUserLogged = async (inputs: any) => {
+    const setUserLogged = async () => {
         const res = await signin(inputs);
         if (res?.data?.authenticateUserWithPassword?.item) {
             const user = res.data.authenticateUserWithPassword.item

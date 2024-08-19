@@ -1,10 +1,9 @@
-import ItemStyles from '../../../global/components/ItemStyles';
+import ItemStyles from '../../../global/styles/ItemStyles';
 import {Title} from '../../../global/styles/Title';
 import {LinkedWith} from "./LinkedWith";
 import {MapLink} from "./MapLink";
 import {PimAttribute} from '../../../types/keystone'
 import React from "react";
-import {DeleteButton} from "../../../global/styles/MappingScreen";
 import {useSetPimgAttributeIgnored} from "../../graphql/useSetPimAttributeIgnored";
 import {useActivePimSystem} from "../../hooks/useCurrentPimSystem";
 import {useActions} from "../../../global/hooks/useActions";
@@ -13,7 +12,7 @@ interface AttributeProps {
     attribute: PimAttribute
 }
 
-export const ReadonlyAttribute = ({attribute}: AttributeProps) => {
+export const ReadonlyAttribute: React.FC<AttributeProps> = ({attribute}: AttributeProps) => {
     const currentPimSystem = useActivePimSystem()
     const setPimAttributeIgnore = useSetPimgAttributeIgnored(attribute.id)
     const { addPimAttributeIgnored } = useActions()

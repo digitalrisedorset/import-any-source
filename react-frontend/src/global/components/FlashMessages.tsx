@@ -6,7 +6,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const MINUTE_MS = 5000;
 
-export const FlashMessages = () => {
+export const FlashMessages: React.FC = () => {
     const { messages, downloadLink, messageType} = useTypedSelector((state) => state.flashMessages)
     const [hidden, setHidden] = useState(false)
 

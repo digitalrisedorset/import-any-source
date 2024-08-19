@@ -64,8 +64,12 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: any[]) =
         })
     }
 
+    const getRowKey = () => {
+        return `header-${Math.random()}`
+    }
+
     return <Table>
-        <tr key="header-${Math.random()}">{getHeader(pimProductHeader)}</tr>
+        <tr key={getRowKey()}>{getHeader(pimProductHeader)}</tr>
         {pimProducts.map((item: RemotePimProduct) => {
             const key = `row-${item.id}`
             return (

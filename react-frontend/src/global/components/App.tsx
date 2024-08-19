@@ -9,8 +9,8 @@ import { NotFound } from './NotFound'
 import { Page } from "./Page";
 import { Import } from "../../pim/components/Import";
 import { Config} from "../../configuration/components/Config"
-import Sign from "../../user-authentication/components/Sign";
-import Account from "../../user-authentication/components/Account";
+import {Sign} from "../../user-authentication/components/Sign";
+import {Account} from "../../user-authentication/components/Account";
 
 export const App = () => {
   return (<Page>

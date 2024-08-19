@@ -1,11 +1,12 @@
-import CardStyles from "../../../configuration/styles/CardStyles";
+import {CardStyles} from "../../../configuration/styles/CardStyles";
 import {PimAttribute} from '../../../types/keystone'
 import {usePimAttributes} from "../../graphql/usePimAttributes";
 import {Attribute} from "./Attribute";
 import {useCurrentPimSystem} from "../../hooks/useCurrentPimSystem";
 import {LoadingDotsIcon} from "../../../global/components/Loading";
+import React from "react";
 
-export const GetPimMappedAttribute = () => {
+export const GetPimMappedAttribute: React.FC = () => {
     const currentPimSystem = useCurrentPimSystem()
     const { data, loading } = usePimAttributes()
     const candelete = "false"

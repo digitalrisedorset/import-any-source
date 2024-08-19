@@ -9,8 +9,13 @@ type TabsButtonProps = {
     setActiveTab: any
 }
 
-const RenderMonitoring = (canDeleteProducts: boolean, canUpdateProducts: boolean) => {
-    const notificationActive = () => {
+type MonitoringgProps = {
+    canDeleteProducts: boolean,
+    canUpdateProducts: boolean
+}
+
+const RenderMonitoring: React.FC<MonitoringgProps> = ({canDeleteProducts, canUpdateProducts}: MonitoringgProps) => {
+    const notificationActive = (): string => {
         let result = []
         if (canUpdateProducts) result.push('update notification active')
         if (canDeleteProducts) result.push('delete notification active')
@@ -29,7 +34,7 @@ const RenderMonitoring = (canDeleteProducts: boolean, canUpdateProducts: boolean
     )
 }
 
-export default function TabButtons({ stepData, activeTab, setActiveTab }: TabsButtonProps) {
+export const TabButtons: React.FC<TabsButtonProps> = ({ stepData, activeTab, setActiveTab }: TabsButtonProps) => {
     const {importMonitored} = useProductImport()
     const {canDeleteProducts, canUpdateProducts} = useAccess()
 
@@ -56,7 +61,7 @@ export default function TabButtons({ stepData, activeTab, setActiveTab }: TabsBu
                     <span className="link">{item.step}</span>
                 </li>
             ))}
-            {importMonitored && RenderMonitoring(canDeleteProducts, canUpdateProducts)}
+            {importMonitored && RenderMonitoring({canDeleteProducts, canUpdateProducts})}
         </TabStyles>
     );
 }

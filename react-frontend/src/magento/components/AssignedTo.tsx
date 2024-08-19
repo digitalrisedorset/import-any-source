@@ -2,13 +2,14 @@ import MapStyle from '../../pim/styles/MapStyle';
 import MapStyleLinked from '../../pim/styles/MapStyleLinked';
 import MapStyleAwaitingLink from '../../pim/styles/MapStyleAwaitingLink';
 import {AssignedToData} from "../../types/keystone";
+import React from "react";
 
 interface AssignedToProps {
     assignedTo: AssignedToData[],
     required: boolean
 }
 
-export const AssignedTo = ({assignedTo, required}: AssignedToProps) => {
+export const AssignedTo: React.FC<AssignedToProps> = ({assignedTo, required}: AssignedToProps) => {
     const getAssignedToAttribute = (assignedTo: AssignedToData[]): string => {
         return assignedTo.reduce((description ,assignedAttribute) => {
             if (description !=='') {

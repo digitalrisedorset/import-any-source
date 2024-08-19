@@ -6,13 +6,14 @@ import {
 import {usePimAttributesNotMapped} from "../../graphql/useFindPimAttributesNotMapped";
 import {useCurrentPimSystem} from "../../hooks/useCurrentPimSystem";
 import {useMappingRemaining} from "../../../mapping/hooks/useMappingVerifier";
+import React from "react";
 
-export const PimAttributeDescription = () => {
+export const PimAttributeDescription: React.FC = () => {
     const currentPimSystem = useCurrentPimSystem()
     const mappingRemaining = useMappingRemaining()
     const { data }: QueryResult<PimQueryResult | OperationVariables> = usePimAttributesNotMapped()
 
-    const getCountAttributesToMap = (attributes: PimAttribute[]) => {
+    const getCountAttributesToMap = (attributes: PimAttribute[]): string => {
         if (mappingRemaining === 0) {
             return '(all the attributes are mapped)'
         } else {

@@ -1,14 +1,7 @@
-import styled from "styled-components";
-import UserDetails from "./userDetails";
+import {UserDetails} from "./userDetails";
+import {GridStyles} from "../styles/Grid";
 
-
-const GridStyles = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 2rem;
-`;
-
-export default function Account() {
+export const Account: React.FC = () => {
     return (
         <GridStyles>
             <UserDetails />

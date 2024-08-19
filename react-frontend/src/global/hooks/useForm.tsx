@@ -1,23 +1,21 @@
 import { useEffect, useState } from 'react';
 
-export default function useForm(initial = {}) {
+export const useForm = (initial: any) => {
   // create a state object for our inputs
   const [inputs, setInputs] = useState(initial);
-  const initialValues = Object.values(initial).join('');
+  const initialValues = null
+  if (typeof initial === "object" && Object.keys(initial).length>0) {
+    const initialValues = Object.values(initial).join('');
+  }
 
   useEffect(() => {
     // This function runs when the things we are watching change
     setInputs(initial);
   }, [initialValues]);
 
-  function handleChange(e: Event & { target: HTMLInputElement }) {
-    let { value, name, type } = e.target;
-    if (type === 'number') {
-      //value = parseInt(value);
-    }
-    if (type === 'file') {
-      //[value] = e.target.files;
-    }
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {//Event & { target: HTMLInputElement }) {
+    let { value, name } = e.target;
+
     setInputs({
       // copy the existing state
       ...inputs,
@@ -30,6 +28,7 @@ export default function useForm(initial = {}) {
   }
 
   function clearForm() {
+    setInputs({'test':'val'})
     const blankState = Object.fromEntries(
       Object.entries(inputs).map(([key, value]) => [key, ''])
     );

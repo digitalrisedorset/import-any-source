@@ -1,4 +1,4 @@
-import ItemStyles from '../../../global/components/ItemStyles';
+import ItemStyles from '../../../global/styles/ItemStyles';
 import {Title} from '../../../global/styles/Title';
 import {LinkedWith} from "./LinkedWith";
 import {MapLink} from "./MapLink";
@@ -14,7 +14,7 @@ interface AttributeProps {
     candelete: "true" | "false"
 }
 
-export const Attribute = ({attribute, candelete}: AttributeProps) => {
+export const Attribute: React.FC<AttributeProps> = ({attribute, candelete}: AttributeProps) => {
     const currentPimSystem = useActivePimSystem()
     const setPimAttributeIgnore = useSetPimgAttributeIgnored(attribute.id)
     const { addPimAttributeIgnored } = useActions()

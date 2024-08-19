@@ -1,7 +1,7 @@
 import {useActivePimSystem} from "../hooks/useCurrentPimSystem";
 import {ReportStyles, Title} from "../../global/styles/ReportStyles";
 
-export const PimSystemReport = () => {
+export const PimSystemReport: React.FC = () => {
     const currentPimSystem = useActivePimSystem()
 
     const ImportedMessage = () => {

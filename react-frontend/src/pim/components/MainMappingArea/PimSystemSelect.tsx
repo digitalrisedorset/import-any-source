@@ -1,8 +1,9 @@
 import PimSystem from "../../../configuration/styles/PimSystem";
 import {useActions} from "../../../global/hooks/useActions";
 import {PimSystemHandler} from "../../../configuration/models/PimSystem";
+import React from "react";
 
-export const PimSystemSelect = () => {
+export const PimSystemSelect: React.FC = () => {
     const { setActivePimSystem } = useActions()
     const pimSystemHandler = new PimSystemHandler()
 

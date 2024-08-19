@@ -1,4 +1,4 @@
-import {createGlobalStyle} from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 import {ThemeColors} from "../../config";
 
 interface StyleProps {
@@ -71,4 +71,19 @@ export const GlobalStyles = createGlobalStyle<StyleProps>`
         font-size: medium;
         font-weight: normal;
     }
+`;
+
+export const ErrorStyles = styled.div`
+  padding: 2rem;
+  background: white;
+  margin: 2rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-left: 5px solid red;
+  p {
+    margin: 0;
+    font-weight: 100;
+  }
+  strong {
+    margin-right: 1rem;
+  }
 `;

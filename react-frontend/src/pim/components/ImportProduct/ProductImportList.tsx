@@ -3,8 +3,9 @@ import {useMagentoProducts} from "../../../magento/graphql/magento/useMagentoPro
 import {useActions} from "../../../global/hooks/useActions";
 import {useProductDeletedGrid, useProductImportGrid} from "../../../global/hooks/useProductGrid";
 import {GridReport} from "../../styles/GridStyle"
+import React from "react";
 
-export const ProductImportList = () => {
+export const ProductImportList: React.FC = () => {
     const {importStatus, pimProducts} = useProductImport()
     const getProductDataBySku = useMagentoProducts()
     const { setPimProductBatchValidated, addFlashMessage } = useActions()

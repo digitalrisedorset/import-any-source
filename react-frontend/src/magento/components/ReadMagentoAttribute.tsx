@@ -1,4 +1,4 @@
-import CardStyles from "../../configuration/styles/CardStyles";
+import {CardStyles} from "../../configuration/styles/CardStyles";
 import {Attribute} from "./Attribute";
 import {MagentoAttribute} from "../../types/keystone";
 import {useActions} from "../../global/hooks/useActions";

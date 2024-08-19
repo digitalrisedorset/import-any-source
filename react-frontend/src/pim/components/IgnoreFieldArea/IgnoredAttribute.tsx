@@ -11,7 +11,7 @@ interface AttributeProps {
     attribute: PimAttribute
 }
 
-export const IgnoredAttribute = ({attribute}: AttributeProps) => {
+export const IgnoredAttribute: React.FC<AttributeProps> = ({attribute}: AttributeProps) => {
     const currentPimSystem = useActivePimSystem()
     const setPimAttributeActivate = useSetPimgAttributeActive(attribute.id)
     const { addPimAttributeActivated } = useActions()

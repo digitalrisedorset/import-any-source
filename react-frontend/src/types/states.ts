@@ -1,12 +1,4 @@
-import {DeletedPimProduct, RemotePimProduct} from "./pim";
-
-export enum APP_STATE {
-    pimComplete = 'pim_attribute_imported',
-    magentoComplete = 'magento_attribute_imported',
-    mappingComplete = 'mapping_attribute_imported'
-}
-
-export const AllSteps = [APP_STATE.pimComplete, APP_STATE.magentoComplete, APP_STATE.mappingComplete]
+import { DeletedPimProduct, IMPORT_STATUS, RemotePimProduct } from "./pim";
 
 export interface PimImportState {
     name: string,
@@ -52,7 +44,7 @@ export const defaultImportState = {
 
 export interface PimImportProductState {
     importMonitored: boolean,
-    importStatus: string,
+    importStatus: IMPORT_STATUS,
     pimProductHeader: string[],
     pimProducts: RemotePimProduct[],
     pimDeletedProducts: DeletedPimProduct[]

@@ -2,7 +2,7 @@ import {useMappingRemaining} from "../../mapping/hooks/useMappingVerifier";
 import {ReportStyles, Title} from "../../global/styles/ReportStyles";
 import {useActivePimSystem} from "../hooks/useCurrentPimSystem";
 
-export const MappingReport = () => {
+export const MappingReport: React.FC = () => {
     const mappingRemaining = useMappingRemaining()
     const currentPimSystem = useActivePimSystem()
     const ImportedMessage = () => {

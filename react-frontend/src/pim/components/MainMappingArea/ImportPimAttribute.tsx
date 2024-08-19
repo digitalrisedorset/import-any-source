@@ -7,15 +7,16 @@ import {StepForm} from "../../../global/styles/StepForm";
 import {useActivePimSystem} from "../../hooks/useCurrentPimSystem";
 import {PimAttribute} from "../../../types/keystone";
 import {PimSystemReport} from "../PimSystemReport";
+import React from "react";
 
-export const ImportPimAttribute = () => {
+export const ImportPimAttribute: React.FC = () => {
     const currentPimSystem = useActivePimSystem()
     const { addFlashMessage, setPimAttributesImported } = useActions()
     const navigate = useNavigate()
     const remoteAttributeProvider = RemotePimAttributeProvider()
     const createListAttribute = useCreatePimAttributes()
 
-    const isPimImportComplete = () => {
+    const isPimImportComplete = (): boolean => {
         return currentPimSystem?.pimAttributes > 0
     }
 

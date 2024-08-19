@@ -19,7 +19,7 @@ interface UpdateResponse extends ImportUpdateResponse {
 
 const MINUTE_MS = 1500;
 
-const RenderUpdate = (updateCsvFile: UpdateResponse) => {
+const RenderUpdate: React.FC<UpdateResponse> = (updateCsvFile: UpdateResponse) => {
     return (
         <>
             {updateCsvFile?.numberItem===0 && <h3>No Update have been happening</h3>}
@@ -31,7 +31,7 @@ const RenderUpdate = (updateCsvFile: UpdateResponse) => {
     )
 }
 
-const RenderDelete = (deleteCsvFile: UpdateResponse) => {
+const RenderDelete: React.FC<UpdateResponse> = (deleteCsvFile: UpdateResponse) => {
     return (
         <>
             {deleteCsvFile?.numberItem === 0 && <>
@@ -45,7 +45,7 @@ const RenderDelete = (deleteCsvFile: UpdateResponse) => {
     )
 }
 
-export const MonitorUpdate = () => {
+export const MonitorUpdate: React.FC = () => {
     const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)
     const {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()

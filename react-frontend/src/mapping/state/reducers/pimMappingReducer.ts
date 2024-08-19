@@ -1,6 +1,6 @@
 import {MagentoAttribute, MatchingAttributeData } from "../../../types/keystone";
 import { PimAttributesMappingActionType} from "../../../state/action-types";
-import {PimAttributesMappingActionList} from "../../../state/actions";
+import {PimAttributesMappingActionList} from "../actions/pimMapping";
 
 interface PimAttributesMappingState {
     loading: boolean;

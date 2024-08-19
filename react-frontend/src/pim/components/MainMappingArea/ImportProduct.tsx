@@ -4,7 +4,7 @@ import {MagentoAttributeProvider} from "../../../magento/models/KeystoneMagentoA
 import {MappingModel} from "../../../mapping/models/MappingDataProvider"
 import {PimQueryResult, PimAttribute} from "../../../types/keystone";
 import {useActions} from "../../../global/hooks/useActions";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {usePimAttributesLazy} from "../../graphql/usePimAttributes";
 import {usePimAttributesNotMapped} from "../../graphql/useFindPimAttributesNotMapped";
 import {useMagentoAttributesLazy} from "../../../magento/graphql/keystone/useMagentoAttributes";
@@ -14,7 +14,7 @@ import {ProductImportList} from "../ImportProduct/ProductImportList"
 import {ImportResponse} from "../../../types/pim";
 import {useProductImport} from "../../hooks/useProductImport";
 
-export const ImportProduct = () => {
+export const ImportProduct: React.FC = () => {
     const pimSystemCode = useCurrentPimSystemCode()
     const [mappingReady, setMappingReady] = useState(false)
     const [importBuiling, setImportBuilding] = useState(false)
@@ -27,9 +27,9 @@ export const ImportProduct = () => {
     const mappingData: QueryResult<PimQueryResult | OperationVariables> = usePimAttributesNotMapped()
 
     useEffect(() => {
-        const isMappingNotComplete = (attributes: PimAttribute[]) => {
+        const setMappingStatus = (attributes: PimAttribute[]) => {
             if (attributes === undefined) {
-                setMappingReady(true)
+                setMappingReady(true) // since no attribute has been imported yet, it is possible to do some mapping
                 return
             }
 
@@ -37,7 +37,7 @@ export const ImportProduct = () => {
                 setMappingReady(attributes.length === 0)
             }
         }
-        isMappingNotComplete(mappingData?.data?.pimAttributes)
+        setMappingStatus(mappingData?.data?.pimAttributes)
 
         return () => {}
     }, [mappingData?.data?.pimAttributes])

@@ -2,8 +2,9 @@ import {MappingIgnoredArea} from "../../../global/styles/MappingScreen";
 import {PimAttribute} from "../../../types/keystone";
 import {IgnoredAttribute} from "./IgnoredAttribute";
 import {usePimAttributes} from "../../graphql/usePimAttributes";
+import React from "react";
 
-export const GetIgnoredAttribute = () => {
+export const GetIgnoredAttribute: React.FC = () => {
     const { data, error, loading } = usePimAttributes()
 
     const getIgnoredAttributesAlphabeticallyOrdered = (attributes: PimAttribute[]): PimAttribute[] => {

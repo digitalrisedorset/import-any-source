@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import {useNavigate} from "react-router-dom"
-import ItemStyles from '../../global/components/ItemStyles';
+import ItemStyles from '../../global/styles/ItemStyles';
 import {Title} from '../../global/styles/Title';
 import {MatchingAttributeData} from "../../types/keystone";
 import {useActions} from "../../global/hooks/useActions";
@@ -14,7 +14,7 @@ interface MappingProps {
     initialAttribute: string
 }
 
-export const Attribute = ({attribute, initialAttribute}: MappingProps) => {
+export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}: MappingProps) => {
     const currentPimSystem = useActivePimSystem()
     const { addFlashMessage, addPimAttributeMapped } = useActions()
     const navigate = useNavigate()
@@ -29,7 +29,7 @@ export const Attribute = ({attribute, initialAttribute}: MappingProps) => {
     }
 
     useEffect(() => {
-        async function linkAttribute() {
+        function linkAttribute() {
             try {
                 if (pimAttributeStateId!=='' && magentoAttributeStateId!=='') {
                     mapAttribute();
@@ -42,9 +42,6 @@ export const Attribute = ({attribute, initialAttribute}: MappingProps) => {
             }
         }
         linkAttribute()
-        return () => {
-
-        }
     }, [isMappingReady()])
 
     const mapField = async (e: React.MouseEvent<HTMLElement>) => {

@@ -1,4 +1,4 @@
-import CardStyles from "../styles/CardStyles";
+import {CardStyles} from "../styles/CardStyles";
 import PimSystem from "../styles/PimSystem";
 import {ConfigReader} from "../models/ConfigReader";
 import {useActions} from "../../global/hooks/useActions";

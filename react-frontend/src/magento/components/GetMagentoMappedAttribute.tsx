@@ -1,9 +1,10 @@
-import CardStyles from "../../configuration/styles/CardStyles";
+import {CardStyles} from "../../configuration/styles/CardStyles";
 import {useMagentoAttributes} from "../graphql/keystone/useMagentoAttributes";
 import {MagentoAttribute} from "../../types/keystone";
 import {Attribute} from "./Attribute";
+import React from "react";
 
-export const GetMagentoMappedAttribute = () => {
+export const GetMagentoMappedAttribute: React.FC = () => {
     const { data, loading } = useMagentoAttributes()
 
     const getActiveAttributes = (attributes: MagentoAttribute[]): MagentoAttribute[] => {

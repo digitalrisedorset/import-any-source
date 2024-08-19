@@ -5,7 +5,7 @@ type TabsButtonProps = {
     stepData: StepData,
     activeTab: number
 }
-export default function TabContent({ stepData, activeTab}: TabsButtonProps) {
+export const TabContent: React.FC<TabsButtonProps> = ({ stepData, activeTab}: TabsButtonProps) => {
     return (
         <TabContainer>
             <TabContentElt>

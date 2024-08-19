@@ -9,10 +9,9 @@ interface BaseAttribute {
     readonly createdAt: string;
 }
 
-interface MagentoCode {
-    readonly code: string;
-    readonly name: string;
-}
+export type MagentoCode = Pick<BaseAttribute, "code" | "name">
+
+export type AssignedToData = Pick<BaseAttribute, "code" | "name">
 
 export type KeystoneAttribute = Pick<BaseAttribute, "code" | "name" | "type" | "required">
 
@@ -26,11 +25,6 @@ export interface MagentoAttribute extends BaseAttribute {
     assignedTo: AssignedToData[]
 }
 
-export interface AssignedToData {
-    readonly code: string;
-    readonly name: string;
-}
-
 export interface PimAttributeData {
     pimAttributes: PimAttribute[]
 }
@@ -39,24 +33,12 @@ export interface KeystoneMagentoAttributeData {
     magentoAttributes: MagentoAttribute[]
 }
 
-export interface KeystoneUpdatePimAttributeData {
-    data: {
-        updatePimAttributes: {
-            id: string
-        }
-    }
-}
-
 export interface MatchingAttributeData {
     readonly label: string,
     readonly value: string
 }
 
-export enum PRODUCT_STATUS {
-    publish = 'AVAILABLE',
-    unavailable = 'UNAVAILABLE',
-    deleted = 'DELETED'
-}
+export type PRODUCT_STATUS = 'AVAILABLE' | 'UNAVAILABLE' | 'DELETED' | (string & {});
 
 export interface KeystoneProduct {
     name: string;

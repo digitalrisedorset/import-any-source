@@ -3,7 +3,7 @@ import {StepForm} from "../../global/styles/StepForm";
 import {useMappingVerifier} from "../../mapping/hooks/useMappingVerifier";
 import {MappingReport} from "./MappingReport"
 
-export const MappingAttributes = () => {
+export const MappingAttributes: React.FC = () => {
     const mappingReady = useMappingVerifier()
 
     const navigate = useNavigate()

@@ -1,12 +1,12 @@
-import Form from '../../global/styles/Form';
-import { useState, useEffect } from "react"
+import {Form} from '../../global/styles/Form';
+import React, { useState, useEffect } from "react"
 import { useParams} from "react-router-dom"
 import { filterOptions } from 'fuzzy-match-utils';
 import { MagentoAttribute} from "../../types/keystone";
 import { useActions } from "../../global/hooks/useActions";
 import {useMagentoAttributesLazy} from "../../magento/graphql/keystone/useMagentoAttributes";
 
-export const MapField = () => {
+export const MapField: React.FC = () => {
     const { code } = useParams();
     const { setPimAttributesMatchFound } = useActions()
 

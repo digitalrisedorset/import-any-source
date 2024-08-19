@@ -1,10 +1,11 @@
 import { Attribute } from "./Attribute";
-import CardStyles from "../../configuration/styles/CardStyles";
-import { useTypedSelector } from "../../global/hooks/useTypedSelector";
+import {CardStyles} from "../../configuration/styles/CardStyles";
+import {useTypedSelector} from "../../global/hooks/useTypedSelector";
 import {MatchingAttributeData} from "../../types/keystone";
-import { useActions } from "../../global/hooks/useActions";
+import {useActions} from "../../global/hooks/useActions";
+import React from "react";
 
-export const MatchingField = () => {
+export const MatchingField: React.FC = () => {
     const { addFlashMessage } = useActions()
     const { pimAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.pimMapping)
 

@@ -1,6 +1,6 @@
 import {useImmer} from "use-immer";
 import Axios from "axios";
-import {PRODUCT_STATUS, RemoteProductsToCreate} from '../../types/keystone'
+import {KeystoneProduct, RemoteProductsToCreate} from '../../types/keystone'
 import {PimApiProducteResponse} from '../../types/pim'
 
 export function RemotePimProductProvider() {
@@ -44,9 +44,9 @@ export function RemotePimProductProvider() {
                 draft.productsToCreate = response.data.map(product => ({
                     name: product.name,
                     description: product.description,
-                    status: PRODUCT_STATUS.publish,
+                    status: 'AVAILABLE',
                     photo: { create: { image: getImageUpload(product?.images[0]?.src), altText: product.name } }
-                }))
+                } as KeystoneProduct))
             })
             ourRequest.cancel()
         } catch (e) {
