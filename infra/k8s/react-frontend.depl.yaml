@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: herve010/react_import:0.0.6
+          image: herve010/react_import:1.0.2
           env:
             - name: REACT_APP_KEYSTONE_HOST
-              value: "import-keystone.digitalrisedorset.co.uk"
+              value: "http://import-keystone.digitalrisedorset.co.uk"
             - name: REACT_APP_NODE_HOST
-              value: "import-node.digitalrisedorset.co.uk"
+              value: "http://import-node.digitalrisedorset.co.uk"
             - name: REACT_APP_MAGENTO_HOST
               value: "https://demo.digitalrisedorset.co.uk"
 ---

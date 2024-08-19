@@ -21,9 +21,9 @@ services:
       - import-network
   keystone_backend:
     container_name: keystone_backend
-    image: herve010/keystone-build:0.0.9
+    image: herve010/keystone-build:1.0.2
     environment:
-      - FRONTEND_HOST=import-any-source.digitalrisedorset.co.uk
+      - FRONTEND_HOST=http://import-any-source.digitalrisedorset.co.uk
       - FRONTEND_PORT=3001
       - DB_TYPE=postgresql
       - DB_DATABASE=keystone_import
@@ -54,7 +54,7 @@ services:
       - import-network
   node_backend:
     container_name: node_backend
-    build: ./node-backend
+    image: herve010/node_import:1.1.7
     restart: always
     environment:
       - PORT=8080
@@ -70,6 +70,7 @@ services:
       - REDIS_PASSWORD=paUIw93SSw0
       - REDIS_USERNAME=default
       - FS_CACHE_FOLDER=fs_cache
+      - FRONTEND_URL=http://import-any-source.digitalrisedorset.co.uk
     ports:
       - "8080:8080"
     volumes:
@@ -82,14 +83,14 @@ services:
       - redis
   react_frontend:
     container_name: react_frontend
-    build: ./react-frontend
+    image: herve010/react_import:1.0.4
     restart: always
     environment:
-      - REACT_APP_KEYSTONE_HOST=import-keystone.digitalrisedorset.co.uk
+      - REACT_APP_KEYSTONE_HOST=http://import-keystone.digitalrisedorset.co.uk
       - REACT_APP_KEYSTONE_PORT=3000
-      - REACT_APP_NODE_HOST=import-node.digitalrisedorset.co.uk
+      - REACT_APP_NODE_HOST=http://import-node.digitalrisedorset.co.uk
       - REACT_APP_NODE_PORT=8080
-      - REACT_APP_MAGENTO_HOST=https://demo.digitalrisedorset.co.uk/
+      - REACT_APP_MAGENTO_HOST=https://demo.digitalrisedorset.co.uk
       - PORT=3001
     ports:
       - "3001:3001"

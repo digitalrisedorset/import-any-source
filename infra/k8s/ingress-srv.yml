@@ -30,35 +30,35 @@ spec:
     - host: import-node.digitalrisedorset.co.uk
       http:
         paths:
-          - path: /getWoocommerceAttributeList
+          - path: /woocommerce/attributeList
             pathType: Prefix
             backend:
               service:
                 name: node-backend-srv
                 port:
                   number: 8080
-          - path: /getWoocommerceProductList
+          - path: /woocommerce/productList
             pathType: Prefix
             backend:
               service:
                 name: node-backend-srv
                 port:
                   number: 8080
-          - path: /createWoocommerceImport
+          - path: /woocommerce/createImport
             pathType: Prefix
             backend:
               service:
                 name: node-backend-srv
                 port:
                   number: 8080
-          - path: /createWoocommerceUpdate
+          - path: /woocommerce/createUpdate
             pathType: Prefix
             backend:
               service:
                 name: node-backend-srv
                 port:
                   number: 8080
-          - path: /notifyProductDeletion
+          - path: /woocommerce/notifyProductDeletion
             pathType: Prefix
             backend:
               service:

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: node-backend
-          image: herve010/node_import:1.1.0
+          image: herve010/node_import:1.1.6
           env:
             - name: WOOMMERCE_API_URL
               value: "https://www.digitalrisedorset.co.uk/wp-json/wc/v3/"

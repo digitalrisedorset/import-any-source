@@ -21,9 +21,10 @@ services:
       - import-network
   keystone_backend:
     container_name: keystone_backend
-    image: herve010/keystone-build:0.0.9
+    #build: ./keystone-backend
+    image: herve010/keystone-build:1.0.2
     environment:
-      - FRONTEND_HOST=localhost:3001
+      - FRONTEND_HOST=http://localhost:3001
       - FRONTEND_PORT=3001
       - DB_TYPE=postgresql
       - DB_DATABASE=keystone_import
@@ -54,7 +55,8 @@ services:
       - import-network
   node_backend:
     container_name: node_backend
-    build: ./node-backend
+    #build: ./node-backend
+    image: herve010/node_import:1.1.7
     restart: always
     environment:
       - PORT=8080
@@ -82,14 +84,15 @@ services:
       - redis
   react_frontend:
     container_name: react_frontend
-    build: ./react-frontend
+    #build: ./react-frontend
+    image: herve010/react_import:1.0.4
     restart: always
     environment:
-      - REACT_APP_KEYSTONE_HOST=localhost:3000
+      - REACT_APP_KEYSTONE_HOST=http://localhost:3000
       - REACT_APP_KEYSTONE_PORT=3000
-      - REACT_APP_NODE_HOST=localhost:8080
+      - REACT_APP_NODE_HOST=http://localhost:8080
       - REACT_APP_NODE_PORT=8080
-      - REACT_APP_MAGENTO_HOST=http://magentodevelop24.com/
+      - REACT_APP_MAGENTO_HOST=http://magentodevelop24.com
       - PORT=3001
     ports:
       - "3001:3001"
