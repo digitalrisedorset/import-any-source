@@ -5,7 +5,7 @@ export type HeaderField = {
 }
 
 export interface ImportMapping {
-    pimFieldCode: string,
+    catalogSourceFieldCode: string,
     magentoLinkedCode: string
 }
 

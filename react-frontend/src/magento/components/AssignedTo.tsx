@@ -1,6 +1,6 @@
-import {MapStyle} from '../../pim/styles/MapStyle';
-import {MapStyleLinked} from '../../pim/styles/MapStyleLinked';
-import {MapStyleAwaitingLink} from '../../pim/styles/MapStyleAwaitingLink';
+import {MapStyle} from '../../catalog-source/styles/MapStyle';
+import {MapStyleLinked} from '../../catalog-source/styles/MapStyleLinked';
+import {MapStyleAwaitingLink} from '../../catalog-source/styles/MapStyleAwaitingLink';
 import {AssignedToData} from "../../types/keystone";
 import React from "react";
 
@@ -22,10 +22,10 @@ export const AssignedTo: React.FC<AssignedToProps> = ({assignedTo, required}: As
     return (
         <>
             {assignedTo.length>0 && (
-                <MapStyleLinked><span>Linked to Pim with attribute {getAssignedToAttribute(assignedTo)}</span></MapStyleLinked>
+                <MapStyleLinked><span>Linked to CatalogSource with attribute {getAssignedToAttribute(assignedTo)}</span></MapStyleLinked>
             )}
             {assignedTo.length===0 && !required && (
-                <MapStyle><span>Not Linked to Pim</span></MapStyle>
+                <MapStyle><span>Not Linked to CatalogSource</span></MapStyle>
             )}
             {assignedTo.length===0  && required && (
                 <MapStyleAwaitingLink><span>Link required for the import to work: <b>Awaiting link</b></span></MapStyleAwaitingLink>

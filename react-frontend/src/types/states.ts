@@ -1,9 +1,9 @@
-import { DeletedPimProduct, IMPORT_STATUS, RemotePimProduct } from "./pim";
+import { DeletedCatalogSourceProduct, IMPORT_STATUS, CatalogSourceProduct } from "./catalog-source";
 
-export interface PimImportState {
+export interface CatalogSourceState {
     name: string,
     active: boolean,
-    pimAttributes: number,
+    catalogSourceAttributes: number,
     magentoMapping: number
     ignoredAttributes: number
 }
@@ -12,7 +12,7 @@ export interface AccessState {
     canCreateProducts: boolean,
     canUpdateProducts: boolean,
     canDeleteProducts: boolean,
-    canImportPIMAttribute: boolean,
+    canImportSourceAttribute: boolean,
     canImportMagentoAttribute: boolean,
     canMapAttribute: boolean,
     canImportProduct: boolean,
@@ -20,14 +20,14 @@ export interface AccessState {
     canSetupImport: boolean
 }
 
-export interface PimImportAttributeState {
+export interface CatalogSourceImportAttributeState {
     name: string,
-    pimAttributes: number,
+    catalogSourceAttributes: number,
     ignoredAttributes: number
 }
 
-export interface PimImportStateData {
-    pimImportState: PimImportState[]
+export interface CatalogSourceStateData {
+    catalogSourceImportState: CatalogSourceState[]
 }
 
 export interface MagentoImportStateData {
@@ -37,15 +37,15 @@ export interface MagentoImportStateData {
 export const defaultImportState = {
     name: '',
     active: false,
-    pimAttributes: 0,
+    catalogSourceAttributes: 0,
     magentoMapping: 0,
     ignoredAttributes: 0
 }
 
-export interface PimImportProductState {
+export interface CatalogSourceImportProductState {
     importMonitored: boolean,
     importStatus: IMPORT_STATUS,
-    pimProductHeader: string[],
-    pimProducts: RemotePimProduct[],
-    pimDeletedProducts: DeletedPimProduct[]
+    catalogSourceProductHeader: string[],
+    catalogSourceProducts: CatalogSourceProduct[],
+    CatalogSourceDeletedProducts: DeletedCatalogSourceProduct[]
 }

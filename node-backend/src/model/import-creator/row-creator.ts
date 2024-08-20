@@ -46,12 +46,12 @@ export class ImportRowCreator {
         header.forEach(async (field: HeaderField) => { // key should be of type validWoocommerceProductKeys
             // https://www.totaltypescript.com/iterate-over-object-keys-in-typescript
             const magentoFieldCode: string = field.id;
-            const pimFieldCode = this.woocommerceDataMapper.getWoocommerceField(magentoFieldCode)
+            const catalogSourceFieldCode = this.woocommerceDataMapper.getWoocommerceField(magentoFieldCode)
 
             if (magentoFieldCode === 'sku') {
                 row[magentoFieldCode] = this.getSkuRecord(record)
-            } else if (pimFieldCode) {
-                row[magentoFieldCode] = await this.woocommerceDataMapper.getMagentoValue(record, pimFieldCode, magentoFieldCode)
+            } else if (catalogSourceFieldCode) {
+                row[magentoFieldCode] = await this.woocommerceDataMapper.getMagentoValue(record, catalogSourceFieldCode, magentoFieldCode)
                 if (magentoFieldCode === 'image') {
                     row['thumbnail'] = row[magentoFieldCode]
                     row['small_image'] = row[magentoFieldCode]

@@ -1,13 +1,13 @@
 import {Link} from "react-router-dom"
 import {NavStyles} from '../styles/NavStyles';
-import {useActivePimSystem} from "../../pim/hooks/useCurrentPimSystem";
+import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
 import {useUser} from "../../user-authentication/hooks/useUser"
 import {SignOut} from "../../user-authentication/components/SignOut";
 import React from "react";
 
 export const Nav: React.FC = () => {
     const user = useUser();
-    const currentPimSystem = useActivePimSystem()
+    const currentCatalogSource = useActiveCatalogSource()
 
     return (
         <NavStyles>
@@ -16,8 +16,8 @@ export const Nav: React.FC = () => {
                     <Link to="/magento" className="text-white">
                         Magento
                     </Link>
-                    <Link to="/pim" className="text-white">
-                        {currentPimSystem?.name} System
+                    <Link to="/catalog-source" className="text-white">
+                        {currentCatalogSource?.name} System
                     </Link>
                     <Link to="/config" className="text-white">
                         Configuration

@@ -13,9 +13,9 @@ export const permissionFields = {
         defaultValue: false,
         label: 'User can Delete product',
     }),
-    canImportPIMAttribute: checkbox({
+    canImportSourceAttribute: checkbox({
         defaultValue: false,
-        label: 'User can Import PIM Attribute',
+        label: 'User can Import Catalog Source Attribute',
     }),
     canImportMagentoAttribute: checkbox({
         defaultValue: false,

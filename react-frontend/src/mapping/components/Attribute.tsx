@@ -5,9 +5,9 @@ import {Title} from '../../global/styles/Title';
 import {MatchingAttributeData} from "../../types/keystone";
 import {useActions} from "../../global/hooks/useActions";
 import {useMapAttribute} from "../graphql/useMapAttribute";
-import {useFindPimAttributes} from "../../pim/graphql/useFindPimAttributes";
+import {useFindCatalogSourceAttributes} from "../../catalog-source/graphql/useFindCatalogSourceAttributes";
 import {useFindMagentoAttributes} from "../../magento/graphql/keystone/useFindMagentoAttributes";
-import {useActivePimSystem} from "../../pim/hooks/useCurrentPimSystem";
+import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
@@ -15,26 +15,26 @@ interface MappingProps {
 }
 
 export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}: MappingProps) => {
-    const currentPimSystem = useActivePimSystem()
-    const { addFlashMessage, addPimAttributeMapped } = useActions()
+    const currentCatalogSource = useActiveCatalogSource()
+    const { addFlashMessage, addCatalogSourceAttributeMapped } = useActions()
     const navigate = useNavigate()
-    const [pimAttributeStateId, setPimAttributeStateId] = useState<string>('');
+    const [catalogSourceAttributeStateId, setCatalogSourceAttributeStateId] = useState<string>('');
     const [magentoAttributeStateId, setMagentoAttributeStateId] = useState<string>('');
-    const mapAttribute = useMapAttribute(pimAttributeStateId, magentoAttributeStateId)
-    const getPimAttributeList = useFindPimAttributes(initialAttribute)
+    const mapAttribute = useMapAttribute(catalogSourceAttributeStateId, magentoAttributeStateId)
+    const getCatalogSourceAttributeList = useFindCatalogSourceAttributes(initialAttribute)
     const getMagentoAttributeList = useFindMagentoAttributes(attribute.label)
 
     const isMappingReady = () => {
-        return pimAttributeStateId && magentoAttributeStateId
+        return catalogSourceAttributeStateId && magentoAttributeStateId
     }
 
     useEffect(() => {
         function linkAttribute() {
             try {
-                if (pimAttributeStateId!=='' && magentoAttributeStateId!=='') {
+                if (catalogSourceAttributeStateId!=='' && magentoAttributeStateId!=='') {
                     mapAttribute();
-                    navigate(`/pim/${initialAttribute}/${attribute.label}`);
-                    addPimAttributeMapped(currentPimSystem.name)
+                    navigate(`/catalog-source/${initialAttribute}/${attribute.label}`);
+                    addCatalogSourceAttributeMapped(currentCatalogSource.name)
                     addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)
                 }
             } catch (e) {
@@ -47,10 +47,10 @@ export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}:
     const mapField = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         try {
-            const data1 = await getPimAttributeList();
+            const data1 = await getCatalogSourceAttributeList();
             const data2 = await getMagentoAttributeList();
-            if (data1?.data?.pimAttributes[0].id && data2?.data?.magentoAttributes[0].id) {
-                setPimAttributeStateId(data1.data.pimAttributes[0].id)
+            if (data1?.data?.catalogSourceAttributes[0].id && data2?.data?.magentoAttributes[0].id) {
+                setCatalogSourceAttributeStateId(data1.data.catalogSourceAttributes[0].id)
                 setMagentoAttributeStateId(data2.data.magentoAttributes[0].id)
             }
         } catch (e) {

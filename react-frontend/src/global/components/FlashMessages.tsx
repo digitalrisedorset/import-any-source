@@ -1,5 +1,5 @@
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { RenderFileDownload } from "../../pim/components/DownloadLink"
+import { RenderFileDownload } from "../../catalog-source/components/DownloadLink"
 import { SuccessStyles, ErrorStyles, AnimationStyles} from "../styles/FlashMessage"
 import React, {useEffect, useRef, useState} from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';

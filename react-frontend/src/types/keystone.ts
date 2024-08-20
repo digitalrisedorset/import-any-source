@@ -15,18 +15,18 @@ export type AssignedToData = Pick<BaseAttribute, "code" | "name">
 
 export type KeystoneAttribute = Pick<BaseAttribute, "code" | "name" | "type" | "required">
 
-export interface PimAttribute extends BaseAttribute {
+export interface KeystoneCatalogSourceAttribute extends BaseAttribute {
     ignored: boolean;
     magentoCode: MagentoCode
-    pimSystem: string
+    catalogSource: string
 }
 
 export interface MagentoAttribute extends BaseAttribute {
     assignedTo: AssignedToData[]
 }
 
-export interface PimAttributeData {
-    pimAttributes: PimAttribute[]
+export interface CatalogSourceAttributeData {
+    catalogSourceAttributes: KeystoneCatalogSourceAttribute[]
 }
 
 export interface KeystoneMagentoAttributeData {
@@ -51,7 +51,7 @@ export interface RemoteProductsToCreate {
     productsToCreate: KeystoneProduct[]
 }
 
-export interface PimQueryResult extends QueryResult {
-    pimAttributes: PimAttribute[]
+export interface CatalogSourceQueryResult extends QueryResult {
+    catalogSourceAttributes: KeystoneCatalogSourceAttribute[]
 }
 

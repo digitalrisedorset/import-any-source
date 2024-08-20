@@ -1,4 +1,4 @@
-import {ImportResponse} from "../../../types/pim"
+import {ImportResponse} from "../../../types/catalog-source"
 import {FlashMessageActionType} from "../action-types/flashMessageAction";
 
 interface AddFlashMessageAction {

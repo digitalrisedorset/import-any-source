@@ -1,8 +1,8 @@
 import {CardStyles} from "../styles/CardStyles";
-import {PimSystem} from "../styles/PimSystem";
+import {CatalogSource} from "../styles/CatalogSource";
 import {ConfigReader} from "../models/ConfigReader";
 import {useActions} from "../../global/hooks/useActions";
-import {PimSystemSelect} from "../../pim/components/MainMappingArea/PimSystemSelect";
+import {CatalogSourceSelect} from "../../catalog-source/components/MainMappingArea/CatalogSourceSelect";
 
 export const Config = () => {
     const { setActiveTheme } = useActions()
@@ -16,7 +16,7 @@ export const Config = () => {
     return (
         <CardStyles>
             <h2>System Preferences</h2>
-            <PimSystem>
+            <CatalogSource>
                 <fieldset>
                     <label htmlFor="code">
                         Select your theme
@@ -28,8 +28,8 @@ export const Config = () => {
                         </select>
                     </label>
                 </fieldset>
-                <PimSystemSelect />
-            </PimSystem>
+                <CatalogSourceSelect />
+            </CatalogSource>
         </CardStyles>
     )
 }

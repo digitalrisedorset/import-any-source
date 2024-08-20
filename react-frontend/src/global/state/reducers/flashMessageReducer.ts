@@ -1,6 +1,6 @@
 import {FlassMessaggeActionList} from '../../../state/actions'
 import {FlashMessageActionType} from '../../../state/action-types'
-import {ImportResponse} from "../../../types/pim"
+import {ImportResponse} from "../../../types/catalog-source"
 
 interface FlashMessageState {
     messages: string[]

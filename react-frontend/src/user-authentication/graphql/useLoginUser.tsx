@@ -15,7 +15,7 @@ const SIGNIN_MUTATION = gql`
           role {
             name          
             canUpdateProducts
-            canImportPIMAttribute
+            canImportSourceAttribute
             canCreateProducts
             canMapAttribute
             canImportProduct

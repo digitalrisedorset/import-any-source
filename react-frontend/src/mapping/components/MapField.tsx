@@ -8,7 +8,7 @@ import {useMagentoAttributesLazy} from "../../magento/graphql/keystone/useMagent
 
 export const MapField: React.FC = () => {
     const { code } = useParams();
-    const { setPimAttributesMatchFound } = useActions()
+    const { setCatalogSourceAttributesMatchFound } = useActions()
 
     const [attributeCodeState, setAttributeCodeState] = useState<string>('');
     const getAttributeList = useMagentoAttributesLazy()
@@ -18,7 +18,7 @@ export const MapField: React.FC = () => {
         let optionsFromCode = data?.data?.magentoAttributes.map((attribute: MagentoAttribute) => ({label: attribute.code, value: attribute.name}))
         let match = filterOptions(optionsFromCode, attributeCodeState)
 
-        setPimAttributesMatchFound(code, match)
+        setCatalogSourceAttributesMatchFound(code, match)
     }
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export const MapField: React.FC = () => {
             }}>
                 <fieldset>
                     <label htmlFor="code">
-                        Next Pim Attribute Code to Link
+                        Next CatalogSource Attribute Code to Link
                         <input
                             className="mb2"
                             value={attributeCodeState}
@@ -45,7 +45,7 @@ export const MapField: React.FC = () => {
                                 setAttributeCodeState(e.target.value)
                             }
                             type="text"
-                            placeholder="Enter a Pim Attribute Code"
+                            placeholder="Enter a CatalogSource Attribute Code"
                         />
                     </label>
 

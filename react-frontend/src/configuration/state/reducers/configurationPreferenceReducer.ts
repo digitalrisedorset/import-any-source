@@ -11,7 +11,7 @@ const accessDisabled: AccessState = {
     canCreateProducts: false,
     canUpdateProducts: false,
     canDeleteProducts: false,
-    canImportPIMAttribute: false,
+    canImportSourceAttribute: false,
     canImportMagentoAttribute: false,
     canMapAttribute: false,
     canImportProduct: false,

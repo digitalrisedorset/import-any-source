@@ -24,7 +24,7 @@ export const MagentoAttribute = list({
         }),
         length: text({}),
         required: checkbox(),
-        assignedTo: relationship({ ref: 'PimAttribute.magentoCode', many: true }),
+        assignedTo: relationship({ ref: 'CatalogSourceAttribute.magentoCode', many: true }),
         createdAt: timestamp({
             // default this timestamp to Date.now() when first created
             defaultValue: { kind: 'now' },

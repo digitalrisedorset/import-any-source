@@ -7,16 +7,16 @@ import React from "react";
 
 export const MatchingField: React.FC = () => {
     const { addFlashMessage } = useActions()
-    const { pimAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.pimMapping)
+    const { catalogSourceAttribute, magentoMatchAttributes } = useTypedSelector((state) => state.catalogSourceMapping)
 
     addFlashMessage(`The system has found ${magentoMatchAttributes.length} possible matching magento attributes`)
 
     return (
         <CardStyles>
             <h2>Matching Attributes</h2>
-            {(pimAttribute && magentoMatchAttributes &&
+            {(catalogSourceAttribute && magentoMatchAttributes &&
                 magentoMatchAttributes.map((attribute: MatchingAttributeData) => (
-                    <Attribute key={attribute.value} attribute={attribute} initialAttribute={pimAttribute}/>
+                    <Attribute key={attribute.value} attribute={attribute} initialAttribute={catalogSourceAttribute}/>
                 ))
             )}
         </CardStyles>

@@ -1,9 +1,9 @@
-import {RemoveProduct} from "../../pim/components/ImportProduct/ProductImportList/RemoveProduct";
-import {DeletedPimProduct, RemotePimProduct} from "../../types/pim";
-import {Table} from "../../pim/styles/GridStyle";
-import {useProductImport} from "../../pim/hooks/useProductImport";
+import {RemoveProduct} from "../../catalog-source/components/ImportProduct/ProductImportList/RemoveProduct";
+import {DeletedCatalogSourceProduct, CatalogSourceProduct} from "../../types/catalog-source";
+import {Table} from "../../catalog-source/styles/GridStyle";
+import {useProductImport} from "../../catalog-source/hooks/useProductImport";
 
-export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePimProduct[] | DeletedPimProduct[]) => {
+export const useProductGrid = (catalogSourceProductHeader: string[], catalogSourceProducts: CatalogSourceProduct[] | DeletedCatalogSourceProduct[]) => {
     const getClassname = (elt: string) => {
         let result = ''
         switch (elt) {
@@ -32,7 +32,7 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePi
         return `${elt} ${result}`
     }
 
-    const getColumnContent = (item: RemotePimProduct | DeletedPimProduct, content: string, elt: string) => {
+    const getColumnContent = (item: CatalogSourceProduct | DeletedCatalogSourceProduct, content: string, elt: string) => {
         switch (elt) {
             case 'short_description':
             case 'description':
@@ -45,11 +45,11 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePi
         }
     }
 
-    const getStatusClassname = (item: RemotePimProduct | DeletedPimProduct): string => {
+    const getStatusClassname = (item: CatalogSourceProduct | DeletedCatalogSourceProduct): string => {
         return item['import_status']
     }
 
-    const getRow = (item: RemotePimProduct | DeletedPimProduct) => {
+    const getRow = (item: CatalogSourceProduct | DeletedCatalogSourceProduct) => {
         return Object.entries(item).map((elt: any) => {
             const key = `col-${elt[0]}`
             return <td key={key} className={getClassname(elt[0])}>{getColumnContent(item, elt[1], elt[0])}</td>
@@ -68,7 +68,7 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePi
         return `header-${Math.random()}`
     }
 
-    const getRowId = (item: RemotePimProduct | DeletedPimProduct): string => {
+    const getRowId = (item: CatalogSourceProduct | DeletedCatalogSourceProduct): string => {
         if ("id" in item) {
             return `row-${item.id}`
         }
@@ -78,8 +78,8 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePi
 
     return <Table>
         <tbody>
-            <tr key={getRowKey()}>{getHeader(pimProductHeader)}</tr>
-            {pimProducts.map((item: RemotePimProduct | DeletedPimProduct) => {
+            <tr key={getRowKey()}>{getHeader(catalogSourceProductHeader)}</tr>
+            {catalogSourceProducts.map((item: CatalogSourceProduct | DeletedCatalogSourceProduct) => {
                     return (
                         <tr key={getRowId(item)} className={getStatusClassname(item)}>{getRow(item)}</tr>
                     )
@@ -90,12 +90,12 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePi
 }
 
 export const useProductImportGrid = () => {
-    const {pimProductHeader, pimProducts} = useProductImport()
-    return useProductGrid(pimProductHeader, pimProducts)
+    const {catalogSourceProductHeader, catalogSourceProducts} = useProductImport()
+    return useProductGrid(catalogSourceProductHeader, catalogSourceProducts)
 }
 
 export const useProductDeletedGrid = () => {
-    const { pimDeletedProducts} = useProductImport()
-    const pimProductHeader = ['sku', 'deleted']
-    return useProductGrid(pimProductHeader, pimDeletedProducts)
+    const { CatalogSourceDeletedProducts} = useProductImport()
+    const catalogSourceProductHeader = ['sku', 'deleted']
+    return useProductGrid(catalogSourceProductHeader, CatalogSourceDeletedProducts)
 }

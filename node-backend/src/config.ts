@@ -50,7 +50,7 @@ export const config: configInfo = {
     },
 
     feedSystem: {
-        feedFolder:  (process.env.PLANT_FEED_FOLDER === undefined)? 'pim_system': process.env.PLANT_FEED_FOLDER
+        feedFolder:  (process.env.PLANT_FEED_FOLDER === undefined)? 'catalog_source_system': process.env.PLANT_FEED_FOLDER
     },
 
     /**

@@ -1,22 +1,22 @@
 import Axios, {AxiosResponse} from "axios";
-import {MagentoAttribute, PimAttribute} from "../../types/keystone";
+import {MagentoAttribute, KeystoneCatalogSourceAttribute} from "../../types/keystone";
 import {config} from "../../config";
-import {ImportResponse, RemotePimProduct} from "../../types/pim"
+import {ImportResponse, CatalogSourceProduct} from "../../types/catalog-source"
 
 export class MappingModel {
-    private pimAttributeList: PimAttribute[] = [];
+    private catalogSourceAttributeList: KeystoneCatalogSourceAttribute[] = [];
 
     private magentoList: MagentoAttribute[] = [];
 
-    constructor(pimAttributeList: PimAttribute[], magentoList: MagentoAttribute[]) {
-        this.pimAttributeList = pimAttributeList
+    constructor(catalogSourceAttributeList: KeystoneCatalogSourceAttribute[], magentoList: MagentoAttribute[]) {
+        this.catalogSourceAttributeList = catalogSourceAttributeList
         this.magentoList = magentoList
     }
 
-    createAttributesImport = async (pimSystemCode: string): Promise<ImportResponse | undefined> => {
+    createAttributesImport = async (catalogSourceCode: string): Promise<ImportResponse | undefined> => {
         const fields = this.getFieldList()
         const response = await Axios.post(
-            `${pimSystemCode}/createImport`,
+            `${catalogSourceCode}/createImport`,
             {'mapping': fields}
         )
 
@@ -27,23 +27,23 @@ export class MappingModel {
         };
     }
 
-    getProductDataImport = async (pimSystemCode: string): Promise<RemotePimProduct[] | undefined> => {
+    getProductDataImport = async (catalogSourceCode: string): Promise<CatalogSourceProduct[] | undefined> => {
         const fields = this.getFieldList()
         const response = await Axios.post(
-            `${pimSystemCode}/createImport`,
+            `${catalogSourceCode}/createImport`,
             {'mapping': fields}
         )
 
         if ("data" in response && "rows" in response?.data) {
-            return response?.data?.rows as RemotePimProduct[]
+            return response?.data?.rows as CatalogSourceProduct[]
         }
     }
 
-    createKeystoneSeedImport = async (pimSystemCode: string): Promise<AxiosResponse | undefined> => {
+    createKeystoneSeedImport = async (catalogSourceCode: string): Promise<AxiosResponse | undefined> => {
         try {
             const fields = this.getFieldList()
             return await Axios.post(
-                `${pimSystemCode}/createImport`,
+                `${catalogSourceCode}/createImport`,
                 {'mapping':fields }
             );
         } catch (e) {
@@ -52,23 +52,23 @@ export class MappingModel {
     }
 
     getFieldList = () => {
-        return this.pimAttributeList.map((attribute: PimAttribute) => ({
-            pimFieldCode: attribute.code,
+        return this.catalogSourceAttributeList.map((attribute: KeystoneCatalogSourceAttribute) => ({
+            catalogSourceFieldCode: attribute.code,
             magentoLinkedCode: this.getMagentoFieldCode(attribute.code)
         }))
     }
 
-    getMagentoFieldCode = (pimFieldCode: string) => {
-        const findAssignedAttribute = (attribute: MagentoAttribute, pimAttribute: string) => {
-            return attribute.assignedTo.find(assign => assign.code === pimAttribute)
+    getMagentoFieldCode = (catalogSourceFieldCode: string) => {
+        const findAssignedAttribute = (attribute: MagentoAttribute, KeystoneCatalogSourceAttribute: string) => {
+            return attribute.assignedTo.find(assign => assign.code === KeystoneCatalogSourceAttribute)
         }
 
         const field = this.magentoList.filter((attribute: MagentoAttribute) =>
-            attribute.assignedTo!== null && findAssignedAttribute(attribute, pimFieldCode)
+            attribute.assignedTo!== null && findAssignedAttribute(attribute, catalogSourceFieldCode)
         )
 
         if (!field || field.length===0) {
-            throw new Error(`attribute ${pimFieldCode} is not linked`);
+            throw new Error(`attribute ${catalogSourceFieldCode} is not linked`);
         }
 
         return field[0].code

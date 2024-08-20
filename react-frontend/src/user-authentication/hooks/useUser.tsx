@@ -14,7 +14,7 @@ const CURRENT_USER_QUERY = gql`
           canCreateProducts
           canUpdateProducts
           canDeleteProducts
-          canImportPIMAttribute
+          canImportSourceAttribute
           canImportMagentoAttribute
           canMapAttribute
           canImportProduct

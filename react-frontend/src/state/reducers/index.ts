@@ -1,18 +1,18 @@
 import { combineReducers } from "redux";
-import pimMappingReducer from "../../mapping/state/reducers/pimMappingReducer"
+import catalogSourceMappingReducer from "../../mapping/state/reducers/catalogSourceMappingReducer"
 import flashMessageReducer from "../../global/state/reducers/flashMessageReducer";
 import configurationPreferenceReducer from "../../configuration/state/reducers/configurationPreferenceReducer";
-import pimAttributeReducer from "../../pim/state/reducers/pimAttributeReducer"
+import catalogSourceAttributeReducer from "../../catalog-source/state/reducers/catalogSourceAttributeReducer"
 import magentoAttributeReducer from "../../magento/state/reducers/magentoAttributeReducer";
-import pimProductReducer from "../../pim/state/reducers/pimProductReducer";
+import catalogSourceProductReducer from "../../catalog-source/state/reducers/catalogSourceProductReducer";
 
 const reducers = combineReducers({
-    pimMapping: pimMappingReducer,
+    catalogSourceMapping: catalogSourceMappingReducer,
     flashMessages: flashMessageReducer,
     configurationPreference: configurationPreferenceReducer,
-    pimAttribute: pimAttributeReducer,
+    catalogSourceAttribute: catalogSourceAttributeReducer,
     magentoAttribute: magentoAttributeReducer,
-    pimProduct: pimProductReducer
+    catalogSourceProduct: catalogSourceProductReducer
 })
 
 export default reducers

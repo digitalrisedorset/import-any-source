@@ -1,13 +1,13 @@
-import {useActivePimSystem} from "../../pim/hooks/useCurrentPimSystem";
+import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
 
 export const useMappingVerifier = () => {
-    const {pimAttributes, magentoMapping, ignoredAttributes} = useActivePimSystem()
+    const {catalogSourceAttributes, magentoMapping, ignoredAttributes} = useActiveCatalogSource()
 
-    return pimAttributes - magentoMapping - ignoredAttributes > 0
+    return catalogSourceAttributes - magentoMapping - ignoredAttributes > 0
 }
 
 export const useMappingRemaining = () => {
-    const {pimAttributes, magentoMapping, ignoredAttributes} = useActivePimSystem()
+    const {catalogSourceAttributes, magentoMapping, ignoredAttributes} = useActiveCatalogSource()
 
-    return Math.max(pimAttributes - magentoMapping - ignoredAttributes, 0)
+    return Math.max(catalogSourceAttributes - magentoMapping - ignoredAttributes, 0)
 }

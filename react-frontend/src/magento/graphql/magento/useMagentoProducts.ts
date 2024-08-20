@@ -1,4 +1,4 @@
-import {useProductImport} from "../../../pim/hooks/useProductImport";
+import {useProductImport} from "../../../catalog-source/hooks/useProductImport";
 import {gql, LazyQueryResultTuple, OperationVariables, useLazyQuery} from "@apollo/client";
 import {MagentoProductQueryResult} from "../../types/magento";
 
@@ -14,10 +14,10 @@ export const ALL_MAGENTO_PRODUCT_QUERY = gql`
 `;
 
 export const useMagentoProducts = () => {
-    const {pimProducts} = useProductImport()
+    const {catalogSourceProducts} = useProductImport()
 
     const skuList = () => {
-        return pimProducts.map((product: any) => product['sku'])
+        return catalogSourceProducts.map((product: any) => product['sku'])
     }
 
     const [getProductDataBySku]: LazyQueryResultTuple<MagentoProductQueryResult, OperationVariables> = useLazyQuery(ALL_MAGENTO_PRODUCT_QUERY, {

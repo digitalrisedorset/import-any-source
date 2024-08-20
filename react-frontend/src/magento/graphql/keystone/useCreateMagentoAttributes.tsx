@@ -1,6 +1,6 @@
 import {gql} from "@apollo/client";
 import { useMutation} from '@apollo/client';
-import {ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY} from "../../../pim/graphql/useFindPimAttributesNotMapped"
+import {ALL_CATALOG_SOURCE_ATTRIBUTES_NOT_MAPPED_QUERY} from "../../../catalog-source/graphql/useFindCatalogSourceAttributesNotMapped"
 
 const CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION = gql`    
       mutation CreateMagentoAttributes($data: [MagentoAttributeCreateInput!]!) {
@@ -35,7 +35,7 @@ export const ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY = gql`
 
 export const useCreateMagentoAttributes = () => {
     const [createListAttribute ] = useMutation(CREATE_MAGENTO_ATTRIBUTE_LIST_MUTATION, {
-        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }, {query: ALL_PIM_ATTRIBUTES_NOT_MAPPED_QUERY}]
+        refetchQueries: [{ query: ALL_MAGENTO_PRODUCT_ATTRIBUTES_QUERY }, {query: ALL_CATALOG_SOURCE_ATTRIBUTES_NOT_MAPPED_QUERY}]
     });
 
     return createListAttribute;

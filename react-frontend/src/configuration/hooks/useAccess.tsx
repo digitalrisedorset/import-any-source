@@ -7,12 +7,12 @@ export function useAccess() {
         canCreateProducts: accessEnabled?.canCreateProducts,
         canUpdateProducts: accessEnabled?.canUpdateProducts,
         canDeleteProducts: accessEnabled?.canDeleteProducts,
-        canImportPIMAttribute: accessEnabled?.canImportPIMAttribute,
+        canImportSourceAttribute: accessEnabled?.canImportSourceAttribute,
         canImportMagentoAttribute: accessEnabled?.canImportMagentoAttribute,
         canMapAttribute: accessEnabled?.canMapAttribute,
         canImportProduct: accessEnabled?.canImportProduct,
         canMonitorData: accessEnabled?.canUpdateProducts || accessEnabled?.canDeleteProducts,
-        canSetupImport: accessEnabled?.canImportPIMAttribute || accessEnabled?.canImportMagentoAttribute || accessEnabled?.canMapAttribute || accessEnabled?.canImportProduct
+        canSetupImport: accessEnabled?.canImportSourceAttribute || accessEnabled?.canImportMagentoAttribute || accessEnabled?.canMapAttribute || accessEnabled?.canImportProduct
     }
 }
 

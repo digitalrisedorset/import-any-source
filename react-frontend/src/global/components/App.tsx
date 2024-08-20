@@ -1,13 +1,13 @@
 import React from 'react';
 import {Header} from "./Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Pim } from "../../pim/components";
+import { CatalogSource } from "../../catalog-source/components";
 import { Magento } from "../../magento/components";
 import { Map } from '../../mapping/components'
 import { FlashMessages } from './FlashMessages'
 import { NotFound } from './NotFound'
 import { Page } from "./Page";
-import { Import } from "../../pim/components/Import";
+import { Import } from "../../catalog-source/components/Import";
 import { Config} from "../../configuration/components/Config"
 import {Sign} from "../../user-authentication/components/Sign";
 import {Account} from "../../user-authentication/components/Account";
@@ -23,8 +23,8 @@ export const App = () => {
           <Route path="/account" element={<Account/>}/>
           <Route path="/config" element={<Config />} />
           <Route path="/magento" element={<Magento/>}/>
-          <Route path="/pim" element={<Pim/>}/>
-          <Route path="/pim/:initialAttribute/:matchingAttribute" element={<Pim />}/>
+          <Route path="/catalog-source" element={<CatalogSource/>}/>
+          <Route path="/catalog-source/:initialAttribute/:matchingAttribute" element={<CatalogSource />}/>
           <Route path="/map/:code" element={<Map/>}/>
           <Route path="/map" element={<NotFound />}/>
         </Routes>

@@ -1,16 +1,16 @@
-import {MagentoAttribute, PimAttribute} from "../../types/keystone";
+import {MagentoAttribute, KeystoneCatalogSourceAttribute} from "../../types/keystone";
 
 interface MappingData {
     matching: {
         attributes: MagentoAttribute[];
-        initialAttribute? : PimAttribute
+        initialAttribute? : KeystoneCatalogSourceAttribute
     }
 }
 
 export class MatchingModel {
     private MAX_MATCHES = 5;
 
-    private initialAttribute: PimAttribute | undefined
+    private initialAttribute: KeystoneCatalogSourceAttribute | undefined
 
     private attributes: MagentoAttribute[] = []
 
@@ -21,7 +21,7 @@ export class MatchingModel {
         }
     }
 
-    getInitialAttribute(): PimAttribute | undefined {
+    getInitialAttribute(): KeystoneCatalogSourceAttribute | undefined {
         return this.initialAttribute
     }
 
