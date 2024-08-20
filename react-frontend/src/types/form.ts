@@ -1,3 +1,3 @@
-export interface FormInputType {
-    [k:PropertyKey]: any
+export type formProps = {
+    [k:string]: string
 }

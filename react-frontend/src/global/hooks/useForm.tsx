@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-
-type formProps = {
-  [k:string]: string
-}
+import {formProps} from "../../types/form";
 
 export const useForm = (initial: formProps) => {
   // create a state object for our inputs
