@@ -5,7 +5,6 @@ import {TabContent} from "./TabContent";
 import {useState} from "react";
 import {StepDataReader} from "../../global/models/StepDataReader";
 import {TabContainer} from "../../global/styles/TabButtonsStyle";
-import {useNavigate} from "react-router-dom";
 import {useUser} from "../../user-authentication/hooks/useUser";
 
 export const Import: React.FC = () => {
@@ -13,13 +12,7 @@ export const Import: React.FC = () => {
     const [activeTab, setActiveTab] = useState<number>(0);
     const stepData = stepDataReader.getImportStep();
     const {canSetupImport} = useAccess()
-    const navigate = useNavigate()
     const user = useUser()
-
-
-    if (!user) {
-        navigate('/signin')
-    }
 
     return (
         <ImportHome>

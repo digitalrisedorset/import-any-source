@@ -1,4 +1,4 @@
-import ItemStyles from '../../../global/styles/ItemStyles';
+import {ItemStyles} from '../../../global/styles/ItemStyles';
 import {Title} from '../../../global/styles/Title';
 import {LinkedWith} from "./LinkedWith";
 import {MapLink} from "./MapLink";
@@ -28,7 +28,7 @@ export const Attribute: React.FC<AttributeProps> = ({attribute, candelete}: Attr
     }
 
     return (
-        <ItemStyles required={attribute.required} candelete={candelete} id={attribute.id}>
+        <ItemStyles required={attribute.required} id={attribute.id}>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

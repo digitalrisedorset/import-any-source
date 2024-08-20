@@ -2,10 +2,9 @@ import styled from 'styled-components';
 
 interface StyleProps {
     required?: boolean;
-    candelete?: "true" | "false"
 }
 
-const ItemStyles = styled.div<StyleProps>`
+export const ItemStyles = styled.div<StyleProps>`
   background: ${(props: StyleProps): string => props.required?'#FEEBEB':'white' };
   border: 1px solid var(--offWhite);
   box-shadow: var(--bs);
@@ -58,5 +57,3 @@ const ItemStyles = styled.div<StyleProps>`
     }
   }
 `;
-
-export default ItemStyles;

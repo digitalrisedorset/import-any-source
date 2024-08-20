@@ -1,14 +1,16 @@
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { RenderFileDownload } from "../../pim/components/DownloadLink"
 import { SuccessStyles, ErrorStyles, AnimationStyles} from "../styles/FlashMessage"
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const MINUTE_MS = 5000;
 
 export const FlashMessages: React.FC = () => {
     const { messages, downloadLink, messageType} = useTypedSelector((state) => state.flashMessages)
-    const [hidden, setHidden] = useState(false)
+    const [hidden, setHidden] = useState<boolean>(false)
+
+    const flashNodeRef = useRef(null)
 
     useEffect(() => {
         setHidden(false)
@@ -25,6 +27,7 @@ export const FlashMessages: React.FC = () => {
                 <TransitionGroup>
                     <CSSTransition
                         in={hidden}
+                        nodeRef={flashNodeRef}
                         timeout={MINUTE_MS}
                         classNames="display"
                         unmountOnExit

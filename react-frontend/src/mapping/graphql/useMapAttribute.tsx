@@ -16,8 +16,6 @@ const GET_MAPPING_STATUS_ATTRIBUTE_LIST_QUERY = gql`
 `;
 
 export const useMapAttribute = (pimAttributeStateId: string, magentoAttributeStateId: string) => {
-    console.log(`useMapAttribute pimAttributeStateId ${pimAttributeStateId}, magentoAttributeStateId: ${magentoAttributeStateId}`)
-
     const [mapAttribute] = useMutation(UPDATE_ATTRIBUTE_MUTATION, {
         variables: {
             "where": {"id":pimAttributeStateId},

@@ -1,5 +1,5 @@
-import MapStyle from '../../styles/MapStyle';
-import MapStyleLinked from '../../styles/MapStyleLinked';
+import {MapStyle} from '../../styles/MapStyle';
+import {MapStyleLinked} from '../../styles/MapStyleLinked';
 import React from "react";
 
 interface AttributeProps {

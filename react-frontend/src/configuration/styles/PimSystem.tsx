@@ -12,7 +12,7 @@ const loading = keyframes`
   }
 `;
 
-const PimSystem = styled.div`
+export const PimSystem = styled.div`
     font-size: 1.5rem;
     line-height: 1.5;
     font-weight: 600;
@@ -68,5 +68,3 @@ const PimSystem = styled.div`
         }
     }
 `;
-
-export default PimSystem;

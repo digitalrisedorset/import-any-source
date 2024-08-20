@@ -77,12 +77,15 @@ export const useProductGrid = (pimProductHeader: string[], pimProducts: RemotePi
     }
 
     return <Table>
-        <tr key={getRowKey()}>{getHeader(pimProductHeader)}</tr>
-        {pimProducts.map((item: RemotePimProduct | DeletedPimProduct) => {
-            return (
-                <tr key={getRowId(item)} className={getStatusClassname(item)}>{getRow(item)}</tr>
+        <tbody>
+            <tr key={getRowKey()}>{getHeader(pimProductHeader)}</tr>
+            {pimProducts.map((item: RemotePimProduct | DeletedPimProduct) => {
+                    return (
+                        <tr key={getRowId(item)} className={getStatusClassname(item)}>{getRow(item)}</tr>
+                    )
+                }
             )}
-        )}
+        </tbody>
     </Table>
 }
 

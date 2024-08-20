@@ -1,5 +1,5 @@
 import {CardStyles} from "../styles/CardStyles";
-import PimSystem from "../styles/PimSystem";
+import {PimSystem} from "../styles/PimSystem";
 import {ConfigReader} from "../models/ConfigReader";
 import {useActions} from "../../global/hooks/useActions";
 import {PimSystemSelect} from "../../pim/components/MainMappingArea/PimSystemSelect";

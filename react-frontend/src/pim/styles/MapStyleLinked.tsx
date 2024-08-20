@@ -4,7 +4,7 @@ interface StyleProps {
     linked?: boolean;
 }
 
-const MapStyleLinked = styled.div<StyleProps>`
+export const MapStyleLinked = styled.div<StyleProps>`
     background: #cdf2e2;
     border: 1px solid var(--offWhite);
     box-shadow: var(--bs);
@@ -15,5 +15,3 @@ const MapStyleLinked = styled.div<StyleProps>`
     width:180px;
     height: 75px;
 `;
-
-export default MapStyleLinked;

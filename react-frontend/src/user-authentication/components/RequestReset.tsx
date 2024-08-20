@@ -9,7 +9,7 @@ export const RequestReset: React.FC = () => {
   });
   const [requestreset, { data, error }] = useRequestReset(inputs)
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault(); // stop the form from submitting
     await requestreset().catch(console.error);
     resetForm();

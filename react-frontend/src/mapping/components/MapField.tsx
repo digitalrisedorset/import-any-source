@@ -10,7 +10,7 @@ export const MapField: React.FC = () => {
     const { code } = useParams();
     const { setPimAttributesMatchFound } = useActions()
 
-    const [attributeCodeState, setAttributeCodeState] = useState('');
+    const [attributeCodeState, setAttributeCodeState] = useState<string>('');
     const getAttributeList = useMagentoAttributesLazy()
 
     async function findMagentoAttribute(code: string) {

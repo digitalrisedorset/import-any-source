@@ -11,7 +11,7 @@ export const ResetPassword: React.FC = () => {
     });
     const [resetpassword, { data, error }] = useResetPassword(inputs);
 
-    async function handleSubmit(e: any) {
+    async function handleSubmit(e: React.FormEvent) {
         e.preventDefault(); // stop the form from submitting
         const res = await resetpassword().catch(console.error);
         //resetForm();

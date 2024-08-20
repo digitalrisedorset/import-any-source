@@ -1,8 +1,5 @@
 import {OperationVariables, QueryResult} from "@apollo/client";
-import {
-    PimAttribute,
-    PimQueryResult
-} from "../../../types/keystone";
+import {PimAttribute, PimQueryResult} from "../../../types/keystone";
 import {usePimAttributesNotMapped} from "../../graphql/useFindPimAttributesNotMapped";
 import {useCurrentPimSystem} from "../../hooks/useCurrentPimSystem";
 import {useMappingRemaining} from "../../../mapping/hooks/useMappingVerifier";

@@ -46,8 +46,8 @@ const RenderDelete: React.FC<UpdateResponse> = (deleteCsvFile: UpdateResponse) =
 }
 
 export const MonitorUpdate: React.FC = () => {
-    const [updateCsvFile, setUpdateCsvFile] = useState(InitResponse as UpdateResponse)
-    const [deleteCsvFile, setDeleteCsvFile] = useState(InitResponse as UpdateResponse)
+    const [updateCsvFile, setUpdateCsvFile] = useState<UpdateResponse>(InitResponse as UpdateResponse)
+    const [deleteCsvFile, setDeleteCsvFile] = useState<UpdateResponse>(InitResponse as UpdateResponse)
     const {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
     const { setPimProductUpdateNotification, setPimProductDeleteNotification, addFlashMessage, setProductMonitoredAction } = useActions()
     const {importMonitored} = useProductImport()
@@ -70,7 +70,6 @@ export const MonitorUpdate: React.FC = () => {
 
             const interval2 = setInterval(async () => {
                 if (canDeleteProducts) {
-                    console.log('delete notification')
                     updateModel.createDeleteImport().then(response => {
                         setDeleteCsvFile(response as UpdateResponse)
                         if (response?.rows !== undefined) {

@@ -4,23 +4,23 @@ import {DisplayError} from '../../global/components/ErrorMessage';
 import {useNavigate} from "react-router-dom";
 import {useLoginUser} from "../graphql/useLoginUser";
 import {useState} from "react";
+import {useUser} from "../hooks/useUser";
 
 export const SignIn: React.FC = () => {
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const navigate = useNavigate()
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
     password: '',
   });
   const setUserLogged = useLoginUser(inputs)
+  const user = useUser()
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault(); // stop the form from submitting
     const res = await setUserLogged();
     resetForm();
-    if (res === undefined) {
-      navigate(`/`);
-    } else {
+    if (res !== undefined) {
       setErrorMessage(res.message)
     }
   }

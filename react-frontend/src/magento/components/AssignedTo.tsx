@@ -1,6 +1,6 @@
-import MapStyle from '../../pim/styles/MapStyle';
-import MapStyleLinked from '../../pim/styles/MapStyleLinked';
-import MapStyleAwaitingLink from '../../pim/styles/MapStyleAwaitingLink';
+import {MapStyle} from '../../pim/styles/MapStyle';
+import {MapStyleLinked} from '../../pim/styles/MapStyleLinked';
+import {MapStyleAwaitingLink} from '../../pim/styles/MapStyleAwaitingLink';
 import {AssignedToData} from "../../types/keystone";
 import React from "react";
 

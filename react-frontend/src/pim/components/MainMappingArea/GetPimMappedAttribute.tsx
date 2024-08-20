@@ -9,7 +9,6 @@ import React from "react";
 export const GetPimMappedAttribute: React.FC = () => {
     const currentPimSystem = useCurrentPimSystem()
     const { data, loading } = usePimAttributes()
-    const candelete = "false"
 
     const getActiveAttributes = (attributes: PimAttribute[]): PimAttribute[] => {
         return attributes.filter((attribute: PimAttribute) => attribute.magentoCode?.code!==undefined)
@@ -23,7 +22,7 @@ export const GetPimMappedAttribute: React.FC = () => {
         <CardStyles>
             <h3>{currentPimSystem} mapped attributes</h3>
             {!loading && getActiveAttributes(data?.pimAttributes).map(
-                (attribute) => <Attribute key={attribute.id} candelete={candelete} attribute={attribute}/>
+                (attribute) => <Attribute key={attribute.id} candelete={"false"} attribute={attribute}/>
             )}
         </CardStyles>
     )

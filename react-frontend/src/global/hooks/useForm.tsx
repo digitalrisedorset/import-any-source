@@ -6,7 +6,7 @@ type formProps = {
 
 export const useForm = (initial: formProps) => {
   // create a state object for our inputs
-  const [inputs, setInputs] = useState(initial);
+  const [inputs, setInputs] = useState<formProps>(initial);
   const initialValues = null
   if (typeof initial === "object" && Object.keys(initial).length>0) {
     const initialValues = Object.values(initial).join('');

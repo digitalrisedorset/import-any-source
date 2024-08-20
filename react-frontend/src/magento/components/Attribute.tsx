@@ -1,4 +1,4 @@
-import ItemStyles from '../../global/styles/ItemStyles';
+import {ItemStyles} from '../../global/styles/ItemStyles';
 import { Title } from '../../global/styles/Title';
 import { AssignedTo } from "./AssignedTo";
 import { MapLink } from "./MapLink";
@@ -13,7 +13,7 @@ export const Attribute: React.FC<AttributeProps> = ({attribute}: AttributeProps)
     const date = new Date(attribute.createdAt)
 
     return (
-        <ItemStyles candelete="false">
+        <ItemStyles>
             <Title>
                 <MapLink attribute={attribute}/>
             </Title>

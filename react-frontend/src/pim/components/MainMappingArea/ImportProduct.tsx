@@ -16,8 +16,8 @@ import {useProductImport} from "../../hooks/useProductImport";
 
 export const ImportProduct: React.FC = () => {
     const pimSystemCode = useCurrentPimSystemCode()
-    const [mappingReady, setMappingReady] = useState(false)
-    const [importBuiling, setImportBuilding] = useState(false)
+    const [mappingReady, setMappingReady] = useState<boolean>(false)
+    const [importBuiling, setImportBuilding] = useState<boolean>(false)
     const { setPimProductBatchLoaded } = useActions()
     const { addDownloadMessage, addFlashMessage } = useActions()
     const {importStatus, pimProducts} = useProductImport()
