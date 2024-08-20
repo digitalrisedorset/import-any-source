@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 
-export const useForm = (initial: any) => {
+type formProps = {
+  [k:string]: string
+}
+
+export const useForm = (initial: formProps) => {
   // create a state object for our inputs
   const [inputs, setInputs] = useState(initial);
   const initialValues = null

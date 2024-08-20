@@ -11,7 +11,7 @@ export const SignUp: React.FC = () => {
   });
   const [signup, { data, error }] = useSignUpUser(inputs)
 
-  async function handleSubmit(e: any) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // stop the form from submitting
     const res = await signup().catch(console.error);
     resetForm();

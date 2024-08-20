@@ -3,7 +3,7 @@ import {useActiveThemeColor} from "../../configuration/hooks/useActiveTheme";
 import React from "react";
 
 interface PageProps {
-    children: any
+    children: React.ReactNode
 }
 
 export const Page: React.FC<PageProps> = ({ children }: PageProps) => {

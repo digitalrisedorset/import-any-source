@@ -3,11 +3,7 @@ import {Nav} from './Nav';
 import {Logo, HeaderStyles} from '../styles/Header'
 import React from "react";
 
-type HeaderProps = {
-    title: string
-}
-
-export const Header: React.FC<HeaderProps> = ({title}: HeaderProps) => {
+export const Header: React.FC = () => {
     return (
         <HeaderStyles>
             <div className="bar">

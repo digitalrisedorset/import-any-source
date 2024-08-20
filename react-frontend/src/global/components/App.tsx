@@ -16,7 +16,7 @@ export const App = () => {
   return (<Page>
     <BrowserRouter>
       <FlashMessages />
-      <Header title="Welcome on the Import Attribute Reader"/>
+      <Header />
         <Routes>
           <Route path="/" element={<Import/>}/>
           <Route path="/signin" element={<Sign />}/>

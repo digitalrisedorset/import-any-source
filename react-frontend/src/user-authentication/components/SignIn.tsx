@@ -14,7 +14,7 @@ export const SignIn: React.FC = () => {
   });
   const setUserLogged = useLoginUser(inputs)
 
-  async function handleSubmit(e: any) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); // stop the form from submitting
     const res = await setUserLogged();
     resetForm();

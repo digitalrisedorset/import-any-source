@@ -2,11 +2,12 @@ import {StepData} from '../types/step'
 import {TabStyles} from '../../global/styles/TabButtonsStyle'
 import {useProductImport} from "../hooks/useProductImport";
 import {useAccess} from "../../configuration/hooks/useAccess";
+import {Dispatch, SetStateAction} from "react";
 
 type TabsButtonProps = {
     stepData: StepData,
     activeTab: number,
-    setActiveTab: any
+    setActiveTab: Dispatch<SetStateAction<number>>
 }
 
 type MonitoringgProps = {
