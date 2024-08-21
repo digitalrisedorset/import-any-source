@@ -17,7 +17,7 @@ export const ImportCatalogSourceAttribute: React.FC = () => {
     const createListAttribute = useCreateCatalogSourceAttributes()
 
     const isCatalogSourceImportComplete = (): boolean => {
-        return currentCatalogSource?.catalogSourceAttributes > 0
+        return currentCatalogSource?.numberCatalogSourceAttributes > 0
     }
 
     async function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {

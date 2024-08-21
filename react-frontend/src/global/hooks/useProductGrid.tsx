@@ -95,7 +95,7 @@ export const useProductImportGrid = () => {
 }
 
 export const useProductDeletedGrid = () => {
-    const { CatalogSourceDeletedProducts} = useProductImport()
+    const { catalogSourceDeletedProducts} = useProductImport()
     const catalogSourceProductHeader = ['sku', 'deleted']
-    return useProductGrid(catalogSourceProductHeader, CatalogSourceDeletedProducts)
+    return useProductGrid(catalogSourceProductHeader, catalogSourceDeletedProducts)
 }

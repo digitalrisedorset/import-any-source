@@ -5,12 +5,12 @@ interface ImportProductResponse {
     importMonitored: boolean,
     importStatus: string,
     catalogSourceProducts: CatalogSourceProduct[],
-    CatalogSourceDeletedProducts: DeletedCatalogSourceProduct[],
+    catalogSourceDeletedProducts: DeletedCatalogSourceProduct[],
     catalogSourceProductHeader: string[]
 }
 
 export const useProductImport = (): ImportProductResponse => {
-    const { importMonitored, importStatus, catalogSourceProducts, catalogSourceProductHeader, CatalogSourceDeletedProducts } = useTypedSelector((state) => state.catalogSourceProduct)
+    const { importMonitored, importStatus, catalogSourceProducts, catalogSourceProductHeader, catalogSourceDeletedProducts } = useTypedSelector((state) => state.catalogSourceProduct)
 
-    return {importMonitored, importStatus, catalogSourceProductHeader, catalogSourceProducts, CatalogSourceDeletedProducts}
+    return {importMonitored, importStatus, catalogSourceProductHeader, catalogSourceProducts, catalogSourceDeletedProducts}
 }

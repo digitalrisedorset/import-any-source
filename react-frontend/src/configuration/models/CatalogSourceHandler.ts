@@ -21,7 +21,7 @@ export class CatalogSourceHandler {
                 return {
                     name: key,
                     active: false,
-                    catalogSourceAttributes: 0,
+                    numberCatalogSourceAttributes: 0,
                     magentoMapping: 0,
                     ignoredAttributes: 0
                 }

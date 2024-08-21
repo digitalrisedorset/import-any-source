@@ -29,7 +29,7 @@ export const setupWoocommerceRoutes = (app: Application) => {
 
     router.post("/notifyProductDeletion", woocommerceController.notifyProductDeletion)
 
-    router.options('*', options);
+    //router.options('*', options);
 
     app.use(config.route.woocommerceApiPrefix, router)
 }

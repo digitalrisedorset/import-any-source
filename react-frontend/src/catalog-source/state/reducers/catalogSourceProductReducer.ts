@@ -12,7 +12,7 @@ const getProductStatus = (skuAlreadyInMagento: string[], product: CatalogSourceP
     return (skuAlreadyInMagento.indexOf(product['sku']) > -1) ? 'not_needed' : 'ready'
 }
 
-const initialState = { importMonitored: false, importStatus: '', catalogSourceProducts: [], CatalogSourceDeletedProducts: [], catalogSourceProductHeader: [] }
+const initialState = { importMonitored: false, importStatus: '', catalogSourceProducts: [], catalogSourceDeletedProducts: [], catalogSourceProductHeader: [] }
 
 const reducer = (
     state: CatalogSourceImportProductState = initialState,
@@ -28,7 +28,7 @@ const reducer = (
             return newState
         case CatalogSourceProductsActionType.SET_CATALOG_SOURCE_PRODUCT_LOADED:
             const firstRecord = action.catalogSourceProducts[0]
-            newState = { importMonitored: state.importMonitored, importStatus: 'loaded', catalogSourceProducts: action.catalogSourceProducts, CatalogSourceDeletedProducts: [], catalogSourceProductHeader: Object.keys(firstRecord) }
+            newState = { importMonitored: state.importMonitored, importStatus: 'loaded', catalogSourceProducts: action.catalogSourceProducts, catalogSourceDeletedProducts: [], catalogSourceProductHeader: Object.keys(firstRecord) }
             return newState
         case CatalogSourceProductsActionType.SET_CATALOG_SOURCE_PRODUCT_VALIDATED:
             skuAlreadyInMagento = action.magentoProducts.map((product: MagentoProduct) => product['sku'])
@@ -36,12 +36,12 @@ const reducer = (
                 return { ...product, import_status: getProductStatus(skuAlreadyInMagento, product) }
             })
             importStatus = catalogSourceProducts.find((product: CatalogSourceProduct) => product?.import_status !== 'valid') ? 'validated' : 'ready'
-            newState = { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, CatalogSourceDeletedProducts: [], catalogSourceProductHeader: { ...state.catalogSourceProductHeader.concat('import_status') } }
+            newState = { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, catalogSourceDeletedProducts: [], catalogSourceProductHeader: { ...state.catalogSourceProductHeader.concat('import_status') } }
             return newState
         case CatalogSourceProductsActionType.SET_CATALOG_SOURCE_PRODUCT_REMOVED:
             catalogSourceProducts = state.catalogSourceProducts.filter((product) => product.sku !== action.sku)
             importStatus = catalogSourceProducts.find((product) => product?.import_status !== 'valid') ? state.importStatus : 'ready'
-            newState = { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, CatalogSourceDeletedProducts: [], catalogSourceProductHeader: state.catalogSourceProductHeader }
+            newState = { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, catalogSourceDeletedProducts: [], catalogSourceProductHeader: state.catalogSourceProductHeader }
             return newState
         case CatalogSourceProductsActionType.SET_CATALOG_SOURCE_PRODUCT_UPDATE_NOTIFCATION:
             const updateSkuList = action.magentoProducts.map((product: MagentoProduct) => product['sku'])
@@ -54,7 +54,7 @@ const reducer = (
             newState = { ...state, catalogSourceProducts }
             return newState
         case CatalogSourceProductsActionType.SET_CATALOG_SOURCE_PRODUCT_DELETE_NOTIFICATION:
-            newState = { ...state, CatalogSourceDeletedProducts: action.magentoProducts }
+            newState = { ...state, catalogSourceDeletedProducts: action.magentoProducts }
             return newState
         default:
             return state;

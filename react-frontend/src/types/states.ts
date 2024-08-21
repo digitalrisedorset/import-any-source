@@ -3,7 +3,7 @@ import { DeletedCatalogSourceProduct, IMPORT_STATUS, CatalogSourceProduct } from
 export interface CatalogSourceState {
     name: string,
     active: boolean,
-    catalogSourceAttributes: number,
+    numberCatalogSourceAttributes: number,
     magentoMapping: number
     ignoredAttributes: number
 }
@@ -22,7 +22,7 @@ export interface AccessState {
 
 export interface CatalogSourceImportAttributeState {
     name: string,
-    catalogSourceAttributes: number,
+    numberCatalogSourceAttributes: number,
     ignoredAttributes: number
 }
 
@@ -37,7 +37,7 @@ export interface MagentoImportStateData {
 export const defaultImportState = {
     name: '',
     active: false,
-    catalogSourceAttributes: 0,
+    numberCatalogSourceAttributes: 0,
     magentoMapping: 0,
     ignoredAttributes: 0
 }
@@ -47,5 +47,5 @@ export interface CatalogSourceImportProductState {
     importStatus: IMPORT_STATUS,
     catalogSourceProductHeader: string[],
     catalogSourceProducts: CatalogSourceProduct[],
-    CatalogSourceDeletedProducts: DeletedCatalogSourceProduct[]
+    catalogSourceDeletedProducts: DeletedCatalogSourceProduct[]
 }

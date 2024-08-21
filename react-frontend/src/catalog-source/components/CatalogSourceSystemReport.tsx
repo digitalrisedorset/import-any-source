@@ -6,17 +6,17 @@ export const CatalogSourceSystemReport: React.FC = () => {
 
     const ImportedMessage = () => {
         let message = ''
-        if (currentCatalogSource?.catalogSourceAttributes === 0) {
+        if (currentCatalogSource?.numberCatalogSourceAttributes === 0) {
             message = message.concat(`no attributes were imported`)
         } else {
-            message = message.concat(`${currentCatalogSource?.catalogSourceAttributes} attributes were imported`)
+            message = message.concat(`${currentCatalogSource?.numberCatalogSourceAttributes} attributes were imported`)
         }
 
         return <p>{message}</p>
     }
 
     const IgnoredMessage = () => {
-        if (currentCatalogSource?.catalogSourceAttributes === 0) {
+        if (currentCatalogSource?.numberCatalogSourceAttributes === 0) {
             return ''
         }
         let message = ''

@@ -29,11 +29,6 @@ export type DeleteProduct = {
     sku: string
 }
 
-export type MinimalProduct = {
-    id: number,
-    sku: string
-}
-
 export type ProductStatusRequest = {
     sku: string,
     import_status: string
@@ -49,9 +44,4 @@ export type CachedDeletedProduct = {
     productId: number,
     sku: string,
     date: string
-}
-
-export type DeleteRowProduct = {
-    sku: string,
-    status: 'delete'
 }

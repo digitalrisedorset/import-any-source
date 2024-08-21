@@ -28,7 +28,7 @@ const reducer = (
                 catalogSourceImportState: state.catalogSourceImportState.map(
                     (catalogSourceImportState) => catalogSourceImportState.name === action.catalogSourceImportState.name ?
                         {...catalogSourceImportState,
-                            catalogSourceAttributes: action.catalogSourceImportState.catalogSourceAttributes,
+                            numberCatalogSourceAttributes: action.catalogSourceImportState.numberCatalogSourceAttributes,
                             ignoredAttributes: action.catalogSourceImportState.ignoredAttributes
                         }
                         : catalogSourceImportState)

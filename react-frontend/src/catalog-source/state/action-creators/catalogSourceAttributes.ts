@@ -2,13 +2,13 @@ import {Dispatch} from "redux";
 import {SetCatalogSourceAttributeActionList} from "../../../state/actions";
 import {CatalogSourceAttributesActionType} from "../../../state/action-types";
 
-export const setCatalogSourceAttributesImported = (catalogSourceCode: string, catalogSourceAttributes: number, ignoredAttributes: number) => {
+export const setCatalogSourceAttributesImported = (catalogSourceCode: string, numberCatalogSourceAttributes: number, ignoredAttributes: number) => {
     return async (dispatch: Dispatch<SetCatalogSourceAttributeActionList>) => {
         dispatch({
             type: CatalogSourceAttributesActionType.SET_CATALOG_SOURCE_ATTRIBUTES_IMPORT,
             catalogSourceImportState: {
                 name: catalogSourceCode,
-                catalogSourceAttributes,
+                numberCatalogSourceAttributes,
                 ignoredAttributes
             }
         })

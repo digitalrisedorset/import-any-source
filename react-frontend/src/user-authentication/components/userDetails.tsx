@@ -1,16 +1,10 @@
 import {useUser} from '../hooks/useUser';
 import {Form} from "../../global/styles/Form";
-import {useNavigate} from "react-router-dom";
 import {useAllAccess} from "../../configuration/hooks/useAccess";
 
 export const UserDetails: React.FC = () => {
     const user = useUser();
     const  accessSummary = useAllAccess()
-    const navigate = useNavigate()
-
-    if (!user) {
-        navigate(`/`);
-    }
 
     return (
         <Form>

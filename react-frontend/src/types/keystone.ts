@@ -1,4 +1,5 @@
 import {QueryResult} from "@apollo/client";
+import {CATALOG_SOURCE_SYSTEM} from "./catalog-source";
 
 interface BaseAttribute {
     readonly id?: string;
@@ -18,7 +19,7 @@ export type KeystoneAttribute = Pick<BaseAttribute, "code" | "name" | "type" | "
 export interface KeystoneCatalogSourceAttribute extends BaseAttribute {
     ignored: boolean;
     magentoCode: MagentoCode
-    catalogSource: string
+    catalogSource: keyof CATALOG_SOURCE_SYSTEM
 }
 
 export interface MagentoAttribute extends BaseAttribute {

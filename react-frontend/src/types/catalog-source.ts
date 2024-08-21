@@ -17,10 +17,7 @@ export interface CatalogSourceProduct {
     import_status: PRODUCT_STATUS
 }
 
-export interface DeletedCatalogSourceProduct {
-    readonly sku: string
-    import_status: string
-}
+export type DeletedCatalogSourceProduct = Pick<CatalogSourceProduct, "sku" | "import_status">
 
 export interface CatalogSourceApiResponse {
     data: CatalogSourceProduct[]
