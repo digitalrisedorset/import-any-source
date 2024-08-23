@@ -1,0 +1,48 @@
+import { gql, useQuery } from '@apollo/client';
+import {useEffect} from "react";
+import {useRouter} from "next/router";
+
+const CURRENT_USER_QUERY = gql`
+  query {
+    authenticatedItem {
+      ... on User {
+        id
+        email
+        name
+        theme
+        role {
+          canCreateProducts
+          canUpdateProducts
+          canDeleteProducts
+          canImportSourceAttribute
+          canImportMagentoAttribute
+          canMapAttribute
+          canImportProduct
+        }
+      }
+    }
+  }
+`;
+
+export function useUser() {
+  const { data } = useQuery(CURRENT_USER_QUERY);
+
+  return data?.authenticatedItem;
+}
+
+export function verifyUserAccess() {
+  const router = useRouter()
+  const { data } = useQuery(CURRENT_USER_QUERY);
+
+  useEffect(() => {
+    if (data?.authenticatedItem) {
+      router.push({pathname: '/'})
+    } else {
+      router.push({pathname: '/signin'})
+    }
+  }, [data?.authenticatedItem])
+
+  return data?.authenticatedItem;
+}
+
+export { CURRENT_USER_QUERY };
