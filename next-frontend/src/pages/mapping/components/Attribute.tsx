@@ -7,6 +7,7 @@ import {useFindCatalogSourceAttributes} from "../../catalog-source/graphql/useFi
 import {useFindMagentoAttributes} from "../../magento/graphql/keystone/useFindMagentoAttributes";
 import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
 import {useAppSelector} from "@/state/store";
+import {useRouter} from "next/router";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
@@ -32,7 +33,7 @@ export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}:
         function linkAttribute() {
             try {
                 if (catalogSourceAttributeStateId!=='' && magentoAttributeStateId!=='') {
-                    mapAttribute();
+                    mapAttribute()
                     router.push({pathname: `/catalog-source/${initialAttribute}/${attribute.label}`});
                     addCatalogSourceAttributeMapped(currentCatalogSource.name)
                     addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)

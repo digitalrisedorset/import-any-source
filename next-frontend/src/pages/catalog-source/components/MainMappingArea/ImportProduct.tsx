@@ -12,14 +12,13 @@ import {useCurrentCatalogSourceSystemCode} from "../../hooks/useCurrentCatalogSo
 import {ProductImportList} from "../ImportProduct/ProductImportList"
 import {ImportResponse} from "@/pages/types/catalog-source";
 import {useProductImport} from "../../hooks/useProductImport";
-import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 export const ImportProduct: React.FC = () => {
     const catalogSourceCode = useCurrentCatalogSourceSystemCode()
     const [mappingReady, setMappingReady] = useState<boolean>(false)
     const [importBuiling, setImportBuilding] = useState<boolean>(false)
-    const { setCatalogSourceProductBatchLoaded } = useAppSelector((state) => state.catalogSourceProduct);
-    const { addDownloadMessage, addFlashMessage } = useAppSelector((state) => state.flashMessage);
+    const { addDownloadMessage, addFlashMessage, setCatalogSourceProductBatchLoaded } = useActions();
     const {importStatus, catalogSourceProducts} = useProductImport()
 
     const getCatalogSourceAttributeList = useCatalogSourceAttributesLazy()
@@ -56,7 +55,10 @@ export const ImportProduct: React.FC = () => {
                 const MappingData = new MappingModel(catalogSource.getListWithMapping(), magento.getListWithMapping())
                 const response = await MappingData.createAttributesImport(catalogSourceCode)
                 if (response !== undefined) {
-                    addDownloadMessage('The import has successfully created a csv import file', response as ImportResponse)
+                    addDownloadMessage({
+                        message: 'The import has successfully created a csv import file',
+                        file: response as ImportResponse
+                    })
                     globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
                     setImportBuilding(false)
                 }

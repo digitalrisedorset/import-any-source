@@ -7,7 +7,7 @@ interface FlashMessageState {
     downloadLink?: ImportResponse
 }
 
-const initialState = {
+const initialState: FlashMessageState = {
     messages: [],
     messageType: ''
 }
@@ -17,10 +17,10 @@ export const flashMessageSlice = createSlice({
     initialState,
     reducers: {
         addFlashMessage: (state, action: PayloadAction<string>) => {
-            state = { messages: [action.payload], messageType: 'success' }
+            return { messages: [action.payload], messageType: 'success' }
         },
         addDownloadMessage: (state, action: PayloadAction<{message: string, file:ImportResponse}>) => {
-            state = { messages: [action.payload.message], downloadLink: action.payload.file, messageType: 'success' }
+            return { messages: [action.payload.message], downloadLink: action.payload.file, messageType: 'success' }
         },
     }
 })

@@ -1,24 +1,27 @@
 import {Form} from '../../global/styles/Form';
 import React, { useState, useEffect } from "react"
-import { useParams} from "react-router-dom"
 import { filterOptions } from 'fuzzy-match-utils';
 import { MagentoAttribute} from "../../types/keystone";
 import {useMagentoAttributesLazy} from "../../magento/graphql/keystone/useMagentoAttributes";
-import {useAppSelector} from "@/state/store";
+import {useRouter} from "next/router";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 export const MapField: React.FC = () => {
-    const { code } = useParams();
-    const { setCatalogSourceAttributesMatchFound } = useAppSelector((state) => state.catalogSourceMapping)
+    const MAX_MATCHES = 5;
+    const { query } = useRouter();
+    const code = query.attribute;
+    const { setCatalogSourceAttributesMatchFound } = useActions()
 
     const [attributeCodeState, setAttributeCodeState] = useState<string>('');
     const getAttributeList = useMagentoAttributesLazy()
 
     async function findMagentoAttribute(code: string) {
-        const data = await getAttributeList();
+        const data = await getAttributeList()
         let optionsFromCode = data?.data?.magentoAttributes.map((attribute: MagentoAttribute) => ({label: attribute.code, value: attribute.name}))
         let match = filterOptions(optionsFromCode, attributeCodeState)
+        const bestMatches= match.slice(0, MAX_MATCHES);
 
-        setCatalogSourceAttributesMatchFound(code, match)
+        setCatalogSourceAttributesMatchFound({catalogSourceAttributeCode: code, magentoMatchesAttributes: bestMatches})
     }
 
     useEffect(() => {

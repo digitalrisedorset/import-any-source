@@ -3,9 +3,10 @@ import {CardStyles} from "../../configuration/styles/CardStyles";
 import {MatchingAttributeData} from "../../types/keystone";
 import React from "react";
 import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 export const MatchingField: React.FC = () => {
-    const { addFlashMessage } = useAppSelector((state) => state.flashMessage)
+    const { addFlashMessage } = useActions()
     const { catalogSourceAttribute, magentoMatchAttributes } = useAppSelector((state) => state.catalogSourceMapping)
 
     addFlashMessage(`The system has found ${magentoMatchAttributes.length} possible matching magento attributes`)

@@ -1,9 +1,32 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-//import {actionCreators, type AppDispatch} from '../../state'
+import { setUserAccess, setActiveTheme } from "@/state/configurationSlice"
+import {addFlashMessage, addDownloadMessage} from "@/state/flashMessageSlice"
+import {setCatalogSourceAttributesImported} from "@/state/catalogSourceAttributeSlice"
+import {setMagentoAttributesImported} from "@/state/magentoAttributeSlice"
+import {setCatalogSourceAttributesMatchFound, setCatalogSourceAttributesMatchSet} from "@/state/catalogSourceMappingSlice";
+import {setProductMonitoredAction, setCatalogSourceProductBatchLoaded, setCatalogSourceProductBatchValidated,
+    setCatalogSourceProductRemoved, setCatalogSourceProductUpdateNotification, setCatalogSourceProductDeleteNotification
+} from "@/state/catalogSourceProductSlice"
+
+const actionCreators = {
+    setUserAccess, setActiveTheme,
+    addFlashMessage,
+    addDownloadMessage,
+    setCatalogSourceAttributesImported,
+    setMagentoAttributesImported,
+    setCatalogSourceAttributesMatchFound,
+    setCatalogSourceAttributesMatchSet,
+    setProductMonitoredAction,
+    setCatalogSourceProductBatchLoaded,
+    setCatalogSourceProductBatchValidated,
+    setCatalogSourceProductRemoved,
+    setCatalogSourceProductUpdateNotification,
+    setCatalogSourceProductDeleteNotification
+}
 
 export const useActions = () => {
-    //const dispatch = useDispatch<AppDispatch>()
+    const dispatch = useDispatch<AppDispatch>()
 
-    //return bindActionCreators(actionCreators, dispatch)
+    return bindActionCreators(actionCreators, dispatch)
 }

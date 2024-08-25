@@ -1,8 +1,8 @@
 import { Attribute } from "./Attribute";
-import {CardStyles} from "../../../configuration/styles/CardStyles";
-import {KeystoneCatalogSourceAttribute} from '../../../types/keystone'
+import {CardStyles} from "@/pages/configuration/styles/CardStyles";
+import {KeystoneCatalogSourceAttribute} from '@/pages/types/keystone'
 import {CatalogSourceAttributeDescription} from "./CatalogSourceAttributeDescription";
-import {LoadingDotsIcon} from "../../../global/components/Loading";
+import {LoadingDotsIcon} from "@/pages/global/components/Loading";
 import {useCatalogSourceAttributes} from "../../graphql/useCatalogSourceAttributes";
 import React from "react";
 

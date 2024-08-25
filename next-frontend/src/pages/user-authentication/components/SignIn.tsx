@@ -4,8 +4,10 @@ import {DisplayError} from '../../global/components/ErrorMessage';
 import {useLoginUser} from "../hooks/useLoginUser";
 import {useState} from "react";
 import {useUser} from "../hooks/useUser";
+import {useRouter} from "next/router";
 
 export const SignIn: React.FC = () => {
+  const router = useRouter()
   const [errorMessage, setErrorMessage] = useState<string>('')
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
@@ -21,6 +23,8 @@ export const SignIn: React.FC = () => {
     resetForm();
     if (res !== undefined) {
       setErrorMessage(res.message)
+    } else {
+      router.push({pathname: '/'})
     }
   }
 

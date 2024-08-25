@@ -1,6 +1,6 @@
 import Axios, {AxiosResponse} from "axios";
 import {MagentoAttribute, KeystoneCatalogSourceAttribute} from "../../types/keystone";
-import {config} from "../../config";
+import {config} from "@/config";
 import {ImportResponse, CatalogSourceProduct} from "../../types/catalog-source"
 
 export class MappingModel {

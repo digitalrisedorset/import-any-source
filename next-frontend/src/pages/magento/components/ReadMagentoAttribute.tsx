@@ -3,10 +3,10 @@ import {Attribute} from "./Attribute";
 import {MagentoAttribute} from "../../types/keystone";
 import {LoadingDotsIcon } from "../../global/components/Loading"
 import {useMagentoAttributes} from "../graphql/keystone/useMagentoAttributes";
-import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 export const ReadMagentoAttribute = () => {
-    const { addFlashMessage } = useAppSelector((state) => state.flashMessage);
+    const { addFlashMessage } = useActions()
     const { data, error, loading } = useMagentoAttributes()
 
     if (!error && !loading && data) {

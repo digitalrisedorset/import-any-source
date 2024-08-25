@@ -1,7 +1,6 @@
 import {ConfigReader} from "../models/ConfigReader";
 import {useAppSelector} from "@/state/store";
 
-
 export const useActiveTheme = () => {
     const { themeCode } = useAppSelector((state) => state.configuration);
     const configReader = new ConfigReader()

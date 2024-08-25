@@ -2,8 +2,7 @@ import {useMutation} from "@apollo/client";
 import {CURRENT_USER_QUERY} from "../hooks/useUser";
 import gql from "graphql-tag";
 import {formProps} from "../../types/form";
-import {useAppDispatch, useAppSelector} from "@/state/store";
-import { setUserAccess } from "@/state/configurationSlice";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 const SIGNIN_MUTATION = gql`
   mutation AuthenticateUserWithPassword($email: String!, $password: String!) {
@@ -34,8 +33,7 @@ const SIGNIN_MUTATION = gql`
 `;
 
 export const useLoginUser = (inputs: formProps) => {
-    const { setUserAccess, setActiveTheme } = useAppSelector((state) => state.configuration);
-    const dispatch = useAppDispatch();
+    const { setUserAccess, setActiveTheme } = useActions();
 
     const [signin] = useMutation(SIGNIN_MUTATION, {
         variables: inputs,
@@ -46,7 +44,7 @@ export const useLoginUser = (inputs: formProps) => {
         const res = await signin(inputs);
         if (res?.data?.authenticateUserWithPassword?.item) {
             const user = res.data.authenticateUserWithPassword.item
-            dispatch(setUserAccess(user.role))
+            setUserAccess(user.role)
             setActiveTheme(user.theme || '')
         }
 

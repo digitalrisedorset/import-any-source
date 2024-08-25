@@ -4,17 +4,8 @@ import {CatalogSourceHandler} from "@/pages/configuration/models/CatalogSourceHa
 
 const buildInitialImportState = () => {
     const catalogSourceHandler = new CatalogSourceHandler()
-    let loadStorageCatalogSourceData = null
-    if (typeof window !== "undefined") {
-        loadStorageCatalogSourceData = localStorage.getItem('catalogSources')
-    }
 
-    if (loadStorageCatalogSourceData === null) {
-        return {catalogSourceImportState: catalogSourceHandler.getCatalogSourceInitialStates()}
-    }
-
-    const data = JSON.parse(loadStorageCatalogSourceData)
-    return data as CatalogSourceStateData
+    return {catalogSourceImportState: catalogSourceHandler.getCatalogSourceInitialStates()}
 }
 
 const initialState = buildInitialImportState()
@@ -23,8 +14,8 @@ export const catalogSourceAttributeSlice = createSlice({
     name: "catalogSourceAttribute",
     initialState,
     reducers: {
-        setCatalogSourceAttributesImported: (state, action: PayloadAction<[string, number, number]>) => {
-            let newState = {
+        setCatalogSourceAttributesImported: (state, action: PayloadAction<{name: string, numberCatalogSourceAttributes: number, ignoredAttributes: number}>) => {
+            return {
                 catalogSourceImportState: state.catalogSourceImportState.map(
                     (catalogSourceImportState) => catalogSourceImportState.name === action.payload.name ?
                         {...catalogSourceImportState,
@@ -33,50 +24,40 @@ export const catalogSourceAttributeSlice = createSlice({
                         }
                         : catalogSourceImportState)
             }
-            localStorage.setItem('catalogSources', JSON.stringify(newState))
-            state = newState
         },
         addCatalogSourceAttributeMapped: (state, action: PayloadAction<string>) => {
-            newState = {
+            return {
                 catalogSourceImportState: state.catalogSourceImportState.map(
                     (catalogSourceImportState) => catalogSourceImportState.name === action.payload ? {
                         ...catalogSourceImportState,
                         magentoMapping: catalogSourceImportState.magentoMapping + 1
                     } : {...catalogSourceImportState})
             }
-            localStorage.setItem('catalogSources', JSON.stringify(newState))
-            state = newState
         },
         addCatalogSourceAttributeIgnored: (state, action: PayloadAction<string>) => {
-            newState = {
+            return {
                 catalogSourceImportState: state.catalogSourceImportState.map(
                     (catalogSourceImportState) => catalogSourceImportState.name === action.payload ? {
                         ...catalogSourceImportState,
                         ignoredAttributes: catalogSourceImportState.ignoredAttributes + 1
                     } : {...catalogSourceImportState})
             }
-            localStorage.setItem('catalogSources', JSON.stringify(newState))
-            state = newState
         },
         addCatalogSourceAttributeActivated: (state, action: PayloadAction<string>) => {
-            newState = {
+            return {
                 catalogSourceImportState: state.catalogSourceImportState.map(
                     (catalogSourceImportState) => catalogSourceImportState.name === action.payload ? {
                         ...catalogSourceImportState,
                         ignoredAttributes: catalogSourceImportState.ignoredAttributes - 1
                     } : {...catalogSourceImportState})
             }
-            localStorage.setItem('catalogSources', JSON.stringify(newState))
-            state = newState
         },
         setActiveCatalogSourceSystem: (state, action: PayloadAction<string>) => {
-            newState = {
+            return {
                 catalogSourceImportState: state.catalogSourceImportState.map(
                     (catalogSourceImportState) => catalogSourceImportState.name === action.payload ? {...catalogSourceImportState, active: true}
                         : {...catalogSourceImportState, active: false})
             }
-            localStorage.setItem('catalogSources', JSON.stringify(newState))
-            state = newState
         },
     }
 })

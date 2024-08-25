@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import {flashMessageSlice} from "@/state/flashMessageSlice";
 
 interface CatalogSourceAttributesMappingState {
     loading: boolean;
@@ -10,7 +9,7 @@ interface CatalogSourceAttributesMappingState {
     magentoMatch: MagentoAttribute | null
 }
 
-const initialState = {
+const initialState: CatalogSourceAttributesMappingState = {
     loading: false,
     error: null,
     catalogSourceAttribute: null,
@@ -23,10 +22,10 @@ export const catalogSourceMappingSlice = createSlice({
     initialState,
     reducers: {
         setCatalogSourceAttributesMatchFound: (state, action: PayloadAction<{catalogSourceAttributeCode: string, magentoMatches: MatchingAttributeData[]}>) => {
-            state = { loading: true, error: null, catalogSourceAttribute: action.payload.catalogSourceAttributeCode, magentoMatchAttributes: action.payload.magentoMatchesAttributes, magentoMatch: null}
+            return { loading: true, error: null, catalogSourceAttribute: action.payload.catalogSourceAttributeCode, magentoMatchAttributes: action.payload.magentoMatchesAttributes, magentoMatch: null}
         },
         setCatalogSourceAttributesMatchSet: (state, action: PayloadAction<{catalogSourceAttributeCode: string, magentoMatch: MagentoAttribute}>) => {
-            state = { loading: true, error: null, catalogSourceAttribute: action.payload.catalogSourceAttributeCode, magentoMatchAttributes: [], magentoMatch: action.payload.magentoMatch}
+            return { loading: true, error: null, catalogSourceAttribute: action.payload.catalogSourceAttributeCode, magentoMatchAttributes: [], magentoMatch: action.payload.magentoMatch}
         },
     }
 })

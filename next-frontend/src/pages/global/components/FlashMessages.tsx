@@ -2,11 +2,12 @@ import { RenderFileDownload } from "../../catalog-source/components/DownloadLink
 import { SuccessStyles, ErrorStyles, AnimationStyles} from "../styles/FlashMessage"
 import React, {useEffect, useRef, useState} from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import {useAppSelector} from "@/state/store";
 
 const MINUTE_MS = 5000;
 
 export const FlashMessages: React.FC = () => {
-    const { messages, downloadLink, messageType} = useAppSelector((state) => state.flashMessages)
+    const { messages, downloadLink, messageType} = useAppSelector((state) => state.flashMessage)
     const [hidden, setHidden] = useState<boolean>(false)
 
     const flashNodeRef = useRef(null)

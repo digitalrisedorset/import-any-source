@@ -6,11 +6,10 @@ import {useCreateMagentoAttributes} from "../graphql/keystone/useCreateMagentoAt
 import {useProductAttributes} from "../graphql/magento/useProductAttributes";
 import {useMagentoAttributes} from "../hooks/useMagentoAttributes";
 import {MagentoReport} from "./MagentoReport";
-import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 export const ImportMagentoAttribute: React.FC = () => {
-    const { addFlashMessage } = useAppSelector((state) => state.flashMessage);
-    const { setMagentoAttributesImported } = useAppSelector((state) => state.catalogSourceAttribute);
+    const { addFlashMessage, setMagentoAttributesImported } = useActions();
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const createListAttribute = useCreateMagentoAttributes()
     const magentoAttributes = useMagentoAttributes()
@@ -39,6 +38,8 @@ export const ImportMagentoAttribute: React.FC = () => {
             console.log('error');
         }
     }
+
+    console.log('magento attributes', magentoAttributes)
 
     return (
         <StepForm>

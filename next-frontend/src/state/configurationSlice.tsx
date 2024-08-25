@@ -18,41 +18,20 @@ const accessDisabled: AccessState = {
     canSetupImport: false
 }
 
-const buildInitialConfigState = () => {
-    let configuration = null
-    if (typeof window !== "undefined") {
-        configuration = localStorage.getItem('configuration')
-    }
-
-    if (configuration === null) {
-        const themeCode = ''
-
-        return {
-            themeCode,
-            accessEnabled: accessDisabled
-        }
-    } else {
-        return JSON.parse(configuration) as ConfigurationState
-    }
+const initialState: ConfigurationState = {
+    themeCode: '',
+    accessEnabled: accessDisabled
 }
-
-const initialState = buildInitialConfigState()
 
 export const configurationSlice = createSlice({
     name: "configuration",
     initialState,
     reducers: {
         setUserAccess: (state, action: PayloadAction) => {
-            let newState: AccessState
-            newState = {...state, accessEnabled: action.payload }
-            localStorage.setItem('configuration', JSON.stringify(newState))
-            state = newState
+            state.accessEnabled = action.payload
         },
         setActiveTheme: (state, action: PayloadAction) => {
-            let newState: AccessState
-            newState = {...state, themeCode: action.payload }
-            localStorage.setItem('configuration', JSON.stringify(newState))
-            state = newState
+            state.themeCode = action.payload
         },
     },
 });

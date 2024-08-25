@@ -18,53 +18,48 @@ export const catalogSourceProductSlice = createSlice({
     initialState,
     reducers: {
         setProductMonitoredAction: (state, action: PayloadAction<boolean>) => {
-            newState = { ...state, importMonitored: action.payload }
-            state = newState
+            return { ...state, importMonitored: action.payload }
         },
         setCatalogSourceProductBatchLoaded: (state, action: PayloadAction<CatalogSourceProduct[]>) => {
             const firstRecord = action.payload[0]
-            newState = {
+            return {
                 importMonitored: state.importMonitored,
                 importStatus: 'loaded',
                 catalogSourceProducts: action.payload,
                 catalogSourceDeletedProducts: [],
                 catalogSourceProductHeader: Object.keys(firstRecord)
             }
-            state = newState
         },
         setCatalogSourceProductBatchValidated: (state, action: PayloadAction<MagentoProduct[]>) => {
-            skuAlreadyInMagento = action.payload.map((product: MagentoProduct) => product['sku'])
-            catalogSourceProducts = state.catalogSourceProducts.map((product: CatalogSourceProduct) => {
+            const skuAlreadyInMagento = action.payload.map((product: MagentoProduct) => product['sku'])
+            const catalogSourceProducts = state.catalogSourceProducts.map((product: CatalogSourceProduct) => {
                 return { ...product, import_status: getProductStatus(skuAlreadyInMagento, product) }
             })
-            importStatus = catalogSourceProducts.find((product: CatalogSourceProduct) => product?.import_status !== 'valid') ? 'validated' : 'ready'
-            newState = { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, catalogSourceDeletedProducts: [], catalogSourceProductHeader: { ...state.catalogSourceProductHeader.concat('import_status') } }
-            state = newState
+            const importStatus = catalogSourceProducts.find((product: CatalogSourceProduct) => product?.import_status !== 'valid') ? 'validated' : 'ready'
+            return { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, catalogSourceDeletedProducts: [], catalogSourceProductHeader: { ...state.catalogSourceProductHeader.concat('import_status') } }
         },
         setCatalogSourceProductRemoved: (state, action: PayloadAction<string>) => {
             catalogSourceProducts = state.catalogSourceProducts.filter((product) => product.sku !== action.payload)
             importStatus = catalogSourceProducts.find((product) => product?.import_status !== 'valid') ? state.importStatus : 'ready'
-            newState = { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, catalogSourceDeletedProducts: [], catalogSourceProductHeader: state.catalogSourceProductHeader }
-            state = newState
+            return { importMonitored: state.importMonitored, importStatus, catalogSourceProducts, catalogSourceDeletedProducts: [], catalogSourceProductHeader: state.catalogSourceProductHeader }
         },
         setCatalogSourceProductUpdateNotification: (state, action: PayloadAction<MagentoProduct[]>) => {
             const updateSkuList = action.payload.map((product: MagentoProduct) => product['sku'])
-            catalogSourceProducts = state.catalogSourceProducts.map((product: CatalogSourceProduct) => {
+            const catalogSourceProducts = state.catalogSourceProducts.map((product: CatalogSourceProduct) => {
                 if (updateSkuList.indexOf(product['sku']) > -1) {
                     return { ...product, import_status: 'updated' }
                 }
                 return product
             })
-            newState = { ...state, catalogSourceProducts }
-            state = newState
+            return { ...state, catalogSourceProducts }
         },
         setCatalogSourceProductDeleteNotification: (state, action: PayloadAction<DeletedCatalogSourceProduct[]>) => {
-            newState = { ...state, catalogSourceDeletedProducts: action.payload }
-            state = newState
+            return { ...state, catalogSourceDeletedProducts: action.payload }
         },
     },
 });
 
 export const { setProductMonitoredAction, setCatalogSourceProductBatchLoaded, setCatalogSourceProductBatchValidated,
-    setCatalogSourceProductRemoved, setCatalogSourceProductUpdateNotification, setCatalogSourceProductDeleteNotification } = catalogSourceProductSlice.actions;
+    setCatalogSourceProductRemoved, setCatalogSourceProductUpdateNotification, setCatalogSourceProductDeleteNotification
+} = catalogSourceProductSlice.actions;
 export const catalogSourceProductReducer = catalogSourceProductSlice.reducer;

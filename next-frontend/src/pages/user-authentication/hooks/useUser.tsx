@@ -25,7 +25,16 @@ const CURRENT_USER_QUERY = gql`
 `;
 
 export function useUser() {
+  const router = useRouter()
   const { data } = useQuery(CURRENT_USER_QUERY);
+
+  // useEffect(() => {
+  //   if (data?.authenticatedItem) {
+  //     router.push({pathname: '/'})
+  //   } else {
+  //     router.push({pathname: '/signin'})
+  //   }
+  // }, [data?.authenticatedItem])
 
   return data?.authenticatedItem;
 }

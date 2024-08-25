@@ -9,7 +9,7 @@ interface AttributeProps {
 export const MapLink: React.FC<AttributeProps> = ({attribute}: AttributeProps) => {
     return (
         <>
-            {attribute.assignedTo.length===0 && <Link key={attribute.id} to={`/map/${attribute.code}`}>
+            {attribute.assignedTo.length===0 && <Link key={attribute.id} href={`/map/${attribute.code}`}>
                 <span>{attribute.name}</span>{" "}
             </Link>}
             {attribute.assignedTo.length>0 && <span key={attribute.id}>

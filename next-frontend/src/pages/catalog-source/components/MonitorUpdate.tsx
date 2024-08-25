@@ -5,7 +5,7 @@ import {ImportUpdateResponse} from "../../types/catalog-source";
 import {RenderFileDownload} from "./DownloadLink"
 import {useAccess} from "../../configuration/hooks/useAccess";
 import {useProductImport} from "../hooks/useProductImport";
-import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 const InitResponse: ImportUpdateResponse = {
     filename: '',
@@ -17,7 +17,7 @@ interface UpdateResponse extends ImportUpdateResponse {
     numberItem: number
 }
 
-const MINUTE_MS = 1500;
+const MINUTE_MS = 5000;
 
 const RenderUpdate: React.FC<UpdateResponse> = (updateCsvFile: UpdateResponse) => {
     return (
@@ -49,8 +49,7 @@ export const MonitorUpdate: React.FC = () => {
     const [updateCsvFile, setUpdateCsvFile] = useState<UpdateResponse>(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState<UpdateResponse>(InitResponse as UpdateResponse)
     const {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
-    const { addFlashMessage } = useAppSelector((state) => state.flashMessage);
-    const { setCatalogSourceProductUpdateNotification, setCatalogSourceProductDeleteNotification, setProductMonitoredAction } = useAppSelector((state) => state.catalogSourceProduct);
+    const { addFlashMessage, setCatalogSourceProductUpdateNotification, setCatalogSourceProductDeleteNotification, setProductMonitoredAction } = useActions()
     const {importMonitored} = useProductImport()
 
     useEffect(() => {

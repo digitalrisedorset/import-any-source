@@ -7,7 +7,7 @@ import React from "react";
 import {DeleteButton} from "@/pages/global/styles/MappingScreen";
 import {useSetCatalogSourceAttributeIgnoredQueryResult} from "../../graphql/useSetCatalogSourceAttributeIgnored";
 import {useActiveCatalogSource} from "../../hooks/useCurrentCatalogSource";
-import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 interface AttributeProps {
     attribute: KeystoneCatalogSourceAttribute,
@@ -17,7 +17,7 @@ interface AttributeProps {
 export const Attribute: React.FC<AttributeProps> = ({attribute, candelete}: AttributeProps) => {
     const currentCatalogSource = useActiveCatalogSource()
     const setCatalogSourceAttributeIgnore = useSetCatalogSourceAttributeIgnoredQueryResult(attribute.id)
-    const { addCatalogSourceAttributeIgnored } = useAppSelector((state) => state.catalogSourceAttribute);
+    const { addCatalogSourceAttributeIgnored } = useActions()
 
     const date = new Date(attribute.createdAt)
 

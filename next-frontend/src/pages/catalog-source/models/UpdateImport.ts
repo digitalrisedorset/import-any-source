@@ -1,6 +1,6 @@
 import Axios from "axios"
 import {ImportUpdateResponse} from "../../types/catalog-source"
-import {config} from "../../config";
+import {config} from "@/config";
 
 export class UpdateModel {
     createUpdateImport = async (): Promise<ImportUpdateResponse | undefined> => {
