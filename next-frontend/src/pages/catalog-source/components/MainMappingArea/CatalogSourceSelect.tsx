@@ -1,4 +1,5 @@
 import {CatalogSource} from "@/pages/configuration/styles/CatalogSource";
+import {Label} from "@/pages/global/styles/Form"
 import {CatalogSourceHandler} from "@/pages/configuration/models/CatalogSourceHandler";
 import React from "react";
 import {useAppDispatch} from "@/state/store";
@@ -16,15 +17,13 @@ export const CatalogSourceSelect: React.FC = () => {
     return (
         <CatalogSource>
             <fieldset>
-                <label htmlFor="code">
-                    Select your Catalog Source
-                    <select onChange={onCatalogSourceSystemChange} className="form-select">
-                        <option value="">-</option>
-                        {catalogSourceHandler.getCatalogSourceOptions().map((item, key) => {
-                            return (<option key={item.value} value={item.value}>{item.label}</option>)
-                        })}
-                    </select>
-                </label>
+                <Label htmlFor="code">Select your Catalog Source</Label>
+                <select onChange={onCatalogSourceSystemChange} className="form-select">
+                    <option value="">-</option>
+                    {catalogSourceHandler.getCatalogSourceOptions().map((item, key) => {
+                        return (<option key={item.value} value={item.value}>{item.label}</option>)
+                    })}
+                </select>
             </fieldset>
         </CatalogSource>
     )

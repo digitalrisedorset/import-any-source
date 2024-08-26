@@ -64,10 +64,19 @@ export const GlobalStyles = createGlobalStyle<StyleProps>`
         &[disabled] {
             opacity: 0.5;
         }
+        display: flex;
     }
     .small-hint {
         font-size: medium;
         font-weight: normal;
+    },
+    input,
+    select {
+        max-width: 400px;
+    }
+    textarea {
+        max-width: 400px;
+        height: 100px;
     }
 `;
 

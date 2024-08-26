@@ -1,4 +1,4 @@
-import {Form} from '../../global/styles/Form';
+import {Form, Label} from '../../global/styles/Form';
 import React, { useState, useEffect } from "react"
 import { filterOptions } from 'fuzzy-match-utils';
 import { MagentoAttribute} from "../../types/keystone";
@@ -39,18 +39,16 @@ export const MapField: React.FC = () => {
                 }
             }}>
                 <fieldset>
-                    <label htmlFor="code">
-                        Next CatalogSource Attribute Code to Link
-                        <input
-                            className="mb2"
-                            value={attributeCodeState}
-                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                                setAttributeCodeState(e.target.value)
-                            }
-                            type="text"
-                            placeholder="Enter a CatalogSource Attribute Code"
-                        />
-                    </label>
+                    <Label htmlFor="code">Next CatalogSource Attribute Code to Link</Label>
+                    <input
+                        className="mb2"
+                        value={attributeCodeState}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+                            setAttributeCodeState(e.target.value)
+                        }
+                        type="text"
+                        placeholder="Enter a CatalogSource Attribute Code"
+                    />
 
                     <button type="submit">+ Find Magento Attribute</button>
                 </fieldset>

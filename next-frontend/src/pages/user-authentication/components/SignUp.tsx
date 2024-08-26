@@ -1,4 +1,4 @@
-import {Form} from '../../global/styles/Form';
+import {Form, Label} from '../../global/styles/Form';
 import {useForm} from '../../global/hooks/useForm';
 import {DisplayError} from '../../global/components/ErrorMessage';
 import {useSignUpUser} from "../graphql/useSignUp";
@@ -27,7 +27,7 @@ export const SignUp: React.FC = () => {
             Signed up with {data.createUser.email} - Please Go Head and Sign in!
           </p>
         )}
-        <label htmlFor="name">
+        <Label htmlFor="name">
           Your Name
           <input
             required
@@ -38,8 +38,8 @@ export const SignUp: React.FC = () => {
             value={inputs.name}
             onChange={handleChange}
           />
-        </label>
-        <label htmlFor="email">
+        </Label>
+        <Label htmlFor="email">
           Email
           <input
             required
@@ -50,8 +50,8 @@ export const SignUp: React.FC = () => {
             value={inputs.email}
             onChange={handleChange}
           />
-        </label>
-        <label htmlFor="password">
+        </Label>
+        <Label htmlFor="password">
           Password
           <input
             required
@@ -62,7 +62,7 @@ export const SignUp: React.FC = () => {
             value={inputs.password}
             onChange={handleChange}
           />
-        </label>
+        </Label>
         <button type="submit">Sign Up!</button>
       </fieldset>
     </Form>

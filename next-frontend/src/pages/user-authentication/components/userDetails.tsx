@@ -1,5 +1,5 @@
 import {useUser} from '../hooks/useUser';
-import {Form} from "../../global/styles/Form";
+import {Form, Label} from "../../global/styles/Form";
 import {useAllAccess} from "../../configuration/hooks/useAccess";
 
 export const UserDetails: React.FC = () => {
@@ -10,32 +10,27 @@ export const UserDetails: React.FC = () => {
         <Form>
             <h2>Your details</h2>
             <fieldset>
-                <label htmlFor="name">
-                    Your Name
-                    <input
-                        type="text"
-                        name="name"
-                        value={user?.name}
-                        disabled
-                    />
-                </label>
-                <label htmlFor="email">
-                    Your Email
-                    <input
-                        type="text"
-                        name="name"
-                        value={user?.email}
-                        disabled
-                    />
-                </label>
-                <label htmlFor="email">
-                    Your access
-                    <textarea
-                        name="access"
-                        value={accessSummary}
-                        disabled
-                    />
-                </label>
+                <Label htmlFor="name">Your Name</Label>
+                <input
+                    type="text"
+                    name="name"
+                    value={user?.name}
+                    disabled
+                />
+                <Label htmlFor="email">Your Email</Label>
+                <input
+                    type="text"
+                    name="name"
+                    value={user?.email}
+                    disabled
+                />
+
+                <Label htmlFor="email">Your access</Label>
+                <textarea
+                    name="access"
+                    value={accessSummary}
+                    disabled
+                />
             </fieldset>
         </Form>
     )

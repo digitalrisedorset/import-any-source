@@ -1,4 +1,4 @@
-import {Form} from '../../global/styles/Form';
+import {Form, Label} from '../../global/styles/Form';
 import {useForm} from '../../global/hooks/useForm';
 import {DisplayError} from '../../global/components/ErrorMessage';
 import {useLoginUser} from "../hooks/useLoginUser";
@@ -33,30 +33,28 @@ export const SignIn: React.FC = () => {
         <h2>Sign Into Your Account</h2>
         <DisplayError error={errorMessage} />
         <fieldset>
-          <label htmlFor="email">
-            Email
-            <input
-              required
-              type="email"
-              name="email"
-              placeholder="Your Email Address"
-              autoComplete="email"
-              value={inputs.email}
-              onChange={handleChange}
-            />
-          </label>
-          <label htmlFor="password">
-            Password
-            <input
-              required
-              type="password"
-              name="password"
-              placeholder="Password"
-              autoComplete="password"
-              value={inputs.password}
-              onChange={handleChange}
-            />
-          </label>
+          <Label htmlFor="email">Email</Label>
+          <input
+            required
+            type="email"
+            name="email"
+            placeholder="Your Email Address"
+            autoComplete="email"
+            value={inputs.email}
+            onChange={handleChange}
+          />
+
+          <Label htmlFor="password">Password</Label>
+          <input
+            required
+            type="password"
+            name="password"
+            placeholder="Password"
+            autoComplete="password"
+            value={inputs.password}
+            onChange={handleChange}
+          />
+
           <button type="submit">Sign In!</button>
         </fieldset>
       </Form>

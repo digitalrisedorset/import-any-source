@@ -35,7 +35,7 @@ export const Attribute: React.FC<AttributeProps> = ({attribute, candelete}: Attr
             <span className="type">{attribute.type}</span>
             <span className="date-created">created: <br/>{date.toDateString()} </span>
             <LinkedWith magentoCode={attribute.magentoCode}/>
-            {candelete=== 'true' && <DeleteButton onClick={removeField}>Delete</DeleteButton>}
+            {candelete=== 'true' && attribute.magentoCode=== null && <DeleteButton onClick={removeField}>Delete</DeleteButton>}
         </ItemStyles>
     )
 }

@@ -1,4 +1,4 @@
-import {Form} from '../../global/styles/Form';
+import {Form, Label} from '../../global/styles/Form';
 import {useForm} from '../../global/hooks/useForm';
 import {DisplayError} from '../../global/components/ErrorMessage';
 import {useRequestReset} from "../graphql/useRequestRest";
@@ -25,18 +25,17 @@ export const RequestReset: React.FC = () => {
           <p>Success! Check your email for a link!</p>
         )}
 
-        <label htmlFor="email">
-          Email
-          <input
-            required
-            type="email"
-            name="email"
-            placeholder="Your Email Address"
-            autoComplete="email"
-            value={inputs.email}
-            onChange={handleChange}
-          />
-        </label>
+        <Label htmlFor="email">Email</Label>
+        <input
+          required
+          type="email"
+          name="email"
+          placeholder="Your Email Address"
+          autoComplete="email"
+          value={inputs.email}
+          onChange={handleChange}
+        />
+
         <button type="submit">Request Reset!</button>
       </fieldset>
     </Form>

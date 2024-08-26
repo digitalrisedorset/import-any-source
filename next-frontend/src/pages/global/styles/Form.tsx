@@ -73,4 +73,8 @@ export const Form = styled.form`
   }
 `;
 
+export const Label = styled.p`
+    margin: 5px 0 0;
+`
+
 

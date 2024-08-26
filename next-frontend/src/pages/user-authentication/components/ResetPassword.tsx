@@ -1,5 +1,5 @@
 import {DisplayError} from '../../global/components/ErrorMessage';
-import {Form} from '../../global/styles/Form';
+import {Form, Label} from '../../global/styles/Form';
 import {useForm} from '../../global/hooks/useForm';
 import {useResetPassword} from "../graphql/useRequestPassword";
 
@@ -28,42 +28,39 @@ export const ResetPassword: React.FC = () => {
                     <p>Success! Your password is now reset!</p>
                 )}
 
-                <label htmlFor="email">
-                    Email
-                    <input
-                        required
-                        type="email"
-                        name="email"
-                        placeholder="Your Email Address"
-                        autoComplete="email"
-                        value={inputs.email}
-                        onChange={handleChange}
-                    />
-                </label>
-                <label htmlFor="password">
-                    Password
-                    <input
-                        required
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        autoComplete="password"
-                        value={inputs.password}
-                        onChange={handleChange}
-                    />
-                </label>
-                <label htmlFor="token">
-                    Token
-                    <input
-                        required
-                        type="password"
-                        name="token"
-                        placeholder="Token"
-                        autoComplete="token"
-                        value={inputs.token}
-                        onChange={handleChange}
-                    />
-                </label>
+                <Label htmlFor="email">Email</Label>
+                <input
+                    required
+                    type="email"
+                    name="email"
+                    placeholder="Your Email Address"
+                    autoComplete="email"
+                    value={inputs.email}
+                    onChange={handleChange}
+                />
+
+                <Label htmlFor="password">Password </Label>
+                <input
+                    required
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    autoComplete="password"
+                    value={inputs.password}
+                    onChange={handleChange}
+                />
+
+                <Label htmlFor="token">Token</Label>
+                <input
+                    required
+                    type="password"
+                    name="token"
+                    placeholder="Token"
+                    autoComplete="token"
+                    value={inputs.token}
+                    onChange={handleChange}
+                />
+
                 <button type="submit">Submit Password</button>
             </fieldset>
         </Form>
