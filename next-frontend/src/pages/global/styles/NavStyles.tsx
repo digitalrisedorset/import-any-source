@@ -19,6 +19,7 @@ export const NavStyles = styled.ul`
     font-weight: 900;
     font-size: 1em;
     background: none;
+    margin: 0;
     border: 0;
       color: var(--black)
     cursor: pointer;

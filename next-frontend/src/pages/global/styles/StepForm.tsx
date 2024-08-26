@@ -13,6 +13,8 @@ export const StepForm = styled.form`
         margin: 10px;
     }
   button {
+      float: left;
+      margin: 0 0px 0 10px;
     &[disabled] {
       opacity: 0.5;
     }
