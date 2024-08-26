@@ -22,8 +22,11 @@ export const flashMessageSlice = createSlice({
         addDownloadMessage: (state, action: PayloadAction<{message: string, file:ImportResponse}>) => {
             return { messages: [action.payload.message], downloadLink: action.payload.file, messageType: 'success' }
         },
+        clearFlashMessage: (state) => {
+            Object.assign(state, initialState)
+        }
     }
 })
 
-export const { addFlashMessage, addDownloadMessage } = flashMessageSlice.actions;
+export const { addFlashMessage, addDownloadMessage, clearFlashMessage } = flashMessageSlice.actions;
 export const flashMessageReducer = flashMessageSlice.reducer;

@@ -3,12 +3,14 @@ import { SuccessStyles, ErrorStyles, AnimationStyles} from "../styles/FlashMessa
 import React, {useEffect, useRef, useState} from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 const MINUTE_MS = 5000;
 
 export const FlashMessages: React.FC = () => {
     const { messages, downloadLink, messageType} = useAppSelector((state) => state.flashMessage)
     const [hidden, setHidden] = useState<boolean>(false)
+    const { clearFlashMessage } = useActions()
 
     const flashNodeRef = useRef(null)
 
@@ -16,6 +18,7 @@ export const FlashMessages: React.FC = () => {
         setHidden(false)
         const interval = setInterval(async () => {
             setHidden(true)
+            clearFlashMessage()
         }, MINUTE_MS);
 
         return () => clearInterval(interval)

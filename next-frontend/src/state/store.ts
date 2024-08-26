@@ -8,9 +8,13 @@ import {catalogSourceAttributeReducer} from "@/state/catalogSourceAttributeSlice
 import {flashMessageReducer} from "@/state/flashMessageSlice";
 import {magentoAttributeReducer} from "@/state/magentoAttributeSlice";
 import {catalogSourceMappingReducer} from "@/state/catalogSourceMappingSlice";
-import {useMemo} from "react";
 import storage from "@/state/storage";
-import {persistReducer} from "redux-persist";
+import {persistReducer,FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,} from "redux-persist";
 
 let store;
 
@@ -25,17 +29,9 @@ const rootReducer = combineReducers({
 });
 
 const persistConfig = {
-    key: "primary",
-    storage,
-    whitelist: [
-        "auth",
-        "configuration",
-        "catalogSourceProduct",
-        "catalogSourceAttribute",
-        "flashMessage",
-        "magentoAttribute",
-        "catalogSourceMapping"
-    ],
+    key: "root",
+    version: 1,
+    storage
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -43,26 +39,32 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 function makeStore() {
     return configureStore({
         reducer: persistedReducer,
-        devTools: process.env.NODE_ENV !== "production"
+        devTools: process.env.NODE_ENV !== "production",
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware({
+                serializableCheck: {
+                    ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+                },
+            }),
     });
 }
 
-export const initializeStore = () => {
-    let _store = store ?? makeStore();
-
-    // For SSG and SSR always create a new store
-    if (typeof window === "undefined") return _store;
-
-    // Create the store once in the client
-    if (!store) store = _store;
-
-    return _store;
-};
-
-export function useStore() {
-    const store = useMemo(() => initializeStore(), []);
-    return store;
-}
+// export const initializeStore = () => {
+//     let _store = store ?? makeStore();
+//
+//     // For SSG and SSR always create a new store
+//     if (typeof window === "undefined") return _store;
+//
+//     // Create the store once in the client
+//     if (!store) store = _store;
+//
+//     return _store;
+// };
+//
+// export function useStore() {
+//     const store = useMemo(() => initializeStore(), []);
+//     return store;
+// }
 
 export default makeStore;
 

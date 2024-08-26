@@ -6,8 +6,8 @@ import {useMapAttribute} from "../graphql/useMapAttribute";
 import {useFindCatalogSourceAttributes} from "../../catalog-source/graphql/useFindCatalogSourceAttributes";
 import {useFindMagentoAttributes} from "../../magento/graphql/keystone/useFindMagentoAttributes";
 import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
-import {useAppSelector} from "@/state/store";
 import {useRouter} from "next/router";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
@@ -16,8 +16,7 @@ interface MappingProps {
 
 export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}: MappingProps) => {
     const currentCatalogSource = useActiveCatalogSource()
-    const { addFlashMessage } = useAppSelector((state) => state.flashMessage)
-    const { addCatalogSourceAttributeMapped } = useAppSelector((state) => state.catalogSourceAttribute)
+    const { addFlashMessage,addCatalogSourceAttributeMapped } = useActions()
     const router = useRouter()
     const [catalogSourceAttributeStateId, setCatalogSourceAttributeStateId] = useState<string>('');
     const [magentoAttributeStateId, setMagentoAttributeStateId] = useState<string>('');

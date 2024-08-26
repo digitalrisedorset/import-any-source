@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setUserAccess, setActiveTheme } from "@/state/configurationSlice"
-import {addFlashMessage, addDownloadMessage} from "@/state/flashMessageSlice"
+import {addFlashMessage, addDownloadMessage, clearFlashMessage} from "@/state/flashMessageSlice"
 import {setCatalogSourceAttributesImported, addCatalogSourceAttributeIgnored, addCatalogSourceAttributeActivated} from "@/state/catalogSourceAttributeSlice"
 import {setMagentoAttributesImported} from "@/state/magentoAttributeSlice"
 import {setCatalogSourceAttributesMatchFound, setCatalogSourceAttributesMatchSet} from "@/state/catalogSourceMappingSlice";
@@ -13,6 +13,7 @@ const actionCreators = {
     setUserAccess, setActiveTheme,
     addFlashMessage,
     addDownloadMessage,
+    clearFlashMessage,
     setCatalogSourceAttributesImported,
     setMagentoAttributesImported,
     setCatalogSourceAttributesMatchFound,
