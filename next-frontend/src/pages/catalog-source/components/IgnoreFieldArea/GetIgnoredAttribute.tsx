@@ -1,5 +1,5 @@
-import {MappingIgnoredArea} from "../../../global/styles/MappingScreen";
-import {KeystoneCatalogSourceAttribute} from "../../../types/keystone";
+import {MappingIgnoredArea} from "@/pages/global/styles/MappingScreen";
+import {KeystoneCatalogSourceAttribute} from "@/pages/types/keystone";
 import {IgnoredAttribute} from "./IgnoredAttribute";
 import {useCatalogSourceAttributes} from "../../graphql/useCatalogSourceAttributes";
 import React from "react";

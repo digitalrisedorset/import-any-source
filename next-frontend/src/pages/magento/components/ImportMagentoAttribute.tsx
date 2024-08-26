@@ -1,5 +1,5 @@
 import {StepForm} from "../../global/styles/StepForm";
-import React, {FormEvent} from "react"
+import React, {FormEvent, useState} from "react"
 import {RemoteMagentoAttributeProvider} from "../models/RemoteMagentoAttributeProvider";
 import {useRouter} from "next/router";
 import {useCreateMagentoAttributes} from "../graphql/keystone/useCreateMagentoAttributes";
@@ -9,6 +9,7 @@ import {MagentoReport} from "./MagentoReport";
 import {useActions} from "@/pages/global/hooks/useActions";
 
 export const ImportMagentoAttribute: React.FC = () => {
+    const [importing, setImporting] = useState(false)
     const { addFlashMessage, setMagentoAttributesImported } = useActions();
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const createListAttribute = useCreateMagentoAttributes()
@@ -24,6 +25,7 @@ export const ImportMagentoAttribute: React.FC = () => {
         e.preventDefault();
         try {
             if (data?.attributesList?.items) {
+                setImporting(true)
                 const attributes = magentoImportProvider.setAttributeListToCreate(data?.attributesList?.items)
                 createListAttribute({
                     variables: {
@@ -33,16 +35,17 @@ export const ImportMagentoAttribute: React.FC = () => {
                 addFlashMessage(`${attributes.length} magento attributes have been added`)
                 setMagentoAttributesImported(attributes.length)
                 router.push({pathname: `/magento`});
+                setImporting(false)
             }
         } catch (e) {
             console.log('error');
+            setImporting(false)
         }
     }
 
-    console.log('magento attributes', magentoAttributes)
-
     return (
         <StepForm>
+            {importing && <h3>Importing...</h3>}
             <div className="main">
                 <h2>Step 2</h2>
                 <button type="submit" onClick={handleSubmit} disabled={magentoAttributeImported()}>

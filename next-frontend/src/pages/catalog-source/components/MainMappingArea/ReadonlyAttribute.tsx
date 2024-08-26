@@ -6,7 +6,7 @@ import {KeystoneCatalogSourceAttribute} from '@/pages/types/keystone'
 import React from "react";
 import {useSetCatalogSourceAttributeIgnoredQueryResult} from "../../graphql/useSetCatalogSourceAttributeIgnored";
 import {useActiveCatalogSource} from "../../hooks/useCurrentCatalogSource";
-import {useAppSelector} from "@/state/store";
+import {useActions} from "@/pages/global/hooks/useActions";
 
 interface AttributeProps {
     attribute: KeystoneCatalogSourceAttribute
@@ -15,7 +15,7 @@ interface AttributeProps {
 export const ReadonlyAttribute: React.FC<AttributeProps> = ({attribute}: AttributeProps) => {
     const currentCatalogSource = useActiveCatalogSource()
     const setCatalogSourceAttributeIgnore = useSetCatalogSourceAttributeIgnoredQueryResult(attribute.id)
-    const { addCatalogSourceAttributeIgnored } = useAppSelector((state) => state.catalogSourceAttribute);
+    const { addCatalogSourceAttributeIgnored } = useActions()
 
     const date = new Date(attribute.createdAt)
 

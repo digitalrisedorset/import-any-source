@@ -5,14 +5,14 @@ import {TabContent} from "./TabContent";
 import {useState} from "react";
 import {StepDataReader} from "../../global/models/StepDataReader";
 import {TabContainer} from "../../global/styles/TabButtonsStyle";
-import {useUser} from "../../user-authentication/hooks/useUser";
+import {verifyUserAccess} from "../../user-authentication/hooks/useUser";
 
 export const Import: React.FC = () => {
     const stepDataReader = new StepDataReader()
     const [activeTab, setActiveTab] = useState<number>(0);
     const stepData = stepDataReader.getImportStep();
     const {canSetupImport} = useAccess()
-    const user = useUser()
+    verifyUserAccess()
 
     return (
         <ImportHome>

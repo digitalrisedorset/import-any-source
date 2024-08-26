@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setUserAccess, setActiveTheme } from "@/state/configurationSlice"
 import {addFlashMessage, addDownloadMessage} from "@/state/flashMessageSlice"
-import {setCatalogSourceAttributesImported} from "@/state/catalogSourceAttributeSlice"
+import {setCatalogSourceAttributesImported, addCatalogSourceAttributeIgnored, addCatalogSourceAttributeActivated} from "@/state/catalogSourceAttributeSlice"
 import {setMagentoAttributesImported} from "@/state/magentoAttributeSlice"
 import {setCatalogSourceAttributesMatchFound, setCatalogSourceAttributesMatchSet} from "@/state/catalogSourceMappingSlice";
 import {setProductMonitoredAction, setCatalogSourceProductBatchLoaded, setCatalogSourceProductBatchValidated,
@@ -22,7 +22,9 @@ const actionCreators = {
     setCatalogSourceProductBatchValidated,
     setCatalogSourceProductRemoved,
     setCatalogSourceProductUpdateNotification,
-    setCatalogSourceProductDeleteNotification
+    setCatalogSourceProductDeleteNotification,
+    addCatalogSourceAttributeIgnored,
+    addCatalogSourceAttributeActivated
 }
 
 export const useActions = () => {

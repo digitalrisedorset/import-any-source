@@ -1,8 +1,23 @@
 import { Provider } from "react-redux";
-import { store } from "@/state/store";
+import {useStore} from "@/state/store";
+import {persistStore} from "redux-persist"
+import {PersistGate} from "redux-persist/integration/react";
 
 export default function ReduxProvider({ children }: {
     children: React.ReactNode;
 }) {
-    return <Provider store={store}>{children}</Provider>;
+    const store = useStore();
+    let persistor;
+
+    if (store) {
+        persistor = persistStore(store, {}, function () {
+            persistor.persist();
+        });
+    }
+
+    return <Provider store={store}>
+        <PersistGate loading={"loading from store"} persistor={persistor}>
+            {children}
+        </PersistGate>
+    </Provider>;
 }
