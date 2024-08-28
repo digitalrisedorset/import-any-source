@@ -12,7 +12,6 @@ export const Import: React.FC = () => {
     const [activeTab, setActiveTab] = useState<number>(0);
     const stepData = stepDataReader.getImportStep();
     const {canSetupImport} = useAccess()
-    verifyUserAccess()
 
     return (
         <ImportHome>

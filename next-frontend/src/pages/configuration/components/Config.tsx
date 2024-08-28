@@ -1,5 +1,5 @@
 import {CardStyles} from "../styles/CardStyles";
-import {Label} from "@/pages/global/styles/Form"
+import {Label} from "../../global/styles/Form"
 import {CatalogSource} from "../styles/CatalogSource";
 import {ConfigReader} from "../models/ConfigReader";
 import {useThemeSelect} from "@/pages/configuration/hooks/useThemeSelect";

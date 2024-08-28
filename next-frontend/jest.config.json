@@ -1,0 +1,15 @@
+{
+  "coverageDirectory": "<rootDir>/build/coverage/",
+  "verbose": true,
+  "collectCoverage": false,
+  "collectCoverageFrom": [
+    "src/**/*.{ts,tsx}"
+  ],
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": [
+    "<rootDir>/jest.setup.js"
+  ],
+  "moduleNameMapper": {
+    "^@/(.*)": "<rootDir>/src/$1"
+  }
+}

@@ -58,9 +58,8 @@ export const GlobalStyles = createGlobalStyle<StyleProps>`
         font-size: 1.5rem;
         padding: 0.8rem 1.5rem;
         transform: skew(-1deg);
-        display: inline-block;
         transition: all 0.5s;
-        margin: 10px 0;
+        margin: 10px 10px 10px 10px;
         &[disabled] {
             opacity: 0.5;
         }

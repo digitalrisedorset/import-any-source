@@ -37,13 +37,9 @@ export const ImportHome = styled.div`
     }
 `;
 
-export const MonitoringArea = styled.div<StyleProps>`
-    margin: 1rem;
-  border: 1px solid var(--offWhite);
-  box-shadow: var(--bs);
-  position: relative;
-  width:46%;
-  font-size: 1em;
+export const MonitoringArea = styled.div`
+    float: left;
+  clear: both;
 `;
 
 export const DeleteButton = styled.button`

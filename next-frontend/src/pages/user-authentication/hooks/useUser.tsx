@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import {useEffect} from "react";
 import {useRouter} from "next/router";
 
-const CURRENT_USER_QUERY = gql`
+export const CURRENT_USER_QUERY = gql`
   query {
     authenticatedItem {
       ... on User {

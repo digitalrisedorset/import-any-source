@@ -1,4 +1,3 @@
-import {MonitoringArea} from '../../global/styles/MappingScreen';
 import {useEffect, useState} from "react";
 import {UpdateModel} from "../models/UpdateImport"
 import {ImportUpdateResponse} from "../../types/catalog-source";
@@ -6,6 +5,8 @@ import {RenderFileDownload} from "./DownloadLink"
 import {useAccess} from "../../configuration/hooks/useAccess";
 import {useProductImport} from "../hooks/useProductImport";
 import {useActions} from "@/pages/global/hooks/useActions";
+import {StepForm} from "@/pages/global/styles/StepForm";
+import {MonitoringArea} from "@/pages/global/styles/MappingScreen";
 
 const InitResponse: ImportUpdateResponse = {
     filename: '',
@@ -21,19 +22,19 @@ const MINUTE_MS = 5000;
 
 const RenderUpdate: React.FC<UpdateResponse> = (updateCsvFile: UpdateResponse) => {
     return (
-        <>
+        <MonitoringArea>
             {updateCsvFile?.numberItem===0 && <h3>No Update have been happening</h3>}
             {updateCsvFile?.numberItem>0 && <>
                 <h3>The last update has saved {updateCsvFile.numberItem} product changes</h3>
                 {RenderFileDownload(updateCsvFile)}
             </>}
-        </>
+        </MonitoringArea>
     )
 }
 
 const RenderDelete: React.FC<UpdateResponse> = (deleteCsvFile: UpdateResponse) => {
     return (
-        <>
+        <MonitoringArea>
             {deleteCsvFile?.numberItem === 0 && <>
                 <h3>No Product have been deleted</h3>
             </>}
@@ -41,7 +42,7 @@ const RenderDelete: React.FC<UpdateResponse> = (deleteCsvFile: UpdateResponse) =
                 <h3>The last product validation has {deleteCsvFile.numberItem} product deleted</h3>
                 {RenderFileDownload(deleteCsvFile)}
             </>}
-        </>
+        </MonitoringArea>
     )
 }
 
@@ -96,21 +97,21 @@ export const MonitorUpdate: React.FC = () => {
     }
 
     return (
-        <MonitoringArea>
-            <form>
-                <h2>Product Update Status</h2>
-                {canMonitorData && !importMonitored && <button type="submit" onClick={handleSubmit}>
-                    Launch Product Monitoring
+        <StepForm>
+            <div className="main">
+            <h2>Product Update Status</h2>
+            {canMonitorData && !importMonitored && <button type="submit" onClick={handleSubmit}>
+                Launch Product Monitoring
+            </button>
+            }
+            {importMonitored && <>The product updates are being monitored<br/>
+                <button type="submit" onClick={handleSubmit}>
+                    Stop Product Monitoring
                 </button>
-                }
-                {importMonitored && <>The product updates are being monitored<br/>
-                    <button type="submit" onClick={handleSubmit}>
-                        Stop Product Monitoring
-                    </button>
-                    {canUpdateProducts && RenderUpdate(updateCsvFile)}
-                    {canDeleteProducts && RenderDelete(deleteCsvFile)}
-                </>}
-            </form>
-        </MonitoringArea>
+                {canUpdateProducts && RenderUpdate(updateCsvFile)}
+                {canDeleteProducts && RenderDelete(deleteCsvFile)}
+            </>}
+            </div>
+        </StepForm>
     )
 }

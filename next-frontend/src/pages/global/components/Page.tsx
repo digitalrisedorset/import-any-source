@@ -4,6 +4,7 @@ import {Footer} from "@/pages/global/components/Footer";
 import {GlobalStyles} from "@/pages/global/styles/Global"
 import {useActiveThemeColor} from "@/pages/configuration/hooks/useActiveTheme";
 import {FlashMessages} from "@/pages/global/components/FlashMessages";
+import {verifyUserAccess} from "@/pages/user-authentication/hooks/useUser";
 
 interface PageProps {
     children: React.ReactNode
@@ -11,6 +12,7 @@ interface PageProps {
 
 export const Page: React.FC<PageProps> = ({ children }: PageProps) => {
     const themeColors = useActiveThemeColor()
+    verifyUserAccess()
 
     return (
         <>

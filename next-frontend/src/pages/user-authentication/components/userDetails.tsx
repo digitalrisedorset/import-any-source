@@ -7,7 +7,7 @@ export const UserDetails: React.FC = () => {
     const  accessSummary = useAllAccess()
 
     return (
-        <Form>
+        <Form data-testid="loggedInUser">
             <h2>Your details</h2>
             <fieldset>
                 <Label htmlFor="name">Your Name</Label>

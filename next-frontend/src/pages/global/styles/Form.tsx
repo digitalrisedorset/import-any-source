@@ -45,6 +45,7 @@ export const Form = styled.form`
     font-size: 2rem;
     font-weight: 200;
     padding: 0.5rem 1.2rem;
+      margin: 10px 10px 10px 0;
   }
   fieldset {
       border: 0;
