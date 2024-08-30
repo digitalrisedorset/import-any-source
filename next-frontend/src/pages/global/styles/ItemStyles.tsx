@@ -12,8 +12,8 @@ export const ItemStyles = styled.div<StyleProps>`
   display: flex;
   flex-direction: column;
     float: left;
-    margin: 5px;
-    padding: 0px 8px 5px;
+    margin: 5px 10px 5px 0;
+    padding: 5px 8px 5px 15px;
     width: 300px;
     .date-created {
         font-style: italic;
@@ -56,4 +56,7 @@ export const ItemStyles = styled.div<StyleProps>`
       padding: 1rem;
     }
   }
+    button {
+        margin: 5px 5px 5px 0;
+    }
 `;

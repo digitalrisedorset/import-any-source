@@ -1,7 +1,7 @@
-import {useAppSelector} from "@/state/store";
+import {useUserConfiguration} from "@/pages/user-authentication/hooks/useUser";
 
 export function useAccess() {
-    const {accessEnabled} =  useAppSelector((state) => state.configuration);
+    const { accessEnabled } = useUserConfiguration()
 
     return {
         canCreateProducts: accessEnabled?.canCreateProducts,
@@ -17,7 +17,12 @@ export function useAccess() {
 }
 
 export function useAllAccess() {
-    const {accessEnabled} =  useAppSelector((state) => state.configuration);
+    const { accessEnabled } = useUserConfiguration()
+
+    if (accessEnabled === undefined) {
+        return ''
+    }
+
     const access =  Object.entries(accessEnabled).filter((item: any) => (item[1]===true)).map(item => {
        return item[0]
     })

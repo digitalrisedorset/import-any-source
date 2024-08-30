@@ -4,6 +4,7 @@ export const GridReport = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
+    float: left;
     .main {
         margin: 0.5rem 0.5rem 0 0;
         padding: 1.5rem;

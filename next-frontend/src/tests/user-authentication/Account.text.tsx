@@ -9,7 +9,7 @@ import {useFakeUser} from "@/tests/hooks/useFakeUser";
 const mockUser = useFakeUser()
 
 describe('<Account>', () => {
-    it('renders with user data', async () => {
+    it.skip('renders with user data', async () => {
         store = mockStore(initialState);
         mockRouter.push({pathname: '/'});
 

@@ -5,7 +5,7 @@ import {KeystoneCatalogSourceAttribute} from '@/pages/types/keystone'
 import React from "react";
 import {useSetCatalogSourceAttributeActive} from "../../graphql/useSetCatalogSourceAttributeActive";
 import {useActiveCatalogSource} from "../../hooks/useCurrentCatalogSource";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useCatalogSourceAttribute} from "@/state/catalogSourceAttributeState";
 
 interface AttributeProps {
     attribute: KeystoneCatalogSourceAttribute
@@ -14,7 +14,7 @@ interface AttributeProps {
 export const IgnoredAttribute: React.FC<AttributeProps> = ({attribute}: AttributeProps) => {
     const currentCatalogSource = useActiveCatalogSource()
     const setCatalogSourceAttributeActivate = useSetCatalogSourceAttributeActive(attribute.id)
-    const { addCatalogSourceAttributeActivated } = useActions()
+    const { addCatalogSourceAttributeActivated } = useCatalogSourceAttribute()
 
     const activateField = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();

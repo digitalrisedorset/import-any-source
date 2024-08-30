@@ -9,7 +9,7 @@ export const TabContent: React.FC<TabsButtonProps> = ({ stepData, activeTab}: Ta
     return (
         <TabContainer>
             <TabContentElt>
-                {stepData[activeTab].component}
+                {stepData[activeTab]?.component}
             </TabContentElt>
         </TabContainer>
     );

@@ -13,19 +13,18 @@ let store;
 
 describe('<Config>', () => {
     it('renders config and title', () => {
-        // store = mockStore(initialState);
-        //
-        // const { container, debug } = render(
-        //     <MockedProvider mocks={mockUser}>
-        //         <Provider store={store}>
-        //             <Config />
-        //         </Provider>
-        //     </MockedProvider>
-        // )
-        //
-        // expect(screen.getByText('System Preferences')).toBeInTheDocument()
-        // expect(screen.getByText('Select your theme')).toBeInTheDocument()
-        expect(1).toEqual(1)
+        store = mockStore(initialState);
+
+        const { container, debug } = render(
+            <MockedProvider mocks={mockUser}>
+                <Provider store={store}>
+                    <Config />
+                </Provider>
+            </MockedProvider>
+        )
+
+        expect(screen.getByText('System Preferences')).toBeInTheDocument()
+        expect(screen.getByText('Select your theme')).toBeInTheDocument()
     })
 
     it ('renders and matches the snapshot', () => {

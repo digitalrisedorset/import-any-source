@@ -3,12 +3,14 @@ import {useMagentoProducts} from "@/pages/magento/graphql/magento/useMagentoProd
 import {useProductDeletedGrid, useProductImportGrid} from "@/pages/global/hooks/useProductGrid";
 import {GridReport} from "../../styles/GridStyle"
 import React from "react";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useFlashMessage} from "@/state/flassMessageState";
+import {useCatalogSourceProduct} from "@/state/catalogSourceProductState";
 
 export const ProductImportList: React.FC = () => {
     const {importStatus, catalogSourceProducts} = useProductImport()
     const getProductDataBySku = useMagentoProducts()
-    const { setCatalogSourceProductBatchValidated,addFlashMessage } = useActions()
+    const { setCatalogSourceProductBatchValidated } = useCatalogSourceProduct()
+    const {addFlashMessage } = useFlashMessage()
     const getProductGrid = useProductImportGrid()
     const getProductDeletedGrid = useProductDeletedGrid()
 

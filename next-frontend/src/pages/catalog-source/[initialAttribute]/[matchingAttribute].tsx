@@ -3,14 +3,14 @@ import {GetCatalogSourceAttribute} from "@/pages/catalog-source/components/MainM
 import {GetIgnoredAttribute} from "@/pages/catalog-source/components/IgnoreFieldArea/GetIgnoredAttribute";
 import {MappingScreen} from "@/pages/global/styles/MappingScreen";
 import {useRouter} from "next/router";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useFlashMessage} from "@/state/flassMessageState";
 
 export default function MapPage() {
     const { query } = useRouter();
-    const { addFlashMessage } = useActions()
+    const { addFlashMessage } = useFlashMessage()
     const { initialAttribute, matchingAttribute } = query;
 
-    addFlashMessage(`The catalog attribute "${initialAttribute}" is matched with the magento attribute "${matchingAttribute}"`)
+    //addFlashMessage(`The catalog attribute "${initialAttribute}" is matched with the magento attribute "${matchingAttribute}"`)
 
     return (
         <>

@@ -15,7 +15,6 @@ export const ResetPassword: React.FC = () => {
         e.preventDefault(); // stop the form from submitting
         const res = await resetpassword().catch(console.error);
         //resetForm();
-        console.log('resetpassword', res)
         // Send the email and password to the graphqlAPI  token: 'Vl_KYD5-i_l3DySiYjZl'  ttt
     }
 

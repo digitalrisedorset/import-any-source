@@ -4,10 +4,10 @@ import Router from 'next/router';
 import type { AppProps } from "next/app";
 import {Page} from "./global/components/Page";
 import { apolloClient } from './apolloclient'
-import ReduxProvider from "@/state/redux-provider";
 import Axios from "axios"
 import { config } from '@/config';
 import NProgress from 'nprogress';
+import StateProvider from "@/state/StateProvider";
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -18,11 +18,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
     return (
         <ApolloProvider client={apolloClient}>
-            <ReduxProvider>
+            <StateProvider>
                 <Page>
                     <Component {...pageProps} />
                 </Page>
-            </ReduxProvider>
+            </StateProvider>
         </ApolloProvider>
     )
 }

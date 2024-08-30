@@ -1,22 +1,20 @@
 import {ConfigReader} from "../models/ConfigReader";
-import {useAppSelector} from "@/state/store";
+import {useUserConfiguration} from "@/pages/user-authentication/hooks/useUser";
 
 export const useActiveTheme = () => {
-    const { themeCode } = useAppSelector((state) => state.configuration);
+    const {theme} = useUserConfiguration()
     const configReader = new ConfigReader()
 
-    return configReader.getActiveThemeLabel(themeCode)
+    return configReader.getActiveThemeLabel(theme)
 }
 
 export const useActiveThemeCode = () => {
-    const { themeCode } = useAppSelector((state) => state.configuration);
-
+    const { themeCode } = useUserConfiguration()
     return themeCode
 }
 
 export const useActiveThemeColor = () => {
-    const { themeCode } = useAppSelector((state) => state.configuration);
-
+    const { themeCode } = useUserConfiguration()
     const configReader = new ConfigReader()
 
     const activeTheme = configReader.getThemeByName(themeCode)

@@ -2,16 +2,15 @@ import {CatalogSource} from "@/pages/configuration/styles/CatalogSource";
 import {Label} from "@/pages/global/styles/Form"
 import {CatalogSourceHandler} from "@/pages/configuration/models/CatalogSourceHandler";
 import React from "react";
-import {useAppDispatch} from "@/state/store";
-import { setActiveCatalogSourceSystem } from "@/state/catalogSourceAttributeSlice";
+import {useCatalogSourceAttribute} from "@/state/catalogSourceAttributeState";
 
 export const CatalogSourceSelect: React.FC = () => {
-    const dispatch = useAppDispatch();
+    const {setActiveCatalogSourceSystem} = useCatalogSourceAttribute()
     const catalogSourceHandler = new CatalogSourceHandler()
 
     const onCatalogSourceSystemChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         e.preventDefault()
-        dispatch(setActiveCatalogSourceSystem(e.target.value))
+        setActiveCatalogSourceSystem(e.target.value)
     };
 
     return (

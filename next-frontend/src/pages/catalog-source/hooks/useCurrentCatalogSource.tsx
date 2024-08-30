@@ -1,10 +1,10 @@
 import {CatalogSourceHandler} from "../../configuration/models/CatalogSourceHandler";
 import {defaultImportState, CatalogSourceState} from "../../types/states";
-import {useAppSelector} from "@/state/store";
+import {useCatalogSourceAttribute} from "@/state/catalogSourceAttributeState";
 
 export const useActiveCatalogSource = (): CatalogSourceState => {
-    const { catalogSourceImportState } = useAppSelector((state) => state.catalogSourceAttribute)
-    let currentActiveSystem = catalogSourceImportState.find(item => item.active === true);
+    const {catalogSourceAttributeState} = useCatalogSourceAttribute()
+    let currentActiveSystem = catalogSourceAttributeState.find(item => item.active === true);
 
     if (currentActiveSystem === undefined) {
         defaultImportState.active = true

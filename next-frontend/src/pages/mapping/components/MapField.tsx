@@ -4,13 +4,13 @@ import { filterOptions } from 'fuzzy-match-utils';
 import { MagentoAttribute} from "../../types/keystone";
 import {useMagentoAttributesLazy} from "../../magento/graphql/keystone/useMagentoAttributes";
 import {useRouter} from "next/router";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useCatalogSourceMapping} from "@/state/catalogSourceMappingState";
 
 export const MapField: React.FC = () => {
     const MAX_MATCHES = 5;
     const { query } = useRouter();
     const code = query.attribute;
-    const { setCatalogSourceAttributesMatchFound } = useActions()
+    const { setCatalogSourceAttributesMatchFound } = useCatalogSourceMapping()
 
     const [attributeCodeState, setAttributeCodeState] = useState<string>('');
     const getAttributeList = useMagentoAttributesLazy()
@@ -21,7 +21,7 @@ export const MapField: React.FC = () => {
         let match = filterOptions(optionsFromCode, attributeCodeState)
         const bestMatches= match.slice(0, MAX_MATCHES);
 
-        setCatalogSourceAttributesMatchFound({catalogSourceAttributeCode: code, magentoMatchesAttributes: bestMatches})
+        setCatalogSourceAttributesMatchFound(code, bestMatches)
     }
 
     useEffect(() => {

@@ -7,10 +7,12 @@ import {useActiveCatalogSource} from "../../hooks/useCurrentCatalogSource";
 import {KeystoneCatalogSourceAttribute} from "@/pages/types/keystone";
 import {CatalogSourceSystemReport} from "../CatalogSourceSystemReport";
 import React from "react";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useCatalogSourceAttribute} from "@/state/catalogSourceAttributeState";
+import {useFlashMessage} from "@/state/flassMessageState";
 
 export const ImportCatalogSourceAttribute: React.FC = () => {
-    const {addFlashMessage, setCatalogSourceAttributesImported} = useActions()
+    const {addFlashMessage} = useFlashMessage()
+    const {setCatalogSourceAttributesImported} = useCatalogSourceAttribute()
     const currentCatalogSource = useActiveCatalogSource()
     const router = useRouter()
     const remoteAttributeProvider = CatalogSourceAttributeProvider()
@@ -31,11 +33,7 @@ export const ImportCatalogSourceAttribute: React.FC = () => {
                 }).then(() => {
                     addFlashMessage(`${response.length} catalog attributes have been added`)
                     const ignoredAttributes = response.filter((item: KeystoneCatalogSourceAttribute) => item.ignored)
-                    setCatalogSourceAttributesImported({
-                        name: currentCatalogSource.name,
-                        numberCatalogSourceAttributes: response.length,
-                        ignoredAttributes: ignoredAttributes.length
-                })
+                    setCatalogSourceAttributesImported(currentCatalogSource.name, response.length, ignoredAttributes.length)
                     router.push({pathname: `/catalog-source`});
                 }).catch(() => {
                     throw new Error('The attributes could not be created')

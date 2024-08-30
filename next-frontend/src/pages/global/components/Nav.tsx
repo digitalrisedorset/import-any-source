@@ -19,9 +19,6 @@ export const Nav: React.FC = () => {
                     <Link href="/catalog-source" className="text-white">
                         {currentCatalogSource?.name} System
                     </Link>
-                    <Link href="/config" className="text-white">
-                        Configuration
-                    </Link>
                     <Link href="/account">Account</Link>
                     <SignOut />
                 </>)}

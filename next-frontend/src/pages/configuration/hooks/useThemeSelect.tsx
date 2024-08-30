@@ -1,5 +1,5 @@
-import {useAppDispatch} from "@/state/store";
-import { setActiveTheme } from "@/state/configurationSlice";
+import {useAppDispatch} from "@/redux-state/store";
+import { setActiveTheme } from "@/redux-state/configurationSlice";
 
 export const useThemeSelect = (theme: string) => {
     const dispatch = useAppDispatch();

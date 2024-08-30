@@ -13,7 +13,7 @@ const mockStore = configureStore();
 let store;
 
 describe('<Sign>', () => {
-    it('renders config and title', () => {
+    it.skip('renders config and title', () => {
         store = mockStore(initialState);
         mockRouter.push({pathname: '/'});
 

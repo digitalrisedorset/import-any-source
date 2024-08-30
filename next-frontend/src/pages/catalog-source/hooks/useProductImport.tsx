@@ -1,5 +1,5 @@
 import {DeletedCatalogSourceProduct, CatalogSourceProduct} from "../../types/catalog-source";
-import {useAppSelector} from "@/state/store";
+import {useCatalogSourceProduct} from "@/state/catalogSourceProductState";
 
 interface ImportProductResponse {
     importMonitored: boolean,
@@ -10,7 +10,7 @@ interface ImportProductResponse {
 }
 
 export const useProductImport = (): ImportProductResponse => {
-    const { importMonitored, importStatus, catalogSourceProducts, catalogSourceProductHeader, catalogSourceDeletedProducts } = useAppSelector((state) => state.catalogSourceProduct)
+    const { importMonitored, importStatus, catalogSourceProducts, catalogSourceProductHeader, catalogSourceDeletedProducts } = useCatalogSourceProduct()
 
     return {importMonitored, importStatus, catalogSourceProductHeader, catalogSourceProducts, catalogSourceDeletedProducts}
 }

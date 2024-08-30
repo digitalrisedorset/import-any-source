@@ -1,6 +1,7 @@
 import {UpdateModel} from "../../../models/UpdateImport";
 import React from "react";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useFlashMessage} from "@/state/flassMessageState";
+import {useCatalogSourceProduct} from "@/state/catalogSourceProductState";
 
 interface RemoveProps {
     sku: string
@@ -8,7 +9,8 @@ interface RemoveProps {
 
 export const RemoveProduct: React.FC<RemoveProps> = ({sku}: RemoveProps) => {
     const updateModel = new UpdateModel()
-    const { addFlashMessage,setCatalogSourceProductRemoved } = useActions()
+    const { addFlashMessage} = useFlashMessage()
+    const {setCatalogSourceProductRemoved } = useCatalogSourceProduct()
 
     const handleRemoveProduct = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();

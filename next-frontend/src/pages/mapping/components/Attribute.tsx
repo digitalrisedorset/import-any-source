@@ -7,7 +7,8 @@ import {useFindCatalogSourceAttributes} from "../../catalog-source/graphql/useFi
 import {useFindMagentoAttributes} from "../../magento/graphql/keystone/useFindMagentoAttributes";
 import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
 import {useRouter} from "next/router";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useFlashMessage} from "@/state/flassMessageState";
+import {useCatalogSourceAttribute} from "@/state/catalogSourceAttributeState";
 
 interface MappingProps {
     attribute: MatchingAttributeData,
@@ -16,7 +17,8 @@ interface MappingProps {
 
 export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}: MappingProps) => {
     const currentCatalogSource = useActiveCatalogSource()
-    const { addFlashMessage,addCatalogSourceAttributeMapped } = useActions()
+    const { addFlashMessage} = useFlashMessage()
+    const {addCatalogSourceAttributeMapped } = useCatalogSourceAttribute()
     const router = useRouter()
     const [catalogSourceAttributeStateId, setCatalogSourceAttributeStateId] = useState<string>('');
     const [magentoAttributeStateId, setMagentoAttributeStateId] = useState<string>('');
@@ -35,7 +37,7 @@ export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}:
                     mapAttribute()
                     router.push({pathname: `/catalog-source/${initialAttribute}/${attribute.label}`});
                     addCatalogSourceAttributeMapped(currentCatalogSource.name)
-                    addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)
+                    //addFlashMessage(`${initialAttribute} is mapped to ${attribute.label}`)
                 }
             } catch (e) {
                 console.log("There was a problem.")

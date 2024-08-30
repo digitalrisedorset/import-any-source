@@ -12,7 +12,7 @@ export class ConfigReader {
     }
 
     getThemeByName = (name: string): Theme => {
-        if (name === '') {
+        if (name === undefined) {
             name = 'blue'
         }
 

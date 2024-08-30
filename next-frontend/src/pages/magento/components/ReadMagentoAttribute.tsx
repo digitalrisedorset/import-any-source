@@ -3,15 +3,9 @@ import {Attribute} from "./Attribute";
 import {MagentoAttribute} from "../../types/keystone";
 import {LoadingDotsIcon } from "../../global/components/Loading"
 import {useMagentoAttributes} from "../graphql/keystone/useMagentoAttributes";
-import {useActions} from "@/pages/global/hooks/useActions";
 
 export const ReadMagentoAttribute = () => {
-    const { addFlashMessage } = useActions()
     const { data, error, loading } = useMagentoAttributes()
-
-    if (!error && !loading && data) {
-        addFlashMessage(`The system has loaded ${data?.magentoAttributes?.length} magento attributes`)
-    }
 
     return (
         <CardStyles>

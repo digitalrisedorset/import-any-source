@@ -39,19 +39,28 @@ export function useUser() {
   return data?.authenticatedItem;
 }
 
+export function useUserConfiguration() {
+  const { data } = useQuery(CURRENT_USER_QUERY);
+
+  const user = data?.authenticatedItem;
+
+  return {
+    themeCode: user?.theme,
+    accessEnabled: user?.role
+  }
+}
+
 export function verifyUserAccess() {
   const router = useRouter()
   const { data } = useQuery(CURRENT_USER_QUERY);
 
   useEffect(() => {
     if (data?.authenticatedItem) {
-      router.push({pathname: '/'})
+      //router.push({pathname: '/'})
     } else {
-      router.push({pathname: '/signin'})
+      //router.push({pathname: '/signin'})
     }
   }, [data?.authenticatedItem])
 
   return data?.authenticatedItem;
 }
-
-export { CURRENT_USER_QUERY };

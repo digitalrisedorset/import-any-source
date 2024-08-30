@@ -4,9 +4,10 @@ import {ImportUpdateResponse} from "../../types/catalog-source";
 import {RenderFileDownload} from "./DownloadLink"
 import {useAccess} from "../../configuration/hooks/useAccess";
 import {useProductImport} from "../hooks/useProductImport";
-import {useActions} from "@/pages/global/hooks/useActions";
 import {StepForm} from "@/pages/global/styles/StepForm";
 import {MonitoringArea} from "@/pages/global/styles/MappingScreen";
+import {useFlashMessage} from "@/state/flassMessageState";
+import {useCatalogSourceProduct} from "@/state/catalogSourceProductState";
 
 const InitResponse: ImportUpdateResponse = {
     filename: '',
@@ -50,7 +51,8 @@ export const MonitorUpdate: React.FC = () => {
     const [updateCsvFile, setUpdateCsvFile] = useState<UpdateResponse>(InitResponse as UpdateResponse)
     const [deleteCsvFile, setDeleteCsvFile] = useState<UpdateResponse>(InitResponse as UpdateResponse)
     const {canDeleteProducts, canUpdateProducts, canMonitorData} = useAccess()
-    const { addFlashMessage, setCatalogSourceProductUpdateNotification, setCatalogSourceProductDeleteNotification, setProductMonitoredAction } = useActions()
+    const { addFlashMessage} = useFlashMessage()
+    const { setCatalogSourceProductUpdateNotification, setCatalogSourceProductDeleteNotification, setProductMonitoredAction } = useCatalogSourceProduct()
     const {importMonitored} = useProductImport()
 
     useEffect(() => {

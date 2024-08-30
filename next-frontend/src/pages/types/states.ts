@@ -34,7 +34,7 @@ export interface MagentoImportStateData {
     magentoAttributes: number
 }
 
-export const defaultImportState = {
+export const defaultImportState: CatalogSourceState = {
     name: '',
     active: false,
     numberCatalogSourceAttributes: 0,

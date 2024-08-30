@@ -6,11 +6,13 @@ import {useCreateMagentoAttributes} from "../graphql/keystone/useCreateMagentoAt
 import {useProductAttributes} from "../graphql/magento/useProductAttributes";
 import {useMagentoAttributes} from "../hooks/useMagentoAttributes";
 import {MagentoReport} from "./MagentoReport";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useFlashMessage} from "@/state/flassMessageState";
+import {useMagentoAttribute} from "@/state/magentoAttributeState";
 
 export const ImportMagentoAttribute: React.FC = () => {
     const [importing, setImporting] = useState(false)
-    const { addFlashMessage, setMagentoAttributesImported } = useActions();
+    const { addFlashMessage} = useFlashMessage()
+    const { setMagentoAttributesImported } = useMagentoAttribute()
     const magentoImportProvider = RemoteMagentoAttributeProvider()
     const createListAttribute = useCreateMagentoAttributes()
     const magentoAttributes = useMagentoAttributes()

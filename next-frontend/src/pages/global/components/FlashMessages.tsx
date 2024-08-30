@@ -2,15 +2,15 @@ import { RenderFileDownload } from "../../catalog-source/components/DownloadLink
 import { SuccessStyles, ErrorStyles, AnimationStyles} from "../styles/FlashMessage"
 import React, {useEffect, useRef, useState} from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import {useAppSelector} from "@/state/store";
-import {useActions} from "@/pages/global/hooks/useActions";
+import {useAppSelector} from "@/redux-state/store";
+import {useFlashMessage} from "@/state/flassMessageState";
 
 const MINUTE_MS = 5000;
 
 export const FlashMessages: React.FC = () => {
-    const { messages, downloadLink, messageType} = useAppSelector((state) => state.flashMessage)
+    const { messages, downloadLink, messageType} = useFlashMessage()
     const [hidden, setHidden] = useState<boolean>(false)
-    const { clearFlashMessage } = useActions()
+    const { clearFlashMessage } = useFlashMessage()
 
     const flashNodeRef = useRef(null)
 
