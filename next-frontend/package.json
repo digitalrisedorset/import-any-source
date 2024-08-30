@@ -27,7 +27,8 @@
     "react-transition-group": "^4.4.5",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
-    "styled-components": "^6.1.12"
+    "styled-components": "^6.1.12",
+    "use-immer": "^0.10.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.24.7",
