@@ -16,5 +16,5 @@ nvm use 18
 in react-frontend folder, run `npm start`
 
 ## post live activities
-To remove the config for `initFirstItem` when go-live happens as it would leave security holes with the system
+To remove the config for `initFirstItem` in Keystone environment when go-live happens as it would leave security holes with the system
 
