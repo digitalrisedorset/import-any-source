@@ -12,9 +12,7 @@ export const DisplayError: React.FC<ErrorProps> = ({ error }: ErrorProps) => {
       return (
         <ErrorStyles>
           <>
-            <strong>Shoot!</strong>
-            {/*{error.message.replace('GraphQL error: ', '')}*/}
-              {error}
+            <strong>Shoot!</strong>{error}
           </>
         </ErrorStyles>
       );

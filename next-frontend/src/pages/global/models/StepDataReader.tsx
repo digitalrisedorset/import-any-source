@@ -1,12 +1,12 @@
 import {ImportCatalogSourceAttribute} from "../../catalog-source/components/MainMappingArea/ImportCatalogSourceAttribute";
 import {ImportMagentoAttribute} from "../../magento/components/ImportMagentoAttribute";
-import {MappingAttributes} from "../../catalog-source/components/MappingAttribute";
+import {MappingAttributes} from "../../mapping/components/MappingAttribute";
 import {ImportProduct} from "../../catalog-source/components/MainMappingArea/ImportProduct";
-import {useAccess} from "../../configuration/hooks/useAccess";
+import {useAccess} from "@/pages/user-authentication/hooks/useAccess";
 import {StepData} from "../../catalog-source/types/step";
-import {MonitorUpdate} from "../../catalog-source/components/MonitorUpdate";
 import {GetCatalogSourceMappedAttribute} from "../../catalog-source/components/MainMappingArea/GetCatalogSourceMappedAttribute";
 import {GetMagentoMappedAttribute} from "../../magento/components/GetMagentoMappedAttribute";
+import {Monitor} from "@/pages/catalog-source/components/Monitor";
 
 export class StepDataReader {
     getImportStep = () => {
@@ -51,7 +51,7 @@ export class StepDataReader {
         if (canMonitorData) {
             stepData.push({
                 step: "Step 5",
-                component: <MonitorUpdate/>
+                component: <Monitor />
             })
         }
 

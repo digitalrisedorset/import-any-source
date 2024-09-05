@@ -1,9 +1,7 @@
-import {useMagentoAttributes} from "../hooks/useMagentoAttributes";
 import {Title, ReportStyles} from "../../global/styles/ReportStyles";
 import React from "react";
 
-export const MagentoReport: React.FC = () => {
-    const magentoAttributes = useMagentoAttributes()
+export const MagentoReport: React.FC = (magentoAttributes: number) => {
     const ImportedMessage = () => {
         let message = ''
         if (magentoAttributes === 0) {

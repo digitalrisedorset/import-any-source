@@ -1,10 +1,24 @@
-import {useUser} from '../hooks/useUser';
 import {Form, Label} from "../../global/styles/Form";
-import {useAllAccess} from "../../configuration/hooks/useAccess";
+import {UserDetailsData} from "@/pages/types/keystone"
+import React from "react";
+import {AccessState} from "@/pages/types/states";
 
-export const UserDetails: React.FC = () => {
-    const user = useUser();
-    const  accessSummary = useAllAccess()
+type UserDetailsProps = {
+    user: UserDetailsData
+}
+
+export const UserDetails: React.FC = ({user}: UserDetailsProps) => {
+    const getUserAcess = (userRole: AccessState) => {
+        if (typeof userRole !== 'object') {
+            return 'no access'
+        }
+
+        const userRoleActive = Object.entries(userRole).filter((item: any) => (item[1]===true)).map(item => {
+            return item[0]
+        })
+
+        return userRoleActive.join()
+    }
 
     return (
         <Form data-testid="loggedInUser">
@@ -28,7 +42,7 @@ export const UserDetails: React.FC = () => {
                 <Label htmlFor="email">Your access</Label>
                 <textarea
                     name="access"
-                    value={accessSummary}
+                    value={getUserAcess(user?.role)}
                     disabled
                 />
             </fieldset>

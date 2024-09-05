@@ -49,3 +49,10 @@ export interface CatalogSourceImportProductState {
     catalogSourceProducts: CatalogSourceProduct[],
     catalogSourceDeletedProducts: DeletedCatalogSourceProduct[]
 }
+
+export interface ProductMonitoringInfo {
+    deleteMonitoring: boolean,
+    updateMonitoring: boolean
+}
+
+export type MONITORING_FLAG = deleteMonitoring | updateMonitoring | (string & {})

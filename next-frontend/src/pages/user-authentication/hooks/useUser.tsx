@@ -26,7 +26,7 @@ export const CURRENT_USER_QUERY = gql`
 
 export function useUser() {
   const router = useRouter()
-  const { data } = useQuery(CURRENT_USER_QUERY);
+  const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
 
   // useEffect(() => {
   //   if (data?.authenticatedItem) {

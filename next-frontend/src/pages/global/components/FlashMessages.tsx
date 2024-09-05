@@ -1,8 +1,7 @@
-import { RenderFileDownload } from "../../catalog-source/components/DownloadLink"
+import { RenderFileDownload } from "../../catalog-source/components/ImportProduct/ProductImportList/DownloadLink"
 import { SuccessStyles, ErrorStyles, AnimationStyles} from "../styles/FlashMessage"
 import React, {useEffect, useRef, useState} from "react";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import {useAppSelector} from "@/redux-state/store";
 import {useFlashMessage} from "@/state/flassMessageState";
 
 const MINUTE_MS = 5000;

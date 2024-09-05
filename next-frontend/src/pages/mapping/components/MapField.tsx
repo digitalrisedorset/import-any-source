@@ -24,10 +24,10 @@ export const MapField: React.FC = () => {
         setCatalogSourceAttributesMatchFound(code, bestMatches)
     }
 
+    if (code==='') return <h3>The attribute code in the query is not found</h3>
+
     useEffect(() => {
-        if (code) {
-            setAttributeCodeState(code)
-        }
+        setAttributeCodeState(code)
     }, [code])
 
     return (

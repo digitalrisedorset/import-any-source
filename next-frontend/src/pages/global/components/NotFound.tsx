@@ -1,4 +1,4 @@
-import {CardStyles} from "../../configuration/styles/CardStyles";
+import {CardStyles} from "../styles/CardStyles";
 import React from "react";
 
 export const NotFound: React.FC = () => {

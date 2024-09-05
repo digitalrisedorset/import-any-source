@@ -54,7 +54,7 @@ export const ImportMagentoAttribute: React.FC = () => {
                     Import Magento Attributes
                 </button>
             </div>
-            <MagentoReport/>
+            <MagentoReport magentoAttributes={magentoAttributes} />
         </StepForm>
     )
 }

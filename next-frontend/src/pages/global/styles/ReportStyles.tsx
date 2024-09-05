@@ -20,6 +20,5 @@ export const Title = styled.span`
     display: inline;
     font-size: 1.5rem;
     color: white;
-    padding: 0.1rem 0.6rem;
-  
+    padding: 1rem;  
 `;

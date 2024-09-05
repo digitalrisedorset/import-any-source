@@ -1,6 +1,6 @@
-import {useMappingRemaining} from "../../mapping/hooks/useMappingVerifier";
+import {useMappingRemaining} from "../hooks/useMappingVerifier";
 import {ReportStyles, Title} from "../../global/styles/ReportStyles";
-import {useActiveCatalogSource} from "../hooks/useCurrentCatalogSource";
+import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
 
 export const MappingReport: React.FC = () => {
     const mappingRemaining = useMappingRemaining()
@@ -22,5 +22,4 @@ export const MappingReport: React.FC = () => {
             <span className="type">{ImportedMessage()}</span>
         </div>
     </ReportStyles>
-)
-}
+)}

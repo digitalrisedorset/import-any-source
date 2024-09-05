@@ -15,17 +15,3 @@ export function useAccess() {
         canSetupImport: accessEnabled?.canImportSourceAttribute || accessEnabled?.canImportMagentoAttribute || accessEnabled?.canMapAttribute || accessEnabled?.canImportProduct
     }
 }
-
-export function useAllAccess() {
-    const { accessEnabled } = useUserConfiguration()
-
-    if (accessEnabled === undefined) {
-        return ''
-    }
-
-    const access =  Object.entries(accessEnabled).filter((item: any) => (item[1]===true)).map(item => {
-       return item[0]
-    })
-
-    return access.join()
-}

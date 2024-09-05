@@ -1,7 +1,7 @@
-import {StepData} from '../types/step'
-import {TabStyles} from '../../global/styles/TabButtonsStyle'
-import {useProductImport} from "../hooks/useProductImport";
-import {useAccess} from "../../configuration/hooks/useAccess";
+import {StepData} from '../../catalog-source/types/step'
+import {TabStyles} from '../styles/TabButtonsStyle'
+import {useProductImport} from "../../catalog-source/hooks/useProductImport";
+import {useAccess} from "@/pages/user-authentication/hooks/useAccess";
 import {Dispatch, SetStateAction} from "react";
 
 type TabsButtonProps = {
@@ -41,7 +41,7 @@ export const TabButtons: React.FC<TabsButtonProps> = ({ stepData, activeTab, set
 
     const getTabClassname = (index: number): string => {
         if (index === activeTab) {
-            return "active"
+            return 'active'
         }
 
         if (index < activeTab) {

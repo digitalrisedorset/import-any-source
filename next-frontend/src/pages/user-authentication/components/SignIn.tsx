@@ -3,7 +3,6 @@ import {useForm} from '../../global/hooks/useForm';
 import {DisplayError} from '../../global/components/ErrorMessage';
 import {useLoginUser} from "../hooks/useLoginUser";
 import {useState} from "react";
-import {useUser} from "../hooks/useUser";
 import {useRouter} from "next/router";
 
 export const SignIn: React.FC = () => {
@@ -14,8 +13,6 @@ export const SignIn: React.FC = () => {
     password: '',
   });
   const setUserLogged = useLoginUser(inputs)
-
-  const user = useUser()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault(); // stop the form from submitting

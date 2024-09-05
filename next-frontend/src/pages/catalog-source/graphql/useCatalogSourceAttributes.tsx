@@ -37,9 +37,7 @@ export const useCatalogSourceAttributes = () => {
     return catalogSourceAttributesData;
 }
 
-export const useCatalogSourceAttributesLazy = () => {
-    const catalogSourceCode = useCurrentCatalogSourceSystemCode()
-
+export const useCatalogSourceAttributesLazy = (catalogSourceCode: string) => {
     const [getCatalogSourceAttributeList]: LazyQueryResultTuple<CatalogSourceAttributeData, OperationVariables> = useLazyQuery(ALL_CATALOG_SOURCE_PRODUCT_ATTRIBUTES_QUERY, {
         variables: {
             "where": {

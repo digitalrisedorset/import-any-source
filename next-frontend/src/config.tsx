@@ -1,5 +1,3 @@
-import {freeze} from "@reduxjs/toolkit";
-
 export type Theme = {
     name: string,
     colors: ThemeColors

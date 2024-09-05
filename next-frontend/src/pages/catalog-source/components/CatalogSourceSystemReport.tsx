@@ -1,8 +1,11 @@
-import {useActiveCatalogSource} from "../hooks/useCurrentCatalogSource";
 import {ReportStyles, Title} from "../../global/styles/ReportStyles";
+import {CatalogSourceState} from "@/pages/types/states";
 
-export const CatalogSourceSystemReport: React.FC = () => {
-    const currentCatalogSource = useActiveCatalogSource()
+type CatalogSourceSystemReportProps = {
+    currentCatalogSource: CatalogSourceState
+}
+
+export const CatalogSourceSystemReport: React.FC = ({currentCatalogSource}: CatalogSourceSystemReportProps) => {
 
     const ImportedMessage = () => {
         let message = ''
@@ -32,7 +35,7 @@ export const CatalogSourceSystemReport: React.FC = () => {
     return (
         <ReportStyles>
             <div className="report">
-                <Title>{currentCatalogSource.name} attributes</Title>
+                <Title>Catalog Source Report for {currentCatalogSource.name} attributes</Title>
                 <span className="type">{ImportedMessage()}</span>
                 <span className="type">{IgnoredMessage()}</span>
             </div>

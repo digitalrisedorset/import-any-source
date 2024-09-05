@@ -6,13 +6,15 @@ export const StepForm = styled.form`
     .main {
         border: 1px solid var(--offWhite);
         box-shadow: var(--bs);
-        margin: 1rem;
+        margin: 1rem 1rem 1rem 0;
         padding: 0 1rem;
         width: 100%;
     }
-
-    .report {
-        margin: 10px;
+    .board {
+        display: flex;
+        margin: 1rem 0 1rem 0;
+        padding: 0 1rem 0 0;
+        width: 100%;
     }
 
     button {
@@ -24,4 +26,17 @@ export const StepForm = styled.form`
         }
     }
 `;
+
+export const MonitoringNotification  = styled.form`
+    display: flex;
+    margin: 1rem;
+    padding: 0 1rem;
+    width: 30%;
+`;
+
+export const NotificationMessage = styled.form`
+    font-weight: lighter;
+    color: #282c34;
+`;
+
 

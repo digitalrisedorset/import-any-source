@@ -1,5 +1,5 @@
-import {TabContentElt, TabContainer} from '../../global/styles/TabButtonsStyle'
-import {StepData} from '../types/step'
+import {TabContentElt, TabContainer} from '../styles/TabButtonsStyle'
+import {StepData} from '../../catalog-source/types/step'
 
 type TabsButtonProps = {
     stepData: StepData,

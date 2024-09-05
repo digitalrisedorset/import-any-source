@@ -1,12 +1,13 @@
 import {MappingIgnoredArea} from "@/pages/global/styles/MappingScreen";
 import {KeystoneCatalogSourceAttribute} from "@/pages/types/keystone";
 import {IgnoredAttribute} from "./IgnoredAttribute";
-import {useCatalogSourceAttributes} from "../../graphql/useCatalogSourceAttributes";
 import React from "react";
 
-export const GetIgnoredAttribute: React.FC = () => {
-    const { data, error, loading } = useCatalogSourceAttributes()
+type CatalogSourceAttributesProps = {
+    catalogSourceAttributes: KeystoneCatalogSourceAttribute[]
+}
 
+export const GetIgnoredAttribute: React.FC = ({catalogSourceAttributes}: CatalogSourceAttributesProps) => {
     const getIgnoredAttributesAlphabeticallyOrdered = (attributes: KeystoneCatalogSourceAttribute[]): KeystoneCatalogSourceAttribute[] => {
         const list = attributes.filter((attribute: KeystoneCatalogSourceAttribute) => attribute.ignored)
         list.sort((a, b) => a.code.localeCompare(b.code))
@@ -16,10 +17,8 @@ export const GetIgnoredAttribute: React.FC = () => {
 
     return (
         <MappingIgnoredArea>
-            {error && <h3>{error.message}</h3>}
-            {loading && <h3>Loading...</h3>}
             <h4>Ignored Attributes</h4>
-            {data && getIgnoredAttributesAlphabeticallyOrdered(data?.catalogSourceAttributes).map(
+            {catalogSourceAttributes?.length>0 && getIgnoredAttributesAlphabeticallyOrdered(catalogSourceAttributes).map(
                 (attribute: KeystoneCatalogSourceAttribute) => <IgnoredAttribute key={attribute.id} attribute={attribute}/>
             )}
         </MappingIgnoredArea>

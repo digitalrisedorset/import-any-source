@@ -1,21 +1,17 @@
 import { createContext, useContext} from 'react';
 import {useImmer} from "use-immer";
 import {CatalogSourceState} from "@/pages/types/states";
-import {CatalogSourceHandler} from "@/pages/configuration/models/CatalogSourceHandler";
+import { useCookies } from "react-cookie"
+import {getCatalogSourceInitialStates} from "@/pages/catalog-source/hooks/useCatalogSourceOptions";
 
 const LocalStateContext = createContext();
 const LocalStateProvider = LocalStateContext.Provider;
 
-const buildInitialImportState = (): CatalogSourceState => {
-    const catalogSourceHandler = new CatalogSourceHandler()
-
-    return catalogSourceHandler.getCatalogSourceInitialStates()
-}
-
-const initialState = buildInitialImportState()
+const initialState = getCatalogSourceInitialStates()
 
 function CatalogSourceAttributeProvider({ children }) {
     const [state, setState] = useImmer<CatalogSourceState>(initialState);
+    const [cookie, setCookie] = useCookies(["configuration"])
 
     const setCatalogSourceAttributesImported = (name: string, numberCatalogSourceAttributes: number, ignoredAttributes: number) => {
         setState(draft => draft.map(
@@ -26,6 +22,7 @@ function CatalogSourceAttributeProvider({ children }) {
                 }
                 : catalogSourceImportState)
         );
+        setCookie('configuration', JSON.stringify(state))
     }
 
     const addCatalogSourceAttributeMapped = (catalogSourceCode: string) => {
@@ -35,6 +32,7 @@ function CatalogSourceAttributeProvider({ children }) {
                 magentoMapping: catalogSourceImportState.magentoMapping + 1
             } : {...catalogSourceImportState})
         );
+        setCookie('configuration', JSON.stringify(state))
     }
 
     const addCatalogSourceAttributeIgnored = (catalogSourceCode: string) => {
@@ -44,6 +42,7 @@ function CatalogSourceAttributeProvider({ children }) {
                 ignoredAttributes: catalogSourceImportState.ignoredAttributes + 1
             } : {...catalogSourceImportState})
         );
+        setCookie('configuration', JSON.stringify(state))
     }
 
     const addCatalogSourceAttributeActivated = (catalogSourceCode: string) => {
@@ -53,6 +52,7 @@ function CatalogSourceAttributeProvider({ children }) {
                 ignoredAttributes: catalogSourceImportState.ignoredAttributes - 1
             } : {...catalogSourceImportState})
         );
+        setCookie('configuration', JSON.stringify(state))
     }
 
     const setActiveCatalogSourceSystem = (catalogSourceCode: string) => {
@@ -60,6 +60,7 @@ function CatalogSourceAttributeProvider({ children }) {
             (catalogSourceImportState) => catalogSourceImportState.name === catalogSourceCode ? {...catalogSourceImportState, active: true}
                 : {...catalogSourceImportState, active: false})
         );
+        setCookie('configuration', JSON.stringify(state))
     }
 
     return (

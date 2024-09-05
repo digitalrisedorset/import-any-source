@@ -1,5 +1,5 @@
 import { Attribute } from "./Attribute";
-import {CardStyles} from "@/pages/configuration/styles/CardStyles";
+import {CardStyles} from "@/pages/global/styles/CardStyles";
 import {KeystoneCatalogSourceAttribute} from '@/pages/types/keystone'
 import {CatalogSourceAttributeDescription} from "./CatalogSourceAttributeDescription";
 import {LoadingDotsIcon} from "@/pages/global/components/Loading";

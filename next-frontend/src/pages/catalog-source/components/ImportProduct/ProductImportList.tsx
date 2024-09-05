@@ -5,16 +5,19 @@ import {GridReport} from "../../styles/GridStyle"
 import React from "react";
 import {useFlashMessage} from "@/state/flassMessageState";
 import {useCatalogSourceProduct} from "@/state/catalogSourceProductState";
+import {CatalogSourceProduct} from "@/pages/types/catalog-source";
 
-export const ProductImportList: React.FC = () => {
-    const {importStatus, catalogSourceProducts} = useProductImport()
+type ProductListProps = {
+    catalogSourceProducts: CatalogSourceProduct[]
+}
+
+export const ProductImportList: React.FC = ({catalogSourceProducts}: ProductListProps) => {
+    const {importStatus} = useProductImport()
     const getProductDataBySku = useMagentoProducts()
     const { setCatalogSourceProductBatchValidated } = useCatalogSourceProduct()
     const {addFlashMessage } = useFlashMessage()
     const getProductGrid = useProductImportGrid()
     const getProductDeletedGrid = useProductDeletedGrid()
-
-    if (!catalogSourceProducts) return <></>
 
     const handleValidateProduct = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();

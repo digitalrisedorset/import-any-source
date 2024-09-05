@@ -54,7 +54,7 @@ export const ImportCatalogSourceAttribute: React.FC = () => {
                     Import {currentCatalogSource.name} Attributes
                 </button>
             </div>
-            <CatalogSourceSystemReport />
+            <CatalogSourceSystemReport currentCatalogSource={currentCatalogSource} />
         </StepForm>
     )
 }

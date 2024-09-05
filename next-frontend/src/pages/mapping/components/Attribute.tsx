@@ -62,7 +62,7 @@ export const Attribute: React.FC<MappingProps> = ({attribute, initialAttribute}:
 
     return (
         <ItemStyles>
-            <Title>
+            <Title>test
                 <span key={attribute.value} className="list-group-item list-group-item-action">
                     <strong>{attribute.label}</strong>{" "}
                 </span>

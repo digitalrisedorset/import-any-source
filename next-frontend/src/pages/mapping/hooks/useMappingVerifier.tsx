@@ -1,6 +1,7 @@
 import {useActiveCatalogSource} from "../../catalog-source/hooks/useCurrentCatalogSource";
 
 export const useMappingVerifier = () => {
+    return true;
     const {numberCatalogSourceAttributes, magentoMapping, ignoredAttributes} = useActiveCatalogSource()
 
     return numberCatalogSourceAttributes - magentoMapping - ignoredAttributes > 0

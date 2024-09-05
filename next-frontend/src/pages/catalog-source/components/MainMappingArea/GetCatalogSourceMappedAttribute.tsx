@@ -1,9 +1,9 @@
-import {CardStyles} from "../../../configuration/styles/CardStyles";
-import {KeystoneCatalogSourceAttribute} from '../../../types/keystone'
+import {CardStyles} from "@/pages/global/styles/CardStyles";
+import {KeystoneCatalogSourceAttribute} from '@/pages/types/keystone'
 import {useCatalogSourceAttributes} from "../../graphql/useCatalogSourceAttributes";
 import {Attribute} from "./Attribute";
 import {useCurrentCatalogSource} from "../../hooks/useCurrentCatalogSource";
-import {LoadingDotsIcon} from "../../../global/components/Loading";
+import {LoadingDotsIcon} from "@/pages/global/components/Loading";
 import React from "react";
 
 export const GetCatalogSourceMappedAttribute: React.FC = () => {

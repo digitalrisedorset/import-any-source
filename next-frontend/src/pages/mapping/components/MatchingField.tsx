@@ -1,13 +1,17 @@
 import { Attribute } from "./Attribute";
-import {CardStyles} from "../../configuration/styles/CardStyles";
 import {MatchingAttributeData} from "../../types/keystone";
 import React from "react";
-import {useCatalogSourceMapping} from "@/state/catalogSourceMappingState";
 import {useFlashMessage} from "@/state/flassMessageState";
+import {CardStyles} from "@/pages/global/styles/CardStyles";
 
-export const MatchingField: React.FC = () => {
+type MatchingFieldProps = {
+    magentoMatches: MagentoAttribute | null
+    magentoMatchAttributes: MatchingAttributeData[],
+}
+
+export const MatchingField: React.FC = ({catalogSourceAttribute, magentoMatches}: MatchingFieldProps) => {
     const { addFlashMessage } = useFlashMessage()
-    const { catalogSourceAttribute, magentoMatches } = useCatalogSourceMapping()
+
     //addFlashMessage(`The system has found ${magentoMatchAttributes?.length} possible matching magento attributes`)
 
     return (

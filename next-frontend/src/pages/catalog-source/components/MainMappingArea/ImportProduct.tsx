@@ -27,6 +27,21 @@ export const ImportProduct: React.FC = () => {
     const getMagentoAttributeList = useMagentoAttributesLazy()
     const mappingData: QueryResult<CatalogSourceQueryResult | OperationVariables> = useCatalogSourceAttributesNotMapped()
 
+    const prepareCatalogSourceProvider = async (): MappingModel | undefined => {
+        const catalogSourceData = await getCatalogSourceAttributeList();
+        const magentoData = await getMagentoAttributeList();
+
+        if (magentoData?.data && catalogSourceData?.data) {
+            const magento = new MagentoAttributeProvider(magentoData.data.magentoAttributes)
+            const catalogSource = new CatalogSourceAttributeProvider(catalogSourceData.data.catalogSourceAttributes)
+
+            const MappingData = new MappingModel(catalogSource.getListWithMapping(), magento.getListWithMapping())
+
+            return MappingData
+        }
+    }
+
+
     useEffect(() => {
         const setMappingStatus = (attributes: KeystoneCatalogSourceAttribute[]) => {
             if (attributes === undefined) {
@@ -47,20 +62,13 @@ export const ImportProduct: React.FC = () => {
         e.preventDefault();
         try {
             setImportBuilding(true)
-            const catalogSourceData = await getCatalogSourceAttributeList();
-            const magentoData = await getMagentoAttributeList();
+            const MappingData = await prepareCatalogSourceProvider()
+            const response = await MappingData.createAttributesImport(catalogSourceCode)
 
-            if (magentoData?.data && catalogSourceData?.data) {
-                const magento = new MagentoAttributeProvider(magentoData.data.magentoAttributes)
-                const catalogSource = new CatalogSourceAttributeProvider(catalogSourceData.data.catalogSourceAttributes)
-
-                const MappingData = new MappingModel(catalogSource.getListWithMapping(), magento.getListWithMapping())
-                const response = await MappingData.createAttributesImport(catalogSourceCode)
-                if (response !== undefined) {
-                    addDownloadMessage('The import has successfully created a csv import file', response as ImportResponse)
-                    globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-                    setImportBuilding(false)
-                }
+            if (response !== undefined) {
+                addDownloadMessage('The import has successfully created a csv import file', response as ImportResponse)
+                globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                setImportBuilding(false)
             }
         } catch (e) {
             console.log('error');
@@ -71,21 +79,14 @@ export const ImportProduct: React.FC = () => {
         e.preventDefault();
         try {
             setImportBuilding(true)
-            const catalogSourceData = await getCatalogSourceAttributeList();
-            const magentoData = await getMagentoAttributeList();
+            const MappingData = await prepareCatalogSourceProvider()
+            const response = await MappingData.getProductDataImport(catalogSourceCode)
 
-            if (magentoData?.data && catalogSourceData?.data) {
-                const magento = new MagentoAttributeProvider(magentoData.data.magentoAttributes)
-                const catalogSource = new CatalogSourceAttributeProvider(catalogSourceData.data.catalogSourceAttributes)
-
-                const MappingData = new MappingModel(catalogSource.getListWithMapping(), magento.getListWithMapping())
-                const response = await MappingData.getProductDataImport(catalogSourceCode)
-                if (response !== undefined) {
-                    addFlashMessage('The import has successfully read the products to import')
-                    setCatalogSourceProductBatchLoaded(response)
-                    globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-                    setImportBuilding(false)
-                }
+            if (response !== undefined) {
+                addFlashMessage('The import has successfully read the products to import')
+                setCatalogSourceProductBatchLoaded(response)
+                globalThis.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                setImportBuilding(false)
             }
         } catch (e) {
             console.log('error');
@@ -105,7 +106,7 @@ export const ImportProduct: React.FC = () => {
                     Load Products to Import
                 </button>
                 &nbsp;
-                <ProductImportList/>
+                <ProductImportList catalogSourceProducts={catalogSourceProducts} />
             </div>
         </StepForm>
     )

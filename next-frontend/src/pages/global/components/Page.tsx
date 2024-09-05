@@ -2,7 +2,7 @@ import React from "react";
 import {Header} from "@/pages/global/components/Header";
 import {Footer} from "@/pages/global/components/Footer";
 import {GlobalStyles} from "@/pages/global/styles/Global"
-import {useActiveThemeColor} from "@/pages/configuration/hooks/useActiveTheme";
+import {useActiveThemeColor} from "@/pages/user-authentication/hooks/useActiveTheme";
 import {FlashMessages} from "@/pages/global/components/FlashMessages";
 import {verifyUserAccess} from "@/pages/user-authentication/hooks/useUser";
 

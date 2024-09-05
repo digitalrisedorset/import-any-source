@@ -1,17 +1,17 @@
-import {CardStyles} from "../../configuration/styles/CardStyles";
 import {Attribute} from "./Attribute";
 import {MagentoAttribute} from "../../types/keystone";
-import {LoadingDotsIcon } from "../../global/components/Loading"
-import {useMagentoAttributes} from "../graphql/keystone/useMagentoAttributes";
+import {CardStyles} from "@/pages/global/styles/CardStyles";
+import React from "react";
 
-export const ReadMagentoAttribute = () => {
-    const { data, error, loading } = useMagentoAttributes()
+type MagentoAttributesProps = {
+    magentoAttributes: MagentoAttribute[]
+}
 
+export const ReadMagentoAttribute = ({magentoAttributes}:MagentoAttributesProps) => {
     return (
         <CardStyles>
             <h2>Magento Attributes</h2>
-            {(loading || data?.magentoAttributes?.length===0) && <LoadingDotsIcon />}
-            {(data?.magentoAttributes.map((attribute: MagentoAttribute ) => (
+            {(magentoAttributes.map((attribute: MagentoAttribute ) => (
                     <Attribute key={attribute.id} attribute={attribute}/>
                 ))
             )}

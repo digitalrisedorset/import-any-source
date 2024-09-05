@@ -1,5 +1,6 @@
 import {QueryResult} from "@apollo/client";
 import {CATALOG_SOURCE_SYSTEM} from "./catalog-source";
+import {AccessState} from "@/pages/types/states";
 
 interface BaseAttribute {
     readonly id?: string;
@@ -56,3 +57,10 @@ export interface CatalogSourceQueryResult extends QueryResult {
     catalogSourceAttributes: KeystoneCatalogSourceAttribute[]
 }
 
+export interface UserDetailsData {
+    id: string;
+    email: string;
+    name: string;
+    theme: string;
+    role: AccessState
+}

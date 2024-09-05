@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Account> renders the logged-in user account details and matches the snapshot 1`] = `
+<div>
+  <div
+    class="Grid__GridStyles-sc-17rh2ul-0 eKWlhy"
+  >
+    <p>
+      Loading...
+    </p>
+  </div>
+</div>
+`;
