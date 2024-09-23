@@ -29,6 +29,8 @@ export const setupBookRoutes = (app: Application) => {
 
     router.post("/notifyProductDeletion", bookController.notifyProductDeletion)
 
+    router.post("/createFeedImport", bookController.createFeedImport)
+
     router.options('*', options);
 
     app.use(config.route.bookApiPrefix, router)

@@ -2,7 +2,7 @@ import crypto from "crypto";
 import {config} from "../../config";
 import {Request} from "express";
 
-export class WoocommerceWebHookHandler {
+export class DrdWebHookHandler {
     isWebhookValid = (req: Request): boolean => {
         const signature = req.header("X-WC-Webhook-Signature");
         const topic = req.header("X-WC-Webhook-Topic");
@@ -16,7 +16,7 @@ export class WoocommerceWebHookHandler {
             return false
         }
 
-        const hash = crypto.createHmac('SHA256',  config.woocommerce.webhookSecret).update(JSON.stringify(req.body)).digest('base64');
+        const hash = crypto.createHmac('SHA256',  config.drd.webhookSecret).update(JSON.stringify(req.body)).digest('base64');
 
         return hash === signature
     }

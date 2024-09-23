@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { PlantSystem } from "../model/plant-system";
 import { ImportCreator } from "../model/import-creator";
 import { ProductDeletion } from "../model/plantsystem/product-deletion";
-import { ImportControllerInterface } from "./importControllerInterface";
+import {CsvDeleteApiResponse, ImportControllerInterface} from "./importControllerInterface";
 
 export class PlantController implements ImportControllerInterface {
     errorWrapper = new ErrorWrapper()
@@ -109,5 +109,9 @@ export class PlantController implements ImportControllerInterface {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
         }
+    }
+
+    createFeedImport = async (req: Request, res: Response): Promise<CsvDeleteApiResponse> => {
+
     }
 }

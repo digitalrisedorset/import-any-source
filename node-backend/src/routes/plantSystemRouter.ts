@@ -29,6 +29,8 @@ export const setupPlantSystemRoutes = (app: Application) => {
 
     router.post("/notifyProductDeletion", plantController.notifyProductDeletion)
 
+    router.post("/createFeedImport", plantController.createFeedImport)
+
     router.options('*', options);
 
     app.use(config.route.plantApiPrefix, router)

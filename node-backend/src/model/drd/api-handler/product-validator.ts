@@ -1,8 +1,8 @@
-import {WoocommerceProduct} from "../../../types/woocommerce";
+import {DrdProduct} from "../../../types/drd";
 import { isArray, isObject } from "../../../lib/type-checker";
 
 export class ProductValidator {
-    filterValidProduct = (apiResponse: unknown): WoocommerceProduct[] => {
+    filterValidProduct = (apiResponse: unknown): DrdProduct[] => {
         if (!isArray(apiResponse)) {
             throw new Error('The API response is not valid')
         }
@@ -15,13 +15,13 @@ export class ProductValidator {
     }
 
     hasPropertyWithRightType = (data: object): boolean => {
-        type productKeys = keyof WoocommerceProduct;
+        type productKeys = keyof DrdProduct;
         const productFieldTypes = typeof data
 
         let valid = true
         // const keyToValidate = ['id', 'sku', 'name', 'price']
         // Object.keys(data).forEach((key) => {
-        //     if (keyToValidate.includes(key) && !!(key in data && typeof (data as WoocommerceSimpleProduct)[key] === "string")) {
+        //     if (keyToValidate.includes(key) && !!(key in data && typeof (data as DrdSimpleProduct)[key] === "string")) {
         //         valid = false
         //     }
         // });

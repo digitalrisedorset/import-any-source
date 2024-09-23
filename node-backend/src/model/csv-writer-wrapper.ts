@@ -19,6 +19,10 @@ export class CsvWriterWrapper {
         this.setProductFilename('products')
     }
 
+    startFeedImport = () => {
+        this.setProductFilename('products-feed')
+    }
+
     setProductFilename = (prefix: string) => {
         //const date = new Date().toLocaleString().replace(/[^A-Z0-9]+/ig, "-");
         //this.filename = `${prefix}-${date}.csv`

@@ -1,18 +1,18 @@
 import {
     InitialProductData,
-    WoocommerceProduct, WoocommerceProductFieldCase,
-} from "../../types/woocommerce";
+    DrdProduct, DrdProductFieldCase,
+} from "../../types/drd";
 import { ImportMappingFields } from "../../types/general";
 import { HeaderField } from "../../types/general";
 import { MagentoProductFieldMap } from "../../types/magento";
-import { WoocommerceDataMapper } from "../woocommerce/data-mapper";
+import { DrdDataMapper } from "../drd/data-mapper";
 import { MagentoData } from '../magento-data'
 
 export class ImportRowCreator {
-    woocommerceDataMapper = new WoocommerceDataMapper()
+    drdDataMapper = new DrdDataMapper()
     magentoData = new MagentoData()
 
-    getSkuRecord = function (record: Readonly<WoocommerceProduct>) {
+    getSkuRecord = function (record: Readonly<DrdProduct>) {
         let sku = record['sku'];
         if (sku === '') {
             sku = record['name'].replace(/[/\\?%*:|"<>]/g, '-')
@@ -22,36 +22,36 @@ export class ImportRowCreator {
     }
 
     createHeader = async (mappingFields: Readonly<ImportMappingFields>) => {
-        return this.woocommerceDataMapper.setMappingFields(mappingFields)
+        return this.drdDataMapper.setMappingFields(mappingFields)
             .then(() => {
-                return this.woocommerceDataMapper.getMagentoCsvHeader()
+                return this.drdDataMapper.getMagentoCsvHeader()
             })
     }
 
     createHeaderFromCache = () => {
-        this.woocommerceDataMapper.getMagentoFieldsFromCache()
+        this.drdDataMapper.getMagentoFieldsFromCache()
 
-        return this.woocommerceDataMapper.getMagentoCsvHeader()
+        return this.drdDataMapper.getMagentoCsvHeader()
     }
 
     getMappingFields = async () => {
-        return await this.woocommerceDataMapper.getMagentoFieldsFromCache();
+        return await this.drdDataMapper.getMagentoFieldsFromCache();
     }
 
-    createCsvRow = async (record: Readonly<WoocommerceProduct>) => {
-        const header: HeaderField[] = this.woocommerceDataMapper.getMagentoCsvHeader()
+    createCsvRow = async (record: Readonly<DrdProduct>) => {
+        const header: HeaderField[] = this.drdDataMapper.getMagentoCsvHeader()
 
         let row: InitialProductData = this.magentoData.getInitialData()
 
-        header.forEach(async (field: HeaderField) => { // key should be of type validWoocommerceProductKeys
+        header.forEach(async (field: HeaderField) => { // key should be of type validDrdProductKeys
             // https://www.totaltypescript.com/iterate-over-object-keys-in-typescript
             const magentoFieldCode: string = field.id;
-            const catalogSourceFieldCode = this.woocommerceDataMapper.getWoocommerceField(magentoFieldCode)
+            const catalogSourceFieldCode = this.drdDataMapper.getDrdField(magentoFieldCode)
 
             if (magentoFieldCode === 'sku') {
                 row[magentoFieldCode] = this.getSkuRecord(record)
             } else if (catalogSourceFieldCode) {
-                row[magentoFieldCode] = await this.woocommerceDataMapper.getMagentoValue(record, catalogSourceFieldCode, magentoFieldCode)
+                row[magentoFieldCode] = await this.drdDataMapper.getMagentoValue(record, catalogSourceFieldCode, magentoFieldCode)
                 if (magentoFieldCode === 'image') {
                     row['thumbnail'] = row[magentoFieldCode]
                     row['small_image'] = row[magentoFieldCode]

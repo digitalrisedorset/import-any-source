@@ -1,15 +1,15 @@
 import { CacheService } from './cache/data-cache'
-import { ApiHandler } from './woocommerce/api-handler'
-import {WoocommerceProduct} from "../types/woocommerce";
+import { ApiHandler } from './drd/api-handler'
+import {DrdProduct} from "../types/drd";
 import {Attribute} from "../types/general";
-import { AttributeValidator } from "./woocommerce/api-handler/attribute-validator";
+import { AttributeValidator } from "./drd/api-handler/attribute-validator";
 import { ErrorWrapper } from "../error-handler";
-import {ProductValidator} from "./woocommerce/api-handler/product-validator";
+import {ProductValidator} from "./drd/api-handler/product-validator";
 import {config} from "../config";
 
-export class Woocommerce {
-    cache = new CacheService(config.route.woocommerceApiPrefix);
-    woocommerceApiHandler = new ApiHandler;
+export class Drd {
+    cache = new CacheService(config.route.drdApiPrefix);
+    drdApiHandler = new ApiHandler;
     attributeValidator = new AttributeValidator;
     productValidator = new ProductValidator;
     errorWrapper = new ErrorWrapper()
@@ -26,7 +26,7 @@ export class Woocommerce {
         return [...attributesOptions, ...attributesToLink]
     }
     getOptionAttributes = async (): Promise<Attribute[]> => {
-        return this.woocommerceApiHandler.callApiUrl('products/attributes')
+        return this.drdApiHandler.callApiUrl('products/attributes')
             .then(response => {
                 return this.attributeValidator.filterValidAttributes(response)
             })
@@ -36,7 +36,7 @@ export class Woocommerce {
             })
     };
     getAttributeListFromProduct = async (): Promise<Attribute[]> => {
-        return this.woocommerceApiHandler.callApiUrl('products', {
+        return this.drdApiHandler.callApiUrl('products', {
             'per_page': '1',
             'page': '1'
         })
@@ -48,8 +48,8 @@ export class Woocommerce {
                 throw e
             })
     };
-    getProductBatch = async (): Promise<WoocommerceProduct[]> => {
-        return this.woocommerceApiHandler.callApiUrl('products', {
+    getProductBatch = async (): Promise<DrdProduct[]> => {
+        return this.drdApiHandler.callApiUrl('products', {
             'per_page': process.env.IMPORT_BATCH_SIZE,
             'page': 1,
             // 'sku': 'woo-vneck-tee-blue'
@@ -63,12 +63,12 @@ export class Woocommerce {
             })
     }
 
-    getProductUpdate = async (): Promise<WoocommerceProduct[]> => {
+    getProductUpdate = async (): Promise<DrdProduct[]> => {
         let now = new Date(),
             dateThreshold = new Date(now);
         dateThreshold.setMinutes(now.getMinutes() - 5);
 
-        return this.woocommerceApiHandler.callApiUrl('products', {
+        return this.drdApiHandler.callApiUrl('products', {
             'per_page': process.env.IMPORT_BATCH_SIZE,
             'page': 1,
             'modified_after': dateThreshold.toISOString()

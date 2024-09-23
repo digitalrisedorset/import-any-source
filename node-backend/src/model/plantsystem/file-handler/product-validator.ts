@@ -22,7 +22,7 @@ export class ProductValidator {
         let valid = true
         // const keyToValidate = ['id', 'sku', 'name', 'price']
         // Object.keys(data).forEach((key) => {
-        //     if (keyToValidate.includes(key) && !!(key in data && typeof (data as WoocommerceSimpleProduct)[key] === "string")) {
+        //     if (keyToValidate.includes(key) && !!(key in data && typeof (data as DrdSimpleProduct)[key] === "string")) {
         //         valid = false
         //     }
         // });

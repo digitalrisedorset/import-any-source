@@ -12,30 +12,32 @@ export interface ProductImage {
     src: string
 }
 
-export interface WoocommerceProduct extends WoocommerceSimpleProduct {
+export interface DrdProduct extends DrdSimpleProduct {
     image: ProductImage,
     variations: number[]
 }
 
-export interface WoocommerceAttribute {
+export interface DrdAttribute {
     slug: string
     option: string
     name: string
 }
 
-export interface WoocommerceSimpleProduct {
+export interface DrdSimpleProduct {
     id: number;
     sku: string;
     name: string;
-    slug: string;
+    slug?: string;
     description: string;
+    short_description?: string;
     price: number;
+    qty?: number;
     images: ProductImage[]
     status: ProductStatus;
     attributes: []
 }
 
-export type WoocommerceProductFieldCase = 'product_online' | 'status' | 'visibility' | 'variations' | (string & {})
+export type DrdProductFieldCase = 'product_online' | 'status' | 'visibility' | 'variations' | (string & {})
 
 export type ApiFilter = any
 

@@ -1,4 +1,4 @@
-import {WoocommerceProduct} from "../types/woocommerce";
+import {DrdProduct} from "../types/drd";
 
 const fs = require('node:fs/promises');
 const path = require("path");
@@ -26,7 +26,7 @@ interface KeystoneProduct {
 }
 
 export class KeystoneImportCreator {
-    createSeedImport = async function(data: WoocommerceProduct[]) {
+    createSeedImport = async function(data: DrdProduct[]) {
         const rows = data.map(record => {
             const row: KeystoneProduct = {
                 name: record.name,

@@ -1,4 +1,4 @@
-import { WoocommerceProduct, InitialProductData } from "../types/woocommerce";
+import { DrdProduct, InitialProductData } from "../types/drd";
 import {
     CachedDeletedProduct, DeleteProduct,
     ImportMappingFields,
@@ -7,7 +7,7 @@ import {
 import { CsvWriterWrapper } from './csv-writer-wrapper'
 import { ImportRowCreator } from './import-creator/row-creator'
 import { VariationDataProvider } from "./import-creator/variation-data-provider"
-import { ProductDeletion } from "./woocommerce/product-deletion";
+import { ProductDeletion } from "./drd/product-deletion";
 
 export class ImportCreator {
     csvWriter = new CsvWriterWrapper()
@@ -15,8 +15,7 @@ export class ImportCreator {
     variationDataProvider = new VariationDataProvider()
     productDeletion = new ProductDeletion()
 
-    getProductImportData = async (data: Readonly<WoocommerceProduct[]>, mappingFields: ImportMappingFields) => {
-        debugger
+    getProductImportData = async (data: Readonly<DrdProduct[]>, mappingFields: ImportMappingFields) => {
         const header = await this.importRowCreator.createHeader(mappingFields)
         this.csvWriter.startImport()
         this.csvWriter.writeHeader(header)
@@ -29,7 +28,27 @@ export class ImportCreator {
         return [...simpleRows, ...rows]
     }
 
-    getProductUpdateData = async (data: Readonly<WoocommerceProduct[]>) => {
+    getFakeProductImportData = async (data: Readonly<DrdProduct[]>) => {
+        let row = []
+
+        Object.keys(data[0]).forEach((key) => {
+            row.push({
+                catalogSourceFieldCode: key,
+                magentoLinkedCode: key
+            });
+        });
+
+        const header = await this.importRowCreator.createHeader({ mapping: row })
+        this.csvWriter.startFeedImport()
+        this.csvWriter.writeHeader(header)
+
+        const rows = await Promise.all(data.map(async (record) => {
+            return await this.importRowCreator.createCsvRow(record)
+        }, this))
+        return rows
+    }
+
+    getProductUpdateData = async (data: Readonly<DrdProduct[]>) => {
         const header = await this.importRowCreator.createHeaderFromCache()
         this.csvWriter.startUpdate()
         this.csvWriter.writeHeader(header)
@@ -58,7 +77,7 @@ export class ImportCreator {
         return rows
     }
 
-    finaliseWriteRows = async (csvRows: Readonly<(WoocommerceProduct | InitialProductData)[]>) => {
+    finaliseWriteRows = async (csvRows: Readonly<(DrdProduct | InitialProductData)[]>) => {
         console.log(`Import file with ${csvRows.length}`)
         return await this.csvWriter.writeRecords(csvRows)
     }

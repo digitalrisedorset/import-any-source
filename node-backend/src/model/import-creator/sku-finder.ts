@@ -1,17 +1,17 @@
-import {ApiHandler} from "../woocommerce/api-handler";
+import {ApiHandler} from "../drd/api-handler";
 import {CacheService} from "../cache/data-cache";
-import {WoocommerceProduct} from "../../types/woocommerce";
+import {DrdProduct} from "../../types/drd";
 import {ErrorWrapper} from "../../error-handler";
 
 export class SkuFinder {
-    woocommerceApiHandler = new ApiHandler;
+    drdApiHandler = new ApiHandler;
     cache = new CacheService('sku_list');
     errorWrapper = new ErrorWrapper()
 
     getSkuRecord = async (productId: Readonly<number>): Promise<string | undefined> => {
         return this.cache.get(`getProductData_${productId}`, async () => {
             return await this.getProductData(productId)
-        }).then((row: WoocommerceProduct) => {
+        }).then((row: DrdProduct) => {
             return row['sku']
         }).catch((e) => {
             this.errorWrapper.handle(e)
@@ -19,12 +19,12 @@ export class SkuFinder {
         })
     }
 
-    getProductData = async (productId: Readonly<number>): Promise<WoocommerceProduct> =>  {
-        const row = await this.woocommerceApiHandler.callApiUrl(`products/${productId}`, [])
+    getProductData = async (productId: Readonly<number>): Promise<DrdProduct> =>  {
+        const row = await this.drdApiHandler.callApiUrl(`products/${productId}`, [])
         if (row === undefined) {
             throw new Error(`No product found with id: ${productId}`)
         }
 
-        return row as WoocommerceProduct
+        return row as DrdProduct
     }
 }

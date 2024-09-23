@@ -5,7 +5,7 @@ const appRoot = require('app-root-path');
 export type configInfo = {
     port: number;
     frontendUrl: string;
-    woocommerce: {
+    drd: {
         apiUrl: string,
         apiKey: string,
         apiSecret: string
@@ -16,7 +16,7 @@ export type configInfo = {
     },
     route: {
         apiPrefix: string;
-        woocommerceApiPrefix: string;
+        drdApiPrefix: string;
         plantApiPrefix: string;
         bookApiPrefix: string;
     },
@@ -42,7 +42,7 @@ export const config: configInfo = {
 
     frontendUrl: (process.env.FRONTEND_URL === undefined)?'http://localhost:3001':process.env.FRONTEND_URL,
 
-    woocommerce: {
+    drd: {
         apiUrl: (process.env.WOOMMERCE_API_URL === undefined)?'localhost':process.env.WOOMMERCE_API_URL,
         apiKey: (process.env.WOOCOMMERCE_KEY === undefined)?'dddfsaafdsg': process.env.WOOCOMMERCE_KEY,
         apiSecret: (process.env.WOOCOMMERCE_SECRET === undefined)? 'rifjrjr': process.env.WOOCOMMERCE_SECRET,
@@ -58,7 +58,7 @@ export const config: configInfo = {
      */
     route: {
         apiPrefix: '/',
-        woocommerceApiPrefix: '/woocommerce',
+        drdApiPrefix: '/drd',
         plantApiPrefix: '/plant',
         bookApiPrefix: '/book'
     },

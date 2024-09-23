@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {WoocommerceSimpleProduct} from "../types/woocommerce";
+import {DrdSimpleProduct} from "../types/drd";
 
 
 export type ErrorResponse = {
@@ -16,13 +16,13 @@ export type AttributeResponse = BaseResponse<[{
         "type": "unknown" | "options"
     }]>
 
-export type ProductResponse = BaseResponse<WoocommerceSimpleProduct[]>
+export type ProductResponse = BaseResponse<DrdSimpleProduct[]>
 
 export type MinimalResponse = BaseResponse<SuccessResponse>
 
 export type CsvImportCreation = {
     filename: string,
-    rows: WoocommerceSimpleProduct[]
+    rows: DrdSimpleProduct[]
 }
 
 export type CsvImportCreationResponse = BaseResponse<CsvImportCreation>
@@ -30,7 +30,7 @@ export type CsvImportCreationResponse = BaseResponse<CsvImportCreation>
 export type CsvImportUpdate = {
     filename: string,
     update: number,
-    rows: WoocommerceSimpleProduct[]
+    rows: DrdSimpleProduct[]
 }
 
 export type CsvImportUpdateResponse = BaseResponse<CsvImportUpdate>
@@ -45,7 +45,7 @@ export type WebhookApiResponse = BaseResponse<WebhookResponse>
 export type CsvDeleteNotificationResponse = {
     filename: string,
     delete: number,
-    rows: WoocommerceSimpleProduct[]
+    rows: DrdSimpleProduct[]
 }
 
 export type CsvDeleteApiResponse = BaseResponse<CsvDeleteNotificationResponse>
@@ -64,4 +64,6 @@ export interface ImportControllerInterface {
     notifyProductDeletion: (req: Request, res: Response) => WebhookApiResponse;
 
     getDeleteNotification: (req: Request, res: Response) => Promise<CsvDeleteApiResponse>;
+
+    createFeedImport: (req: Request, res: Response) => Promise<any>;
 }

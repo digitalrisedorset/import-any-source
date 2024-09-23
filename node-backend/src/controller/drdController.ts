@@ -1,8 +1,8 @@
-import { Woocommerce } from "../model/woocommerce"
+import { Drd } from "../model/drd"
 import { ImportCreator } from "../model/import-creator"
 import { Request, Response } from "express";
-import { WoocommerceWebHookHandler } from "../model/woocommerce/webhook-handler"
-import { ProductDeletion } from "../model/woocommerce/product-deletion"
+import { DrdWebHookHandler } from "../model/drd/webhook-handler"
+import { ProductDeletion } from "../model/drd/product-deletion"
 import { ErrorWrapper } from "../error-handler";
 import {
     AttributeResponse, CsvDeleteApiResponse, CsvImportCreationResponse, CsvImportUpdateResponse,
@@ -10,14 +10,14 @@ import {
     MinimalResponse,
     ProductResponse, WebhookApiResponse
 } from "./importControllerInterface";
+import { FakeImportCreator } from "../model/fake-import-creator"
 
-
-export class WoocommerceController implements ImportControllerInterface {
+export class DrdController implements ImportControllerInterface {
     errorWrapper = new ErrorWrapper()
 
     apiGetAttributeList = async (req: Request, res: Response): Promise<AttributeResponse> => {
         try {
-            const wooClient = new Woocommerce()
+            const wooClient = new Drd()
             const result = await wooClient.getAttributeList()
             res.send(result)
         } catch (e) {
@@ -28,7 +28,7 @@ export class WoocommerceController implements ImportControllerInterface {
 
     apiGetProductList = async (req: Request, res: Response): Promise<ProductResponse> => {
         try {
-            const wooClient = new Woocommerce()
+            const wooClient = new Drd()
             const result = await wooClient.getProductBatch();
             res.send(result)
         } catch (e) {
@@ -50,7 +50,7 @@ export class WoocommerceController implements ImportControllerInterface {
 
     createImport = async (req: Request, res: Response): Promise<void> => {
         try {
-            const wooClient = new Woocommerce()
+            const wooClient = new Drd()
             const list = await wooClient.getProductBatch()
             const wooImporter = new ImportCreator()
             await wooImporter.saveProductMinimalData(list)
@@ -66,7 +66,7 @@ export class WoocommerceController implements ImportControllerInterface {
 
     createUpdateImport = async (req: Request, res: Response): Promise<CsvImportUpdateResponse> => {
         try {
-            const wooClient = new Woocommerce()
+            const wooClient = new Drd()
             const list = await wooClient.getProductUpdate()
 
             if (list.length === 0) {
@@ -94,9 +94,9 @@ export class WoocommerceController implements ImportControllerInterface {
 
     notifyProductDeletion = (req: Request, res: Response): WebhookApiResponse => {
         try {
-            const woocommerceWebHookHandler = new WoocommerceWebHookHandler();
+            const drdWebHookHandler = new DrdWebHookHandler();
 
-            if (!woocommerceWebHookHandler.isWebhookValid(req)) {
+            if (!drdWebHookHandler.isWebhookValid(req)) {
                 res.send({ 'message': 'invalid webhook data' })
                 return
             }
@@ -138,6 +138,21 @@ export class WoocommerceController implements ImportControllerInterface {
                 delete: list.length,
                 rows
             })
+        } catch (e) {
+            res.status(500).send("Error")
+            this.errorWrapper.handle(e)
+        }
+    }
+
+    createFeedImport = async (req: Request, res: Response): Promise<any> => {
+        try {
+            const fakeImporter = new FakeImportCreator()
+            const list = fakeImporter.createSeedImport('DRD', 1)
+            const wooImporter = new ImportCreator()
+            const rows = await wooImporter.getFakeProductImportData(list)
+            const filename = await wooImporter.finaliseWriteRows(rows)
+            console.log('Fake Import complete', filename)
+            res.send('success')
         } catch (e) {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)

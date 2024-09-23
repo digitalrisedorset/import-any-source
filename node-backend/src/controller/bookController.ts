@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { BookSystem } from "../model/book-system";
 import { ImportCreator } from "../model/import-creator";
 import { ProductDeletion } from "../model/booksystem/product-deletion";
-import { ImportControllerInterface } from "./importControllerInterface";
+import {CsvDeleteApiResponse, ImportControllerInterface} from "./importControllerInterface";
 import { CachedDeletedProduct } from "../types/general"
 
 export class BookController implements ImportControllerInterface {
@@ -111,5 +111,9 @@ export class BookController implements ImportControllerInterface {
             res.status(500).send("Error")
             this.errorWrapper.handle(e)
         }
+    }
+
+    createFeedImport = async (req: Request, res: Response): Promise<CsvDeleteApiResponse> => {
+
     }
 }
