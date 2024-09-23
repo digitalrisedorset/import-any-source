@@ -18,11 +18,11 @@ export const useCurrentCatalogSource = (): string => {
     const currentActiveSystem = useActiveCatalogSource()
 
     const catalogSourceHandler = new CatalogSourceHandler()
-    return catalogSourceHandler.getActiveSystemLabel(currentActiveSystem?.name || 'woocommerce')
+    return catalogSourceHandler.getActiveSystemLabel(currentActiveSystem?.name || 'drd')
 }
 
 export const useCurrentCatalogSourceSystemCode = () => {
     const currentActiveSystem = useActiveCatalogSource()
 
-    return currentActiveSystem?.name || 'woocommerce'
+    return currentActiveSystem?.name || 'drd'
 }

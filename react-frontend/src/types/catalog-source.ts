@@ -40,7 +40,7 @@ export interface ImportUpdateResponse extends DownlinkFile {
 }
 
 export enum CATALOG_SOURCE_SYSTEM {
-    woocommerce = 'Woocommerce',
+    drd = 'Digital Rise Dorset',
     plant = 'Plant System',
     book = 'Book Feed'
 }
