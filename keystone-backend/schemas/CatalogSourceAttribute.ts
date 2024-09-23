@@ -31,7 +31,7 @@ export const CatalogSourceAttribute = list({
         catalogSource: select({
             type: 'enum',
             options: [
-                { label: 'Woocommerce', value: 'woocommerce' },
+                { label: 'DigitalRiseDorset', value: 'drd' },
                 { label: 'BookFeed', value: 'book' },
                 { label: 'PlantSystem', value: 'plant' }
             ],
