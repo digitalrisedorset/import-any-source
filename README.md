@@ -1,4 +1,6 @@
 ## What is this project for?
+This system connects a Magento site and an external source to get their stock in sync. The main implementation is with Woocommerce and Magento. But other implementations in prototype mode have also been explored (csv feed)
+
 The project is based on 4 different components:
 - React frontend (the project has 2 react frontend, one working with Create-React-App and the second using NextJS)
   The whole project can use either and perform the same functionalities. The reason to have the NextJS frontend as well is to experiment a migration exercise with a popular and non-deprecated environment
